@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Digilist/Digilist.iml" filepath="$PROJECT_DIR$/Digilist/Digilist.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DigilistMobile.iml" filepath="$PROJECT_DIR$/DigilistMobile.iml" />
+      <module fileurl="file://$PROJECT_DIR$/actionbarsherlock/actionbarsherlock.iml" filepath="$PROJECT_DIR$/actionbarsherlock/actionbarsherlock.iml" />
+    </modules>
+  </component>
+</project>
+
