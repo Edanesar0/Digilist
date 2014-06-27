@@ -40,7 +40,7 @@ public class Login extends SherlockActivity {
     private ProgressDialog pDialog;
     Typeface font;
     EditText edtPassw, edtUsuario;
-    String URL_connect = "http://192.168.1.112/mobile/acces.php";//ruta en donde estan nuestros archivos
+    String URL_connect = "http://192.168.1.124/mobile/acces.php";//ruta en donde estan nuestros archivos
     Conexion conexion;
 
     @Override

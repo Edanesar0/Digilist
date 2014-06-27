@@ -119,8 +119,10 @@ public class Inicio extends SherlockActivity {
 
                     v=inflater.inflate(R.layout.progress, null);
                     ProgressBar pb= (ProgressBar) v.findViewById(R.id.progressBar);
+                    LinearLayout layoutver= (LinearLayout) v.findViewById(R.id.layoutver);
+                    layoutver.setVisibility(View.INVISIBLE);
                     pb.setVisibility(ProgressBar.INVISIBLE);
-                    //v = inflater.inflate(R.layout.ingreso_inventario, null);
+                    v = inflater.inflate(R.layout.ingreso_inventario, null);
 
                     break;
                 case 1:
