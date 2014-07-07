@@ -3,11 +3,10 @@ apply plugin: 'android'
 android {
     compileSdkVersion 14
     buildToolsVersion '19.1.0'
-
     defaultConfig {
         minSdkVersion 9
         versionCode 1
-        versionName "1.0"
+        versionName '1.0'
     }
     buildTypes {
         release {
@@ -15,10 +14,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+    productFlavors {
+    }
 }
 
 dependencies {
-
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(':actionbarsherlock')
+
 }
