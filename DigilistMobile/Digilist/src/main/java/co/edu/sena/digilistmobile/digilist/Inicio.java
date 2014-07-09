@@ -2,16 +2,20 @@ package co.edu.sena.digilistmobile.digilist;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
@@ -49,8 +53,6 @@ public class Inicio extends SherlockActivity {
         progressDialog.show();
         //se ppdrá cerrar simplemente pulsando back
         progressDialog.setCancelable(true);*/
-
-
 
 
     }
@@ -116,9 +118,9 @@ public class Inicio extends SherlockActivity {
             switch (position) {
                 case 0:
 
-                    v=inflater.inflate(R.layout.progress, null);
-                    ProgressBar pb= (ProgressBar) v.findViewById(R.id.progressBar);
-                    LinearLayout layoutver= (LinearLayout) v.findViewById(R.id.layoutver);
+                    v = inflater.inflate(R.layout.progress, null);
+                    ProgressBar pb = (ProgressBar) v.findViewById(R.id.progressBar);
+                    LinearLayout layoutver = (LinearLayout) v.findViewById(R.id.layoutver);
                     layoutver.setVisibility(View.INVISIBLE);
                     pb.setVisibility(ProgressBar.INVISIBLE);
                     v = inflater.inflate(R.layout.ingreso_inventario, null);
@@ -149,6 +151,44 @@ public class Inicio extends SherlockActivity {
 
         }
     }
+
+    class asynclogin extends AsyncTask<String, String, String> {
+        String user, pass;
+
+        protected void onPreExecute() {
+            try {
+                //para el progress dialog
+                /*pDialog = new ProgressDialog(Login.this);
+                //conexiones.abrir();
+                pDialog.setMessage("Iniciando sesión ");
+                //conexiones.cerrar();
+                pDialog.setIndeterminate(false);
+                pDialog.setCancelable(false);
+                pDialog.show();*/
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        protected String doInBackground(String... params) {
+            //obtnemos usr y pass
+            user = params[0];
+            pass = params[1];
+            Log.e("", user + pass);
+            //enviamos y recibimos y analizamos los datos en segundo plano.
+            return null;
+
+        }
+
+        /*Una vez terminado doInBackground segun lo que halla ocurrido
+         pasamos a la sig. activity
+         o mostramos error*/
+        protected void onPostExecute(String result) {
+
+
+        }
+    }
+
 
 }
 
