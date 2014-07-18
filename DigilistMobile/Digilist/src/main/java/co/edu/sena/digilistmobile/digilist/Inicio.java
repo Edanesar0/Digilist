@@ -117,14 +117,9 @@ public class Inicio extends SherlockActivity {
             LayoutInflater inflater = (LayoutInflater) container.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             switch (position) {
                 case 0:
-
-                    v = inflater.inflate(R.layout.progress, null);
-                    ProgressBar pb = (ProgressBar) v.findViewById(R.id.progressBar);
-                    LinearLayout layoutver = (LinearLayout) v.findViewById(R.id.layoutver);
-                    layoutver.setVisibility(View.INVISIBLE);
-                    pb.setVisibility(ProgressBar.INVISIBLE);
+                    //v = inflater.inflate(R.layout.progress, null);
                     v = inflater.inflate(R.layout.ingreso_inventario, null);
-
+                    new asynclogin().execute(position+"");
                     break;
                 case 1:
                     v = inflater.inflate(R.layout.ingreso_producto, null);
@@ -153,7 +148,7 @@ public class Inicio extends SherlockActivity {
     }
 
     class asynclogin extends AsyncTask<String, String, String> {
-        String user, pass;
+        String pos;
 
         protected void onPreExecute() {
             try {
@@ -165,6 +160,11 @@ public class Inicio extends SherlockActivity {
                 pDialog.setIndeterminate(false);
                 pDialog.setCancelable(false);
                 pDialog.show();*/
+
+                ProgressBar pb = (ProgressBar) v.findViewById(R.id.progressBar);
+                LinearLayout layoutver = (LinearLayout) v.findViewById(R.id.lyVentas);
+                layoutver.setVisibility(View.VISIBLE);
+                pb.setVisibility(ProgressBar.INVISIBLE);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -172,9 +172,8 @@ public class Inicio extends SherlockActivity {
 
         protected String doInBackground(String... params) {
             //obtnemos usr y pass
-            user = params[0];
-            pass = params[1];
-            Log.e("", user + pass);
+            pos = params[0];
+
             //enviamos y recibimos y analizamos los datos en segundo plano.
             return null;
 
