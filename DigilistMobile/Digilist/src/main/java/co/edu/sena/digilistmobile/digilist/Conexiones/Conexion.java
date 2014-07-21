@@ -8,7 +8,10 @@ import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
@@ -50,7 +53,7 @@ public class Conexion {
 
         //
         try {
-            if (fun.equals("1")) {
+            if (fun.equals("POST1")) {
                 HttpClient httpclient = new DefaultHttpClient();
                 HttpPost httppost = new HttpPost(urlwebserver);
                 httppost.setEntity(new UrlEncodedFormEntity(parametros));
@@ -59,7 +62,7 @@ public class Conexion {
                 HttpEntity entity = response.getEntity();
                 is = entity.getContent();
             }
-            if (fun.equals("2")) {
+            if (fun.equals("POST2")) {
                 DefaultHttpClient httpclient = new DefaultHttpClient();
                 HttpPost httppost = new HttpPost(urlwebserver);
                 StringEntity se = new StringEntity(para.toString());
@@ -67,6 +70,60 @@ public class Conexion {
                 httppost.setHeader("Accept", "application/json");
                 httppost.setHeader("Content-type", "application/json");
                 HttpResponse response = httpclient.execute(httppost);
+                HttpEntity entity = response.getEntity();
+                is = entity.getContent();
+
+            }
+            if (fun.equals("GET1")) {
+                HttpClient httpclient = new DefaultHttpClient();
+                HttpGet httpget = new HttpGet(urlwebserver);
+                //ejecuto peticion enviando datos por POST
+                HttpResponse response = httpclient.execute(httpget);
+                HttpEntity entity = response.getEntity();
+                is = entity.getContent();
+            }
+            if (fun.equals("GET2")) {
+                DefaultHttpClient httpclient = new DefaultHttpClient();
+                HttpGet httpget = new HttpGet(urlwebserver);
+                httpget.setHeader("Accept", "application/json");
+                httpget.setHeader("Content-type", "application/json");
+                HttpResponse response = httpclient.execute(httpget);
+                HttpEntity entity = response.getEntity();
+                is = entity.getContent();
+
+            }
+            if (fun.equals("PUT1")) {
+                HttpClient httpclient = new DefaultHttpClient();
+                HttpPut httpput = new HttpPut(urlwebserver);
+                //ejecuto peticion enviando datos por POST
+                HttpResponse response = httpclient.execute(httpput);
+                HttpEntity entity = response.getEntity();
+                is = entity.getContent();
+            }
+            if (fun.equals("PUT2")) {
+                DefaultHttpClient httpclient = new DefaultHttpClient();
+                HttpPut httpout = new HttpPut(urlwebserver);
+                httpout.setHeader("Accept", "application/json");
+                httpout.setHeader("Content-type", "application/json");
+                HttpResponse response = httpclient.execute(httpout);
+                HttpEntity entity = response.getEntity();
+                is = entity.getContent();
+
+            }
+            if (fun.equals("DELETE1")) {
+                HttpClient httpclient = new DefaultHttpClient();
+                HttpDelete httpdelete = new HttpDelete(urlwebserver);
+                //ejecuto peticion enviando datos por POST
+                HttpResponse response = httpclient.execute(httpdelete);
+                HttpEntity entity = response.getEntity();
+                is = entity.getContent();
+            }
+            if (fun.equals("DELETE2")) {
+                DefaultHttpClient httpclient = new DefaultHttpClient();
+                HttpDelete httpdelete = new HttpDelete(urlwebserver);
+                httpdelete.setHeader("Accept", "application/json");
+                httpdelete.setHeader("Content-type", "application/json");
+                HttpResponse response = httpclient.execute(httpdelete);
                 HttpEntity entity = response.getEntity();
                 is = entity.getContent();
 

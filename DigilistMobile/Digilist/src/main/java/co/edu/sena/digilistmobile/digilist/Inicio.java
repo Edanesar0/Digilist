@@ -2,14 +2,12 @@ package co.edu.sena.digilistmobile.digilist;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -119,7 +117,7 @@ public class Inicio extends SherlockActivity {
                 case 0:
                     //v = inflater.inflate(R.layout.progress, null);
                     v = inflater.inflate(R.layout.ingreso_inventario, null);
-                    new asynclogin().execute(position+"");
+                    new asynclogin().execute(position + "");
                     break;
                 case 1:
                     v = inflater.inflate(R.layout.ingreso_producto, null);

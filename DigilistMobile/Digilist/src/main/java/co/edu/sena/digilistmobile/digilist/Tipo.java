@@ -6,7 +6,7 @@ import android.database.Cursor;
  * Created by ADMIN on 28/04/2014.
  */
 public class Tipo {
-    private String nombre,descripcion;
+    private String nombre, descripcion;
     private int dimencion;
 
     public int getDimencion() {
@@ -33,17 +33,19 @@ public class Tipo {
         this.descripcion = descripcion;
     }
 
-    public boolean agregarTipo(Tipo tipo){
+    public boolean agregarTipo(Tipo tipo) {
         return false;
     }
 
-    public boolean eliminarTipo(String nombre){
+    public boolean eliminarTipo(String nombre) {
         return false;
     }
-    public boolean modificarTipo(String criterio,String terminoModificar){
+
+    public boolean modificarTipo(String criterio, String terminoModificar) {
         return false;
     }
-    public Cursor consultarTipo(String criterio,String terminoBuscar){
+
+    public Cursor consultarTipo(String criterio, String terminoBuscar) {
         return null;
     }
 }

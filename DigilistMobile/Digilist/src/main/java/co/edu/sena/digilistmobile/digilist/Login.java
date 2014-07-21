@@ -161,7 +161,7 @@ public class Login extends SherlockActivity {
             //obtnemos usr y pass
             user = params[0];
             pass = params[1];
-            Log.e("",user+pass);
+            Log.e("", user + pass);
             //enviamos y recibimos y analizamos los datos en segundo plano.
             if (loginstatus(user, pass)) {
                 return "ok"; //login valido
@@ -241,8 +241,8 @@ public class Login extends SherlockActivity {
             int cant = 0;
             /*Creamos un ArrayList del tipo nombre valor para agregar los datos recibidos por los parametros anteriores
              * y enviarlo mediante POST a nuestro sistema para relizar la validacion*/
-            conexion= new Conexion();
-             ArrayList<NameValuePair> postparameters2send = new ArrayList<NameValuePair>();
+            conexion = new Conexion();
+            ArrayList<NameValuePair> postparameters2send = new ArrayList<NameValuePair>();
             postparameters2send.add(new BasicNameValuePair("usuario", username));
             postparameters2send.add(new BasicNameValuePair("password", password));
             //realizamos una peticion y como respuesta obtenes un array JSON

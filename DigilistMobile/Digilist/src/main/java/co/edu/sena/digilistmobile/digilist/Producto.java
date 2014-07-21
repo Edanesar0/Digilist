@@ -4,7 +4,7 @@ package co.edu.sena.digilistmobile.digilist;
 import android.database.Cursor;
 
 public class Producto {
-    private String referecia,nombre,descripcion;
+    private String referecia, nombre, descripcion;
     private Material material;
     private Tipo tipo;
 
@@ -48,7 +48,7 @@ public class Producto {
         this.tipo = tipo;
     }
 
-    public Cursor consultarProducto(String critertio,String terminoBuscar){
+    public Cursor consultarProducto(String critertio, String terminoBuscar) {
 
         return null;
     }

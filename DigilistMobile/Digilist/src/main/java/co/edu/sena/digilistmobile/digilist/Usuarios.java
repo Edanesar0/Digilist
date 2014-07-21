@@ -52,19 +52,22 @@ public class Usuarios {
         this.telefono = telefono;
     }
 
-    public Cursor consultarUsuario(String criterio,String terminoABuscar){
+    public Cursor consultarUsuario(String criterio, String terminoABuscar) {
 
         return null;
     }
-    public boolean agregarUsuario(Usuarios Usuario){
+
+    public boolean agregarUsuario(Usuarios Usuario) {
 
         return false;
     }
-    public boolean darBajaUsuario(String identificacion){
+
+    public boolean darBajaUsuario(String identificacion) {
 
         return false;
     }
-    public boolean modificarUsuario(String criterio,String terminoModificar){
+
+    public boolean modificarUsuario(String criterio, String terminoModificar) {
 
         return false;
     }
