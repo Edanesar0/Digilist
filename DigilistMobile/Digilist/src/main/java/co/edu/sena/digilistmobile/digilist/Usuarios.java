@@ -2,11 +2,16 @@ package co.edu.sena.digilistmobile.digilist;
 
 import android.database.Cursor;
 
+import co.edu.sena.digilistmobile.digilist.Conexiones.RequestsAndResponses;
+
 
 public class Usuarios {
     private String nombre;
     private String apellido;
     private String ciudad;
+    private String identificacion;
+    private int telefono;
+    RequestsAndResponses requestsAndResponses;
 
     public String getIdentificacion() {
         return identificacion;
@@ -15,10 +20,6 @@ public class Usuarios {
     public void setIdentificacion(String identificacion) {
         this.identificacion = identificacion;
     }
-
-    private String identificacion;
-    private int telefono;
-
 
     public String getNombre() {
         return nombre;

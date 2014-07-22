@@ -2,12 +2,15 @@ package co.edu.sena.digilistmobile.digilist;
 
 import android.database.Cursor;
 
+import co.edu.sena.digilistmobile.digilist.Conexiones.RequestsAndResponses;
+
 /**
  * Created by ADMIN on 28/04/2014.
  */
 public class Tipo {
     private String nombre, descripcion;
     private int dimencion;
+    RequestsAndResponses requestsAndResponses;
 
     public int getDimencion() {
         return dimencion;
@@ -34,18 +37,26 @@ public class Tipo {
     }
 
     public boolean agregarTipo(Tipo tipo) {
+        requestsAndResponses= new RequestsAndResponses();
+        requestsAndResponses.postTipos();
         return false;
     }
 
     public boolean eliminarTipo(String nombre) {
+        requestsAndResponses= new RequestsAndResponses();
+        requestsAndResponses.deleteTipos();
         return false;
     }
 
     public boolean modificarTipo(String criterio, String terminoModificar) {
+        requestsAndResponses= new RequestsAndResponses();
+        requestsAndResponses.putTipos();
         return false;
     }
 
     public Cursor consultarTipo(String criterio, String terminoBuscar) {
+        requestsAndResponses= new RequestsAndResponses();
+        requestsAndResponses.getTipos();
         return null;
     }
 }

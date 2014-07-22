@@ -3,10 +3,13 @@ package co.edu.sena.digilistmobile.digilist;
 
 import android.database.Cursor;
 
+import co.edu.sena.digilistmobile.digilist.Conexiones.RequestsAndResponses;
+
 public class Producto {
     private String referecia, nombre, descripcion;
     private Material material;
     private Tipo tipo;
+    RequestsAndResponses requestsAndResponses;
 
     public String getReferecia() {
         return referecia;
@@ -49,8 +52,26 @@ public class Producto {
     }
 
     public Cursor consultarProducto(String critertio, String terminoBuscar) {
-
+        requestsAndResponses= new RequestsAndResponses();
+        requestsAndResponses.getProductos();
         return null;
+    }
+    public boolean agregarProducto(int capacidad, String descripcion) {
+        requestsAndResponses= new RequestsAndResponses();
+        requestsAndResponses.postProductos();
+        return false;
+    }
+
+    public boolean modificarProducto(String criterio, String terminoAModificar) {
+        requestsAndResponses= new RequestsAndResponses();
+        requestsAndResponses.putProductos();
+        return false;
+    }
+
+    public boolean eliminarProducto(int identificador) {
+        requestsAndResponses= new RequestsAndResponses();
+        requestsAndResponses.deleteProductos();
+        return false;
     }
 
 }

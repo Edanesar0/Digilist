@@ -40,7 +40,7 @@ public class Login extends SherlockActivity {
     private ProgressDialog pDialog;
     Typeface font;
     EditText edtPassw, edtUsuario;
-    String URL_connect = "http://192.168.1.182/mobile/acces.php";//ruta en donde estan nuestros archivos
+    String URL_connect = "http://192.168.1.138/mobile/acces.php";//ruta en donde estan nuestros archivos
     Conexion conexion;
 
     @Override
@@ -246,7 +246,7 @@ public class Login extends SherlockActivity {
             postparameters2send.add(new BasicNameValuePair("usuario", username));
             postparameters2send.add(new BasicNameValuePair("password", password));
             //realizamos una peticion y como respuesta obtenes un array JSON
-            JSONArray jdata = conexion.getserverdata(postparameters2send, URL_connect, "1", null);
+            JSONArray jdata = conexion.getserverdata(postparameters2send, URL_connect, "POST1", null);
 
             //si lo que obtuvimos no es null
             if (jdata != null && jdata.length() > 0) {
