@@ -73,6 +73,17 @@ class funciones_BD {
         }
     }
 
+    public function productos($criterio, $terminoBusqueda) {
+        if (empty($criterio)) {
+            $criterio = 'nombre';
+        }
+
+        $result = mysql_query("SELECT * FROM producto where $criterio like '%$terminoBusqueda%'");
+        $row = mysql_fetch_array($result);
+        return $row;
+        
+    }
+
 }
 
 ?>
