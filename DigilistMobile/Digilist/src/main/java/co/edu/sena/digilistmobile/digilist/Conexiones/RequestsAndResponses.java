@@ -7,7 +7,7 @@ import org.json.JSONArray;
 import java.util.ArrayList;
 
 public class RequestsAndResponses {
-    String URL_connect = "http://192.168.1.182/mobile/acces.php";//ruta en donde estan nuestros archivos
+    String URL_connect = "http://192.168.1.182/mobile/";//ruta en donde estan nuestros archivos
     Conexion conexion;
 
     public JSONArray getMateriales() {
@@ -29,7 +29,7 @@ public class RequestsAndResponses {
         ArrayList<NameValuePair> postparameters2send = new ArrayList<NameValuePair>();
         postparameters2send.add(new BasicNameValuePair("token", ""));
         //realizamos una peticion y como respuesta obtenes un array JSON
-        return conexion.getserverdata(postparameters2send, URL_connect, "GET1", null);
+        return conexion.getserverdata(postparameters2send, URL_connect+"productos.php", "GET1", null);
     }
     public JSONArray getInventario() {
         conexion = new Conexion();
