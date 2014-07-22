@@ -7,7 +7,7 @@ import org.json.JSONArray;
 import java.util.ArrayList;
 
 public class RequestsAndResponses {
-    String URL_connect = "http://192.168.1.182/mobile/";//ruta en donde estan nuestros archivos
+    String URL_connect = "http://192.168.1.182/Digilist/Servicios/mobile/";//ruta en donde estan nuestros archivos
     Conexion conexion;
 
     public JSONArray getMateriales() {

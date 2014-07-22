@@ -31,16 +31,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.security.MessageDigest;
 import java.util.ArrayList;
 
 import co.edu.sena.digilistmobile.digilist.Conexiones.Conexion;
+import co.edu.sena.digilistmobile.digilist.Util.Encrypting;
 
 
 public class Login extends SherlockActivity {
     private ProgressDialog pDialog;
     Typeface font;
     EditText edtPassw, edtUsuario;
-    String URL_connect = "http://192.168.1.138/mobile/acces.php";//ruta en donde estan nuestros archivos
+    String URL_connect = "http://192.168.1.138/Digilist/Servicios/mobile/acces.php";//ruta en donde estan nuestros archivos
     Conexion conexion;
 
     @Override
@@ -104,9 +106,9 @@ public class Login extends SherlockActivity {
         bo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Encrypting encrypting= new Encrypting();
                 String usuario = edtUsuario.getText().toString().toLowerCase();
-                String passw = edtPassw.getText().toString();
+                String passw = encrypting.getStringEncrypted(edtPassw.getText().toString());
                 if (checklogindata(usuario, passw)) {
                     //si pasamos esa validacion ejecutamos el asynctask pasando el usuario y clave como parametros
                     new asynclogin().execute(usuario, passw);
@@ -161,7 +163,6 @@ public class Login extends SherlockActivity {
             //obtnemos usr y pass
             user = params[0];
             pass = params[1];
-            Log.e("", user + pass);
             //enviamos y recibimos y analizamos los datos en segundo plano.
             if (loginstatus(user, pass)) {
                 return "ok"; //login valido
