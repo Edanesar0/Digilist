@@ -1,11 +1,8 @@
 <?php
 
 class funciones_BD {
-
     private $db;
-
     // constructor
-
     function __construct() {
         require_once 'connectbd.php';
         // connecting to database
@@ -13,12 +10,10 @@ class funciones_BD {
         $this->db = new DB_Connect();
         $this->db->connect();
     }
-
     // destructor
     function __destruct() {
         
     }
-
     /**
      * agregar nuevo usuario
      */
@@ -35,7 +30,6 @@ class funciones_BD {
             return false;
         }
     }
-
     /**
      * Verificar si el usuario ya existe por el username
      */
@@ -55,7 +49,6 @@ class funciones_BD {
             return false;
         }
     }
-
     public function login($user, $passw) {
 
         $result = mysql_query("SELECT COUNT(*) FROM usuario where usuario='$user' and Contrasena='$passw'");
@@ -72,16 +65,47 @@ class funciones_BD {
             return false;
         }
     }
-
-    public function productos($criterio, $terminoBusqueda) {
+    public function getProductos($criterio, $terminoBusqueda) {        
         if (empty($criterio)) {
             $criterio = 'nombre';
         }
-
-        $result = mysql_query("SELECT * FROM producto where $criterio like '%$terminoBusqueda%'");
-        $row = mysql_fetch_array($result);
-        return $row;
-        
+       $datas = array();
+        $i = 0;
+        $res = mysql_query("SELECT idProducto,Nombre,Descripcion,Referencia,Precio,Dimencion,Material_idMaterial,Tipo_idTipo FROM producto where $criterio like '%$terminoBusqueda%'");
+        if (mysql_num_rows($res)) {
+            while ($data = mysql_fetch_assoc($res)) {
+                $datas[] = $data;
+            }
+        }
+        return $datas;
+    }
+    public function getMateriales($criterio, $terminoBusqueda) {        
+        if (empty($criterio)) {
+            $criterio = 'nombre';
+        }
+       $datas = array();
+        $i = 0;
+        $res = mysql_query("SELECT idMaterial,Nombre FROM material where $criterio like '%$terminoBusqueda%'");
+        if (mysql_num_rows($res)) {
+            while ($data = mysql_fetch_assoc($res)) {
+                $datas[] = $data;
+            }
+        }
+        return $datas;
+    }
+    public function getTipos($criterio, $terminoBusqueda) {        
+        if (empty($criterio)) {
+            $criterio = 'nombre';
+        }
+       $datas = array();        
+       mysql_set_charset("utf8"); 
+        $res = mysql_query("SELECT idTipo,Nombre,Descripcion FROM tipo where $criterio like '%$terminoBusqueda%'");
+        if (mysql_num_rows($res)) {
+            while ($data = mysql_fetch_assoc($res)) {
+                $datas[] = $data;
+            }
+        }
+        return $datas;
     }
 
 }

@@ -3,6 +3,8 @@ package co.edu.sena.digilistmobile.digilist;
 
 import android.database.Cursor;
 
+import org.json.JSONArray;
+
 import co.edu.sena.digilistmobile.digilist.Conexiones.RequestsAndResponses;
 
 public class Producto {
@@ -51,25 +53,25 @@ public class Producto {
         this.tipo = tipo;
     }
 
-    public Cursor consultarProducto(String critertio, String terminoBuscar) {
-        requestsAndResponses= new RequestsAndResponses();
-        requestsAndResponses.getProductos();
-        return null;
+    public JSONArray consultarProducto(String critertio, String terminoBuscar) {
+        requestsAndResponses = new RequestsAndResponses();
+        return requestsAndResponses.getProductos();
     }
+
     public boolean agregarProducto(int capacidad, String descripcion) {
-        requestsAndResponses= new RequestsAndResponses();
+        requestsAndResponses = new RequestsAndResponses();
         requestsAndResponses.postProductos();
         return false;
     }
 
     public boolean modificarProducto(String criterio, String terminoAModificar) {
-        requestsAndResponses= new RequestsAndResponses();
+        requestsAndResponses = new RequestsAndResponses();
         requestsAndResponses.putProductos();
         return false;
     }
 
     public boolean eliminarProducto(int identificador) {
-        requestsAndResponses= new RequestsAndResponses();
+        requestsAndResponses = new RequestsAndResponses();
         requestsAndResponses.deleteProductos();
         return false;
     }

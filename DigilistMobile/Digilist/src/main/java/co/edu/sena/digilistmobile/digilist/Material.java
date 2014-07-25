@@ -2,6 +2,8 @@ package co.edu.sena.digilistmobile.digilist;
 
 import android.database.Cursor;
 
+import org.json.JSONArray;
+
 import co.edu.sena.digilistmobile.digilist.Conexiones.RequestsAndResponses;
 
 
@@ -44,10 +46,9 @@ public class Material {
         return false;
     }
 
-    public Cursor consultarMaterial(String criterio, String terminoBuscar){
+    public JSONArray consultarMaterial(String criterio, String terminoBuscar){
     requestsAndResponses= new RequestsAndResponses();
-    requestsAndResponses.getMateriales();
-    return null;
+    return requestsAndResponses.getMateriales();
     }
 
 

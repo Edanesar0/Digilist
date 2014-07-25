@@ -8,6 +8,7 @@ import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,10 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.SubMenu;
+
+import org.json.JSONArray;
+
+import co.edu.sena.digilistmobile.digilist.Conexiones.RequestsAndResponses;
 
 /**
  * Created by ADMIN on 16/04/2014.
@@ -147,22 +152,13 @@ public class Inicio extends SherlockActivity {
 
     class asynclogin extends AsyncTask<String, String, String> {
         String pos;
+        ProgressBar pb = (ProgressBar) v.findViewById(R.id.progressBar);
+        LinearLayout layoutver = (LinearLayout) v.findViewById(R.id.lyVentas);
 
         protected void onPreExecute() {
             try {
-                //para el progress dialog
-                /*pDialog = new ProgressDialog(Login.this);
-                //conexiones.abrir();
-                pDialog.setMessage("Iniciando sesión ");
-                //conexiones.cerrar();
-                pDialog.setIndeterminate(false);
-                pDialog.setCancelable(false);
-                pDialog.show();*/
-
-                ProgressBar pb = (ProgressBar) v.findViewById(R.id.progressBar);
-                LinearLayout layoutver = (LinearLayout) v.findViewById(R.id.lyVentas);
-                layoutver.setVisibility(View.VISIBLE);
-                pb.setVisibility(ProgressBar.INVISIBLE);
+                layoutver.setVisibility(View.INVISIBLE);
+                pb.setVisibility(ProgressBar.VISIBLE);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -171,8 +167,22 @@ public class Inicio extends SherlockActivity {
         protected String doInBackground(String... params) {
             //obtnemos usr y pass
             pos = params[0];
+            try {
+                Producto producto = new Producto();
+                JSONArray productos=producto.consultarProducto("", "");
+                Tipo tipo = new Tipo();                JSONArray tipos=tipo.consultarTipo("", "");
+                Material material= new Material();
+                JSONArray materiales=material.consultarMaterial("","");
 
-            //enviamos y recibimos y analizamos los datos en segundo plano.
+                Log.e("productos ",productos.getJSONObject(0).names().toString());
+                Log.e("tipos ",tipos.toString());
+                Log.e("materiales ",materiales.toString());
+
+                //enviamos y recibimos y analizamos los datos en segundo plano.
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             return null;
 
         }
@@ -182,6 +192,8 @@ public class Inicio extends SherlockActivity {
          o mostramos error*/
         protected void onPostExecute(String result) {
 
+            layoutver.setVisibility(View.VISIBLE);
+            pb.setVisibility(ProgressBar.INVISIBLE);
 
         }
     }

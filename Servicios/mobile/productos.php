@@ -1,15 +1,13 @@
 <?php
-
-$criterio=$_GET['criterio'];
+$criterio=  isset($_GET['criterio'])?$_GET['criterio']:"";
+$termino=  isset($_GET['termino'])?$_GET['termino']:"";
 require_once 'funciones_bd.php';
 class productos {
     
-    function __construct() {
+    function __construct($criterio,$termino) {
         $db=new funciones_BD();
-        echo json_encode($db->productos("", ""));
+    echo (json_encode($db->getProductos($criterio,$termino)));    
     }
 }
-echo 'Criterio '.$criterio."<br>";
-$db = new productos($criterio);
-
+$db = new productos($criterio,$termino);
 ?>

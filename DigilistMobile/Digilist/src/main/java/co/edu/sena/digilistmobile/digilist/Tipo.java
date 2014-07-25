@@ -2,6 +2,8 @@ package co.edu.sena.digilistmobile.digilist;
 
 import android.database.Cursor;
 
+import org.json.JSONArray;
+
 import co.edu.sena.digilistmobile.digilist.Conexiones.RequestsAndResponses;
 
 /**
@@ -54,9 +56,8 @@ public class Tipo {
         return false;
     }
 
-    public Cursor consultarTipo(String criterio, String terminoBuscar) {
+    public JSONArray consultarTipo(String criterio, String terminoBuscar) {
         requestsAndResponses= new RequestsAndResponses();
-        requestsAndResponses.getTipos();
-        return null;
+        return requestsAndResponses.getTipos();
     }
 }
