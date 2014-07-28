@@ -1,10 +1,15 @@
 package co.edu.sena.digilistmobile.digilist;
 
-import android.database.Cursor;
+import android.content.ContentValues;
+import android.content.Context;
+import android.util.Log;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import co.edu.sena.digilistmobile.digilist.Conexiones.RequestsAndResponses;
+import co.edu.sena.digilistmobile.digilist.util.conexiones.ConexionLocal;
+import co.edu.sena.digilistmobile.digilist.util.conexiones.RequestsAndResponses;
 
 /**
  * Created by ADMIN on 28/04/2014.
@@ -12,7 +17,13 @@ import co.edu.sena.digilistmobile.digilist.Conexiones.RequestsAndResponses;
 public class Tipo {
     private String nombre, descripcion;
     private int dimencion;
+    Context c;
     RequestsAndResponses requestsAndResponses;
+
+    public Tipo(Context c) {
+        this.c=c;
+
+    }
 
     public int getDimencion() {
         return dimencion;
@@ -56,8 +67,22 @@ public class Tipo {
         return false;
     }
 
-    public JSONArray consultarTipo(String criterio, String terminoBuscar) {
+    public void consultarTipo(String criterio, String terminoBuscar) throws JSONException {
         requestsAndResponses= new RequestsAndResponses();
-        return requestsAndResponses.getTipos();
+        JSONArray jsonArray=requestsAndResponses.getTipos();
+        ContentValues cv= new ContentValues();
+         ConexionLocal conexionLocal=new ConexionLocal(c);
+        for (int i=0;i<jsonArray.length();i++){
+            JSONObject jsonObject=jsonArray.getJSONObject(i);
+
+            JSONArray names=jsonObject.names();
+            for (int j=0;j<names.length();j++){
+                cv.put(names.getString(j), jsonObject.getString(names.getString(j)));
+                conexionLocal.abrir();
+                conexionLocal.insert("tipo",cv);
+                conexionLocal.cerrar();
+            }
+        }
+        Log.e("cv tipos", cv.toString());
     }
 }

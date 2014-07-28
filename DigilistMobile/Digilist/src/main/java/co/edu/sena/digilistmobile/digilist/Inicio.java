@@ -24,7 +24,7 @@ import com.actionbarsherlock.view.SubMenu;
 
 import org.json.JSONArray;
 
-import co.edu.sena.digilistmobile.digilist.Conexiones.RequestsAndResponses;
+import co.edu.sena.digilistmobile.digilist.util.conexiones.ConexionLocal;
 
 /**
  * Created by ADMIN on 16/04/2014.
@@ -168,15 +168,17 @@ public class Inicio extends SherlockActivity {
             //obtnemos usr y pass
             pos = params[0];
             try {
-                Producto producto = new Producto();
-                JSONArray productos=producto.consultarProducto("", "");
-                Tipo tipo = new Tipo();                JSONArray tipos=tipo.consultarTipo("", "");
-                Material material= new Material();
-                JSONArray materiales=material.consultarMaterial("","");
+                Tipo tipo = new Tipo(Inicio.this);
+                tipo.consultarTipo("", "");
+                Material material = new Material(Inicio.this);
+                material.consultarMaterial("", "");
+                Producto producto = new Producto(Inicio.this);
+                producto.consultarProducto("", "");
+                ConexionLocal conexionLocal = new ConexionLocal(Inicio.this);
+                conexionLocal.abrir();
+                conexionLocal.cerrar();
 
-                Log.e("productos ",productos.getJSONObject(0).names().toString());
-                Log.e("tipos ",tipos.toString());
-                Log.e("materiales ",materiales.toString());
+
 
                 //enviamos y recibimos y analizamos los datos en segundo plano.
 

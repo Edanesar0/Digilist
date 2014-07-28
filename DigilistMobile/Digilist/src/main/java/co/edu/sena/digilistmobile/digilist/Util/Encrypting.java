@@ -1,4 +1,4 @@
-package co.edu.sena.digilistmobile.digilist.Util;
+package co.edu.sena.digilistmobile.digilist.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

@@ -1,17 +1,27 @@
 package co.edu.sena.digilistmobile.digilist;
 
 
-import android.database.Cursor;
+import android.content.ContentValues;
+import android.content.Context;
+import android.util.Log;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
-import co.edu.sena.digilistmobile.digilist.Conexiones.RequestsAndResponses;
+import co.edu.sena.digilistmobile.digilist.util.conexiones.ConexionLocal;
+import co.edu.sena.digilistmobile.digilist.util.conexiones.RequestsAndResponses;
+
 
 public class Producto {
     private String referecia, nombre, descripcion;
     private Material material;
     private Tipo tipo;
     RequestsAndResponses requestsAndResponses;
+    Context c;
+
+    public Producto(Context c) {
+        this.c=c;
+    }
 
     public String getReferecia() {
         return referecia;
@@ -53,9 +63,25 @@ public class Producto {
         this.tipo = tipo;
     }
 
-    public JSONArray consultarProducto(String critertio, String terminoBuscar) {
+    public void consultarProducto(String critertio, String terminoBuscar) throws Exception {
         requestsAndResponses = new RequestsAndResponses();
-        return requestsAndResponses.getProductos();
+        JSONArray jsonArray=requestsAndResponses.getProductos();
+        ContentValues cv= new ContentValues();
+        ConexionLocal conexionLocal=new ConexionLocal(c);
+
+        for (int i=0;i<jsonArray.length();i++){
+            JSONObject jsonObject=jsonArray.getJSONObject(i);
+
+            JSONArray names=jsonObject.names();
+            for (int j=0;j<names.length();j++){
+            cv.put(names.getString(j),jsonObject.getString(names.getString(j)));
+                conexionLocal.abrir();
+                conexionLocal.insert("producto",cv);
+                conexionLocal.cerrar();
+            }
+        }
+        Log.e("cv producto", cv.toString());
+
     }
 
     public boolean agregarProducto(int capacidad, String descripcion) {

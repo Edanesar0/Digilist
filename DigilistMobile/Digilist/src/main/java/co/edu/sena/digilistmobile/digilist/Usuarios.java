@@ -2,7 +2,7 @@ package co.edu.sena.digilistmobile.digilist;
 
 import android.database.Cursor;
 
-import co.edu.sena.digilistmobile.digilist.Conexiones.RequestsAndResponses;
+import co.edu.sena.digilistmobile.digilist.util.conexiones.RequestsAndResponses;
 
 
 public class Usuarios {

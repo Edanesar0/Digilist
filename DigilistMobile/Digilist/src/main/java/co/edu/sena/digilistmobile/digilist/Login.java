@@ -31,18 +31,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.security.MessageDigest;
 import java.util.ArrayList;
 
-import co.edu.sena.digilistmobile.digilist.Conexiones.Conexion;
-import co.edu.sena.digilistmobile.digilist.Util.Encrypting;
+import co.edu.sena.digilistmobile.digilist.util.conexiones.Conexion;
+import co.edu.sena.digilistmobile.digilist.util.Constants;
+import co.edu.sena.digilistmobile.digilist.util.Encrypting;
 
 
-public class Login extends SherlockActivity {
+public class Login extends SherlockActivity implements Constants {
     private ProgressDialog pDialog;
     Typeface font;
     EditText edtPassw, edtUsuario;
-    String URL_connect = "http://192.168.1.138/Digilist/Servicios/mobile/acces.php";//ruta en donde estan nuestros archivos
     Conexion conexion;
 
     @Override
