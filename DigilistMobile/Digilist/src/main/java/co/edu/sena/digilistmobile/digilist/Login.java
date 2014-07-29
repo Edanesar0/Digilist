@@ -179,7 +179,7 @@ public class Login extends SherlockActivity implements Constants {
             pDialog.dismiss();//ocultamos progess dialog.
             Log.e("onPostExecute=", "" + result);
             if (result.equals("ok")) {
-                Intent i = new Intent(Login.this, Inicio.class);
+                Intent i = new Intent(Login.this, MenuInicial.class);
                 startActivity(i);
                 finish();
                 /*if (cargo.equals("Coordinador")) {
@@ -246,7 +246,7 @@ public class Login extends SherlockActivity implements Constants {
             postparameters2send.add(new BasicNameValuePair("usuario", username));
             postparameters2send.add(new BasicNameValuePair("password", password));
             //realizamos una peticion y como respuesta obtenes un array JSON
-            JSONArray jdata = conexion.getserverdata(postparameters2send, URL_connect, "POST1", null);
+            JSONArray jdata = conexion.getserverdata(postparameters2send, URL_connect+"/acces.php", "POST1", null);
 
             //si lo que obtuvimos no es null
             if (jdata != null && jdata.length() > 0) {

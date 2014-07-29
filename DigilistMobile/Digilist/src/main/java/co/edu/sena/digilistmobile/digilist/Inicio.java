@@ -169,17 +169,11 @@ public class Inicio extends SherlockActivity {
             pos = params[0];
             try {
                 Tipo tipo = new Tipo(Inicio.this);
-                tipo.consultarTipo("", "");
+                Log.e("tipo",tipo.agregarTipo()+"");
                 Material material = new Material(Inicio.this);
-                material.consultarMaterial("", "");
+                Log.e("material",material.agregarMaterial()+"");
                 Producto producto = new Producto(Inicio.this);
-                producto.consultarProducto("", "");
-                ConexionLocal conexionLocal = new ConexionLocal(Inicio.this);
-                conexionLocal.abrir();
-                conexionLocal.cerrar();
-
-
-
+                Log.e("producto",producto.agregarProducto()+"");
                 //enviamos y recibimos y analizamos los datos en segundo plano.
 
             } catch (Exception e) {

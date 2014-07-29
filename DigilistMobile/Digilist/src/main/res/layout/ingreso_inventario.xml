@@ -73,7 +73,7 @@
                     <AutoCompleteTextView
                         android:id="@+id/acProductos"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30dp"
                         android:layout_alignParentBottom="true"
                         android:layout_gravity="center"
                         android:layout_toLeftOf="@+id/btnMas"
@@ -106,8 +106,7 @@
                 <TextView
                     android:id="@+id/lvlTipo"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/edittext_rounded_corners"
+                    android:layout_height="30dp"
                     android:editable="false"
                     android:textColor="#565656" />
 
@@ -123,8 +122,7 @@
                 <TextView
                     android:id="@+id/lvlMaterial"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/edittext_rounded_corners"
+                    android:layout_height="30dp"
                     android:editable="false"
                     android:textColor="#565656" />
 
@@ -143,7 +141,7 @@
                 <EditText
                     android:id="@+id/edtcantidad"
                     android:layout_width="96dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="30dp"
                     android:layout_below="@+id/txtCantidad"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/edittext_rounded_corners"

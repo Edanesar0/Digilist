@@ -54,6 +54,23 @@ public class Tipo {
         requestsAndResponses.postTipos();
         return false;
     }
+    public String  agregarTipo() throws JSONException {
+        JSONArray jsonArray=consultarTipo("","");
+        ContentValues cv= new ContentValues();
+        ConexionLocal conexionLocal=new ConexionLocal(c);
+        String conf = "";
+        conexionLocal.abrir();
+        for (int i=0;i<jsonArray.length();i++){
+            JSONObject jsonObject=jsonArray.getJSONObject(i);
+            JSONArray names=jsonObject.names();
+            for (int j=0;j<names.length();j++){
+                cv.put(names.getString(j), jsonObject.getString(names.getString(j)));
+            }
+            conf+= conexionLocal.insert("tipo",cv);
+        }
+        conexionLocal.cerrar();
+        return conf;
+    }
 
     public boolean eliminarTipo(String nombre) {
         requestsAndResponses= new RequestsAndResponses();
@@ -67,22 +84,9 @@ public class Tipo {
         return false;
     }
 
-    public void consultarTipo(String criterio, String terminoBuscar) throws JSONException {
+    public JSONArray consultarTipo(String criterio, String terminoBuscar)  {
         requestsAndResponses= new RequestsAndResponses();
-        JSONArray jsonArray=requestsAndResponses.getTipos();
-        ContentValues cv= new ContentValues();
-         ConexionLocal conexionLocal=new ConexionLocal(c);
-        for (int i=0;i<jsonArray.length();i++){
-            JSONObject jsonObject=jsonArray.getJSONObject(i);
+        return requestsAndResponses.getTipos();
 
-            JSONArray names=jsonObject.names();
-            for (int j=0;j<names.length();j++){
-                cv.put(names.getString(j), jsonObject.getString(names.getString(j)));
-                conexionLocal.abrir();
-                conexionLocal.insert("tipo",cv);
-                conexionLocal.cerrar();
-            }
-        }
-        Log.e("cv tipos", cv.toString());
     }
 }

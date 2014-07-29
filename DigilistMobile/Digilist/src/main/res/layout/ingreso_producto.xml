@@ -5,7 +5,7 @@
     android:layout_height="fill_parent"
     android:background="#f5f5f5"
     android:orientation="vertical"
-    tools:context=".HiScreen">
+    >
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -46,12 +46,12 @@
             <EditText
                 android:id="@+id/edtNombreProducto"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_gravity="center"
                 android:background="@drawable/edittext_rounded_corners"
                 android:completionThreshold="1"
                 android:textColor="#565656"
-                android:inputType="" />
+                 />
 
 
             <TextView
@@ -67,7 +67,7 @@
             <EditText
                 android:id="@+id/edtReferencia"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:background="@drawable/edittext_rounded_corners"
                 android:inputType="number"
                 android:textColor="#0C8FD4" />

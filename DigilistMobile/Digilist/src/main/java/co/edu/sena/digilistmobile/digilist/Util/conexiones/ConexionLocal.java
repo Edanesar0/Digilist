@@ -2,8 +2,11 @@ package co.edu.sena.digilistmobile.digilist.util.conexiones;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
 
 /**
  * Created by ADMIN on 25/07/2014.
@@ -246,6 +249,13 @@ public class ConexionLocal {
     public long insert(String tabla, ContentValues cv) {
         /**Se crea un contenedor para especifcar los campos y se agregan los datos y se coloca insertWithOnConflict para que ignore si hay un error*/
         return nBD.insertWithOnConflict(tabla, null, cv, SQLiteDatabase.CONFLICT_IGNORE);
+    }
+    public ArrayList<String> read(String tabla, String[] columnas,String groupBy,String orderBy) {
+        final ArrayList<String> alist = new ArrayList<String>();
+        alist.add("Seleccione uno");//agrega una por defecto
+        /**Crea un array para agregar los datos y se pueda utilizar como contenido de un adaptador*/
+        Cursor c = nBD.query(tabla, columnas, null, null, groupBy, null, orderBy);
+     return alist;
     }
 
 

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.util.Log;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import co.edu.sena.digilistmobile.digilist.util.conexiones.ConexionLocal;
@@ -63,31 +64,33 @@ public class Producto {
         this.tipo = tipo;
     }
 
-    public void consultarProducto(String critertio, String terminoBuscar) throws Exception {
+    public JSONArray consultarProducto(String critertio, String terminoBuscar){
         requestsAndResponses = new RequestsAndResponses();
-        JSONArray jsonArray=requestsAndResponses.getProductos();
-        ContentValues cv= new ContentValues();
-        ConexionLocal conexionLocal=new ConexionLocal(c);
-
-        for (int i=0;i<jsonArray.length();i++){
-            JSONObject jsonObject=jsonArray.getJSONObject(i);
-
-            JSONArray names=jsonObject.names();
-            for (int j=0;j<names.length();j++){
-            cv.put(names.getString(j),jsonObject.getString(names.getString(j)));
-                conexionLocal.abrir();
-                conexionLocal.insert("producto",cv);
-                conexionLocal.cerrar();
-            }
-        }
-        Log.e("cv producto", cv.toString());
-
+        return requestsAndResponses.getProductos();
     }
 
     public boolean agregarProducto(int capacidad, String descripcion) {
         requestsAndResponses = new RequestsAndResponses();
         requestsAndResponses.postProductos();
         return false;
+    }
+    public String agregarProducto() throws JSONException {
+        JSONArray jsonArray=consultarProducto("","");
+        ContentValues cv= new ContentValues();
+        ConexionLocal conexionLocal=new ConexionLocal(c);
+        conexionLocal.abrir();
+        String conf = "";
+        for (int i=0;i<jsonArray.length();i++){
+            JSONObject jsonObject=jsonArray.getJSONObject(i);
+            JSONArray names=jsonObject.names();
+            for (int j=0;j<names.length();j++){
+                cv.put(names.getString(j),jsonObject.getString(names.getString(j)));
+            }
+            conf+= conexionLocal.insert("producto",cv);
+        }
+        conexionLocal.cerrar();
+
+        return conf;
     }
 
     public boolean modificarProducto(String criterio, String terminoAModificar) {
