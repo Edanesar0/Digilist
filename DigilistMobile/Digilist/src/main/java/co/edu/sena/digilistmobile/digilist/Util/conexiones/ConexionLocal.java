@@ -250,12 +250,18 @@ public class ConexionLocal {
         /**Se crea un contenedor para especifcar los campos y se agregan los datos y se coloca insertWithOnConflict para que ignore si hay un error*/
         return nBD.insertWithOnConflict(tabla, null, cv, SQLiteDatabase.CONFLICT_IGNORE);
     }
-    public ArrayList<String> read(String tabla, String[] columnas,String groupBy,String orderBy) {
+
+    public ArrayList<String> readProducto(String tabla, String[] columnas, String groupBy, String orderBy) {
         final ArrayList<String> alist = new ArrayList<String>();
-        alist.add("Seleccione uno");//agrega una por defecto
         /**Crea un array para agregar los datos y se pueda utilizar como contenido de un adaptador*/
-        Cursor c = nBD.query(tabla, columnas, null, null, groupBy, null, orderBy);
-     return alist;
+        Cursor c = nBD.rawQuery("select producto.nombre,tipo.nombre,producto.Dimencion,material.nombre\n" +
+                "from producto inner join tipo on tipo.idTipo=Tipo_idTipo\n" +
+                "inner join material on material.idMaterial=Material_idMaterial", null);
+        //recorre y agrega
+        for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
+            alist.add(c.getString(0));
+        }
+        return alist;
     }
 
 

@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
@@ -22,9 +24,7 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.SubMenu;
 
-import org.json.JSONArray;
-
-import co.edu.sena.digilistmobile.digilist.util.conexiones.ConexionLocal;
+import java.util.ArrayList;
 
 /**
  * Created by ADMIN on 16/04/2014.
@@ -35,7 +35,9 @@ public class Inicio extends SherlockActivity {
     private LinearLayout navList;
     private View v = null;
     private ViewPager vp;
+    ArrayAdapter<String> adaptadorProductos;
     ProgressDialog progressDialog = null;
+    AutoCompleteTextView auproducto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +124,7 @@ public class Inicio extends SherlockActivity {
                 case 0:
                     //v = inflater.inflate(R.layout.progress, null);
                     v = inflater.inflate(R.layout.ingreso_inventario, null);
+                    auproducto = (AutoCompleteTextView) v.findViewById(R.id.acProductos);
                     new asynclogin().execute(position + "");
                     break;
                 case 1:
@@ -174,6 +177,8 @@ public class Inicio extends SherlockActivity {
                 Log.e("material",material.agregarMaterial()+"");
                 Producto producto = new Producto(Inicio.this);
                 Log.e("producto",producto.agregarProducto()+"");
+                ArrayList<String> AProductos = producto.consultarProducto();//retornamos la consulta de productos
+                adaptadorProductos = new ArrayAdapter<String>(Inicio.this, android.R.layout.simple_list_item_1, AProductos);//creamos el adaptador de los spinner agregando los Arraylist
                 //enviamos y recibimos y analizamos los datos en segundo plano.
 
             } catch (Exception e) {
@@ -187,7 +192,7 @@ public class Inicio extends SherlockActivity {
          pasamos a la sig. activity
          o mostramos error*/
         protected void onPostExecute(String result) {
-
+            auproducto.setAdapter(adaptadorProductos);
             layoutver.setVisibility(View.VISIBLE);
             pb.setVisibility(ProgressBar.INVISIBLE);
 
