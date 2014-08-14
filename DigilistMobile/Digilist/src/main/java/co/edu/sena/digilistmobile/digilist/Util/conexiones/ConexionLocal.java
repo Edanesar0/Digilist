@@ -251,15 +251,18 @@ public class ConexionLocal {
         return nBD.insertWithOnConflict(tabla, null, cv, SQLiteDatabase.CONFLICT_IGNORE);
     }
 
-    public ArrayList<String> readProducto(String tabla, String[] columnas, String groupBy, String orderBy) {
+    public ArrayList<String> readProducto(String sql, String[] columnas, String groupBy, String orderBy) {
         final ArrayList<String> alist = new ArrayList<String>();
         /**Crea un array para agregar los datos y se pueda utilizar como contenido de un adaptador*/
-        Cursor c = nBD.rawQuery("select producto.nombre,tipo.nombre,producto.Dimencion,material.nombre\n" +
-                "from producto inner join tipo on tipo.idTipo=Tipo_idTipo\n" +
+        Cursor c = nBD.rawQuery("select producto.nombre,tipo.nombre,producto.Dimencion,material.nombre " +
+                "from producto inner join tipo on tipo.idTipo=Tipo_idTipo  " +
                 "inner join material on material.idMaterial=Material_idMaterial", null);
         //recorre y agrega
         for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
             alist.add(c.getString(0));
+            alist.add(c.getString(1));
+            alist.add(c.getString(2));
+            alist.add(c.getString(3));
         }
         return alist;
     }

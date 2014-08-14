@@ -8,14 +8,16 @@ import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
@@ -35,14 +37,18 @@ public class Inicio extends SherlockActivity {
     private LinearLayout navList;
     private View v = null;
     private ViewPager vp;
-    ArrayAdapter<String> adaptadorProductos;
-    ProgressDialog progressDialog = null;
-    AutoCompleteTextView auproducto;
+    private ArrayAdapter<String> adaptadorProductos;
+    private ProgressDialog progressDialog = null;
+    private AutoCompleteTextView auproducto;
+    private TextView lvlTipo, lvlMaterial;
+    private EditText edtcantidad;
+    Producto producto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.inicio_almacenista);
+        producto = new Producto(Inicio.this);
         ab = getSupportActionBar();//instancia
         ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_HOME_AS_UP);//Atributos titulo boton home y flecha de acompañamiento de home
         ab.setHomeButtonEnabled(true);//activar el boton home
@@ -126,6 +132,17 @@ public class Inicio extends SherlockActivity {
                     v = inflater.inflate(R.layout.ingreso_inventario, null);
                     auproducto = (AutoCompleteTextView) v.findViewById(R.id.acProductos);
                     new asynclogin().execute(position + "");
+                    lvlTipo = (TextView) v.findViewById(R.id.lvlTipo);
+                    lvlMaterial = (TextView) v.findViewById(R.id.lvlMaterial);
+                    edtcantidad = (EditText) v.findViewById(R.id.edtcantidad);
+                    auproducto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            lvlTipo.setText(producto.consultarProducto().get(1));
+                            lvlMaterial.setText(producto.consultarProducto().get(3));
+                            edtcantidad.setText("1");
+                        }
+                    });
                     break;
                 case 1:
                     v = inflater.inflate(R.layout.ingreso_producto, null);
@@ -172,13 +189,15 @@ public class Inicio extends SherlockActivity {
             pos = params[0];
             try {
                 Tipo tipo = new Tipo(Inicio.this);
-                Log.e("tipo",tipo.agregarTipo()+"");
+                //Log.e("tipo",tipo.agregarTipo()+"");
                 Material material = new Material(Inicio.this);
-                Log.e("material",material.agregarMaterial()+"");
-                Producto producto = new Producto(Inicio.this);
-                Log.e("producto",producto.agregarProducto()+"");
+                //Log.e("material",material.agregarMaterial()+"");
+
+                //Log.e("producto",producto.agregarProducto()+"");
                 ArrayList<String> AProductos = producto.consultarProducto();//retornamos la consulta de productos
-                adaptadorProductos = new ArrayAdapter<String>(Inicio.this, android.R.layout.simple_list_item_1, AProductos);//creamos el adaptador de los spinner agregando los Arraylist
+                ArrayList<String> Apr = new ArrayList<String>();
+                Apr.add(AProductos.get(0));
+                adaptadorProductos = new ArrayAdapter<String>(Inicio.this, android.R.layout.simple_list_item_1, Apr);//creamos el adaptador de los spinner agregando los Arraylist
                 //enviamos y recibimos y analizamos los datos en segundo plano.
 
             } catch (Exception e) {
