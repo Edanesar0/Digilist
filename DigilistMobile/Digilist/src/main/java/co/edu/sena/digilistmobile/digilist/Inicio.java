@@ -8,6 +8,7 @@ import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -189,11 +190,11 @@ public class Inicio extends SherlockActivity {
             pos = params[0];
             try {
                 Tipo tipo = new Tipo(Inicio.this);
-                //Log.e("tipo",tipo.agregarTipo()+"");
+                Log.e("tipo", tipo.agregarTipo() + "");
                 Material material = new Material(Inicio.this);
-                //Log.e("material",material.agregarMaterial()+"");
-
-                //Log.e("producto",producto.agregarProducto()+"");
+                Log.e("material", material.agregarMaterial() + "");
+                producto = new Producto(Inicio.this);
+                Log.e("producto", producto.agregarProducto() + "");
                 ArrayList<String> AProductos = producto.consultarProducto();//retornamos la consulta de productos
                 ArrayList<String> Apr = new ArrayList<String>();
                 Apr.add(AProductos.get(0));
