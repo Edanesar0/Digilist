@@ -76,13 +76,13 @@
                         android:layout_height="30dp"
                         android:layout_alignParentBottom="true"
                         android:layout_gravity="center"
-                        android:layout_toLeftOf="@+id/btnMas"
                         android:background="@drawable/edittext_rounded_corners"
                         android:completionThreshold="1"
-                        android:textColor="#565656" />
+                        android:textColor="#565656"
+                        android:layout_toLeftOf="@+id/btnInfo" />
 
                     <Button
-                        android:id="@+id/btnMas"
+                        android:id="@+id/btnInfo"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_alignParentBottom="false"

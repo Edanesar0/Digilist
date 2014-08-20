@@ -1,13 +1,18 @@
 package co.edu.sena.digilistmobile.digilist;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +20,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -28,6 +35,8 @@ import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.SubMenu;
 
 import java.util.ArrayList;
+
+import co.edu.sena.digilistmobile.digilist.util.Adapter;
 
 /**
  * Created by ADMIN on 16/04/2014.
@@ -43,12 +52,15 @@ public class Inicio extends SherlockActivity {
     private AutoCompleteTextView auproducto;
     private TextView lvlTipo, lvlMaterial;
     private EditText edtcantidad;
-    Producto producto;
+    private Button binfo, binfocli, bedit;
+    private Producto producto;
+    private Typeface font;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.inicio_almacenista);
+        font = Typeface.createFromAsset(getAssets(), "Station.ttf");
         producto = new Producto(Inicio.this);
         ab = getSupportActionBar();//instancia
         ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_HOME_AS_UP);//Atributos titulo boton home y flecha de acompañamiento de home
@@ -103,11 +115,9 @@ public class Inicio extends SherlockActivity {
     }
 
     private class vpAdapter2 extends PagerAdapter {
-
-
         @Override
         public int getCount() {
-            return 2;
+            return 3;
         }
 
         @Override
@@ -134,6 +144,40 @@ public class Inicio extends SherlockActivity {
                     auproducto = (AutoCompleteTextView) v.findViewById(R.id.acProductos);
                     new asynclogin().execute(position + "");
                     lvlTipo = (TextView) v.findViewById(R.id.lvlTipo);
+                    binfo = (Button) v.findViewById(R.id.btnInfo);
+                    binfo.setTypeface(font);
+                    binfo.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            try{
+                            LayoutInflater inflater = Inicio.this.getLayoutInflater();
+                            final View v2 = inflater.inflate(R.layout.mensaje_producto, null);
+                            ExpandableListView exv = (ExpandableListView) v2.findViewById(R.id.listView);
+                            final Adapter adp = new Adapter(Inicio.this);
+                            exv.setAdapter(adp);
+                            exv.setChoiceMode(ExpandableListView.CHOICE_MODE_SINGLE);
+                            AlertDialog.Builder builder3 = new AlertDialog.Builder(Inicio.this);
+                            builder3.setView(v2).setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    auproducto.setText(adp.getSelect());
+                                }
+                            }).setNegativeButton("Cancelar", null);
+                            AlertDialog dialog3;
+                            dialog3 = builder3.create();
+                            dialog3.setTitle("Productos");
+                            dialog3.show();
+
+
+
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+
+                    }
+                    });
                     lvlMaterial = (TextView) v.findViewById(R.id.lvlMaterial);
                     edtcantidad = (EditText) v.findViewById(R.id.edtcantidad);
                     auproducto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -144,11 +188,31 @@ public class Inicio extends SherlockActivity {
                             edtcantidad.setText("1");
                         }
                     });
+                    auproducto.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            lvlTipo.setText("");
+                            lvlMaterial.setText("");
+                            edtcantidad.setText("");
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+
+                        }
+                    });
                     break;
                 case 1:
                     v = inflater.inflate(R.layout.ingreso_producto, null);
                     break;
                 case 2:
+                    v = inflater.inflate(R.layout.inventario, null);
                     break;
                 case 3:
                     break;
