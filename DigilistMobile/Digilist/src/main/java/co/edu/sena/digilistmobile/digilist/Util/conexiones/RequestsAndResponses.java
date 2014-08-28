@@ -25,6 +25,7 @@ public class RequestsAndResponses {
         try {
             InputStream inputStream = context.getAssets().open(propFileName);
             prop.load(inputStream);
+            URL_connect = prop.getProperty("URL_connect");
         } catch (IOException e) {
             e.printStackTrace();
 

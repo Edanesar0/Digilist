@@ -22,7 +22,6 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -36,7 +35,6 @@ import com.actionbarsherlock.view.SubMenu;
 
 import java.util.ArrayList;
 
-import co.edu.sena.digilistmobile.digilist.util.Adapter;
 
 /**
  * Created by ADMIN on 16/04/2014.
@@ -50,7 +48,7 @@ public class Inicio extends SherlockActivity {
     private ArrayAdapter<String> adaptadorProductos;
     private ProgressDialog progressDialog = null;
     private AutoCompleteTextView auproducto;
-    private TextView lvlTipo, lvlMaterial;
+    private TextView lvlTipo, lvlMaterial, lvlTamano;
     private EditText edtcantidad;
     private Button binfo, binfocli, bedit;
     private Producto producto;
@@ -141,53 +139,54 @@ public class Inicio extends SherlockActivity {
                 case 0:
                     //v = inflater.inflate(R.layout.progress, null);
                     v = inflater.inflate(R.layout.ingreso_inventario, null);
-                    auproducto = (AutoCompleteTextView) v.findViewById(R.id.acProductos);
                     new asynclogin().execute(position + "");
+                    auproducto = (AutoCompleteTextView) v.findViewById(R.id.acProductos);
+                    auproducto.setTypeface(font);
                     lvlTipo = (TextView) v.findViewById(R.id.lvlTipo);
+                    lvlTamano = (TextView) v.findViewById(R.id.lvlTamano);
+                    lvlTamano.setTypeface(font);
                     binfo = (Button) v.findViewById(R.id.btnInfo);
                     binfo.setTypeface(font);
                     binfo.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            try{
-                            LayoutInflater inflater = Inicio.this.getLayoutInflater();
-                            final View v2 = inflater.inflate(R.layout.mensaje_producto, null);
-                            ExpandableListView exv = (ExpandableListView) v2.findViewById(R.id.listView);
-                            final Adapter adp = new Adapter(Inicio.this);
-                            exv.setAdapter(adp);
-                            exv.setChoiceMode(ExpandableListView.CHOICE_MODE_SINGLE);
-                            AlertDialog.Builder builder3 = new AlertDialog.Builder(Inicio.this);
-                            builder3.setView(v2).setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    auproducto.setText(adp.getSelect());
-                                }
-                            }).setNegativeButton("Cancelar", null);
-                            AlertDialog dialog3;
-                            dialog3 = builder3.create();
-                            dialog3.setTitle("Productos");
-                            dialog3.show();
+                            try {
+                                LayoutInflater inflater = Inicio.this.getLayoutInflater();
+                                View v2 = inflater.inflate(R.layout.mensaje_producto, null);
+                                AlertDialog.Builder builder3 = new AlertDialog.Builder(Inicio.this);
+                                builder3.setView(v2).setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                                    }
+                                }).setNegativeButton("Cancelar", null);
+                                AlertDialog dialog3;
+                                dialog3 = builder3.create();
+                                dialog3.setTitle("Productos");
+                                dialog3.show();
 
 
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
 
 
-                        } catch (Exception e) {
-                            e.printStackTrace();
                         }
-
-
-                    }
                     });
                     lvlMaterial = (TextView) v.findViewById(R.id.lvlMaterial);
+                    lvlMaterial.setTypeface(font);
                     edtcantidad = (EditText) v.findViewById(R.id.edtcantidad);
+                    edtcantidad.setTypeface(font);
                     auproducto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             lvlTipo.setText(producto.consultarProducto().get(1));
+                            lvlTamano.setText(producto.consultarProducto().get(2));
                             lvlMaterial.setText(producto.consultarProducto().get(3));
                             edtcantidad.setText("1");
                         }
                     });
+
                     auproducto.addTextChangedListener(new TextWatcher() {
                         @Override
                         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -197,6 +196,7 @@ public class Inicio extends SherlockActivity {
                         @Override
                         public void onTextChanged(CharSequence s, int start, int before, int count) {
                             lvlTipo.setText("");
+                            lvlTamano.setText("");
                             lvlMaterial.setText("");
                             edtcantidad.setText("");
 

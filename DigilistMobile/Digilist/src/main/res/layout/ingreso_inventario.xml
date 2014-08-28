@@ -93,22 +93,51 @@
                 </RelativeLayout>
 
 
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="Tipo"
-                    android:textColor="#9a9a9a"
-                    android:textIsSelectable="false"
-                    android:textSize="18sp" />
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginTop="20dp">
 
-                <TextView
-                    android:id="@+id/lvlTipo"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:editable="false"
-                    android:textColor="#565656" />
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tipo"
+                        android:textColor="#9a9a9a"
+                        android:textIsSelectable="false"
+                        android:textSize="18sp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true" />
+
+                    <TextView
+                        android:id="@+id/lvlTipo"
+                        android:layout_width="125dp"
+                        android:layout_height="30dp"
+                        android:editable="false"
+                        android:textColor="#565656"
+                        android:layout_below="@+id/textView"
+                        android:layout_alignParentLeft="true" />
+
+                    <TextView
+                        android:id="@+id/lvlTamano"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:editable="false"
+                        android:textColor="#565656"
+                        android:layout_below="@+id/textView"
+                        android:layout_toRightOf="@+id/lvlTipo" />
+
+                    <TextView
+                        android:id="@+id/txtTamano"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#9a9a9a"
+                        android:textIsSelectable="false"
+                        android:textSize="18sp"
+                        android:layout_alignParentTop="true"
+                        android:layout_toRightOf="@+id/lvlTipo"
+                        android:text="Tamaño" />
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/textView3"

@@ -74,7 +74,7 @@ public class Producto {
         ConexionLocal conexionLocal = new ConexionLocal(c);
         conexionLocal.abrir();
         String[] datos = new String[]{"Nombre"};
-        ArrayList<String> producto = conexionLocal.readProducto("producto", datos, "", "");
+        ArrayList<String> producto = conexionLocal.readProducto("producto");
         conexionLocal.cerrar();
         return producto;
     }
