@@ -38,7 +38,7 @@ public class Material {
     }
 
     public boolean agregarMaterial(Material material, int token) throws JSONException {
-        requestsAndResponses = new RequestsAndResponses();
+        requestsAndResponses = new RequestsAndResponses(c);
         requestsAndResponses.postMateriales();
         return false;
     }
@@ -62,19 +62,19 @@ public class Material {
     }
 
     public boolean eliminarMaterial(String nombre) {
-        requestsAndResponses = new RequestsAndResponses();
+        requestsAndResponses = new RequestsAndResponses(c);
         requestsAndResponses.deleteMateriales();
         return false;
     }
 
     public boolean modificarMaterial(String criterio, String terminoModificar) {
-        requestsAndResponses = new RequestsAndResponses();
+        requestsAndResponses = new RequestsAndResponses(c);
         requestsAndResponses.putMateriales();
         return false;
     }
 
     public JSONArray consultarMaterial(String criterio, String terminoBuscar) throws JSONException {
-        requestsAndResponses = new RequestsAndResponses();
+        requestsAndResponses = new RequestsAndResponses(c);
         return requestsAndResponses.getMateriales();
 
     }

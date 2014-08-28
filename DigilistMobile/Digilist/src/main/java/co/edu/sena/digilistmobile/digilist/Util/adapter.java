@@ -6,13 +6,16 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.RadioButton;
 import android.widget.TextView;
+
 import java.util.ArrayList;
+
 import co.edu.sena.digilistmobile.digilist.R;
 
 
 /**
  * Created by Ox- on 19/08/2014.
  */
+
 
 public class Adapter extends BaseExpandableListAdapter implements View.OnClickListener {
 
@@ -31,12 +34,13 @@ public class Adapter extends BaseExpandableListAdapter implements View.OnClickLi
     public void setSelect(String select) {
         Select = select;
     }
+
     RadioButton radioButton;
 
     public Adapter(Context contex) {
         this.contexto = contex;
-        padre= new ArrayList<String>();
-        hijos= new ArrayList<String>();
+        padre = new ArrayList<String>();
+        hijos = new ArrayList<String>();
         padre.add("asd");
         hijos.add("asd2");
     }

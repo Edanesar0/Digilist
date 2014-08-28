@@ -66,7 +66,7 @@ public class Producto {
     }
 
     public JSONArray consultarProducto(String critertio, String terminoBuscar) {
-        requestsAndResponses = new RequestsAndResponses();
+        requestsAndResponses = new RequestsAndResponses(c);
         return requestsAndResponses.getProductos();
     }
 
@@ -80,7 +80,7 @@ public class Producto {
     }
 
     public boolean agregarProducto(int capacidad, String descripcion) {
-        requestsAndResponses = new RequestsAndResponses();
+        requestsAndResponses = new RequestsAndResponses(c);
         requestsAndResponses.postProductos();
         return false;
     }
@@ -105,13 +105,13 @@ public class Producto {
     }
 
     public boolean modificarProducto(String criterio, String terminoAModificar) {
-        requestsAndResponses = new RequestsAndResponses();
+        requestsAndResponses = new RequestsAndResponses(c);
         requestsAndResponses.putProductos();
         return false;
     }
 
     public boolean eliminarProducto(int identificador) {
-        requestsAndResponses = new RequestsAndResponses();
+        requestsAndResponses = new RequestsAndResponses(c);
         requestsAndResponses.deleteProductos();
         return false;
     }

@@ -2,7 +2,6 @@ package co.edu.sena.digilistmobile.digilist;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,8 +16,8 @@ import co.edu.sena.digilistmobile.digilist.util.conexiones.RequestsAndResponses;
 public class Tipo {
     private String nombre, descripcion;
     private int dimencion;
-    Context c;
     RequestsAndResponses requestsAndResponses;
+    Context c;
 
     public Tipo(Context c) {
         this.c=c;
@@ -50,7 +49,7 @@ public class Tipo {
     }
 
     public boolean agregarTipo(Tipo tipo) {
-        requestsAndResponses= new RequestsAndResponses();
+        requestsAndResponses = new RequestsAndResponses(c);
         requestsAndResponses.postTipos();
         return false;
     }
@@ -73,19 +72,19 @@ public class Tipo {
     }
 
     public boolean eliminarTipo(String nombre) {
-        requestsAndResponses= new RequestsAndResponses();
+        requestsAndResponses = new RequestsAndResponses(c);
         requestsAndResponses.deleteTipos();
         return false;
     }
 
     public boolean modificarTipo(String criterio, String terminoModificar) {
-        requestsAndResponses= new RequestsAndResponses();
+        requestsAndResponses = new RequestsAndResponses(c);
         requestsAndResponses.putTipos();
         return false;
     }
 
     public JSONArray consultarTipo(String criterio, String terminoBuscar)  {
-        requestsAndResponses= new RequestsAndResponses();
+        requestsAndResponses = new RequestsAndResponses(c);
         return requestsAndResponses.getTipos();
 
     }

@@ -31,23 +31,39 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Properties;
 
-import co.edu.sena.digilistmobile.digilist.util.conexiones.Conexion;
-import co.edu.sena.digilistmobile.digilist.util.Constants;
 import co.edu.sena.digilistmobile.digilist.util.Encrypting;
+import co.edu.sena.digilistmobile.digilist.util.conexiones.Conexion;
 
 
-public class Login extends SherlockActivity implements Constants {
+public class Login extends SherlockActivity {
     private ProgressDialog pDialog;
     Typeface font;
     EditText edtPassw, edtUsuario;
     Conexion conexion;
+    String URL_connect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
+        Properties prop = new Properties();
+        String propFileName = "config.properties";
+        try {
+            InputStream inputStream = getAssets().open(propFileName);
+            prop.load(inputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+
+        URL_connect = prop.getProperty("URL_connect");
 
         font = Typeface.createFromAsset(this.getAssets(), "Station.ttf");
         Button bo = (Button) findViewById(R.id.Blogin);
@@ -105,7 +121,7 @@ public class Login extends SherlockActivity implements Constants {
         bo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Encrypting encrypting= new Encrypting();
+                Encrypting encrypting = new Encrypting();
                 String usuario = edtUsuario.getText().toString().toLowerCase();
                 String passw = encrypting.getStringEncrypted(edtPassw.getText().toString());
                 if (checklogindata(usuario, passw)) {
@@ -246,7 +262,7 @@ public class Login extends SherlockActivity implements Constants {
             postparameters2send.add(new BasicNameValuePair("usuario", username));
             postparameters2send.add(new BasicNameValuePair("password", password));
             //realizamos una peticion y como respuesta obtenes un array JSON
-            JSONArray jdata = conexion.getserverdata(postparameters2send, URL_connect+"/acces.php", "POST1", null);
+            JSONArray jdata = conexion.getserverdata(postparameters2send, URL_connect + "/acces.php", "POST1", null);
 
             //si lo que obtuvimos no es null
             if (jdata != null && jdata.length() > 0) {
