@@ -6,15 +6,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.util.ArrayList;
 
-/**
- * Created by ADMIN on 25/07/2014.
- */
 public class ConexionLocal {
 
     public static final String N_BD = "dbDigilist";
-    public static final int VERSION_BD = 1;
+    public static final int VERSION_BD = 2;
     private BDhelper nHelper;
     private final Context nContexto;
     private SQLiteDatabase nBD;
@@ -251,20 +247,11 @@ public class ConexionLocal {
         return nBD.insertWithOnConflict(tabla, null, cv, SQLiteDatabase.CONFLICT_IGNORE);
     }
 
-    public ArrayList<String> readProducto(String sql, String[] columnas, String groupBy, String orderBy) {
-        final ArrayList<String> alist = new ArrayList<String>();
+    public Cursor readProducto(String sql) {
         /**Crea un array para agregar los datos y se pueda utilizar como contenido de un adaptador*/
-        Cursor c = nBD.rawQuery("select producto.nombre,tipo.nombre,producto.Dimencion,material.nombre " +
-                "from producto inner join tipo on tipo.idTipo=Tipo_idTipo  " +
-                "inner join material on material.idMaterial=Material_idMaterial", null);
+        Cursor c = nBD.rawQuery(sql, null);
         //recorre y agrega
-        for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
-            alist.add(c.getString(0));
-            alist.add(c.getString(1));
-            alist.add(c.getString(2));
-            alist.add(c.getString(3));
-        }
-        return alist;
+        return c;
     }
 
 

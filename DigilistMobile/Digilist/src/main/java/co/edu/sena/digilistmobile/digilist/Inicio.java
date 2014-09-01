@@ -157,6 +157,12 @@ public class Inicio extends SherlockActivity {
                                 builder3.setView(v2).setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
+                                        ArrayList lis = producto.consultarProductos();
+                                        Log.e("productos", lis.toString());
+                                        for (int j = 0; j < lis.size() - 4; j = j + 4) {
+
+
+                                        }
 
                                     }
                                 }).setNegativeButton("Cancelar", null);
@@ -180,9 +186,9 @@ public class Inicio extends SherlockActivity {
                     auproducto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            lvlTipo.setText(producto.consultarProducto().get(1));
-                            lvlTamano.setText(producto.consultarProducto().get(2));
-                            lvlMaterial.setText(producto.consultarProducto().get(3));
+                            lvlTipo.setText(producto.consultarProductos().get(1));
+                            lvlTamano.setText(producto.consultarProductos().get(2));
+                            lvlMaterial.setText(producto.consultarProductos().get(3));
                             edtcantidad.setText("1");
                         }
                     });
@@ -259,9 +265,11 @@ public class Inicio extends SherlockActivity {
                 Log.e("material", material.agregarMaterial() + "");
                 producto = new Producto(Inicio.this);
                 Log.e("producto", producto.agregarProducto() + "");
-                ArrayList<String> AProductos = producto.consultarProducto();//retornamos la consulta de productos
+                ArrayList<String> AProductos = producto.consultarProductos();//retornamos la consulta de productos
                 ArrayList<String> Apr = new ArrayList<String>();
-                Apr.add(AProductos.get(0));
+                for (int i = 0; i <= AProductos.size() - 4; i = i + 4) {
+                    Apr.add(AProductos.get(i));
+                }
                 adaptadorProductos = new ArrayAdapter<String>(Inicio.this, android.R.layout.simple_list_item_1, Apr);//creamos el adaptador de los spinner agregando los Arraylist
                 //enviamos y recibimos y analizamos los datos en segundo plano.
 

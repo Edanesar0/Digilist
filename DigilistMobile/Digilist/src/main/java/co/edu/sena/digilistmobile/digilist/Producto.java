@@ -3,6 +3,7 @@ package co.edu.sena.digilistmobile.digilist;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -65,18 +66,48 @@ public class Producto {
         this.tipo = tipo;
     }
 
-    public JSONArray consultarProducto(String critertio, String terminoBuscar) {
+    public JSONArray consultarProducto() {
         requestsAndResponses = new RequestsAndResponses(c);
         return requestsAndResponses.getProductos();
     }
 
-    public ArrayList<String> consultarProducto() {
+    public ArrayList<String> consultarProductos() {
         ConexionLocal conexionLocal = new ConexionLocal(c);
         conexionLocal.abrir();
-        String[] datos = new String[]{"Nombre"};
-        ArrayList<String> producto = conexionLocal.readProducto("producto");
+        String sql = "select producto.nombre,tipo.nombre,producto.Dimencion,material.nombre " +
+                "from producto inner join tipo on tipo.idTipo=Tipo_idTipo  " +
+                "inner join material on material.idMaterial=Material_idMaterial";
+        final ArrayList<String> alist = new ArrayList<String>();
+        Cursor ct = conexionLocal.readProducto(sql);
+        //recorre y agrega
+        for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
+            alist.add(ct.getString(0));
+            alist.add(ct.getString(1));
+            alist.add(ct.getString(2));
+            alist.add(ct.getString(3));
+        }
         conexionLocal.cerrar();
-        return producto;
+        return alist;
+    }
+
+    public ArrayList<String> consultarProducto(String valor, String criterio) {
+        ConexionLocal conexionLocal = new ConexionLocal(c);
+        conexionLocal.abrir();
+        String sql = "select producto.nombre,tipo.nombre,producto.Dimencion,material.nombre " +
+                "from producto inner join tipo on tipo.idTipo=Tipo_idTipo  " +
+                "inner join material on material.idMaterial=Material_idMaterial" +
+                "WHERE " + criterio + "='" + valor + "'";
+        final ArrayList<String> alist = new ArrayList<String>();
+        Cursor ct = conexionLocal.readProducto(sql);
+        //recorre y agrega
+        for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
+            alist.add(ct.getString(0));
+            alist.add(ct.getString(1));
+            alist.add(ct.getString(2));
+            alist.add(ct.getString(3));
+        }
+        conexionLocal.cerrar();
+        return alist;
     }
 
     public boolean agregarProducto(int capacidad, String descripcion) {
@@ -86,7 +117,7 @@ public class Producto {
     }
 
     public String agregarProducto() throws JSONException {
-        JSONArray jsonArray = consultarProducto("", "");
+        JSONArray jsonArray = consultarProducto();
         ContentValues cv = new ContentValues();
         ConexionLocal conexionLocal = new ConexionLocal(c);
         conexionLocal.abrir();
