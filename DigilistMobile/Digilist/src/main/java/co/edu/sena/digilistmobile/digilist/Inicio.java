@@ -157,13 +157,8 @@ public class Inicio extends SherlockActivity {
                                 builder3.setView(v2).setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
-                                        ArrayList lis = producto.consultarProductos();
-                                        Log.e("productos", lis.toString());
-                                        for (int j = 0; j < lis.size() - 4; j = j + 4) {
-
-
-                                        }
-
+                                       // ArrayList lis = producto.consultarProducto("producto.nombre","");
+                                       // Log.e("productos", lis.toString());
                                     }
                                 }).setNegativeButton("Cancelar", null);
                                 AlertDialog dialog3;
@@ -186,9 +181,11 @@ public class Inicio extends SherlockActivity {
                     auproducto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            lvlTipo.setText(producto.consultarProductos().get(1));
-                            lvlTamano.setText(producto.consultarProductos().get(2));
-                            lvlMaterial.setText(producto.consultarProductos().get(3));
+                            ArrayList lis = producto.consultarProducto("producto.nombre",auproducto.getText().toString());
+                            Log.e("productos", lis.toString());
+                            lvlTipo.setText(""+lis.get(1));
+                            lvlTamano.setText(""+lis.get(2));
+                            lvlMaterial.setText(""+lis.get(3));
                             edtcantidad.setText("1");
                         }
                     });

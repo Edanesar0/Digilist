@@ -90,12 +90,12 @@ public class Producto {
         return alist;
     }
 
-    public ArrayList<String> consultarProducto(String valor, String criterio) {
+    public ArrayList<String> consultarProducto(String criterio, String valor) {
         ConexionLocal conexionLocal = new ConexionLocal(c);
         conexionLocal.abrir();
         String sql = "select producto.nombre,tipo.nombre,producto.Dimencion,material.nombre " +
                 "from producto inner join tipo on tipo.idTipo=Tipo_idTipo  " +
-                "inner join material on material.idMaterial=Material_idMaterial" +
+                "inner join material on material.idMaterial=Material_idMaterial " +
                 "WHERE " + criterio + "='" + valor + "'";
         final ArrayList<String> alist = new ArrayList<String>();
         Cursor ct = conexionLocal.readProducto(sql);
