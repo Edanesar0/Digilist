@@ -151,16 +151,47 @@ public class Inicio extends SherlockActivity {
                         @Override
                         public void onClick(View v) {
                             try {
+                                final String[] prodSel = {""};
+                                ArrayList lis = producto.consultarProductos();
+                                final String[] pro = new String[lis.size() / 4];
+                                int y = 0;
+                                for (int j = 0; j < lis.size(); j = j + 4) {
+                                    pro[y] = lis.get(j).toString() + " - " + lis.get(j + 2).toString();
+                                    y++;
+                                }
+
+
                                 LayoutInflater inflater = Inicio.this.getLayoutInflater();
                                 View v2 = inflater.inflate(R.layout.mensaje_producto, null);
                                 AlertDialog.Builder builder3 = new AlertDialog.Builder(Inicio.this);
-                                builder3.setView(v2).setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                builder3.setView(v2).setSingleChoiceItems(pro, -1, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        prodSel[0] = pro[which].substring(0, pro[which].indexOf("-") - 1);
+
+                                    }
+                                });
+                                builder3.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
-                                       // ArrayList lis = producto.consultarProducto("producto.nombre","");
-                                       // Log.e("productos", lis.toString());
+                                        ArrayList lis = producto.consultarProducto("producto.nombre", prodSel[0]);
+                                        auproducto.setText(prodSel[0]);
+                                        lvlTipo.setText("" + lis.get(1));
+                                        lvlTamano.setText("" + lis.get(2));
+                                        lvlMaterial.setText("" + lis.get(3));
+                                        edtcantidad.setText("1");
+
                                     }
-                                }).setNegativeButton("Cancelar", null);
+                                }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        auproducto.setText("");
+                                        lvlTipo.setText("");
+                                        lvlTamano.setText("");
+                                        lvlMaterial.setText("");
+                                        edtcantidad.setText("");
+                                    }
+                                });
                                 AlertDialog dialog3;
                                 dialog3 = builder3.create();
                                 dialog3.setTitle("Productos");
@@ -181,11 +212,10 @@ public class Inicio extends SherlockActivity {
                     auproducto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            ArrayList lis = producto.consultarProducto("producto.nombre",auproducto.getText().toString());
-                            Log.e("productos", lis.toString());
-                            lvlTipo.setText(""+lis.get(1));
-                            lvlTamano.setText(""+lis.get(2));
-                            lvlMaterial.setText(""+lis.get(3));
+                            ArrayList lis = producto.consultarProducto("producto.nombre", auproducto.getText().toString());
+                            lvlTipo.setText("" + lis.get(1));
+                            lvlTamano.setText("" + lis.get(2));
+                            lvlMaterial.setText("" + lis.get(3));
                             edtcantidad.setText("1");
                         }
                     });
