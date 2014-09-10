@@ -164,7 +164,7 @@ public class Inicio extends SherlockActivity {
                                 LayoutInflater inflater = Inicio.this.getLayoutInflater();
                                 View v2 = inflater.inflate(R.layout.mensaje_producto, null);
                                 AlertDialog.Builder builder3 = new AlertDialog.Builder(Inicio.this);
-                                builder3.setView(v2).setSingleChoiceItems(pro, -1, new DialogInterface.OnClickListener() {
+                                builder3.setSingleChoiceItems(pro, -1, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         prodSel[0] = pro[which].substring(0, pro[which].indexOf("-") - 1);

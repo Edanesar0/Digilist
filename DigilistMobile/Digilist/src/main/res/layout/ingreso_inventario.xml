@@ -116,7 +116,8 @@
                             android:editable="false"
                             android:textColor="#565656"
                             android:layout_below="@+id/textView"
-                            android:layout_alignParentLeft="true" />
+                            android:layout_alignParentLeft="true"
+                            android:textSize="18sp" />
 
                         <TextView
                             android:id="@+id/lvlTamano"
@@ -125,7 +126,8 @@
                             android:editable="false"
                             android:textColor="#565656"
                             android:layout_below="@+id/textView"
-                            android:layout_toRightOf="@+id/lvlTipo" />
+                            android:layout_toRightOf="@+id/lvlTipo"
+                            android:textSize="18sp" />
 
                         <TextView
                             android:id="@+id/txtTamano"
@@ -153,7 +155,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:editable="false"
-                        android:textColor="#565656" />
+                        android:textColor="#565656"
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/txtCantidad"
