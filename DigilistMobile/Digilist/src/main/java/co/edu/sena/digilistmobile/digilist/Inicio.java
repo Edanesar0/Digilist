@@ -50,7 +50,7 @@ public class Inicio extends SherlockActivity {
     private AutoCompleteTextView auproducto;
     private TextView lvlTipo, lvlMaterial, lvlTamano;
     private EditText edtcantidad;
-    private Button binfo, binfocli, bedit;
+    private Button binfo, binfocli, bedit, btnLimpiar, btnAgregar;
     private Producto producto;
     private Typeface font;
 
@@ -240,6 +240,18 @@ public class Inicio extends SherlockActivity {
 
                         }
                     });
+                    btnLimpiar = (Button) v.findViewById(R.id.btnLimpiar);
+                    btnLimpiar.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            auproducto.setText("");
+                            lvlTipo.setText("");
+                            lvlTamano.setText("");
+                            lvlMaterial.setText("");
+                            edtcantidad.setText("");
+                        }
+                    });
+                    btnAgregar = (Button) v.findViewById(R.id.btnAgregar);
                     break;
                 case 1:
                     v = inflater.inflate(R.layout.ingreso_producto, null);

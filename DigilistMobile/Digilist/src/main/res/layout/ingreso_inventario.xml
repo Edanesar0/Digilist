@@ -52,7 +52,7 @@
                         android:layout_marginTop="22dp"
                         android:text="Ingresar Inventario"
                         android:textColor="#CB2F17"
-                        android:textSize="20sp" />
+                        android:textSize="22sp" />
 
                     <TextView
                         android:id="@+id/txtProducto"
