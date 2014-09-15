@@ -32,7 +32,7 @@
                 android:layout_marginTop="9dp"
                 android:layout_weight="0.10"
                 android:src="@drawable/icon_login"
-                android:contentDescription="Logo">
+                android:contentDescription="@string/Logo">
                 android:gravity="center"</ImageView>
 
             <TextView
@@ -77,10 +77,9 @@
                 android:layout_marginBottom="13dp"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/edittext_rounded_corners"
-                android:inputType="textPassword"
+                android:inputType="textPassword|number"
                 android:padding="6dp"
                 android:paddingTop="5dp"
-                android:password="true"
                 android:singleLine="true"
                 android:textColor="#565656" />
 

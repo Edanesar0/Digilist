@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Tipo">Tipo</string>
+    <string name="Tamaño">Tamaño</string>
+    <string name="Cantidad">Cantidad</string>
+    <string name="Agregar">Agregar</string>
+    <string name="Limpiar">Limpiar</string>
+    <string name="IngresarProducto">Ingresar Producto</string>
+    <string name="Nombre">Nombre</string>
+    <string name="Referencia">Referencia</string>
+</resources>

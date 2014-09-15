@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="fill_parent"
@@ -73,7 +75,7 @@
                     android:id="@+id/trhead"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="#0c8df4"
+                    android:background="#CB2F17"
                     android:baselineAligned="false"
                     android:gravity="center|center_vertical|center_horizontal">
 
@@ -85,7 +87,7 @@
                         android:layout_marginLeft="1dp"
                         android:layout_marginRight="1dp"
                         android:gravity="center|center_vertical|center_horizontal"
-                        android:text="Tienda"
+                        android:text="@string/Producto"
                         android:textAppearance="@android:style/TextAppearance.Small"
                         android:textColor="@android:color/white" />
 
@@ -97,7 +99,7 @@
                         android:layout_marginLeft="1dp"
                         android:layout_marginRight="1dp"
                         android:gravity="center|center_vertical|center_horizontal"
-                        android:text="Cantidad"
+                        android:text="@string/Tipo"
                         android:textAppearance="@android:style/TextAppearance.Small"
                         android:textColor="@android:color/white" />
 
@@ -109,7 +111,7 @@
                         android:layout_marginLeft="1dp"
                         android:layout_marginRight="1dp"
                         android:gravity="center|center_vertical|center_horizontal"
-                        android:text="Convertible"
+                        android:text="@string/Tamaño"
                         android:textAppearance="@android:style/TextAppearance.Small"
                         android:textColor="@android:color/white" />
 
@@ -121,7 +123,7 @@
                         android:layout_marginLeft="1dp"
                         android:layout_marginRight="1dp"
                         android:gravity="center|center_vertical|center_horizontal"
-                        android:text="Desktop"
+                        android:text="@string/Material"
                         android:textAppearance="@android:style/TextAppearance.Small"
                         android:textColor="@android:color/white" />
 
@@ -133,19 +135,7 @@
                         android:layout_marginLeft="1dp"
                         android:layout_marginRight="1dp"
                         android:gravity="center|center_vertical|center_horizontal"
-                        android:text="Laptop"
-                        android:textAppearance="@android:style/TextAppearance.Small"
-                        android:textColor="@android:color/white" />
-
-                    <TextView
-                        android:id="@+id/txtTablet"
-                        android:layout_width="fill_parent"
-                        android:layout_height="35dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginLeft="1dp"
-                        android:layout_marginRight="1dp"
-                        android:gravity="center|center_vertical|center_horizontal"
-                        android:text="Tablet"
+                        android:text="@string/Cantidad"
                         android:textAppearance="@android:style/TextAppearance.Small"
                         android:textColor="@android:color/white" />
 
