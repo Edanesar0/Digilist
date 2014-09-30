@@ -30,158 +30,183 @@ public class ConexionLocal {
          */
         @Override
         public void onCreate(SQLiteDatabase db) {
-            db.execSQL("CREATE TABLE IF NOT EXISTS `ciudad` (" +
-                    "  `idCiudad` integer  AUTO_INCREMENT NOT NULL ," +
-                    "  `Descripcion` varchar(40) DEFAULT NULL," +
-                    "  PRIMARY KEY (`idCiudad`)" +
-                    "  )");
-            db.execSQL("CREATE TABLE IF NOT EXISTS `cliente` (" +
-                    "  `idCliente` integer  AUTO_INCREMENT NOT NULL ," +
-                    "  `Ciudad_idCiudad` integer  NOT NULL," +
-                    "  `Nombre` varchar(25) DEFAULT NULL," +
-                    "  `Direccion` varchar(45) DEFAULT NULL," +
-                    "  `Telefono` integer  DEFAULT NULL," +
-                    "  PRIMARY KEY (`idCliente`)," +
-                    "  FOREIGN KEY (`Ciudad_idCiudad`) REFERENCES `ciudad` (`idCiudad`) ON DELETE NO ACTION ON UPDATE NO ACTION" +
-                    ") ");
-            db.execSQL("CREATE TABLE IF NOT EXISTS `comentarios` (" +
-                    "  `idComentarios` integer  AUTO_INCREMENT NOT NULL ," +
-                    "  `Nombre` varchar(40) DEFAULT NULL," +
-                    "  `Correo` varchar(255) DEFAULT NULL," +
-                    "  `Asunto` varchar(45) DEFAULT NULL," +
-                    "  `Mensaje` varchar(255) DEFAULT NULL," +
-                    "  PRIMARY KEY (`idComentarios`)" +
-                    ") ");
-            db.execSQL("CREATE TABLE IF NOT EXISTS `cotizacion` (" +
-                    "  `idCotizacion` integer  AUTO_INCREMENT NOT NULL ," +
-                    "  `Vendedor_idVendedor` integer  NOT NULL," +
-                    "  `Cliente_idCliente` integer  NOT NULL," +
-                    "  `Fecha` date DEFAULT NULL," +
-                    "  PRIMARY KEY (`idCotizacion`)," +
-                    "  FOREIGN KEY (`Cliente_idCliente`) REFERENCES `cliente` (`idCliente`) ON DELETE NO ACTION ON UPDATE NO ACTION," +
-                    "  FOREIGN KEY (`Vendedor_idVendedor`) REFERENCES `vendedor` (`idVendedor`) ON DELETE NO ACTION ON UPDATE NO ACTION  " +
-                    ") ");
-            db.execSQL("CREATE TABLE IF NOT EXISTS `detallecotizacion` (" +
-                    "  `idDetalleCotizacion` integer  AUTO_INCREMENT NOT NULL ," +
-                    "  `Producto_idProducto` integer  NOT NULL," +
-                    "  `Cotizacion_idCotizacion` integer  NOT NULL," +
-                    "  `Cantidad` integer  DEFAULT NULL," +
-                    "  `Precio` double DEFAULT NULL," +
-                    "  PRIMARY KEY (`idDetalleCotizacion`)," +
-                    "  FOREIGN KEY (`Cotizacion_idCotizacion`) REFERENCES `cotizacion` (`idCotizacion`) ON DELETE NO ACTION ON UPDATE NO ACTION," +
-                    "  FOREIGN KEY (`Producto_idProducto`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION  " +
-                    ") ");
-            db.execSQL("CREATE TABLE IF NOT EXISTS `detallesdepedido` (" +
-                    "  `Stock_idStock` integer  NOT NULL," +
-                    "  `Pedido_idPedido` integer  NOT NULL," +
-                    "  `PrecioUnidad` double DEFAULT NULL," +
-                    "  `Cantidad` integer  DEFAULT NULL," +
-                    "  PRIMARY KEY (`Stock_idStock`,`Pedido_idPedido`)," +
-                    "  FOREIGN KEY (`Stock_idStock`) REFERENCES `stock` (`idStock`) ON DELETE NO ACTION ON UPDATE NO ACTION," +
-                    "  FOREIGN KEY (`Pedido_idPedido`) REFERENCES `pedido` (`idPedido`) ON DELETE NO ACTION ON UPDATE NO ACTION  " +
-                    ");");
-            db.execSQL("CREATE TABLE IF NOT EXISTS `detallesurtido` (" +
-                    "  `Surtido_idSurtido` integer  NOT NULL," +
-                    "  `Stock_idStock` integer  NOT NULL," +
-                    "  `Cantidad` integer  DEFAULT NULL," +
-                    "  PRIMARY KEY (`Surtido_idSurtido`,`Stock_idStock`)," +
-                    "  FOREIGN KEY (`Surtido_idSurtido`) REFERENCES `surtido` (`idSurtido`) ON DELETE NO ACTION ON UPDATE NO ACTION," +
-                    "  FOREIGN KEY (`Stock_idStock`) REFERENCES `stock` (`idStock`) ON DELETE NO ACTION ON UPDATE NO ACTION  " +
-                    ");");
-            db.execSQL("CREATE TABLE IF NOT EXISTS `material` (" +
-                    "  `idMaterial` integer  AUTO_INCREMENT NOT NULL ," +
-                    "  `Nombre` varchar(20) DEFAULT NULL," +
-                    "  `Descripcion` varchar(45) DEFAULT NULL," +
-                    "  PRIMARY KEY (`idMaterial`)" +
-                    ");");
-            db.execSQL("CREATE TABLE IF NOT EXISTS `pedido` (" +
-                    "  `idPedido` integer  AUTO_INCREMENT NOT NULL ," +
-                    "  `Ciudad_idCiudad` integer  NOT NULL," +
-                    "  `Vendedor_idVendedor` integer  NOT NULL," +
-                    "  `Cliente_idCliente` integer  NOT NULL," +
-                    "  `Direccion` varchar(255) DEFAULT NULL," +
-                    "  PRIMARY KEY (`idPedido`)," +
-                    "  FOREIGN KEY (`Vendedor_idVendedor`) REFERENCES `vendedor` (`idVendedor`) ON DELETE NO ACTION ON UPDATE NO ACTION," +
-                    "  FOREIGN KEY (`Cliente_idCliente`) REFERENCES `cliente` (`idCliente`) ON DELETE NO ACTION ON UPDATE NO ACTION," +
-                    "  FOREIGN KEY (`Ciudad_idCiudad`) REFERENCES `ciudad` (`idCiudad`) ON DELETE NO ACTION ON UPDATE NO ACTION" +
-                    ") ");
-            db.execSQL("CREATE TABLE IF NOT EXISTS `permisos` (" +
-                    "  `idPermisos` integer  AUTO_INCREMENT NOT NULL ," +
-                    "  `Descripcion` varchar(45) DEFAULT NULL," +
-                    "  PRIMARY KEY (`idPermisos`)" +
-                    ");");
-            db.execSQL("CREATE TABLE IF NOT EXISTS `tipo` (" +
-                    "  `idTipo` integer  AUTO_INCREMENT NOT NULL ," +
-                    "  `Nombre` varchar(20) NOT NULL," +
-                    "  `Descripcion` varchar(45) DEFAULT NULL," +
-                    "  PRIMARY KEY (`idTipo`)" +
-                    ")");
-            db.execSQL("CREATE TABLE IF NOT EXISTS `producto` (" +
-                    "  `idProducto` integer  AUTO_INCREMENT NOT NULL ," +
-                    "  `Nombre` varchar(20) DEFAULT NULL," +
-                    "  `Descripcion` varchar(45) DEFAULT NULL," +
-                    "  `Referencia` varchar(30) DEFAULT NULL," +
-                    "  `Precio` double DEFAULT NULL," +
-                    "  `Dimencion` varchar(255) DEFAULT NULL," +
-                    "  `Material_idMaterial` integer  NOT NULL," +
-                    "  `Tipo_idTipo` integer  NOT NULL," +
-                    "  PRIMARY KEY (`idProducto`)," +
-                    "  FOREIGN KEY (`Tipo_idTipo`) REFERENCES `tipo` (`idTipo`) ON DELETE NO ACTION ON UPDATE NO ACTION," +
-                    "  FOREIGN KEY (`Material_idMaterial`) REFERENCES `material` (`idMaterial`) ON DELETE NO ACTION ON UPDATE NO ACTION" +
-                    ")");
-            db.execSQL("CREATE TABLE IF NOT EXISTS `rol` (" +
-                    "  `idRol` integer  AUTO_INCREMENT NOT NULL ," +
-                    "  `Descripcion` varchar(45) DEFAULT NULL," +
-                    "  PRIMARY KEY (`idRol`)" +
-                    ");");
-            db.execSQL("CREATE TABLE IF NOT EXISTS `rol_has_permisos` (" +
-                    "  `Rol_idRol` integer  NOT NULL," +
-                    "  `Permisos_idPermisos` integer  NOT NULL," +
-                    "  PRIMARY KEY (`Rol_idRol`,`Permisos_idPermisos`)," +
-                    "  FOREIGN KEY (`Rol_idRol`) REFERENCES `rol` (`idRol`) ON DELETE NO ACTION ON UPDATE NO ACTION," +
-                    "  FOREIGN KEY (`Permisos_idPermisos`) REFERENCES `permisos` (`idPermisos`) ON DELETE NO ACTION ON UPDATE NO ACTION  " +
-                    ");");
-            db.execSQL("CREATE TABLE IF NOT EXISTS `stan` (" +
-                    "  `idStan` integer  AUTO_INCREMENT NOT NULL ," +
-                    "  `Capacidad` integer  NOT NULL," +
-                    "  `Descripcion` varchar(45) DEFAULT NULL," +
-                    "  PRIMARY KEY (`idStan`)" +
-                    ") ");
-            db.execSQL("CREATE TABLE IF NOT EXISTS `stock` (" +
-                    "  `idStock` integer  AUTO_INCREMENT NOT NULL ," +
-                    "  `Producto_idProducto` integer  NOT NULL," +
-                    "  `Stan_idStan` integer  NOT NULL," +
-                    "  `Cantidad` integer  DEFAULT NULL," +
+             db.execSQL("CREATE TABLE IF NOT EXISTS `city` (" +
+                    "  `idCity` INT(11) NOT NULL AUTO_INCREMENT," +
+                    "  `description` VARCHAR(40) NULL," +
+                    "  PRIMARY KEY (`idCity`));" +
+                    "CREATE TABLE IF NOT EXISTS `client` (" +
+                    "  `idClient` INT(11) NOT NULL AUTO_INCREMENT," +
+                    "  `idCity` INT(11) NOT NULL," +
+                    "  `name` VARCHAR(500) NULL," +
+                    "  `address` VARCHAR(45) NULL DEFAULT NULL," +
+                    "  `phone` INT(11) NULL DEFAULT NULL," +
+                    "  PRIMARY KEY (`idClient`)," +
+                    "  INDEX `Ciudad_idCiudad` (`idCity` ASC)," +
+                    "  CONSTRAINT `cliente_ibfk_1`" +
+                    "    FOREIGN KEY (`idCity`)" +
+                    "    REFERENCES `city` (`idCity`)" +
+                    "    ON DELETE NO ACTION" +
+                    "    ON UPDATE NO ACTION);" +
+                    "CREATE TABLE IF NOT EXISTS `comentarios` (" +
+                    "  `idComentarios` INT(11) NOT NULL AUTO_INCREMENT," +
+                    "  `Nombre` VARCHAR(40) NULL DEFAULT NULL," +
+                    "  `Correo` VARCHAR(255) NULL DEFAULT NULL," +
+                    "  `Asunto` VARCHAR(45) NULL DEFAULT NULL," +
+                    "  `Mensaje` VARCHAR(255) NULL DEFAULT NULL," +
+                    "  PRIMARY KEY (`idComentarios`));" +
+                    "CREATE TABLE IF NOT EXISTS `historicalSupply` (" +
+                    "  `idSupply` INT(11) NOT NULL AUTO_INCREMENT," +
+                    "  `previousAmount` DOUBLE NULL," +
+                    "  `date` DATE NULL," +
+                    "  `newAmount` DOUBLE NULL," +
+                    "  `description` VARCHAR(45) NULL," +
+                    "  `idProduct` INT NULL," +
+                    "  INDEX `index1` (`idSupply` ASC)," +
+                    "  PRIMARY KEY (`idSupply`));" +
+                    "CREATE TABLE IF NOT EXISTS `material` (" +
+                    "  `idMaterial` INT(11) NOT NULL AUTO_INCREMENT," +
+                    "  `name` VARCHAR(20) NOT NULL," +
+                    "  `description` VARCHAR(45) NULL DEFAULT NULL," +
+                    "  PRIMARY KEY (`idMaterial`));" +
+                    "CREATE TABLE IF NOT EXISTS `role` (" +
+                    "  `idRol` INT(11) NOT NULL AUTO_INCREMENT," +
+                    "  `description` VARCHAR(45) NULL DEFAULT NULL," +
+                    "  PRIMARY KEY (`idRol`));" +
+                    "CREATE TABLE IF NOT EXISTS `user` (" +
+                    "  `idUser` INT(11) NOT NULL AUTO_INCREMENT," +
+                    "  `idCity` INT(11) NOT NULL," +
+                    "  `names` VARCHAR(500) NULL," +
+                    "  `last_name` VARCHAR(500) NULL," +
+                    "  `phone` INT(11) NULL DEFAULT NULL," +
+                    "  `address` VARCHAR(45) NULL," +
+                    "  `idRol` INT(11) NOT NULL," +
+                    "  `user` VARCHAR(500) NULL," +
+                    "  `pass` VARCHAR(500) NULL," +
+                    "  PRIMARY KEY (`idUser`, `idRol`)," +
+                    "  INDEX `Ciudad_idCiudad` (`idCity` ASC)," +
+                    "  INDEX `fk_vendedor_rol1_idx` (`idRol` ASC)," +
+                    "  CONSTRAINT `vendedor_ibfk_1`" +
+                    "    FOREIGN KEY (`idCity`)" +
+                    "    REFERENCES `city` (`idCity`)" +
+                    "    ON DELETE NO ACTION" +
+                    "    ON UPDATE NO ACTION," +
+                    "  CONSTRAINT `fk_vendedor_rol1`" +
+                    "    FOREIGN KEY (`idRol`)" +
+                    "    REFERENCES `role` (`idRol`)" +
+                    "    ON DELETE NO ACTION" +
+                    "    ON UPDATE NO ACTION);" +
+                    "CREATE TABLE IF NOT EXISTS `order` (" +
+                    "  `idOrder` INT(11) NOT NULL AUTO_INCREMENT," +
+                    "  `idCity` INT(11) NOT NULL," +
+                    "  `idUser` INT(11) NOT NULL," +
+                    "  `idClient` INT(11) NOT NULL," +
+                    "  `address` VARCHAR(255) NULL," +
+                    "  PRIMARY KEY (`idOrder`)," +
+                    "  INDEX `Cliente_idCliente` (`idClient` ASC)," +
+                    "  INDEX `Vendedor_idVendedor` (`idUser` ASC)," +
+                    "  INDEX `Ciudad_idCiudad` (`idCity` ASC)," +
+                    "  CONSTRAINT `pedido_ibfk_1`" +
+                    "    FOREIGN KEY (`idClient`)" +
+                    "    REFERENCES `client` (`idClient`)" +
+                    "    ON DELETE NO ACTION" +
+                    "    ON UPDATE NO ACTION," +
+                    "  CONSTRAINT `pedido_ibfk_2`" +
+                    "    FOREIGN KEY (`idUser`)" +
+                    "    REFERENCES `user` (`idUser`)" +
+                    "    ON DELETE NO ACTION" +
+                    "    ON UPDATE NO ACTION," +
+                    "  CONSTRAINT `pedido_ibfk_3`" +
+                    "    FOREIGN KEY (`idCity`)" +
+                    "    REFERENCES `city` (`idCity`)" +
+                    "    ON DELETE NO ACTION" +
+                    "    ON UPDATE NO ACTION);" +
+                    "CREATE TABLE IF NOT EXISTS `permission` (" +
+                    "  `idPermission` INT(11) NOT NULL AUTO_INCREMENT," +
+                    "  `description` VARCHAR(45) NULL," +
+                    "  PRIMARY KEY (`idPermission`));" +
+                    "CREATE TABLE IF NOT EXISTS `type` (" +
+                    "  `idType` INT(11) NOT NULL AUTO_INCREMENT," +
+                    "  `name` VARCHAR(20) NOT NULL," +
+                    "  `description` VARCHAR(45) NULL DEFAULT NULL," +
+                    "  `dimension` VARCHAR(45) NULL," +
+                    "  PRIMARY KEY (`idType`));" +
+                    "CREATE TABLE IF NOT EXISTS `product` (" +
+                    "  `idProduct` INT(11) NOT NULL AUTO_INCREMENT," +
+                    "  `name` VARCHAR(20) NULL," +
+                    "  `description` VARCHAR(45) NULL DEFAULT NULL," +
+                    "  `reference` VARCHAR(30) NULL DEFAULT NULL," +
+                    "  `price` DOUBLE NULL DEFAULT NULL," +
+                    "  `idMaterial` INT(11) NOT NULL," +
+                    "  `idType` INT(11) NOT NULL," +
+                    "  PRIMARY KEY (`idProduct`)," +
+                    "  INDEX `Tipo_idTipo` (`idType` ASC)," +
+                    "  INDEX `Material_idMaterial` (`idMaterial` ASC)," +
+                    "  CONSTRAINT `producto_ibfk_1`" +
+                    "    FOREIGN KEY (`idType`)" +
+                    "    REFERENCES `type` (`idType`)" +
+                    "    ON DELETE NO ACTION" +
+                    "    ON UPDATE NO ACTION," +
+                    "  CONSTRAINT `producto_ibfk_2`" +
+                    "    FOREIGN KEY (`idMaterial`)" +
+                    "    REFERENCES `material` (`idMaterial`)" +
+                    "    ON DELETE NO ACTION" +
+                    "    ON UPDATE NO ACTION);" +
+                    "CREATE TABLE IF NOT EXISTS `role_has_permission` (" +
+                    "  `idRol` INT(11) NOT NULL," +
+                    "  `idPermission` INT(11) NOT NULL," +
+                    "  PRIMARY KEY (`idRol`, `idPermission`)," +
+                    "  INDEX `Permisos_idPermisos` (`idPermission` ASC)," +
+                    "  CONSTRAINT `rol_has_permisos_ibfk_1`" +
+                    "    FOREIGN KEY (`idRol`)" +
+                    "    REFERENCES `role` (`idRol`)" +
+                    "    ON DELETE NO ACTION" +
+                    "    ON UPDATE NO ACTION," +
+                    "  CONSTRAINT `rol_has_permisos_ibfk_2`" +
+                    "    FOREIGN KEY (`idPermission`)" +
+                    "    REFERENCES `permission` (`idPermission`)" +
+                    "    ON DELETE NO ACTION" +
+                    "    ON UPDATE NO ACTION);" +
+                    "CREATE TABLE IF NOT EXISTS `stan` (" +
+                    "  `idStan` INT(11) NOT NULL AUTO_INCREMENT," +
+                    "  `capacity` INT(11) NOT NULL," +
+                    "  `description` VARCHAR(45) NULL DEFAULT NULL," +
+                    "  PRIMARY KEY (`idStan`));" +
+                    "CREATE TABLE IF NOT EXISTS `stock` (" +
+                    "  `idStock` INT(11) NOT NULL AUTO_INCREMENT," +
+                    "  `idProduct` INT(11) NOT NULL," +
+                    "  `idStan` INT(11) NOT NULL," +
+                    "  `amount` INT(11) NULL," +
                     "  PRIMARY KEY (`idStock`)," +
-                    "  FOREIGN KEY (`Stan_idStan`) REFERENCES `stan` (`idStan`) ON DELETE NO ACTION ON UPDATE NO ACTION," +
-                    "  FOREIGN KEY (`Producto_idProducto`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION  " +
-                    ");");
-            db.execSQL("CREATE TABLE IF NOT EXISTS `surtido` (" +
-                    "  `idSurtido` integer  AUTO_INCREMENT NOT NULL ," +
-                    "  `Stan_idStan` integer  NOT NULL," +
-                    "  `Fecha` date DEFAULT NULL," +
-                    "  PRIMARY KEY (`idSurtido`)," +
-                    "  FOREIGN KEY (`Stan_idStan`) REFERENCES `stan` (`idStan`) ON DELETE NO ACTION ON UPDATE NO ACTION  " +
-                    ") ");
-            db.execSQL("CREATE TABLE IF NOT EXISTS `usuario` (" +
-                    "  `Usuario` varchar(25) NOT NULL," +
-                    "  `Rol_idRol` integer  NOT NULL," +
-                    "  `Contrasena` varchar(256) DEFAULT NULL," +
-                    "  PRIMARY KEY (`Usuario`)," +
-                    "  FOREIGN KEY (`Rol_idRol`) REFERENCES `rol` (`idRol`) ON DELETE NO ACTION ON UPDATE NO ACTION" +
-                    "  );");
-            db.execSQL("CREATE TABLE IF NOT EXISTS `vendedor` (" +
-                    "  `idVendedor` integer  AUTO_INCREMENT NOT NULL ," +
-                    "  `Usuario_Usuario` varchar(25) NOT NULL," +
-                    "  `Ciudad_idCiudad` integer  NOT NULL," +
-                    "  `Nombre` varchar(20) DEFAULT NULL," +
-                    "  `Apellido` varchar(20) DEFAULT NULL," +
-                    "  `Telefono` integer  DEFAULT NULL," +
-                    "  `Direccion` varchar(45) DEFAULT NULL," +
-                    "  PRIMARY KEY (`idVendedor`)," +
-                    "  FOREIGN KEY (`Ciudad_idCiudad`) REFERENCES `ciudad` (`idCiudad`) ON DELETE NO ACTION ON UPDATE NO ACTION," +
-                    "  FOREIGN KEY (`Usuario_Usuario`) REFERENCES `usuario` (`Usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION  " +
-                    ") ");
+                    "  INDEX `Stan_idStan` (`idStan` ASC)," +
+                    "  INDEX `Producto_idProducto` (`idProduct` ASC)," +
+                    "  CONSTRAINT `stock_ibfk_1`" +
+                    "    FOREIGN KEY (`idStan`)" +
+                    "    REFERENCES `stan` (`idStan`)" +
+                    "    ON DELETE NO ACTION" +
+                    "    ON UPDATE NO ACTION," +
+                    "  CONSTRAINT `stock_ibfk_2`" +
+                    "    FOREIGN KEY (`idProduct`)" +
+                    "    REFERENCES `product` (`idProduct`)" +
+                    "    ON DELETE NO ACTION" +
+                    "    ON UPDATE NO ACTION);" +
+                    "CREATE TABLE IF NOT EXISTS `order_has_product` (" +
+                    "  `idOrder` INT(11) NOT NULL," +
+                    "  `idProduct` INT(11) NOT NULL," +
+                    "  `date` DATE NULL," +
+                    "  `amount` INT NULL," +
+                    "  PRIMARY KEY (`idOrder`, `idProduct`)," +
+                    "  INDEX `fk_order_has_product_product1_idx` (`idProduct` ASC)," +
+                    "  INDEX `fk_order_has_product_order1_idx` (`idOrder` ASC)," +
+                    "  CONSTRAINT `fk_order_has_product_order1`" +
+                    "    FOREIGN KEY (`idOrder`)" +
+                    "    REFERENCES `order` (`idOrder`)" +
+                    "    ON DELETE NO ACTION" +
+                    "    ON UPDATE NO ACTION," +
+                    "  CONSTRAINT `fk_order_has_product_product1`" +
+                    "    FOREIGN KEY (`idProduct`)" +
+                    "    REFERENCES `product` (`idProduct`)" +
+                    "    ON DELETE NO ACTION" +
+                    "    ON UPDATE NO ACTION);");
 
         }
 
