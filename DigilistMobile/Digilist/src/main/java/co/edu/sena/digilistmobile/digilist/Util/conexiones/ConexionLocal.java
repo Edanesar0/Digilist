@@ -30,7 +30,8 @@ public class ConexionLocal {
          */
         @Override
         public void onCreate(SQLiteDatabase db) {
-             db.execSQL("CREATE TABLE IF NOT EXISTS `city` (" +
+
+            db.execSQL("CREATE TABLE IF NOT EXISTS `city` (" +
                     "  `idCity` INT(11) NOT NULL AUTO_INCREMENT," +
                     "  `description` VARCHAR(40) NULL," +
                     "  PRIMARY KEY (`idCity`));" +
@@ -222,26 +223,6 @@ public class ConexionLocal {
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            db.execSQL("DROP TABLE IF EXISTS `ciudad`;");
-            db.execSQL("DROP TABLE IF EXISTS `cliente`;");
-            db.execSQL("DROP TABLE IF EXISTS `comentarios`;");
-            db.execSQL("DROP TABLE IF EXISTS `cotizacion`;");
-            db.execSQL("DROP TABLE IF EXISTS `detallecotizacion`;   ");
-            db.execSQL("DROP TABLE IF EXISTS `detallesdepedido`;");
-            db.execSQL("DROP TABLE IF EXISTS `detallesurtido`;");
-            db.execSQL("DROP TABLE IF EXISTS `material`;");
-            db.execSQL("DROP TABLE IF EXISTS `pedido`;");
-            db.execSQL("DROP TABLE IF EXISTS `permisos`;");
-            db.execSQL("DROP TABLE IF EXISTS `tipo`;");
-            db.execSQL("DROP TABLE IF EXISTS `producto`;");
-            db.execSQL("DROP TABLE IF EXISTS `rol`;");
-            db.execSQL("DROP TABLE IF EXISTS `rol_has_permisos`;");
-            db.execSQL("DROP TABLE IF EXISTS `stan`;");
-            db.execSQL("DROP TABLE IF EXISTS `stock`;");
-            db.execSQL("DROP TABLE IF EXISTS `surtido`;");
-            db.execSQL("DROP TABLE IF EXISTS `usuario`;");
-            db.execSQL("DROP TABLE IF EXISTS `vendedor`;");
-
             onCreate(db);
 
         }
