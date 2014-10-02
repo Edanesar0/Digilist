@@ -32,11 +32,11 @@ public class ConexionLocal {
         public void onCreate(SQLiteDatabase db) {
 
             db.execSQL("CREATE TABLE IF NOT EXISTS `city` (" +
-                    "  `idCity` INT(11) NOT NULL AUTO_INCREMENT," +
+                    "  `idCity`INTEGER AUTO_INCREMENT NOT NULL ," +
                     "  `description` VARCHAR(40) NULL," +
                     "  PRIMARY KEY (`idCity`));" +
                     "CREATE TABLE IF NOT EXISTS `client` (" +
-                    "  `idClient` INT(11) NOT NULL AUTO_INCREMENT," +
+                    "  `idClient` INTEGER AUTO_INCREMENT NOT NULL ," +
                     "  `idCity` INT(11) NOT NULL," +
                     "  `name` VARCHAR(500) NULL," +
                     "  `address` VARCHAR(45) NULL DEFAULT NULL," +
@@ -49,14 +49,14 @@ public class ConexionLocal {
                     "    ON DELETE NO ACTION" +
                     "    ON UPDATE NO ACTION);" +
                     "CREATE TABLE IF NOT EXISTS `comentarios` (" +
-                    "  `idComentarios` INT(11) NOT NULL AUTO_INCREMENT," +
+                    "  `idComentarios` INTEGER AUTO_INCREMENT NOT NULL ," +
                     "  `Nombre` VARCHAR(40) NULL DEFAULT NULL," +
                     "  `Correo` VARCHAR(255) NULL DEFAULT NULL," +
                     "  `Asunto` VARCHAR(45) NULL DEFAULT NULL," +
                     "  `Mensaje` VARCHAR(255) NULL DEFAULT NULL," +
                     "  PRIMARY KEY (`idComentarios`));" +
                     "CREATE TABLE IF NOT EXISTS `historicalSupply` (" +
-                    "  `idSupply` INT(11) NOT NULL AUTO_INCREMENT," +
+                    "  `idSupply` INTEGER AUTO_INCREMENT NOT NULL ," +
                     "  `previousAmount` DOUBLE NULL," +
                     "  `date` DATE NULL," +
                     "  `newAmount` DOUBLE NULL," +
@@ -65,16 +65,16 @@ public class ConexionLocal {
                     "  INDEX `index1` (`idSupply` ASC)," +
                     "  PRIMARY KEY (`idSupply`));" +
                     "CREATE TABLE IF NOT EXISTS `material` (" +
-                    "  `idMaterial` INT(11) NOT NULL AUTO_INCREMENT," +
+                    "  `idMaterial` INTEGER AUTO_INCREMENT NOT NULL ," +
                     "  `name` VARCHAR(20) NOT NULL," +
                     "  `description` VARCHAR(45) NULL DEFAULT NULL," +
                     "  PRIMARY KEY (`idMaterial`));" +
                     "CREATE TABLE IF NOT EXISTS `role` (" +
-                    "  `idRol` INT(11) NOT NULL AUTO_INCREMENT," +
+                    "  `idRol` INTEGER AUTO_INCREMENT NOT NULL ," +
                     "  `description` VARCHAR(45) NULL DEFAULT NULL," +
                     "  PRIMARY KEY (`idRol`));" +
                     "CREATE TABLE IF NOT EXISTS `user` (" +
-                    "  `idUser` INT(11) NOT NULL AUTO_INCREMENT," +
+                    "  `idUser` INTEGER AUTO_INCREMENT NOT NULL ," +
                     "  `idCity` INT(11) NOT NULL," +
                     "  `names` VARCHAR(500) NULL," +
                     "  `last_name` VARCHAR(500) NULL," +
@@ -97,7 +97,7 @@ public class ConexionLocal {
                     "    ON DELETE NO ACTION" +
                     "    ON UPDATE NO ACTION);" +
                     "CREATE TABLE IF NOT EXISTS `order` (" +
-                    "  `idOrder` INT(11) NOT NULL AUTO_INCREMENT," +
+                    "  `idOrder` INTEGER AUTO_INCREMENT NOT NULL ," +
                     "  `idCity` INT(11) NOT NULL," +
                     "  `idUser` INT(11) NOT NULL," +
                     "  `idClient` INT(11) NOT NULL," +
@@ -122,17 +122,17 @@ public class ConexionLocal {
                     "    ON DELETE NO ACTION" +
                     "    ON UPDATE NO ACTION);" +
                     "CREATE TABLE IF NOT EXISTS `permission` (" +
-                    "  `idPermission` INT(11) NOT NULL AUTO_INCREMENT," +
+                    "  `idPermission` INTEGER AUTO_INCREMENT NOT NULL ," +
                     "  `description` VARCHAR(45) NULL," +
                     "  PRIMARY KEY (`idPermission`));" +
                     "CREATE TABLE IF NOT EXISTS `type` (" +
-                    "  `idType` INT(11) NOT NULL AUTO_INCREMENT," +
+                    "  `idType` INTEGER AUTO_INCREMENT NOT NULL ," +
                     "  `name` VARCHAR(20) NOT NULL," +
                     "  `description` VARCHAR(45) NULL DEFAULT NULL," +
                     "  `dimension` VARCHAR(45) NULL," +
                     "  PRIMARY KEY (`idType`));" +
                     "CREATE TABLE IF NOT EXISTS `product` (" +
-                    "  `idProduct` INT(11) NOT NULL AUTO_INCREMENT," +
+                    "  `idProduct` INTEGER AUTO_INCREMENT NOT NULL ," +
                     "  `name` VARCHAR(20) NULL," +
                     "  `description` VARCHAR(45) NULL DEFAULT NULL," +
                     "  `reference` VARCHAR(30) NULL DEFAULT NULL," +
@@ -168,12 +168,12 @@ public class ConexionLocal {
                     "    ON DELETE NO ACTION" +
                     "    ON UPDATE NO ACTION);" +
                     "CREATE TABLE IF NOT EXISTS `stan` (" +
-                    "  `idStan` INT(11) NOT NULL AUTO_INCREMENT," +
+                    "  `idStan` INTEGER AUTO_INCREMENT NOT NULL ," +
                     "  `capacity` INT(11) NOT NULL," +
                     "  `description` VARCHAR(45) NULL DEFAULT NULL," +
                     "  PRIMARY KEY (`idStan`));" +
                     "CREATE TABLE IF NOT EXISTS `stock` (" +
-                    "  `idStock` INT(11) NOT NULL AUTO_INCREMENT," +
+                    "  `idStock` INTEGER AUTO_INCREMENT NOT NULL ," +
                     "  `idProduct` INT(11) NOT NULL," +
                     "  `idStan` INT(11) NOT NULL," +
                     "  `amount` INT(11) NULL," +
