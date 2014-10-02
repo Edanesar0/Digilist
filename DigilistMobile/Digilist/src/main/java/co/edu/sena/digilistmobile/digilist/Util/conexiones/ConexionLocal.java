@@ -34,46 +34,45 @@ public class ConexionLocal {
             db.execSQL("CREATE TABLE IF NOT EXISTS `city` (" +
                     "  `idCity`INTEGER AUTO_INCREMENT NOT NULL ," +
                     "  `description` VARCHAR(40) NULL," +
-                    "  PRIMARY KEY (`idCity`));" +
-                    "CREATE TABLE IF NOT EXISTS `client` (" +
+                    "  PRIMARY KEY (`idCity`));");
+            db.execSQL("CREATE TABLE IF NOT EXISTS `client` (" +
                     "  `idClient` INTEGER AUTO_INCREMENT NOT NULL ," +
                     "  `idCity` INT(11) NOT NULL," +
                     "  `name` VARCHAR(500) NULL," +
                     "  `address` VARCHAR(45) NULL DEFAULT NULL," +
                     "  `phone` INT(11) NULL DEFAULT NULL," +
                     "  PRIMARY KEY (`idClient`)," +
-                    "  INDEX `Ciudad_idCiudad` (`idCity` ASC)," +
                     "  CONSTRAINT `cliente_ibfk_1`" +
                     "    FOREIGN KEY (`idCity`)" +
                     "    REFERENCES `city` (`idCity`)" +
                     "    ON DELETE NO ACTION" +
-                    "    ON UPDATE NO ACTION);" +
-                    "CREATE TABLE IF NOT EXISTS `comentarios` (" +
+                    "    ON UPDATE NO ACTION);");
+            db.execSQL("CREATE TABLE IF NOT EXISTS `comentarios` (" +
                     "  `idComentarios` INTEGER AUTO_INCREMENT NOT NULL ," +
                     "  `Nombre` VARCHAR(40) NULL DEFAULT NULL," +
                     "  `Correo` VARCHAR(255) NULL DEFAULT NULL," +
                     "  `Asunto` VARCHAR(45) NULL DEFAULT NULL," +
                     "  `Mensaje` VARCHAR(255) NULL DEFAULT NULL," +
-                    "  PRIMARY KEY (`idComentarios`));" +
-                    "CREATE TABLE IF NOT EXISTS `historicalSupply` (" +
+                    "  PRIMARY KEY (`idComentarios`));");
+            db.execSQL("CREATE TABLE IF NOT EXISTS `historicalSupply` (" +
                     "  `idSupply` INTEGER AUTO_INCREMENT NOT NULL ," +
                     "  `previousAmount` DOUBLE NULL," +
                     "  `date` DATE NULL," +
                     "  `newAmount` DOUBLE NULL," +
                     "  `description` VARCHAR(45) NULL," +
                     "  `idProduct` INT NULL," +
-                    "  INDEX `index1` (`idSupply` ASC)," +
-                    "  PRIMARY KEY (`idSupply`));" +
-                    "CREATE TABLE IF NOT EXISTS `material` (" +
+
+                    "  PRIMARY KEY (`idSupply`));");
+            db.execSQL("CREATE TABLE IF NOT EXISTS `material` (" +
                     "  `idMaterial` INTEGER AUTO_INCREMENT NOT NULL ," +
                     "  `name` VARCHAR(20) NOT NULL," +
                     "  `description` VARCHAR(45) NULL DEFAULT NULL," +
-                    "  PRIMARY KEY (`idMaterial`));" +
-                    "CREATE TABLE IF NOT EXISTS `role` (" +
+                    "  PRIMARY KEY (`idMaterial`));");
+            db.execSQL("CREATE TABLE IF NOT EXISTS `role` (" +
                     "  `idRol` INTEGER AUTO_INCREMENT NOT NULL ," +
                     "  `description` VARCHAR(45) NULL DEFAULT NULL," +
-                    "  PRIMARY KEY (`idRol`));" +
-                    "CREATE TABLE IF NOT EXISTS `user` (" +
+                    "  PRIMARY KEY (`idRol`));");
+            db.execSQL("CREATE TABLE IF NOT EXISTS `user` (" +
                     "  `idUser` INTEGER AUTO_INCREMENT NOT NULL ," +
                     "  `idCity` INT(11) NOT NULL," +
                     "  `names` VARCHAR(500) NULL," +
@@ -84,8 +83,6 @@ public class ConexionLocal {
                     "  `user` VARCHAR(500) NULL," +
                     "  `pass` VARCHAR(500) NULL," +
                     "  PRIMARY KEY (`idUser`, `idRol`)," +
-                    "  INDEX `Ciudad_idCiudad` (`idCity` ASC)," +
-                    "  INDEX `fk_vendedor_rol1_idx` (`idRol` ASC)," +
                     "  CONSTRAINT `vendedor_ibfk_1`" +
                     "    FOREIGN KEY (`idCity`)" +
                     "    REFERENCES `city` (`idCity`)" +
@@ -95,17 +92,14 @@ public class ConexionLocal {
                     "    FOREIGN KEY (`idRol`)" +
                     "    REFERENCES `role` (`idRol`)" +
                     "    ON DELETE NO ACTION" +
-                    "    ON UPDATE NO ACTION);" +
-                    "CREATE TABLE IF NOT EXISTS `order` (" +
+                    "    ON UPDATE NO ACTION);");
+            db.execSQL("CREATE TABLE IF NOT EXISTS `order` (" +
                     "  `idOrder` INTEGER AUTO_INCREMENT NOT NULL ," +
                     "  `idCity` INT(11) NOT NULL," +
                     "  `idUser` INT(11) NOT NULL," +
                     "  `idClient` INT(11) NOT NULL," +
                     "  `address` VARCHAR(255) NULL," +
                     "  PRIMARY KEY (`idOrder`)," +
-                    "  INDEX `Cliente_idCliente` (`idClient` ASC)," +
-                    "  INDEX `Vendedor_idVendedor` (`idUser` ASC)," +
-                    "  INDEX `Ciudad_idCiudad` (`idCity` ASC)," +
                     "  CONSTRAINT `pedido_ibfk_1`" +
                     "    FOREIGN KEY (`idClient`)" +
                     "    REFERENCES `client` (`idClient`)" +
@@ -120,18 +114,18 @@ public class ConexionLocal {
                     "    FOREIGN KEY (`idCity`)" +
                     "    REFERENCES `city` (`idCity`)" +
                     "    ON DELETE NO ACTION" +
-                    "    ON UPDATE NO ACTION);" +
-                    "CREATE TABLE IF NOT EXISTS `permission` (" +
+                    "    ON UPDATE NO ACTION);");
+            db.execSQL("CREATE TABLE IF NOT EXISTS `permission` (" +
                     "  `idPermission` INTEGER AUTO_INCREMENT NOT NULL ," +
                     "  `description` VARCHAR(45) NULL," +
-                    "  PRIMARY KEY (`idPermission`));" +
-                    "CREATE TABLE IF NOT EXISTS `type` (" +
+                    "  PRIMARY KEY (`idPermission`));");
+            db.execSQL("CREATE TABLE IF NOT EXISTS `type` (" +
                     "  `idType` INTEGER AUTO_INCREMENT NOT NULL ," +
                     "  `name` VARCHAR(20) NOT NULL," +
                     "  `description` VARCHAR(45) NULL DEFAULT NULL," +
                     "  `dimension` VARCHAR(45) NULL," +
-                    "  PRIMARY KEY (`idType`));" +
-                    "CREATE TABLE IF NOT EXISTS `product` (" +
+                    "  PRIMARY KEY (`idType`));");
+            db.execSQL("CREATE TABLE IF NOT EXISTS `product` (" +
                     "  `idProduct` INTEGER AUTO_INCREMENT NOT NULL ," +
                     "  `name` VARCHAR(20) NULL," +
                     "  `description` VARCHAR(45) NULL DEFAULT NULL," +
@@ -140,8 +134,6 @@ public class ConexionLocal {
                     "  `idMaterial` INT(11) NOT NULL," +
                     "  `idType` INT(11) NOT NULL," +
                     "  PRIMARY KEY (`idProduct`)," +
-                    "  INDEX `Tipo_idTipo` (`idType` ASC)," +
-                    "  INDEX `Material_idMaterial` (`idMaterial` ASC)," +
                     "  CONSTRAINT `producto_ibfk_1`" +
                     "    FOREIGN KEY (`idType`)" +
                     "    REFERENCES `type` (`idType`)" +
@@ -151,12 +143,11 @@ public class ConexionLocal {
                     "    FOREIGN KEY (`idMaterial`)" +
                     "    REFERENCES `material` (`idMaterial`)" +
                     "    ON DELETE NO ACTION" +
-                    "    ON UPDATE NO ACTION);" +
-                    "CREATE TABLE IF NOT EXISTS `role_has_permission` (" +
+                    "    ON UPDATE NO ACTION);");
+            db.execSQL("CREATE TABLE IF NOT EXISTS `role_has_permission` (" +
                     "  `idRol` INT(11) NOT NULL," +
                     "  `idPermission` INT(11) NOT NULL," +
                     "  PRIMARY KEY (`idRol`, `idPermission`)," +
-                    "  INDEX `Permisos_idPermisos` (`idPermission` ASC)," +
                     "  CONSTRAINT `rol_has_permisos_ibfk_1`" +
                     "    FOREIGN KEY (`idRol`)" +
                     "    REFERENCES `role` (`idRol`)" +
@@ -166,20 +157,18 @@ public class ConexionLocal {
                     "    FOREIGN KEY (`idPermission`)" +
                     "    REFERENCES `permission` (`idPermission`)" +
                     "    ON DELETE NO ACTION" +
-                    "    ON UPDATE NO ACTION);" +
-                    "CREATE TABLE IF NOT EXISTS `stan` (" +
+                    "    ON UPDATE NO ACTION);");
+            db.execSQL("CREATE TABLE IF NOT EXISTS `stan` (" +
                     "  `idStan` INTEGER AUTO_INCREMENT NOT NULL ," +
                     "  `capacity` INT(11) NOT NULL," +
                     "  `description` VARCHAR(45) NULL DEFAULT NULL," +
-                    "  PRIMARY KEY (`idStan`));" +
-                    "CREATE TABLE IF NOT EXISTS `stock` (" +
+                    "  PRIMARY KEY (`idStan`));");
+            db.execSQL("CREATE TABLE IF NOT EXISTS `stock` (" +
                     "  `idStock` INTEGER AUTO_INCREMENT NOT NULL ," +
                     "  `idProduct` INT(11) NOT NULL," +
                     "  `idStan` INT(11) NOT NULL," +
                     "  `amount` INT(11) NULL," +
                     "  PRIMARY KEY (`idStock`)," +
-                    "  INDEX `Stan_idStan` (`idStan` ASC)," +
-                    "  INDEX `Producto_idProducto` (`idProduct` ASC)," +
                     "  CONSTRAINT `stock_ibfk_1`" +
                     "    FOREIGN KEY (`idStan`)" +
                     "    REFERENCES `stan` (`idStan`)" +
@@ -189,15 +178,13 @@ public class ConexionLocal {
                     "    FOREIGN KEY (`idProduct`)" +
                     "    REFERENCES `product` (`idProduct`)" +
                     "    ON DELETE NO ACTION" +
-                    "    ON UPDATE NO ACTION);" +
-                    "CREATE TABLE IF NOT EXISTS `order_has_product` (" +
+                    "    ON UPDATE NO ACTION);");
+            db.execSQL("CREATE TABLE IF NOT EXISTS `order_has_product` (" +
                     "  `idOrder` INT(11) NOT NULL," +
                     "  `idProduct` INT(11) NOT NULL," +
                     "  `date` DATE NULL," +
                     "  `amount` INT NULL," +
                     "  PRIMARY KEY (`idOrder`, `idProduct`)," +
-                    "  INDEX `fk_order_has_product_product1_idx` (`idProduct` ASC)," +
-                    "  INDEX `fk_order_has_product_order1_idx` (`idOrder` ASC)," +
                     "  CONSTRAINT `fk_order_has_product_order1`" +
                     "    FOREIGN KEY (`idOrder`)" +
                     "    REFERENCES `order` (`idOrder`)" +
