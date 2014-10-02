@@ -82,7 +82,7 @@ public class Almacenista {
                     builder3.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            ArrayList lis = producto.consultarProducto("producto.nombre", prodSel[0]);
+                            ArrayList lis = producto.consultarProducto("product.name", prodSel[0]);
                             auproducto.setText(prodSel[0]);
                             lvlTipo.setText("" + lis.get(1));
                             lvlTamano.setText("" + lis.get(2));
@@ -120,7 +120,7 @@ public class Almacenista {
         auproducto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ArrayList lis = producto.consultarProducto("producto.nombre", auproducto.getText().toString());
+                ArrayList lis = producto.consultarProducto("product.name", auproducto.getText().toString());
                 lvlTipo.setText("" + lis.get(1));
                 lvlTamano.setText("" + lis.get(2));
                 lvlMaterial.setText("" + lis.get(3));

@@ -65,7 +65,7 @@ public class Tipo {
             for (int j=0;j<names.length();j++){
                 cv.put(names.getString(j), jsonObject.getString(names.getString(j)));
             }
-            conf+= conexionLocal.insert("tipo",cv);
+            conf += conexionLocal.insert("type", cv);
         }
         conexionLocal.cerrar();
         return conf;

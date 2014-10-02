@@ -74,9 +74,10 @@ public class Producto {
     public ArrayList<String> consultarProductos() {
         ConexionLocal conexionLocal = new ConexionLocal(c);
         conexionLocal.abrir();
-        String sql = "select producto.nombre,tipo.nombre,producto.Dimencion,material.nombre " +
-                "from producto inner join tipo on tipo.idTipo=Tipo_idTipo  " +
-                "inner join material on material.idMaterial=Material_idMaterial";
+        String sql = "select product.name,type.name,type.dimension,material.name " +
+                "from product " +
+                "inner join type on type.idType=product.idType " +
+                "inner join material on material.idMaterial=product.idMaterial";
         final ArrayList<String> alist = new ArrayList<String>();
         Cursor ct = conexionLocal.readProducto(sql);
         //recorre y agrega
@@ -93,9 +94,10 @@ public class Producto {
     public ArrayList<String> consultarProducto(String criterio, String valor) {
         ConexionLocal conexionLocal = new ConexionLocal(c);
         conexionLocal.abrir();
-        String sql = "select producto.nombre,tipo.nombre,producto.Dimencion,material.nombre " +
-                "from producto inner join tipo on tipo.idTipo=Tipo_idTipo  " +
-                "inner join material on material.idMaterial=Material_idMaterial " +
+        String sql = "select product.name,type.name,type.dimension,material.name " +
+                "from product " +
+                "inner join type on type.idType=product.idType " +
+                "inner join material on material.idMaterial=product.idMaterial " +
                 "WHERE " + criterio + "='" + valor + "'";
         final ArrayList<String> alist = new ArrayList<String>();
         Cursor ct = conexionLocal.readProducto(sql);
@@ -128,7 +130,7 @@ public class Producto {
             for (int j = 0; j < names.length(); j++) {
                 cv.put(names.getString(j), jsonObject.getString(names.getString(j)));
             }
-            conf += conexionLocal.insert("producto", cv);
+            conf += conexionLocal.insert("product", cv);
         }
         conexionLocal.cerrar();
 
