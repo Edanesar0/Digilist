@@ -2,10 +2,13 @@ package co.edu.sena.digilistmobile.digilist;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 import co.edu.sena.digilistmobile.digilist.util.conexiones.ConexionLocal;
 import co.edu.sena.digilistmobile.digilist.util.conexiones.RequestsAndResponses;
@@ -86,6 +89,26 @@ public class Tipo {
     public JSONArray consultarTipo(String criterio, String terminoBuscar)  {
         requestsAndResponses = new RequestsAndResponses(c);
         return requestsAndResponses.getTipos();
+
+    }
+
+    public ArrayList<String> consultarTipos() {
+        requestsAndResponses = new RequestsAndResponses(c);
+        ConexionLocal conexionLocal = new ConexionLocal(c);
+        conexionLocal.abrir();
+        String sql = "select * " +
+                "from type";
+        final ArrayList<String> alist = new ArrayList<String>();
+        Cursor ct = conexionLocal.readProducto(sql);
+        //recorre y agrega
+        for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
+            alist.add(ct.getString(0));
+            alist.add(ct.getString(1));
+            alist.add(ct.getString(2));
+            alist.add(ct.getString(3));
+        }
+        conexionLocal.cerrar();
+        return alist;
 
     }
 }

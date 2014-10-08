@@ -29,6 +29,7 @@ public class Inicio extends SherlockActivity {
     private LinearLayout navList;
     private View v = null;
     private ViewPager vp;
+    Almacenista almacenista;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,13 @@ public class Inicio extends SherlockActivity {
         vp = (ViewPager) findViewById(R.id.pager);
         vpAdapter2 miAdapter = new vpAdapter2();
         vp.setAdapter(miAdapter);
-
+        int posicion;
+        //obtenemos los datos que se enviaron desde el otro intent
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            posicion = extras.getInt("pos");
+            vp.setCurrentItem(posicion);
+        }
         /*progressDialog = new ProgressDialog(this);
         progressDialog.show();
         //se ppdrá cerrar simplemente pulsando back
@@ -115,11 +122,13 @@ public class Inicio extends SherlockActivity {
                 case 0:
                     //v = inflater.inflate(R.layout.progress, null);
                     v = inflater.inflate(R.layout.ingreso_inventario, null);
-                    Almacenista almacenista = new Almacenista(v, Inicio.this, Inicio.this);
-                    almacenista.productos();
+                    almacenista = new Almacenista(v, Inicio.this, Inicio.this);
+                    almacenista.inventario();
                     break;
                 case 1:
                     v = inflater.inflate(R.layout.ingreso_producto, null);
+                    almacenista = new Almacenista(v, Inicio.this, Inicio.this);
+                    almacenista.productos();
                     break;
                 case 2:
                     v = inflater.inflate(R.layout.inventario, null);
@@ -144,8 +153,6 @@ public class Inicio extends SherlockActivity {
 
         }
     }
-
-
 
 
 }

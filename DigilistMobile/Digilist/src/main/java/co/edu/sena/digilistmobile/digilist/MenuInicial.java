@@ -3,17 +3,14 @@ package co.edu.sena.digilistmobile.digilist;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.SubMenu;
 
 
-public class MenuInicial extends SherlockActivity  implements View.OnClickListener{
+public class MenuInicial extends SherlockActivity implements View.OnClickListener {
     ActionBar ab;
 
     @Override
@@ -21,10 +18,13 @@ public class MenuInicial extends SherlockActivity  implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu);
         ab = getSupportActionBar();//instancia
-       // ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);//Atributos titulo boton home y flecha de acompañamiento de home
-        RelativeLayout bt=(RelativeLayout) findViewById(R.id.relativeLayout);
+        // ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);//Atributos titulo boton home y flecha de acompañamiento de home
+        RelativeLayout bt = (RelativeLayout) findViewById(R.id.relativeLayout);
         bt.setOnClickListener(this);
+        RelativeLayout bt2 = (RelativeLayout) findViewById(R.id.relativeLayout2);
+        bt2.setOnClickListener(this);
     }
+
     @Override
     public boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -44,8 +44,18 @@ public class MenuInicial extends SherlockActivity  implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        Intent i = new Intent(this, Inicio.class);
-        startActivity(i);
+        switch (v.getId()) {
+            case R.id.relativeLayout:
+                Intent i = new Intent(this, Inicio.class);
+                startActivity(i);
+                break;
+            case R.id.relativeLayout2:
+                Intent i2 = new Intent(this, Inicio.class);
+                i2.putExtra("pos", 1);
+                startActivity(i2);
+
+
+        }
 
 
     }

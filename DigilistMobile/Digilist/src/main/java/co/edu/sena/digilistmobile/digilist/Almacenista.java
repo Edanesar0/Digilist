@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class Almacenista {
 
     }
 
-    public void productos() {
+    public void inventario() {
         new asynclogin().execute(1 + "");
         auproducto = (AutoCompleteTextView) v.findViewById(R.id.acProductos);
         auproducto.setTypeface(font);
@@ -163,18 +164,27 @@ public class Almacenista {
 
     }
 
+    public void productos() {
+        Spinner sTipo = (Spinner) v.findViewById(R.id.sTipo);
+        Spinner sMateral = (Spinner) v.findViewById(R.id.sMaterial);
+        new asynclogin().execute(2 + "");
+
+        Tipo type = new Tipo(c);
+        ArrayList<String> aTypes = type.consultarTipos();//retornamos la consulta
+        ArrayAdapter<String> adaptadorTiendasnombre = new ArrayAdapter<String>(c, android.R.layout.simple_spinner_item, aTypes);//creamos el adaptador de los spinner agregando los Arraylist
+        sTipo.setAdapter(adaptadorTiendasnombre);//incluimos el adaptados a los spinner
+
+
+    }
+
     class asynclogin extends AsyncTask<String, String, String> {
         char pos;
         ProgressBar pb = (ProgressBar) v.findViewById(R.id.progressBar);
         LinearLayout layoutver = (LinearLayout) v.findViewById(R.id.lyVentas);
+        ProgressBar pbPro = (ProgressBar) v.findViewById(R.id.progressBarProducto);
+        LinearLayout lyPro = (LinearLayout) v.findViewById(R.id.lyProducto);
 
         protected void onPreExecute() {
-            try {
-                layoutver.setVisibility(View.INVISIBLE);
-                pb.setVisibility(ProgressBar.VISIBLE);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
 
         protected String doInBackground(String... params) {
@@ -182,19 +192,30 @@ public class Almacenista {
             try {
                 switch (pos) {
                     case '1':
+                        layoutver.setVisibility(View.INVISIBLE);
+                        pb.setVisibility(ProgressBar.VISIBLE);
                         Tipo tipo = new Tipo(c);
                         tipo.agregarTipo();
                         Material material = new Material(c);
                         material.agregarMaterial();
                         producto = new Producto(c);
                         producto.agregarProducto();
-                        ArrayList<String> AProductos = producto.consultarProductos();//retornamos la consulta de productos
+                        ArrayList<String> AProductos = producto.consultarProductos();//retornamos la consulta de inventario
                         ArrayList<String> Apr = new ArrayList<String>();
                         for (int i = 0; i <= AProductos.size() - 4; i = i + 4) {
                             Apr.add(AProductos.get(i));
                         }
                         adaptadorProductos = new ArrayAdapter<String>(c, android.R.layout.simple_list_item_1, Apr);//creamos el adaptador de los spinner agregando los Arraylist
                         //enviamos y recibimos y analizamos los datos en segundo plano.
+                        break;
+                    case '2':
+                        lyPro.setVisibility(View.INVISIBLE);
+                        pbPro.setVisibility(ProgressBar.VISIBLE);
+                        Tipo tipo2 = new Tipo(c);
+                        tipo2.consultarTipo("", "");
+                        Material material2 = new Material(c);
+                        material2.consultarMaterial("", "");
+
                         break;
                 }
 
@@ -209,9 +230,17 @@ public class Almacenista {
          pasamos a la sig. activity
          o mostramos error*/
         protected void onPostExecute(String result) {
-            auproducto.setAdapter(adaptadorProductos);
-            layoutver.setVisibility(View.VISIBLE);
-            pb.setVisibility(ProgressBar.INVISIBLE);
+            switch (pos) {
+                case '1':
+                    auproducto.setAdapter(adaptadorProductos);
+                    layoutver.setVisibility(View.VISIBLE);
+                    pb.setVisibility(ProgressBar.INVISIBLE);
+                    break;
+                case '2':
+                    lyPro.setVisibility(View.VISIBLE);
+                    pbPro.setVisibility(ProgressBar.INVISIBLE);
+                    break;
+            }
 
         }
     }
