@@ -171,8 +171,13 @@ public class Almacenista {
 
         Tipo type = new Tipo(c);
         ArrayList<String> aTypes = type.consultarTipos();//retornamos la consulta
-        ArrayAdapter<String> adaptadorTiendasnombre = new ArrayAdapter<String>(c, android.R.layout.simple_spinner_item, aTypes);//creamos el adaptador de los spinner agregando los Arraylist
-        sTipo.setAdapter(adaptadorTiendasnombre);//incluimos el adaptados a los spinner
+        ArrayAdapter<String> adaptadorTypes = new ArrayAdapter<String>(c, android.R.layout.simple_spinner_item, aTypes);//creamos el adaptador de los spinner agregando los Arraylist
+        sTipo.setAdapter(adaptadorTypes);//incluimos el adaptados a los spinner
+
+        Material material = new Material(c);
+        ArrayList<String> aMaterial = material.consultarMateriales();//retornamos la consulta
+        ArrayAdapter<String> adaptadorMaterial = new ArrayAdapter<String>(c, android.R.layout.simple_spinner_item, aMaterial);//creamos el adaptador de los spinner agregando los Arraylist
+        sMateral.setAdapter(adaptadorMaterial);//incluimos el adaptados a los spinner
 
 
     }
@@ -211,10 +216,7 @@ public class Almacenista {
                     case '2':
                         lyPro.setVisibility(View.INVISIBLE);
                         pbPro.setVisibility(ProgressBar.VISIBLE);
-                        Tipo tipo2 = new Tipo(c);
-                        tipo2.consultarTipo("", "");
-                        Material material2 = new Material(c);
-                        material2.consultarMaterial("", "");
+
 
                         break;
                 }

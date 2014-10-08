@@ -102,10 +102,10 @@ public class Tipo {
         Cursor ct = conexionLocal.readProducto(sql);
         //recorre y agrega
         for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
-            alist.add(ct.getString(0));
-            alist.add(ct.getString(1));
-            alist.add(ct.getString(2));
-            alist.add(ct.getString(3));
+            //alist.add(ct.getString(0));
+            alist.add(ct.getString(1) + " " + ct.getString(3));
+            //alist.add(ct.getString(2));
+            //alist.add(ct.getString(3));
         }
         conexionLocal.cerrar();
         return alist;
