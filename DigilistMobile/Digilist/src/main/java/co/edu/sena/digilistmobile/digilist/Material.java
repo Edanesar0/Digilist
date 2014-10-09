@@ -89,6 +89,7 @@ public class Material {
         String sql = "select * " +
                 "from material";
         final ArrayList<String> alist = new ArrayList<String>();
+        alist.add("Seleccione uno");
         Cursor ct = conexionLocal.readProducto(sql);
         //recorre y agrega
         for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {

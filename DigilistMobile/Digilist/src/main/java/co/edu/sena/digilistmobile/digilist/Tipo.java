@@ -97,13 +97,35 @@ public class Tipo {
         ConexionLocal conexionLocal = new ConexionLocal(c);
         conexionLocal.abrir();
         String sql = "select * " +
-                "from type";
+                "from type group by name order by name";
         final ArrayList<String> alist = new ArrayList<String>();
+        alist.add("Seleccione uno");
         Cursor ct = conexionLocal.readProducto(sql);
         //recorre y agrega
         for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
             //alist.add(ct.getString(0));
-            alist.add(ct.getString(1) + " " + ct.getString(3));
+            alist.add(ct.getString(1));
+            //alist.add(ct.getString(2));
+            //alist.add(ct.getString(3));
+        }
+        conexionLocal.cerrar();
+        return alist;
+
+    }
+
+    public ArrayList<String> consultarTiposTamanio(String tipo) {
+        requestsAndResponses = new RequestsAndResponses(c);
+        ConexionLocal conexionLocal = new ConexionLocal(c);
+        conexionLocal.abrir();
+        String sql = "select * " +
+                "from type where name like '%" + tipo + "%'";
+        final ArrayList<String> alist = new ArrayList<String>();
+        alist.add("Seleccione uno");
+        Cursor ct = conexionLocal.readProducto(sql);
+        //recorre y agrega
+        for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
+            //alist.add(ct.getString(0));
+            alist.add(ct.getString(3));
             //alist.add(ct.getString(2));
             //alist.add(ct.getString(3));
         }

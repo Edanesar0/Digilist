@@ -100,7 +100,22 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/sTipo" />
 
-            <TextView
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/Tamaño"
+                    android:textColor="#9a9a9a"
+                    android:textIsSelectable="false"
+                    android:textSize="18sp" />
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sTamanio" />
+
+                <TextView
                 android:id="@+id/txtMaterial"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

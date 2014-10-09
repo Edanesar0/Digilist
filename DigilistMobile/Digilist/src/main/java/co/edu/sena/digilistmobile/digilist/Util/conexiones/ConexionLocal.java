@@ -61,7 +61,6 @@ public class ConexionLocal {
                     "  `newAmount` DOUBLE NULL," +
                     "  `description` VARCHAR(45) NULL," +
                     "  `idProduct` INT NULL," +
-
                     "  PRIMARY KEY (`idSupply`));");
             db.execSQL("CREATE TABLE IF NOT EXISTS `material` (" +
                     "  `idMaterial` INTEGER AUTO_INCREMENT NOT NULL ," +

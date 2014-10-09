@@ -25,7 +25,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 
-public class Almacenista {
+public class Almacenista implements AdapterView.OnItemSelectedListener {
     private View v;
     private Context c;
 
@@ -38,7 +38,9 @@ public class Almacenista {
     private Button binfo, binfocli, bedit, btnLimpiar, btnAgregar;
     private Producto producto;
     private Typeface font;
+    ArrayList<String> aTamanio;
     Activity a;
+    Spinner sTipo;
 
     public Almacenista(View v, Context c, Activity a) {
         this.v = v;
@@ -165,20 +167,43 @@ public class Almacenista {
     }
 
     public void productos() {
-        Spinner sTipo = (Spinner) v.findViewById(R.id.sTipo);
+        sTipo = (Spinner) v.findViewById(R.id.sTipo);
         Spinner sMateral = (Spinner) v.findViewById(R.id.sMaterial);
+        Spinner sTamanio = (Spinner) v.findViewById(R.id.sTamanio);
         new asynclogin().execute(2 + "");
 
         Tipo type = new Tipo(c);
+        sTamanio.setOnItemSelectedListener(this);
         ArrayList<String> aTypes = type.consultarTipos();//retornamos la consulta
         ArrayAdapter<String> adaptadorTypes = new ArrayAdapter<String>(c, android.R.layout.simple_spinner_item, aTypes);//creamos el adaptador de los spinner agregando los Arraylist
         sTipo.setAdapter(adaptadorTypes);//incluimos el adaptados a los spinner
-
+        sTipo.setOnItemSelectedListener(this);
         Material material = new Material(c);
         ArrayList<String> aMaterial = material.consultarMateriales();//retornamos la consulta
         ArrayAdapter<String> adaptadorMaterial = new ArrayAdapter<String>(c, android.R.layout.simple_spinner_item, aMaterial);//creamos el adaptador de los spinner agregando los Arraylist
         sMateral.setAdapter(adaptadorMaterial);//incluimos el adaptados a los spinner
 
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        switch (parent.getId()) {
+            case R.id.sTipo:
+                if (!sTipo.getSelectedItem().toString().equals("Seleccione uno")) {
+                    Tipo type = new Tipo(c);
+                    Spinner sTamanio = (Spinner) v.findViewById(R.id.sTamanio);
+                    aTamanio = type.consultarTiposTamanio(sTipo.getSelectedItem().toString());
+                    ArrayAdapter<String> adaptadorTamanio = new ArrayAdapter<String>(c, android.R.layout.simple_spinner_item, aTamanio);//creamos el adaptador de los spinner agregando los Arraylist
+                    sTamanio.setAdapter(adaptadorTamanio);
+                }
+                break;
+
+        }
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
 
     }
 
