@@ -79,7 +79,7 @@ public class Producto {
                 "inner join type on type.idType=product.idType " +
                 "inner join material on material.idMaterial=product.idMaterial";
         final ArrayList<String> alist = new ArrayList<String>();
-        Cursor ct = conexionLocal.readProducto(sql);
+        Cursor ct = conexionLocal.read(sql);
         //recorre y agrega
         for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
             alist.add(ct.getString(0));
@@ -100,7 +100,7 @@ public class Producto {
                 "inner join material on material.idMaterial=product.idMaterial " +
                 "WHERE " + criterio + "='" + valor + "'";
         final ArrayList<String> alist = new ArrayList<String>();
-        Cursor ct = conexionLocal.readProducto(sql);
+        Cursor ct = conexionLocal.read(sql);
         //recorre y agrega
         for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
             alist.add(ct.getString(0));
@@ -147,6 +147,29 @@ public class Producto {
         requestsAndResponses = new RequestsAndResponses(c);
         requestsAndResponses.deleteProductos();
         return false;
+    }
+
+    public ArrayList<String> consultarInventario() {
+        ConexionLocal conexionLocal = new ConexionLocal(c);
+        conexionLocal.abrir();
+        String sql = "select product.name,type.name,type.dimension,material.name,stock.amount " +
+                "from product " +
+                "inner join stock on stock.idProduct=product.idProduct " +
+                "inner join type on type.idType=product.idType " +
+                "inner join material on material.idMaterial=product.idMaterial";
+        final ArrayList<String> alist = new ArrayList<String>();
+        Cursor ct = conexionLocal.read(sql);
+        //recorre y agrega
+        for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
+            alist.add(ct.getString(0));
+            alist.add(ct.getString(1));
+            alist.add(ct.getString(2));
+            alist.add(ct.getString(3));
+            alist.add(ct.getString(4));
+        }
+        conexionLocal.cerrar();
+        return alist;
+
     }
 
 }

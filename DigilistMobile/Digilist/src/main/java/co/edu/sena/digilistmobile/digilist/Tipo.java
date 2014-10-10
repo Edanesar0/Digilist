@@ -23,7 +23,7 @@ public class Tipo {
     Context c;
 
     public Tipo(Context c) {
-        this.c=c;
+        this.c = c;
 
     }
 
@@ -56,16 +56,17 @@ public class Tipo {
         requestsAndResponses.postTipos();
         return false;
     }
-    public String  agregarTipo() throws JSONException {
-        JSONArray jsonArray=consultarTipo("","");
-        ContentValues cv= new ContentValues();
-        ConexionLocal conexionLocal=new ConexionLocal(c);
+
+    public String agregarTipo() throws JSONException {
+        JSONArray jsonArray = consultarTipo("", "");
+        ContentValues cv = new ContentValues();
+        ConexionLocal conexionLocal = new ConexionLocal(c);
         String conf = "";
         conexionLocal.abrir();
-        for (int i=0;i<jsonArray.length();i++){
-            JSONObject jsonObject=jsonArray.getJSONObject(i);
-            JSONArray names=jsonObject.names();
-            for (int j=0;j<names.length();j++){
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            JSONArray names = jsonObject.names();
+            for (int j = 0; j < names.length(); j++) {
                 cv.put(names.getString(j), jsonObject.getString(names.getString(j)));
             }
             conf += conexionLocal.insert("type", cv);
@@ -86,7 +87,7 @@ public class Tipo {
         return false;
     }
 
-    public JSONArray consultarTipo(String criterio, String terminoBuscar)  {
+    public JSONArray consultarTipo(String criterio, String terminoBuscar) {
         requestsAndResponses = new RequestsAndResponses(c);
         return requestsAndResponses.getTipos();
 
@@ -100,7 +101,7 @@ public class Tipo {
                 "from type group by name order by name";
         final ArrayList<String> alist = new ArrayList<String>();
         alist.add("Seleccione uno");
-        Cursor ct = conexionLocal.readProducto(sql);
+        Cursor ct = conexionLocal.read(sql);
         //recorre y agrega
         for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
             //alist.add(ct.getString(0));
@@ -121,7 +122,7 @@ public class Tipo {
                 "from type where name like '%" + tipo + "%'";
         final ArrayList<String> alist = new ArrayList<String>();
         alist.add("Seleccione uno");
-        Cursor ct = conexionLocal.readProducto(sql);
+        Cursor ct = conexionLocal.read(sql);
         //recorre y agrega
         for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
             //alist.add(ct.getString(0));

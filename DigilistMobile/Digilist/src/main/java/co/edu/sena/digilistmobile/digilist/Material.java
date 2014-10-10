@@ -45,6 +45,7 @@ public class Material {
         requestsAndResponses.postMateriales();
         return false;
     }
+
     public String agregarMaterial() throws JSONException {
         JSONArray jsonArray = consultarMaterial("", "");
         ContentValues cv = new ContentValues();
@@ -57,7 +58,7 @@ public class Material {
             for (int j = 0; j < names.length(); j++) {
                 cv.put(names.getString(j), jsonObject.getString(names.getString(j)));
             }
-             conf+= conexionLocal.insert("material", cv);
+            conf += conexionLocal.insert("material", cv);
         }
         conexionLocal.cerrar();
 
@@ -90,7 +91,7 @@ public class Material {
                 "from material";
         final ArrayList<String> alist = new ArrayList<String>();
         alist.add("Seleccione uno");
-        Cursor ct = conexionLocal.readProducto(sql);
+        Cursor ct = conexionLocal.read(sql);
         //recorre y agrega
         for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
             //alist.add(ct.getString(0));

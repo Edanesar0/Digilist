@@ -239,7 +239,7 @@ public class ConexionLocal {
         return nBD.insertWithOnConflict(tabla, null, cv, SQLiteDatabase.CONFLICT_IGNORE);
     }
 
-    public Cursor readProducto(String sql) {
+    public Cursor read(String sql) {
         /**Crea un array para agregar los datos y se pueda utilizar como contenido de un adaptador*/
         Cursor c = nBD.rawQuery(sql, null);
         //recorre y agrega

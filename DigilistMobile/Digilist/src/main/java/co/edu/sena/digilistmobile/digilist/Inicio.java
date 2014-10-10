@@ -123,7 +123,7 @@ public class Inicio extends SherlockActivity {
                     //v = inflater.inflate(R.layout.progress, null);
                     v = inflater.inflate(R.layout.ingreso_inventario, null);
                     almacenista = new Almacenista(v, Inicio.this, Inicio.this);
-                    almacenista.inventario();
+                    almacenista.addInventario();
                     break;
                 case 1:
                     v = inflater.inflate(R.layout.ingreso_producto, null);
@@ -132,6 +132,8 @@ public class Inicio extends SherlockActivity {
                     break;
                 case 2:
                     v = inflater.inflate(R.layout.inventario, null);
+                    almacenista = new Almacenista(v, Inicio.this, Inicio.this);
+                    almacenista.inventario();
                     break;
                 case 3:
                     break;

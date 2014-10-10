@@ -5,11 +5,13 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,6 +22,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -28,19 +32,21 @@ import java.util.ArrayList;
 public class Almacenista implements AdapterView.OnItemSelectedListener {
     private View v;
     private Context c;
-
     private ViewPager vp;
     private ArrayAdapter<String> adaptadorProductos;
     private ProgressDialog progressDialog = null;
     private AutoCompleteTextView auproducto;
     private TextView lvlTipo, lvlMaterial, lvlTamano;
     private EditText edtcantidad;
-    private Button binfo, binfocli, bedit, btnLimpiar, btnAgregar;
+    Button binfo, binfocli, bedit, btnLimpiar, btnAgregar;
+    private TableLayout tl;
     private Producto producto;
     private Typeface font;
     ArrayList<String> aTamanio;
-    Activity a;
-    Spinner sTipo;
+    private Activity a;
+    private Spinner sTipo, sMaterial, sTamanio;
+    Tipo type;
+    Material material;
 
     public Almacenista(View v, Context c, Activity a) {
         this.v = v;
@@ -49,7 +55,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
 
     }
 
-    public void inventario() {
+    public void addInventario() {
         new asynclogin().execute(1 + "");
         auproducto = (AutoCompleteTextView) v.findViewById(R.id.acProductos);
         auproducto.setTypeface(font);
@@ -168,20 +174,30 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
 
     public void productos() {
         sTipo = (Spinner) v.findViewById(R.id.sTipo);
-        Spinner sMateral = (Spinner) v.findViewById(R.id.sMaterial);
-        Spinner sTamanio = (Spinner) v.findViewById(R.id.sTamanio);
+        sMaterial = (Spinner) v.findViewById(R.id.sMaterial);
+        sTamanio = (Spinner) v.findViewById(R.id.sTamanio);
         new asynclogin().execute(2 + "");
-
-        Tipo type = new Tipo(c);
         sTamanio.setOnItemSelectedListener(this);
-        ArrayList<String> aTypes = type.consultarTipos();//retornamos la consulta
-        ArrayAdapter<String> adaptadorTypes = new ArrayAdapter<String>(c, android.R.layout.simple_spinner_item, aTypes);//creamos el adaptador de los spinner agregando los Arraylist
-        sTipo.setAdapter(adaptadorTypes);//incluimos el adaptados a los spinner
         sTipo.setOnItemSelectedListener(this);
-        Material material = new Material(c);
-        ArrayList<String> aMaterial = material.consultarMateriales();//retornamos la consulta
-        ArrayAdapter<String> adaptadorMaterial = new ArrayAdapter<String>(c, android.R.layout.simple_spinner_item, aMaterial);//creamos el adaptador de los spinner agregando los Arraylist
-        sMateral.setAdapter(adaptadorMaterial);//incluimos el adaptados a los spinner
+
+
+    }
+
+    public void inventario() {
+        tl = (TableLayout) v.findViewById(R.id.tlInventario);
+        tl.setStretchAllColumns(true);
+        tl.setShrinkAllColumns(true);
+        TextView lblProducto = (TextView) v.findViewById(R.id.lblProducto);
+        lblProducto.setTypeface(font);
+        TextView lblTipo = (TextView) v.findViewById(R.id.lblTipo);
+        lblTipo.setTypeface(font);
+        TextView lblTamanio = (TextView) v.findViewById(R.id.lblTamanio);
+        lblTamanio.setTypeface(font);
+        TextView lblMaterial = (TextView) v.findViewById(R.id.lblMaterial);
+        lblMaterial.setTypeface(font);
+        TextView lblCantidad = (TextView) v.findViewById(R.id.lblCantidad);
+        lblCantidad.setTypeface(font);
+        new asynclogin().execute(3 + "");
 
     }
 
@@ -215,20 +231,24 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
         LinearLayout lyPro = (LinearLayout) v.findViewById(R.id.lyProducto);
 
         protected void onPreExecute() {
+            lyPro = (LinearLayout) v.findViewById(R.id.lyProducto);
+            pbPro = (ProgressBar) v.findViewById(R.id.progressBarProducto);
+            type = new Tipo(c);
+            material = new Material(c);
+            producto = new Producto(c);
+
         }
 
         protected String doInBackground(String... params) {
+            //enviamos y recibimos y analizamos los datos en segundo plano.
             pos = params[0].charAt(0);
             try {
                 switch (pos) {
                     case '1':
                         layoutver.setVisibility(View.INVISIBLE);
                         pb.setVisibility(ProgressBar.VISIBLE);
-                        Tipo tipo = new Tipo(c);
-                        tipo.agregarTipo();
-                        Material material = new Material(c);
+                        type.agregarTipo();
                         material.agregarMaterial();
-                        producto = new Producto(c);
                         producto.agregarProducto();
                         ArrayList<String> AProductos = producto.consultarProductos();//retornamos la consulta de inventario
                         ArrayList<String> Apr = new ArrayList<String>();
@@ -236,13 +256,16 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
                             Apr.add(AProductos.get(i));
                         }
                         adaptadorProductos = new ArrayAdapter<String>(c, android.R.layout.simple_list_item_1, Apr);//creamos el adaptador de los spinner agregando los Arraylist
-                        //enviamos y recibimos y analizamos los datos en segundo plano.
+
                         break;
                     case '2':
                         lyPro.setVisibility(View.INVISIBLE);
                         pbPro.setVisibility(ProgressBar.VISIBLE);
-
-
+                        type.agregarTipo();
+                        material.agregarMaterial();
+                        producto.agregarProducto();
+                        break;
+                    case '3':
                         break;
                 }
 
@@ -266,6 +289,76 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
                 case '2':
                     lyPro.setVisibility(View.VISIBLE);
                     pbPro.setVisibility(ProgressBar.INVISIBLE);
+                    ArrayList<String> aTypes = type.consultarTipos();//retornamos la consulta
+                    ArrayAdapter<String> adaptadorTypes = new ArrayAdapter<String>(c, android.R.layout.simple_spinner_item, aTypes);//creamos el adaptador de los spinner agregando los Arraylist
+                    sTipo.setAdapter(adaptadorTypes);//incluimos el adaptados a los spinner
+                    ArrayList<String> aMaterial = material.consultarMateriales();//retornamos la consulta
+                    ArrayAdapter<String> adaptadorMaterial = new ArrayAdapter<String>(c, android.R.layout.simple_spinner_item, aMaterial);//creamos el adaptador de los spinner agregando los Arraylist
+                    sMaterial.setAdapter(adaptadorMaterial);//incluimos el adaptados a los spinner
+
+                    break;
+                case '3':
+                    ArrayList<String> productos = producto.consultarInventario();
+
+                    int count = 0;
+                    if (productos.size() != 0) {
+                        for (int i = 0; i < productos.size() - 5; i = i + 5) {
+                            TableRow tr = new TableRow(c);
+                            if (count % 2 != 0) {
+                                tr.setBackgroundColor(Color.argb(20, 12, 143, 212));
+                            } else {
+                                tr.setBackgroundColor(Color.WHITE);
+                            }
+                            TextView txtProducto = new TextView(c);
+                            txtProducto.setTypeface(font);
+                            txtProducto.setText(productos.get(i));
+                            tr.addView(txtProducto);
+                            TextView txtTipo = new TextView(c);
+                            txtTipo.setTypeface(font);
+                            txtTipo.setText(productos.get(i + 1));
+                            tr.addView(txtTipo);
+                            TextView txtTamanio = new TextView(c);
+                            txtTamanio.setTypeface(font);
+                            txtTamanio.setText(productos.get(i + 2));
+                            tr.addView(txtTamanio);
+                            TextView txtMaterial = new TextView(c);
+                            txtMaterial.setTypeface(font);
+                            txtMaterial.setText(productos.get(i + 3));
+                            tr.addView(txtMaterial);
+                            TextView txtCantidad = new TextView(c);
+                            txtCantidad.setTypeface(font);
+                            txtCantidad.setText(productos.get(i + 4));
+                            tr.addView(txtCantidad);
+                            i++;
+                            tl.addView(tr, new TableLayout.LayoutParams(
+                                    TableLayout.LayoutParams.WRAP_CONTENT,
+                                    TableLayout.LayoutParams.WRAP_CONTENT));
+                        }
+                    } else {
+                        TableRow tr_head = (TableRow) v.findViewById(R.id.trhead);
+                        tr_head.removeAllViews();
+                        //tr_head.setId(0);
+                        tr_head.setBackgroundColor(Color.rgb(203, 47, 23));
+                        tr_head.setLayoutParams(new TableLayout.LayoutParams(
+                                TableLayout.LayoutParams.MATCH_PARENT,
+                                TableLayout.LayoutParams.WRAP_CONTENT));
+                        TextView lblMensaje = new TextView(c);
+                        //lblMensaje.setId(20);
+                        lblMensaje.setTypeface(font);
+                        lblMensaje.setText("Ningun registro Almacenado");
+                        lblMensaje.setTextColor(Color.WHITE);
+                        lblMensaje.setTextSize(20);
+                        lblMensaje.setGravity(Gravity.CENTER);
+                        lblMensaje.setPadding(3, 3, 3, 3);
+
+                        tr_head.addView(lblMensaje);// añadir la columna a la fila de la tabla aquí
+
+                        /*tl.addView(tr_head, new TableLayout.LayoutParams(
+                                TableLayout.LayoutParams.WRAP_CONTENT,
+                                TableLayout.LayoutParams.WRAP_CONTENT));*/
+
+                    }
+
                     break;
             }
 
