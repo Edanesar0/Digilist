@@ -4,6 +4,7 @@ package co.edu.sena.digilistmobile.digilist;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -132,6 +133,29 @@ public class Producto {
             }
             conf += conexionLocal.insert("product", cv);
         }
+
+        ContentValues cv2 = new ContentValues();
+        cv2.put("idStan","1");
+        cv2.put("capacity","10000");
+        cv2.put("description","Stan 1");
+        Log.e("Stan 1",""+conexionLocal.insert("stan", cv2));
+        cv2.put("idStan","2");
+        cv2.put("capacity","1000");
+        cv2.put("description","Stan 2");
+        Log.e("Stan 2",""+conexionLocal.insert("stan", cv2));
+
+        ContentValues cv3 = new ContentValues();
+        cv3.put("idStock","1");
+        cv3.put("idProduct","1");
+        cv3.put("idStan","1");
+        cv3.put("amount","50");
+        Log.e("Stock 1",""+conexionLocal.insert("stock", cv2));
+        cv3.put("idStock","2");
+        cv3.put("idProduct","2");
+        cv3.put("idStan","2");
+        cv3.put("amount","10");
+        Log.e("Stock 2",""+conexionLocal.insert("stock", cv2));
+
         conexionLocal.cerrar();
 
         return conf;
