@@ -302,37 +302,43 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
 
                     int count = 0;
                     if (productos.size() != 0) {
-                        for (int i = 0; i < productos.size() - 5; i = i + 5) {
+                        for (int i = 0; i <= productos.size() - 5; i = i + 5) {
                             TableRow tr = new TableRow(c);
                             if (count % 2 != 0) {
-                                tr.setBackgroundColor(Color.argb(20, 12, 143, 212));
+                                tr.setBackgroundColor(Color.argb(15, 203, 47, 23));
                             } else {
                                 tr.setBackgroundColor(Color.WHITE);
                             }
                             TextView txtProducto = new TextView(c);
                             txtProducto.setTypeface(font);
                             txtProducto.setText(productos.get(i));
+                            txtProducto.setGravity(Gravity.CENTER);
                             tr.addView(txtProducto);
                             TextView txtTipo = new TextView(c);
                             txtTipo.setTypeface(font);
                             txtTipo.setText(productos.get(i + 1));
+                            txtTipo.setGravity(Gravity.CENTER);
                             tr.addView(txtTipo);
                             TextView txtTamanio = new TextView(c);
                             txtTamanio.setTypeface(font);
                             txtTamanio.setText(productos.get(i + 2));
+                            txtTamanio.setGravity(Gravity.CENTER);
                             tr.addView(txtTamanio);
                             TextView txtMaterial = new TextView(c);
                             txtMaterial.setTypeface(font);
                             txtMaterial.setText(productos.get(i + 3));
+                            txtMaterial.setGravity(Gravity.CENTER);
                             tr.addView(txtMaterial);
                             TextView txtCantidad = new TextView(c);
                             txtCantidad.setTypeface(font);
                             txtCantidad.setText(productos.get(i + 4));
+                            txtCantidad.setGravity(Gravity.CENTER);
                             tr.addView(txtCantidad);
-                            i++;
+                            count++;
                             tl.addView(tr, new TableLayout.LayoutParams(
                                     TableLayout.LayoutParams.WRAP_CONTENT,
                                     TableLayout.LayoutParams.WRAP_CONTENT));
+
                         }
                     } else {
                         TableRow tr_head = (TableRow) v.findViewById(R.id.trhead);

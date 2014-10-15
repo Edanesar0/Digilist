@@ -135,26 +135,33 @@ public class Producto {
         }
 
         ContentValues cv2 = new ContentValues();
-        cv2.put("idStan","1");
-        cv2.put("capacity","10000");
-        cv2.put("description","Stan 1");
-        Log.e("Stan 1",""+conexionLocal.insert("stan", cv2));
-        cv2.put("idStan","2");
-        cv2.put("capacity","1000");
-        cv2.put("description","Stan 2");
-        Log.e("Stan 2",""+conexionLocal.insert("stan", cv2));
+        cv2.put("idStan", "1");
+        cv2.put("capacity", "10000");
+        cv2.put("description", "Stan 1");
+        Log.e("Stan 1", "" + conexionLocal.insert("stan", cv2));
+        cv2.put("idStan", "2");
+        cv2.put("capacity", "1000");
+        cv2.put("description", "Stan 2");
+        Log.e("Stan 2", "" + conexionLocal.insert("stan", cv2));
 
         ContentValues cv3 = new ContentValues();
-        cv3.put("idStock","1");
-        cv3.put("idProduct","1");
-        cv3.put("idStan","1");
-        cv3.put("amount","50");
-        Log.e("Stock 1",""+conexionLocal.insert("stock", cv2));
-        cv3.put("idStock","2");
-        cv3.put("idProduct","2");
-        cv3.put("idStan","2");
-        cv3.put("amount","10");
-        Log.e("Stock 2",""+conexionLocal.insert("stock", cv2));
+        cv3.put("idStock", "1");
+        cv3.put("idProduct", "1");
+        cv3.put("idStan", "1");
+        cv3.put("amount", "50");
+        Log.e("Stock 1", "" + conexionLocal.insert("stock", cv3));
+        cv3.put("idStock", "2");
+        cv3.put("idProduct", "2");
+        cv3.put("idStan", "2");
+        cv3.put("amount", "10");
+        Log.e("Stock 2", "" + conexionLocal.insert("stock", cv3));
+        String sql = "select * from stock";
+        Cursor ct = conexionLocal.read(sql);
+        int i = 0;
+        for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
+            Log.e("Stock " + i, "" + ct.toString() + "---" + ct.getString(0));
+            i++;
+        }
 
         conexionLocal.cerrar();
 
@@ -192,6 +199,7 @@ public class Producto {
             alist.add(ct.getString(4));
         }
         conexionLocal.cerrar();
+        Log.e("Stock", alist.toString());
         return alist;
 
     }

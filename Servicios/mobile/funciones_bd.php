@@ -1,5 +1,4 @@
 <?php
-
 class funciones_BD {
     private $db;
     // constructor
@@ -67,11 +66,12 @@ class funciones_BD {
     }
     public function getProductos($criterio, $terminoBusqueda) {        
         if (empty($criterio)) {
-            $criterio = 'nombre';
+            $criterio = 'name';
         }
        $datas = array();
         $i = 0;
-        $res = mysql_query("SELECT idProducto,Nombre,Descripcion,Referencia,Precio,Dimencion,Material_idMaterial,Tipo_idTipo FROM producto where $criterio like '%$terminoBusqueda%'");
+        //mysql_set_charset("utf8"); 
+        $res = mysql_query("SELECT idProduct,name,description,reference,price,idMaterial as material ,idType as type FROM product where $criterio like '%$terminoBusqueda%'");
         if (mysql_num_rows($res)) {
             while ($data = mysql_fetch_assoc($res)) {
                 $datas[] = $data;

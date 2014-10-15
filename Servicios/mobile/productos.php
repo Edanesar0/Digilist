@@ -5,7 +5,7 @@ require_once 'funciones_bd.php';
 class productos {
     
     function __construct($criterio,$termino) {
-        $db=new funciones_BD();
+        $db=new funciones_BD();		
     echo (json_encode($db->getProductos($criterio,$termino)));    
     }
 }
