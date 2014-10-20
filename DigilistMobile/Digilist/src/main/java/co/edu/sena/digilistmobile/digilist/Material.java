@@ -51,6 +51,7 @@ public class Material {
         ContentValues cv = new ContentValues();
         ConexionLocal conexionLocal = new ConexionLocal(c);
         String conf = "";
+        jsonArray = jsonArray.getJSONArray(0);
         conexionLocal.abrir();
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);

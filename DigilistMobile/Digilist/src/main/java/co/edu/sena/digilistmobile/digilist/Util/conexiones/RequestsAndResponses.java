@@ -16,6 +16,7 @@ public class RequestsAndResponses {
 
     Conexion conexion;
     String URL_connect;
+    String URL_connect2;
     Context context;
 
     public RequestsAndResponses(Context context2) {
@@ -26,6 +27,7 @@ public class RequestsAndResponses {
             InputStream inputStream = context.getAssets().open(propFileName);
             prop.load(inputStream);
             URL_connect = prop.getProperty("URL_connect");
+            URL_connect2 = prop.getProperty("URL_connect2");
         } catch (IOException e) {
             e.printStackTrace();
 
@@ -37,7 +39,7 @@ public class RequestsAndResponses {
         ArrayList<NameValuePair> postparameters2send = new ArrayList<NameValuePair>();
         postparameters2send.add(new BasicNameValuePair("token", ""));
         //realizamos una peticion y como respuesta obtenes un array JSON
-        return conexion.getserverdata(postparameters2send, URL_connect + "/materiales.php", "GET1", null);
+        return conexion.getserverdata(postparameters2send, URL_connect2 + "/material/retrieving-records", "GET1", null);
     }
 
     public JSONArray getTipos() {
@@ -45,7 +47,7 @@ public class RequestsAndResponses {
         ArrayList<NameValuePair> postparameters2send = new ArrayList<NameValuePair>();
         postparameters2send.add(new BasicNameValuePair("token", ""));
         //realizamos una peticion y como respuesta obtenes un array JSON
-        return conexion.getserverdata(postparameters2send, URL_connect + "/tipos.php", "GET1", null);
+        return conexion.getserverdata(postparameters2send, URL_connect2 + "/type/retrieving-records", "GET1", null);
     }
 
     public JSONArray getProductos() {
