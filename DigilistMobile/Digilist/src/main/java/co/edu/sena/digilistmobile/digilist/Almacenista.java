@@ -47,6 +47,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
     private Spinner sTipo, sMaterial, sTamanio;
     Tipo type;
     Material material;
+    Stand stand;
 
     public Almacenista(View v, Context c, Activity a) {
         this.v = v;
@@ -236,6 +237,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
             type = new Tipo(c);
             material = new Material(c);
             producto = new Producto(c);
+            stand = new Stand(c);
 
         }
 
@@ -250,6 +252,8 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
                         type.agregarTipo();
                         material.agregarMaterial();
                         producto.agregarProducto();
+                        stand.agregarStand();
+                        producto.agregarInventario();
                         ArrayList<String> AProductos = producto.consultarProductos();//retornamos la consulta de inventario
                         ArrayList<String> Apr = new ArrayList<String>();
                         for (int i = 0; i <= AProductos.size() - 4; i = i + 4) {
@@ -264,6 +268,8 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
                         type.agregarTipo();
                         material.agregarMaterial();
                         producto.agregarProducto();
+                        stand.agregarStand();
+                        producto.agregarInventario();
                         break;
                     case '3':
                         break;
@@ -298,7 +304,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
 
                     break;
                 case '3':
-                    ArrayList<String> productos = producto.consultarInventario();
+                    ArrayList<String> productos = producto.consultarInventarios();
 
                     int count = 0;
                     if (productos.size() != 0) {

@@ -72,6 +72,11 @@ public class Producto {
         return requestsAndResponses.getProductos();
     }
 
+    public JSONArray consultarInventario() {
+        requestsAndResponses = new RequestsAndResponses(c);
+        return requestsAndResponses.getInventario();
+    }
+
     public ArrayList<String> consultarProductos() {
         ConexionLocal conexionLocal = new ConexionLocal(c);
         conexionLocal.abrir();
@@ -133,38 +138,23 @@ public class Producto {
             }
             conf += conexionLocal.insert("product", cv);
         }
+        return conf;
+    }
 
-        ContentValues cv2 = new ContentValues();
-        cv2.put("idStan", "1");
-        cv2.put("capacity", "10000");
-        cv2.put("description", "Stan 1");
-        Log.e("Stan 1", "" + conexionLocal.insert("stan", cv2));
-        cv2.put("idStan", "2");
-        cv2.put("capacity", "1000");
-        cv2.put("description", "Stan 2");
-        Log.e("Stan 2", "" + conexionLocal.insert("stan", cv2));
-
-        ContentValues cv3 = new ContentValues();
-        cv3.put("idStock", "1");
-        cv3.put("idProduct", "1");
-        cv3.put("idStan", "1");
-        cv3.put("amount", "50");
-        Log.e("Stock 1", "" + conexionLocal.insert("stock", cv3));
-        cv3.put("idStock", "2");
-        cv3.put("idProduct", "2");
-        cv3.put("idStan", "2");
-        cv3.put("amount", "10");
-        Log.e("Stock 2", "" + conexionLocal.insert("stock", cv3));
-        String sql = "select * from stock";
-        Cursor ct = conexionLocal.read(sql);
-        int i = 0;
-        for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
-            Log.e("Stock " + i, "" + ct.toString() + "---" + ct.getString(0));
-            i++;
+    public String agregarInventario() throws JSONException {
+        JSONArray jsonArray = consultarInventario();
+        ContentValues cv = new ContentValues();
+        ConexionLocal conexionLocal = new ConexionLocal(c);
+        conexionLocal.abrir();
+        String conf = "";
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            JSONArray names = jsonObject.names();
+            for (int j = 0; j < names.length(); j++) {
+                cv.put(names.getString(j), jsonObject.getString(names.getString(j)));
+            }
+            conf += conexionLocal.insert("stock", cv);
         }
-
-        conexionLocal.cerrar();
-
         return conf;
     }
 
@@ -180,7 +170,7 @@ public class Producto {
         return false;
     }
 
-    public ArrayList<String> consultarInventario() {
+    public ArrayList<String> consultarInventarios() {
         ConexionLocal conexionLocal = new ConexionLocal(c);
         conexionLocal.abrir();
         String sql = "select product.name,type.name,type.dimension,material.name,stock.amount " +

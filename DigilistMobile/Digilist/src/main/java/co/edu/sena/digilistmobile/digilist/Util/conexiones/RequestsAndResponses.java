@@ -53,7 +53,7 @@ public class RequestsAndResponses {
     public JSONArray getProductos() {
         conexion = new Conexion();
         //realizamos una peticion y como respuesta obtenes un array JSON
-        return conexion.getserverdata(null, URL_connect + "/productos.php", "GET1", null);
+        return conexion.getserverdata(null, URL_connect2 + "/product/retrieving-records", "GET1", null);
     }
 
     public JSONArray getInventario() {
@@ -61,7 +61,15 @@ public class RequestsAndResponses {
         ArrayList<NameValuePair> postparameters2send = new ArrayList<NameValuePair>();
         postparameters2send.add(new BasicNameValuePair("token", ""));
         //realizamos una peticion y como respuesta obtenes un array JSON
-        return conexion.getserverdata(postparameters2send, URL_connect, "GET1", null);
+        return conexion.getserverdata(postparameters2send, URL_connect2 + "/stock/retrieving-records", "GET1", null);
+    }
+
+    public JSONArray getStand() {
+        conexion = new Conexion();
+        ArrayList<NameValuePair> postparameters2send = new ArrayList<NameValuePair>();
+        postparameters2send.add(new BasicNameValuePair("token", ""));
+        //realizamos una peticion y como respuesta obtenes un array JSON
+        return conexion.getserverdata(postparameters2send, URL_connect2 + "/stan/retrieving-records", "GET1", null);
     }
 
     public JSONArray postMateriales() {
