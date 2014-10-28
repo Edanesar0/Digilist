@@ -69,7 +69,8 @@ public class RequestsAndResponses {
         ArrayList<NameValuePair> postparameters2send = new ArrayList<NameValuePair>();
         postparameters2send.add(new BasicNameValuePair("token", ""));
         //realizamos una peticion y como respuesta obtenes un array JSON
-        return conexion.getserverdata(postparameters2send, URL_connect2 + "/stan/retrieving-records", "GET1", null);
+        //return conexion.getserverdata(postparameters2send, URL_connect2 + "/stan/retrieving-records", "GET1", null);
+        return conexion.getserverdata(postparameters2send, URL_connect + "/stand.php", "GET1", null);
     }
 
     public JSONArray postMateriales() {

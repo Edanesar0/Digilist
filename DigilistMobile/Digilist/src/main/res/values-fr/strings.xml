@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Digilist Mobile</string>
+    <string name="action_settings">Paramètres </string>
+    <string name="txtUsuario">Utilisateur</string>
+    <string name="txtpassword">Mot de passe </string>
+    <string name="txtEntrar">Entrer </string>
+    <string name="Tipo">Taux</string>
+    <string name="Tamaño">Taille</string>
+    <string name="Material">Matériel</string>
+    <string name="Cantidad">Montant</string>
+    <string name="Producto">Produit</string>
+    <string name="Logo">Logo</string>
+    <string name="Agregar">Ajouter</string>
+    <string name="Limpiar">Nettoyer</string>
+    <string name="IngresarProducto">Entrez produit</string>
+    <string name="Nombre">Nom</string>
+    <string name="Referencia">Référence</string>
+    <string name="Ingreso_Inventario">Connectez-vous Inventaire</string>
+    <string name="prodvac">Champ vide produit</string>
+
+
+    <style name="ButtonText">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">3dp</item>
+        <item name="android:textSize">15dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">2</item>
+    </style>
+</resources>

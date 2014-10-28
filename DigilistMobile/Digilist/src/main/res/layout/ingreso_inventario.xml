@@ -50,7 +50,7 @@
                         android:layout_gravity="center"
                         android:layout_marginRight="4dp"
                         android:layout_marginTop="22dp"
-                        android:text="Ingresar Inventario"
+                        android:text="@string/Ingreso_Inventario"
                         android:textColor="#CB2F17"
                         android:textSize="22dp" />
 
@@ -182,7 +182,7 @@
                         android:paddingBottom="15dp">
 
                         <Button
-                            android:id="@+id/btnAgregar"
+                            android:id="@+id/btnAgregarInve"
                             android:layout_width="95dp"
                             android:layout_height="40dp"
                             android:layout_alignParentLeft="true"
@@ -198,7 +198,7 @@
                             android:id="@+id/btnLimpiar"
                             android:layout_width="95dp"
                             android:layout_height="40dp"
-                            android:layout_alignBottom="@+id/btnAgregar"
+                            android:layout_alignBottom="@+id/btnAgregarInve"
                             android:layout_alignParentRight="true"
                             android:layout_alignParentTop="true"
                             android:layout_gravity="left|center_vertical"
@@ -215,7 +215,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_toLeftOf="@+id/btnLimpiar"
-                            android:layout_toRightOf="@+id/btnAgregar"
+                            android:layout_toRightOf="@+id/btnAgregarInve"
                             android:gravity="center_horizontal"
                             android:text="ó"
                             android:textAppearance="?android:attr/textAppearanceMedium"

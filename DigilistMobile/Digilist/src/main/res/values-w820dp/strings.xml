@@ -8,4 +8,5 @@
     <string name="IngresarProducto">Ingresar Producto</string>
     <string name="Nombre">Nombre</string>
     <string name="Referencia">Referencia</string>
+    <string name="Ingreso_Inventario">Ingresar Inventario</string>
 </resources>

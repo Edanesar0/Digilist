@@ -158,6 +158,10 @@ public class Producto {
         return conf;
     }
 
+    public String agregarInventario(String id) throws JSONException {
+        return null;
+    }
+
     public boolean modificarProducto(String criterio, String terminoAModificar) {
         requestsAndResponses = new RequestsAndResponses(c);
         requestsAndResponses.putProductos();

@@ -55,7 +55,7 @@ public class Stand {
             for (int j = 0; j < names.length(); j++) {
                 cv.put(names.getString(j), jsonObject.getString(names.getString(j)));
             }
-            conf += conexionLocal.insert("stan", cv);
+            conf += conexionLocal.insert("stand", cv);
         }
         return conf;
     }

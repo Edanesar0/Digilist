@@ -52,6 +52,10 @@ public class Login extends SherlockActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        /*Configuration config = new Configuration(getResources().getConfiguration());
+        config.locale = Locale.ENGLISH ;
+        getResources().updateConfiguration(config,getResources().getDisplayMetrics());*/
+
 
         Properties prop = new Properties();
         String propFileName = "config.properties";

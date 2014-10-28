@@ -157,11 +157,11 @@ public class ConexionLocal {
                     "    REFERENCES `permission` (`idPermission`)" +
                     "    ON DELETE NO ACTION" +
                     "    ON UPDATE NO ACTION);");
-            db.execSQL("CREATE TABLE IF NOT EXISTS `stan` (" +
-                    "  `idStan` INTEGER AUTO_INCREMENT NOT NULL ," +
+            db.execSQL("CREATE TABLE IF NOT EXISTS `stand` (" +
+                    "  `idStand` INTEGER AUTO_INCREMENT NOT NULL ," +
                     "  `capacity` INT(11) NOT NULL," +
                     "  `description` VARCHAR(45) NULL DEFAULT NULL," +
-                    "  PRIMARY KEY (`idStan`));");
+                    "  PRIMARY KEY (`idStand`));");
             db.execSQL("CREATE TABLE IF NOT EXISTS `stock` (" +
                     "  `idStock` INTEGER AUTO_INCREMENT NOT NULL ," +
                     "  `idProduct` INT(11) NOT NULL," +
@@ -170,7 +170,7 @@ public class ConexionLocal {
                     "  PRIMARY KEY (`idStock`)," +
                     "  CONSTRAINT `stock_ibfk_1`" +
                     "    FOREIGN KEY (`idStan`)" +
-                    "    REFERENCES `stan` (`idStan`)" +
+                    "    REFERENCES `stand` (`idStand`)" +
                     "    ON DELETE NO ACTION" +
                     "    ON UPDATE NO ACTION," +
                     "  CONSTRAINT `stock_ibfk_2`" +

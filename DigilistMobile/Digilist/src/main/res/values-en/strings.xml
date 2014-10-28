@@ -3,22 +3,22 @@
 
     <string name="app_name">Digilist Mobile</string>
     <string name="action_settings">Settings</string>
-    <string name="txtUsuario">Usuario</string>
-    <string name="txtpassword">Contraseña</string>
-    <string name="txtEntrar">Entrar</string>
-    <string name="Tipo">Tipo</string>
-    <string name="Tamaño">Tamaño</string>
+    <string name="txtUsuario">User</string>
+    <string name="txtpassword">Password</string>
+    <string name="txtEntrar">Login</string>
+    <string name="Tipo">Type</string>
+    <string name="Tamaño">Size</string>
     <string name="Material">Material</string>
-    <string name="Cantidad">Cantidad</string>
-    <string name="Producto">Producto</string>
+    <string name="Cantidad">Quantity</string>
+    <string name="Producto">Product</string>
     <string name="Logo">Logo</string>
-    <string name="Agregar">Agregar</string>
-    <string name="Limpiar">Limpiar</string>
-    <string name="IngresarProducto">Ingresar Producto</string>
-    <string name="Nombre">Nombre</string>
-    <string name="Referencia">Referencia</string>
-    <string name="Ingreso_Inventario">Ingresar Inventario</string>
-    <string name="prodvac">Campo producto vacio</string>
+    <string name="Agregar">Add</string>
+    <string name="Limpiar">Clean</string>
+    <string name="IngresarProducto">Enter Product</string>
+    <string name="Nombre">Name</string>
+    <string name="Referencia">Reference</string>
+    <string name="Ingreso_Inventario">Enter Inventory</string>
+    <string name="prodvac">Field empty product</string>
 
 
     <style name="ButtonText">

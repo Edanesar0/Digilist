@@ -8,12 +8,14 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
+import android.os.Vibrator;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -25,6 +27,9 @@ import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONException;
 
 import java.util.ArrayList;
 
@@ -53,6 +58,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
         this.v = v;
         this.c = c;
         this.a = a;
+
 
     }
 
@@ -158,6 +164,8 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
 
             }
         });
+
+
         btnLimpiar = (Button) v.findViewById(R.id.btnLimpiar);
         btnLimpiar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,7 +177,66 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
                 edtcantidad.setText("");
             }
         });
-        btnAgregar = (Button) v.findViewById(R.id.btnAgregar);
+        btnAgregar = (Button) v.findViewById(R.id.btnAgregarInve);
+        btnAgregar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast toast = null;
+                Vibrator vibrator = (Vibrator) c.getSystemService(Context.VIBRATOR_SERVICE);
+                boolean validacion = false, validacion2 = false;
+
+                if (validacion(auproducto.getText().toString())) {
+                    validacion = true;
+
+                } else {
+                    vibrator.vibrate(200);
+                    LayoutInflater inflater = a.getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.custom_toast_error,
+                            (ViewGroup) v.findViewById(R.id.toast_layout_root));
+                    TextView text = (TextView) layout.findViewById(R.id.text);
+                    text.setTextColor(Color.BLACK);
+                    text.setText(R.string.prodvac);
+                    toast = new Toast(c.getApplicationContext());
+                    //toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setView(layout);
+                    toast.show();
+                    validacion = false;
+
+                }
+
+                if (validacion(edtcantidad.getText().toString())) {
+                    validacion2 = true;
+
+                } else {
+                    vibrator.vibrate(200);
+                    LayoutInflater inflater = a.getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.custom_toast_error,
+                            (ViewGroup) v.findViewById(R.id.toast_layout_root));
+                    TextView text = (TextView) layout.findViewById(R.id.text);
+                    text.setTextColor(Color.BLACK);
+                    text.setText(R.string.prodvac);
+                    toast = new Toast(c.getApplicationContext());
+                    //toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setView(layout);
+                    toast.show();
+                    validacion2 = false;
+
+                }
+                if (validacion && validacion2) {
+
+                    try {
+                        producto.agregarInventario("");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+
+            }
+        });
 
     }
 
@@ -221,7 +288,24 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
+    }
 
+    public boolean validacion(String text) {
+        boolean val;
+        if (text != null) {
+            if (!text.equals("")) {
+                if (!text.equals(" ")) {
+                    val = true;
+                } else {
+                    val = false;
+                }
+            } else {
+                val = false;
+            }
+        } else {
+            val = false;
+        }
+        return val;
     }
 
     class asynclogin extends AsyncTask<String, String, String> {
@@ -259,6 +343,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
                         for (int i = 0; i <= AProductos.size() - 4; i = i + 4) {
                             Apr.add(AProductos.get(i));
                         }
+
                         adaptadorProductos = new ArrayAdapter<String>(c, android.R.layout.simple_list_item_1, Apr);//creamos el adaptador de los spinner agregando los Arraylist
 
                         break;
@@ -305,7 +390,6 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
                     break;
                 case '3':
                     ArrayList<String> productos = producto.consultarInventarios();
-
                     int count = 0;
                     if (productos.size() != 0) {
                         for (int i = 0; i <= productos.size() - 5; i = i + 5) {
@@ -376,4 +460,5 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
 
         }
     }
+
 }

@@ -43,7 +43,7 @@
                 android:layout_marginRight="4dp"
                 android:layout_marginTop="22dp"
                 android:text="@string/IngresarProducto"
-                android:textColor="#ffe73018"
+                android:textColor="#CB2F17"
                 android:textSize="20sp" />
 
             <TextView
