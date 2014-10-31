@@ -19,6 +19,7 @@
     <string name="Referencia">Referencia</string>
     <string name="Ingreso_Inventario">Ingresar Inventario</string>
     <string name="prodvac">Campo producto vacio</string>
+    <string name="canvac">Campo cantidad vacio</string>
 
 
     <style name="ButtonText">

@@ -158,7 +158,26 @@ public class Producto {
         return conf;
     }
 
-    public String agregarInventario(String id) throws JSONException {
+    public String agregarInventario(String name, int amount) throws JSONException {
+        ConexionLocal conexionLocal = new ConexionLocal(c);
+        conexionLocal.abrir();
+        String sql = "select * " +
+                "from stock " +
+                "where idProduct=(select idProduct from product where name ='" + name + "')";
+        ArrayList<String> alist = new ArrayList<String>();
+        Cursor ct = conexionLocal.read(sql);
+        JSONObject jsonObject = new JSONObject();
+        for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
+            jsonObject.put("idStock", ct.getString(ct.getColumnIndex("idStock")));
+            jsonObject.put("idProduct", ct.getString(ct.getColumnIndex("idProduct")));
+            jsonObject.put("idStan", ct.getString(ct.getColumnIndex("idStan")));
+            jsonObject.put("amount", "" + (ct.getInt(ct.getColumnIndex("amount")) + amount));
+            Log.e("put", jsonObject.toString());
+
+        }
+        ct.close();
+        RequestsAndResponses requestsAndResponses = new RequestsAndResponses(c);
+        requestsAndResponses.putInventario(jsonObject);
         return null;
     }
 
@@ -175,6 +194,7 @@ public class Producto {
     }
 
     public ArrayList<String> consultarInventarios() {
+
         ConexionLocal conexionLocal = new ConexionLocal(c);
         conexionLocal.abrir();
         String sql = "select product.name,type.name,type.dimension,material.name,stock.amount " +

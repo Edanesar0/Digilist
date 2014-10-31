@@ -9,6 +9,8 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
 
+import co.edu.sena.digilistmobile.digilist.util.conexiones.ConexionLocal;
+
 
 public class MenuInicial extends SherlockActivity implements View.OnClickListener {
     ActionBar ab;
@@ -17,8 +19,16 @@ public class MenuInicial extends SherlockActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu);
+        ConexionLocal conexionLocal = new ConexionLocal(this);
+        conexionLocal.abrir();
+        conexionLocal.limpiar();
+        conexionLocal.cerrar();
+
         ab = getSupportActionBar();//instancia
         // ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);//Atributos titulo boton home y flecha de acompañamiento de home
+        ab.setIcon(R.drawable.ic_launcher);//se le adiciona el icono
+
+
         RelativeLayout bt = (RelativeLayout) findViewById(R.id.relativeLayout);
         bt.setOnClickListener(this);
         RelativeLayout bt2 = (RelativeLayout) findViewById(R.id.relativeLayout2);
@@ -41,6 +51,14 @@ public class MenuInicial extends SherlockActivity implements View.OnClickListene
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onResume() {
+        ConexionLocal conexionLocal = new ConexionLocal(this);
+        conexionLocal.abrir();
+        conexionLocal.limpiar();
+        conexionLocal.cerrar();
+        super.onResume();
+    }
 
     @Override
     public void onClick(View v) {

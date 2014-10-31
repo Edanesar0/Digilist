@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 
 import org.apache.http.NameValuePair;
@@ -43,6 +44,7 @@ import co.edu.sena.digilistmobile.digilist.util.conexiones.Conexion;
 public class Login extends SherlockActivity {
     private ProgressDialog pDialog;
     Typeface font;
+    ActionBar ab;
     EditText edtPassw, edtUsuario;
     Conexion conexion;
     String URL_connect;
@@ -55,7 +57,9 @@ public class Login extends SherlockActivity {
         /*Configuration config = new Configuration(getResources().getConfiguration());
         config.locale = Locale.ENGLISH ;
         getResources().updateConfiguration(config,getResources().getDisplayMetrics());*/
-
+        ab = getSupportActionBar();//instancia
+        ab.setIcon(R.drawable.ic_launcher);//se le adiciona el icono
+        //ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE);//Atributos titulo boton home y flecha de acompañamiento de home
 
         Properties prop = new Properties();
         String propFileName = "config.properties";

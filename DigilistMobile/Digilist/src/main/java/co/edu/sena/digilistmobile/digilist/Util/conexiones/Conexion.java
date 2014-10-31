@@ -92,20 +92,14 @@ public class Conexion {
                 is = entity.getContent();
 
             }
-            if (fun.equals("PUT1")) {
-                HttpClient httpclient = new DefaultHttpClient();
-                HttpPut httpput = new HttpPut(urlwebserver);
-                //ejecuto peticion enviando datos por POST
-                HttpResponse response = httpclient.execute(httpput);
-                HttpEntity entity = response.getEntity();
-                is = entity.getContent();
-            }
-            if (fun.equals("PUT2")) {
+            if (fun.equals("PUT")) {
                 DefaultHttpClient httpclient = new DefaultHttpClient();
-                HttpPut httpout = new HttpPut(urlwebserver);
-                httpout.setHeader("Accept", "application/json");
-                httpout.setHeader("Content-type", "application/json");
-                HttpResponse response = httpclient.execute(httpout);
+                HttpPut httput = new HttpPut(urlwebserver);
+                StringEntity se = new StringEntity(para.toString());
+                httput.setEntity(se);
+                httput.setHeader("Accept", "application/json");
+                httput.setHeader("Content-type", "application/json");
+                HttpResponse response = httpclient.execute(httput);
                 HttpEntity entity = response.getEntity();
                 is = entity.getContent();
 
@@ -160,8 +154,6 @@ public class Conexion {
         //parse json data
         try {
             //Obtenemos el tipo de un ArrayList
-
-
             return new JSONArray(result);
 
         } catch (JSONException e) {

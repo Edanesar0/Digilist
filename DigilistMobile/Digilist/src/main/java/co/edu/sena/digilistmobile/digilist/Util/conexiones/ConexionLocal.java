@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 
 public class ConexionLocal {
@@ -209,7 +210,24 @@ public class ConexionLocal {
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            db.execSQL("DROP TABLE IF EXISTS comentarios");
+            db.execSQL("DROP TABLE IF EXISTS historicalSupply");
+            db.execSQL("DROP TABLE IF EXISTS order_has_product");
+            db.execSQL("DROP TABLE IF EXISTS role_has_permission");
+            db.execSQL("DROP TABLE IF EXISTS stock");
+            db.execSQL("DROP TABLE IF EXISTS stand");
+            db.execSQL("DROP TABLE IF EXISTS product");
+            db.execSQL("DROP TABLE IF EXISTS material");
+            db.execSQL("DROP TABLE IF EXISTS permission");
+            db.execSQL("DROP TABLE IF EXISTS 'order'");
+            db.execSQL("DROP TABLE IF EXISTS type");
+            db.execSQL("DROP TABLE IF EXISTS client");
+            db.execSQL("DROP TABLE IF EXISTS user");
+            db.execSQL("DROP TABLE IF EXISTS role");
+            db.execSQL("DROP TABLE IF EXISTS city");
+
             onCreate(db);
+
 
         }
     }
@@ -244,6 +262,30 @@ public class ConexionLocal {
         Cursor c = nBD.rawQuery(sql, null);
         //recorre y agrega
         return c;
+    }
+
+    public void limpiar() {
+        try {
+            nBD.delete("comentarios", null, null);
+            nBD.delete("historicalSupply", null, null);
+            nBD.delete("order_has_product", null, null);
+            nBD.delete("role_has_permission", null, null);
+            nBD.delete("stock", null, null);
+            nBD.delete("stand", null, null);
+            nBD.delete("product", null, null);
+            nBD.delete("material", null, null);
+            nBD.delete("type", null, null);
+            nBD.delete("permission", null, null);
+            nBD.delete("`order`", null, null);
+            nBD.delete("client", null, null);
+            nBD.delete("user", null, null);
+            nBD.delete("role", null, null);
+            nBD.delete("city", null, null);
+
+        } catch (Exception e) {
+            Log.e("Error", e.getMessage());
+        }
+
     }
 
 

@@ -58,7 +58,8 @@
                 android:paddingTop="5dp"
                 android:singleLine="false"
                 android:textColor="#565656"
-                android:saveEnabled="true" />
+                android:saveEnabled="true"
+                android:text="Almacenista" />
 
             <TextView
                 android:id="@+id/txtPassword"
@@ -81,7 +82,8 @@
                 android:padding="6dp"
                 android:paddingTop="5dp"
                 android:singleLine="true"
-                android:textColor="#565656" />
+                android:textColor="#565656"
+                android:text="12345" />
 
             <Button
                 android:id="@+id/Blogin"

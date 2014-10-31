@@ -5,6 +5,7 @@ import android.content.Context;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -69,8 +70,8 @@ public class RequestsAndResponses {
         ArrayList<NameValuePair> postparameters2send = new ArrayList<NameValuePair>();
         postparameters2send.add(new BasicNameValuePair("token", ""));
         //realizamos una peticion y como respuesta obtenes un array JSON
-        //return conexion.getserverdata(postparameters2send, URL_connect2 + "/stan/retrieving-records", "GET1", null);
-        return conexion.getserverdata(postparameters2send, URL_connect + "/stand.php", "GET1", null);
+        return conexion.getserverdata(postparameters2send, URL_connect2 + "/stand/retrieving-records", "GET1", null);
+        //return conexion.getserverdata(postparameters2send, URL_connect + "/stand.php", "GET1", null);
     }
 
     public JSONArray postMateriales() {
@@ -115,10 +116,10 @@ public class RequestsAndResponses {
         return conexion.getserverdata(null, URL_connect, "PUT1", null);
     }
 
-    public JSONArray putInventario() {
+    public JSONArray putInventario(JSONObject datos) {
         conexion = new Conexion();
         //realizamos una peticion y como respuesta obtenes un array JSON
-        return conexion.getserverdata(null, URL_connect, "PUT1", null);
+        return conexion.getserverdata(null, URL_connect2 + "/stock/update-record-by-id", "PUT", datos);
     }
 
     public JSONArray deleteMateriales() {

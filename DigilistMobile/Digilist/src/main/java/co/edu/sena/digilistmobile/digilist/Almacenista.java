@@ -215,7 +215,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
                             (ViewGroup) v.findViewById(R.id.toast_layout_root));
                     TextView text = (TextView) layout.findViewById(R.id.text);
                     text.setTextColor(Color.BLACK);
-                    text.setText(R.string.prodvac);
+                    text.setText(R.string.canvac);
                     toast = new Toast(c.getApplicationContext());
                     //toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
                     toast.setDuration(Toast.LENGTH_SHORT);
@@ -227,7 +227,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
                 if (validacion && validacion2) {
 
                     try {
-                        producto.agregarInventario("");
+                        producto.agregarInventario(auproducto.getText().toString(), Integer.parseInt(edtcantidad.getText().toString()));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
