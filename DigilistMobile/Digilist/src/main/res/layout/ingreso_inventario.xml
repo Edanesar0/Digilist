@@ -16,32 +16,32 @@
 
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
 
             <RelativeLayout
+                android:id="@+id/relativeLayout2"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:id="@+id/relativeLayout2">
+                android:layout_height="fill_parent">
 
                 <ProgressBar
-                    style="?android:attr/progressBarStyleLarge"
                     android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyleLarge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true" />
+                    android:layout_gravity="center_vertical" />
 
                 <LinearLayout
                     android:id="@+id/lyVentas"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:orientation="vertical"
                     android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true">
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/txtTitulo"
@@ -50,7 +50,8 @@
                         android:layout_gravity="center"
                         android:layout_marginRight="4dp"
                         android:layout_marginTop="22dp"
-                        android:text="@string/Ingreso_Inventario"
+                        android:gravity="center"
+                        android:text="@string/Agregar_inventario"
                         android:textColor="#CB2F17"
                         android:textSize="22dp" />
 
@@ -76,10 +77,10 @@
                             android:layout_height="30dp"
                             android:layout_alignParentBottom="true"
                             android:layout_gravity="center"
+                            android:layout_toLeftOf="@+id/btnInfo"
                             android:background="@drawable/edittext_rounded_corners"
                             android:completionThreshold="1"
-                            android:textColor="#565656"
-                            android:layout_toLeftOf="@+id/btnInfo" />
+                            android:textColor="#565656" />
 
                         <Button
                             android:id="@+id/btnInfo"
@@ -102,41 +103,41 @@
                             android:id="@+id/textView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentTop="true"
                             android:text="@string/Tipo"
                             android:textColor="#9a9a9a"
                             android:textIsSelectable="false"
-                            android:textSize="18dp"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentLeft="true" />
+                            android:textSize="18dp" />
 
                         <TextView
                             android:id="@+id/lvlTipo"
                             android:layout_width="125dp"
                             android:layout_height="30dp"
-                            android:textColor="#565656"
-                            android:layout_below="@+id/textView"
                             android:layout_alignParentLeft="true"
+                            android:layout_below="@+id/textView"
+                            android:textColor="#565656"
                             android:textSize="18dp" />
 
                         <TextView
                             android:id="@+id/lvlTamano"
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
-                            android:textColor="#565656"
                             android:layout_below="@+id/textView"
                             android:layout_toRightOf="@+id/lvlTipo"
+                            android:textColor="#565656"
                             android:textSize="18dp" />
 
                         <TextView
                             android:id="@+id/txtTamano"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="#9a9a9a"
-                            android:textIsSelectable="false"
-                            android:textSize="18dp"
                             android:layout_alignParentTop="true"
                             android:layout_toRightOf="@+id/lvlTipo"
-                            android:text="@string/Tamaño" />
+                            android:text="@string/Tamaño"
+                            android:textColor="#9a9a9a"
+                            android:textIsSelectable="false"
+                            android:textSize="18dp" />
                     </RelativeLayout>
 
                     <TextView
@@ -159,11 +160,11 @@
                         android:id="@+id/txtCantidad"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
                         android:text="@string/Cantidad"
                         android:textColor="#9a9a9a"
                         android:textIsSelectable="false"
-                        android:textSize="18dp"
-                        android:layout_marginTop="20dp" />
+                        android:textSize="18dp" />
 
                     <EditText
                         android:id="@+id/edtcantidad"

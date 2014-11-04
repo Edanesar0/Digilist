@@ -1,134 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="match_parent">
 
         <RelativeLayout
-            android:layout_width="280dp"
-            android:layout_height="220dp"
-            android:layout_gravity="center"
-            android:layout_alignWithParentIfMissing="false"
             android:id="@+id/relativeLayout6"
+            android:layout_width="280dp"
+            android:layout_height="250dp"
+            android:layout_alignWithParentIfMissing="false"
+            android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true">
+            android:layout_gravity="center">
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/white_button_round"
                 android:id="@+id/relativeLayout"
+                android:layout_width="132dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true">
+                android:background="@drawable/white_button_round">
 
                 <ImageView
-                    android:layout_width="75dp"
-                    android:layout_height="50dp"
                     android:id="@+id/imageView2"
-                    android:src="@drawable/reportar2"
+                    android:layout_width="75dp"
+                    android:layout_height="50dp"
                     android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true" />
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/reportar2" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Inventario"
                     android:id="@+id/textView2"
-                    android:textColor="#ff9a9a9a"
-                    android:textSize="25dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
                     android:layout_below="@+id/imageView2"
-                    android:layout_alignParentLeft="true" />
+                    android:gravity="center"
+                    android:lines="2"
+                    android:text="@string/Agregar_inventario"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="#ff9a9a9a"
+                    android:textSize="25dp" />
             </RelativeLayout>
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/white_button_round"
                 android:id="@+id/relativeLayout2"
+                android:layout_width="132dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true">
+                android:background="@drawable/white_button_round">
 
                 <ImageView
-                    android:layout_width="75dp"
-                    android:layout_height="50dp"
                     android:id="@+id/imageView"
-                    android:src="@drawable/icon_marcador"
+                    android:layout_width="75dp"
+                    android:layout_height="50dp"
                     android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true" />
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/icon_marcador" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Inventario"
                     android:id="@+id/textView"
-                    android:textColor="#ff9a9a9a"
-                    android:textSize="25dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
                     android:layout_below="@+id/imageView"
-                    android:layout_alignParentLeft="true" />
+                    android:gravity="center"
+                    android:text="Agregar Productos"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="#ff9a9a9a"
+                    android:textSize="25dp" />
 
             </RelativeLayout>
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/white_button_round"
                 android:id="@+id/relativeLayout3"
+                android:layout_width="132dp"
+                android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true">
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/white_button_round">
 
                 <ImageView
+                    android:id="@+id/imageView3"
                     android:layout_width="75dp"
                     android:layout_height="50dp"
-                    android:id="@+id/imageView3"
-                    android:src="@drawable/search"
                     android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true" />
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/search" />
 
                 <TextView
+                    android:id="@+id/textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Inventario"
-                    android:id="@+id/textView3"
-                    android:textColor="#ff9a9a9a"
-                    android:textSize="25dp"
+                    android:layout_alignParentLeft="true"
                     android:layout_below="@+id/imageView3"
-                    android:layout_alignParentLeft="true" />
+                    android:text="Inventario"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="#ff9a9a9a"
+                    android:textSize="25dp" />
 
             </RelativeLayout>
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/white_button_round"
                 android:id="@+id/relativeLayout4"
+                android:layout_width="132dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
                 android:layout_alignTop="@+id/relativeLayout3"
-                android:layout_alignParentRight="true">
+                android:background="@drawable/white_button_round">
 
                 <ImageView
+                    android:id="@+id/imageView4"
                     android:layout_width="75dp"
                     android:layout_height="50dp"
-                    android:id="@+id/imageView4"
-                    android:src="@drawable/ventas_enviadas"
                     android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true" />
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/ventas_enviadas" />
 
                 <TextView
+                    android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Inventario"
-                    android:id="@+id/textView4"
-                    android:textColor="#ff9a9a9a"
-                    android:textSize="25dp"
+                    android:layout_alignParentLeft="true"
                     android:layout_below="@+id/imageView4"
-                    android:layout_alignParentLeft="true" />
+                    android:text="Inventario"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="#ff9a9a9a"
+                    android:textSize="25dp" />
             </RelativeLayout>
 
         </RelativeLayout>

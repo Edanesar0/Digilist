@@ -5,7 +5,7 @@ import java.security.NoSuchAlgorithmException;
 
 
 public class Encrypting {
-    public  String getStringEncrypted(String message) {
+    public String getStringEncrypted(String message) {
         byte[] digest = null;
         byte[] buffer = message.getBytes();
         try {

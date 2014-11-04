@@ -72,7 +72,7 @@ public class Producto {
         return requestsAndResponses.getProductos();
     }
 
-    public JSONArray consultarInventario() {
+    public JSONArray consultarInventario() throws JSONException {
         requestsAndResponses = new RequestsAndResponses(c);
         return requestsAndResponses.getInventario();
     }
@@ -158,7 +158,7 @@ public class Producto {
         return conf;
     }
 
-    public String agregarInventario(String name, int amount) throws JSONException {
+    public JSONArray agregarInventario(String name, Float amount) throws JSONException {
         ConexionLocal conexionLocal = new ConexionLocal(c);
         conexionLocal.abrir();
         String sql = "select * " +
@@ -177,8 +177,7 @@ public class Producto {
         }
         ct.close();
         RequestsAndResponses requestsAndResponses = new RequestsAndResponses(c);
-        requestsAndResponses.putInventario(jsonObject);
-        return null;
+        return requestsAndResponses.putInventario(jsonObject);
     }
 
     public boolean modificarProducto(String criterio, String terminoAModificar) {

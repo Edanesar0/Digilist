@@ -14,12 +14,11 @@
     <string name="Logo">Logo</string>
     <string name="Agregar">Agregar</string>
     <string name="Limpiar">Limpiar</string>
-    <string name="IngresarProducto">Ingresar Producto</string>
     <string name="Nombre">Nombre</string>
     <string name="Referencia">Referencia</string>
-    <string name="Ingreso_Inventario">Ingresar Inventario</string>
     <string name="prodvac">Campo producto vacio</string>
-    <string name="canvac">Campo cantidad vacio</string>
+    <string name="canvac">Campo cantidad vacío</string>
+    <string name="Agregar_inventario">Agregar Inventario</string>
 
 
     <style name="ButtonText">
@@ -34,4 +33,8 @@
         <item name="android:shadowDy">1</item>
         <item name="android:shadowRadius">2</item>
     </style>
+
+    <string name="Agregar_Producto">Agregar Producto</string>
+    <string name="ErrorServidor">Error en enviar la petición</string>
+
 </resources>

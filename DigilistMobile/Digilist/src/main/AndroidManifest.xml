@@ -16,7 +16,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MenuInicial"
+            android:name=".Menu_Inicial"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity android:name=".Inicio" />

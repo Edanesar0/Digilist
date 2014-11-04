@@ -23,13 +23,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -227,14 +230,36 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
                 if (validacion && validacion2) {
 
                     try {
-                        producto.agregarInventario(auproducto.getText().toString(), Integer.parseInt(edtcantidad.getText().toString()));
+                        JSONArray jspro = producto.agregarInventario(auproducto.getText().toString(), Float.parseFloat(edtcantidad.getText().toString()));
+                        String mensaje = jspro.getString(0);
+
+                        if (mensaje.contains("There stock has been updated.")) {
+                            auproducto.setText("");
+                            lvlTipo.setText("");
+                            lvlTamano.setText("");
+                            lvlMaterial.setText("");
+                            edtcantidad.setText("");
+                        } else {
+                            LayoutInflater inflater = a.getLayoutInflater();
+                            View layout = inflater.inflate(R.layout.custom_toast_error,
+                                    (ViewGroup) v.findViewById(R.id.toast_layout_root));
+                            TextView text = (TextView) layout.findViewById(R.id.text);
+                            text.setTextColor(Color.BLACK);
+                            text.setText(R.string.ErrorServidor);
+                            toast = new Toast(c.getApplicationContext());
+                            //toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+                            toast.setDuration(Toast.LENGTH_SHORT);
+                            toast.setView(layout);
+                            toast.show();
+
+                        }
+
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
 
                 }
-
-
             }
         });
 
@@ -314,6 +339,8 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
         LinearLayout layoutver = (LinearLayout) v.findViewById(R.id.lyVentas);
         ProgressBar pbPro = (ProgressBar) v.findViewById(R.id.progressBarProducto);
         LinearLayout lyPro = (LinearLayout) v.findViewById(R.id.lyProducto);
+        ProgressBar pbInv = (ProgressBar) v.findViewById(R.id.pbInventario);
+        ScrollView lyInv = (ScrollView) v.findViewById(R.id.svInventario);
 
         protected void onPreExecute() {
             lyPro = (LinearLayout) v.findViewById(R.id.lyProducto);
@@ -357,6 +384,13 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
                         producto.agregarInventario();
                         break;
                     case '3':
+                        lyInv.setVisibility(View.INVISIBLE);
+                        pbInv.setVisibility(ProgressBar.VISIBLE);
+                        type.agregarTipo();
+                        material.agregarMaterial();
+                        producto.agregarProducto();
+                        stand.agregarStand();
+                        producto.agregarInventario();
                         break;
                 }
 
@@ -373,9 +407,9 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
         protected void onPostExecute(String result) {
             switch (pos) {
                 case '1':
-                    auproducto.setAdapter(adaptadorProductos);
                     layoutver.setVisibility(View.VISIBLE);
                     pb.setVisibility(ProgressBar.INVISIBLE);
+                    auproducto.setAdapter(adaptadorProductos);
                     break;
                 case '2':
                     lyPro.setVisibility(View.VISIBLE);
@@ -389,6 +423,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
 
                     break;
                 case '3':
+
                     ArrayList<String> productos = producto.consultarInventarios();
                     int count = 0;
                     if (productos.size() != 0) {
@@ -454,6 +489,8 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
                                 TableLayout.LayoutParams.WRAP_CONTENT));*/
 
                     }
+                    lyInv.setVisibility(View.VISIBLE);
+                    pbInv.setVisibility(ProgressBar.INVISIBLE);
 
                     break;
             }

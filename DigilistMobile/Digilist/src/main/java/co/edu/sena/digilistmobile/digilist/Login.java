@@ -203,7 +203,7 @@ public class Login extends SherlockActivity {
             pDialog.dismiss();//ocultamos progess dialog.
             Log.e("onPostExecute=", "" + result);
             if (result.equals("ok")) {
-                Intent i = new Intent(Login.this, MenuInicial.class);
+                Intent i = new Intent(Login.this, Menu_Inicial.class);
                 startActivity(i);
                 finish();
                 /*if (cargo.equals("Coordinador")) {

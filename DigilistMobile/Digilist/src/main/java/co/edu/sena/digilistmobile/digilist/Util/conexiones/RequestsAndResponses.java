@@ -5,6 +5,7 @@ import android.content.Context;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -57,12 +58,12 @@ public class RequestsAndResponses {
         return conexion.getserverdata(null, URL_connect2 + "/product/retrieving-records", "GET1", null);
     }
 
-    public JSONArray getInventario() {
+    public JSONArray getInventario() throws JSONException {
         conexion = new Conexion();
         ArrayList<NameValuePair> postparameters2send = new ArrayList<NameValuePair>();
         postparameters2send.add(new BasicNameValuePair("token", ""));
         //realizamos una peticion y como respuesta obtenes un array JSON
-        return conexion.getserverdata(postparameters2send, URL_connect2 + "/stock/retrieving-records", "GET1", null);
+        return conexion.getserverdata(postparameters2send, URL_connect2 + "/stock/retrieving-records", "GET1", null).getJSONArray(0);
     }
 
     public JSONArray getStand() {

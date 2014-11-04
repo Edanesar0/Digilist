@@ -31,15 +31,10 @@ public class Conexion {
     public JSONArray getserverdata(ArrayList<NameValuePair> parameters, String urlwebserver, String fun, JSONObject para) {
 
         //conecta via http y envia un post.
-
         httppostconnect(parameters, urlwebserver, fun, para);
-
         if (is != null) {//si obtuvo una respuesta
-
             getpostresponse();
-
             return getjsonarray();
-
         } else {
 
             return null;

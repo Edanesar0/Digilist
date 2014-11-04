@@ -13,11 +13,11 @@
     <string name="Logo">Logo</string>
     <string name="Agregar">Ajouter</string>
     <string name="Limpiar">Nettoyer</string>
-    <string name="IngresarProducto">Entrez produit</string>
     <string name="Nombre">Nom</string>
     <string name="Referencia">Référence</string>
-    <string name="Ingreso_Inventario">Connectez-vous Inventaire</string>
     <string name="prodvac">Champ vide produit</string>
+    <string name="canvac">Champ vide produit</string>
+    <string name="Agregar_inventario">Ajouter inventaire</string>
 
 
     <style name="ButtonText">
@@ -32,4 +32,8 @@
         <item name="android:shadowDy">1</item>
         <item name="android:shadowRadius">2</item>
     </style>
+
+    <string name="Agregar_Producto">Ajouter un produit</string>
+    <string name="ErrorServidor">Impossible d envoyer la demande</string>
+
 </resources>
