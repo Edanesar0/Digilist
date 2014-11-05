@@ -32,7 +32,6 @@ import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -234,11 +233,17 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
                         String mensaje = jspro.getString(0);
 
                         if (mensaje.contains("There stock has been updated.")) {
+
                             auproducto.setText("");
                             lvlTipo.setText("");
                             lvlTamano.setText("");
                             lvlMaterial.setText("");
                             edtcantidad.setText("");
+                            toast = new Toast(c.getApplicationContext());
+                            toast.setDuration(Toast.LENGTH_SHORT);
+                            toast.setText("Inventario agregado");
+                            toast.show();
+
                         } else {
                             LayoutInflater inflater = a.getLayoutInflater();
                             View layout = inflater.inflate(R.layout.custom_toast_error,
