@@ -35,6 +35,11 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 
+import co.edu.sena.digilistmobile.digilist.dao.MaterialDAO;
+import co.edu.sena.digilistmobile.digilist.dao.ProductDAO;
+import co.edu.sena.digilistmobile.digilist.dao.StandDAO;
+import co.edu.sena.digilistmobile.digilist.dao.TypeDAO;
+
 
 public class Almacenista implements AdapterView.OnItemSelectedListener {
     private View v;
@@ -47,14 +52,14 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
     private EditText edtcantidad;
     Button binfo, binfocli, bedit, btnLimpiar, btnAgregar;
     private TableLayout tl;
-    private Producto producto;
+    private ProductDAO producto;
     private Typeface font;
     ArrayList<String> aTamanio;
     private Activity a;
     private Spinner sTipo, sMaterial, sTamanio;
-    Tipo type;
-    Material material;
-    Stand stand;
+    TypeDAO type;
+    MaterialDAO material;
+    StandDAO stand;
 
     public Almacenista(View v, Context c, Activity a) {
         this.v = v;
@@ -158,9 +163,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
                 lvlTamano.setText("");
                 lvlMaterial.setText("");
                 edtcantidad.setText("");
-
             }
-
             @Override
             public void afterTextChanged(Editable s) {
 
@@ -204,12 +207,9 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
                     toast.setView(layout);
                     toast.show();
                     validacion = false;
-
                 }
-
                 if (validacion(edtcantidad.getText().toString())) {
                     validacion2 = true;
-
                 } else {
                     vibrator.vibrate(200);
                     LayoutInflater inflater = a.getLayoutInflater();
@@ -224,16 +224,13 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
                     toast.setView(layout);
                     toast.show();
                     validacion2 = false;
-
                 }
                 if (validacion && validacion2) {
 
                     try {
                         JSONArray jspro = producto.agregarInventario(auproducto.getText().toString(), Float.parseFloat(edtcantidad.getText().toString()));
                         String mensaje = jspro.getString(0);
-
                         if (mensaje.contains("There stock has been updated.")) {
-
                             auproducto.setText("");
                             lvlTipo.setText("");
                             lvlTamano.setText("");
@@ -256,10 +253,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
                             toast.setDuration(Toast.LENGTH_SHORT);
                             toast.setView(layout);
                             toast.show();
-
                         }
-
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -304,7 +298,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
         switch (parent.getId()) {
             case R.id.sTipo:
                 if (!sTipo.getSelectedItem().toString().equals("Seleccione uno")) {
-                    Tipo type = new Tipo(c);
+                    type = new TypeDAO(c);
                     Spinner sTamanio = (Spinner) v.findViewById(R.id.sTamanio);
                     aTamanio = type.consultarTiposTamanio(sTipo.getSelectedItem().toString());
                     ArrayAdapter<String> adaptadorTamanio = new ArrayAdapter<String>(c, android.R.layout.simple_spinner_item, aTamanio);//creamos el adaptador de los spinner agregando los Arraylist
@@ -350,10 +344,10 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
         protected void onPreExecute() {
             lyPro = (LinearLayout) v.findViewById(R.id.lyProducto);
             pbPro = (ProgressBar) v.findViewById(R.id.progressBarProducto);
-            type = new Tipo(c);
-            material = new Material(c);
-            producto = new Producto(c);
-            stand = new Stand(c);
+            type = new TypeDAO(c);
+            material = new MaterialDAO(c);
+            producto = new ProductDAO(c);
+            stand = new StandDAO(c);
 
         }
 

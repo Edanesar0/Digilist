@@ -78,25 +78,25 @@ public class RequestsAndResponses {
     public JSONArray postMateriales() {
         conexion = new Conexion();
         //realizamos una peticion y como respuesta obtenes un array JSON
-        return conexion.getserverdata(null, URL_connect, "POST2", null);
+        return conexion.getserverdata(null, URL_connect2+"/product/insert-record", "POST2", null);
     }
 
     public JSONArray postTipos() {
         conexion = new Conexion();
         //realizamos una peticion y como respuesta obtenes un array JSON
-        return conexion.getserverdata(null, URL_connect, "POST2", null);
+        return conexion.getserverdata(null, URL_connect2+"/product/insert-record", "POST2", null);
     }
 
     public JSONArray postProductos() {
         conexion = new Conexion();
         //realizamos una peticion y como respuesta obtenes un array JSON
-        return conexion.getserverdata(null, URL_connect, "POST2", null);
+        return conexion.getserverdata(null, URL_connect2+"/product/insert-record", "POST", null);
     }
 
     public JSONArray postInventario() {
         conexion = new Conexion();
         //realizamos una peticion y como respuesta obtenes un array JSON
-        return conexion.getserverdata(null, URL_connect, "POST2", null);
+        return conexion.getserverdata(null, URL_connect2+"/product/insert-record", "POST2", null);
     }
 
     public JSONArray putMateriales() {

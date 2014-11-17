@@ -1,5 +1,4 @@
-package co.edu.sena.digilistmobile.digilist;
-
+package co.edu.sena.digilistmobile.digilist.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -15,56 +14,12 @@ import java.util.ArrayList;
 import co.edu.sena.digilistmobile.digilist.util.conexiones.ConexionLocal;
 import co.edu.sena.digilistmobile.digilist.util.conexiones.RequestsAndResponses;
 
-
-public class Producto {
-    private String referecia, nombre, descripcion;
-    private Material material;
-    private Tipo tipo;
+public class ProductDAO {
     RequestsAndResponses requestsAndResponses;
     Context c;
 
-    public Producto(Context c) {
+    public ProductDAO(Context c) {
         this.c = c;
-    }
-
-    public String getReferecia() {
-        return referecia;
-    }
-
-    public void setReferecia(String referecia) {
-        this.referecia = referecia;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public Material getMaterial() {
-        return material;
-    }
-
-    public void setMaterial(Material material) {
-        this.material = material;
-    }
-
-    public Tipo getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(Tipo tipo) {
-        this.tipo = tipo;
     }
 
     public JSONArray consultarProducto() {
@@ -126,6 +81,7 @@ public class Producto {
 
     public String agregarProducto() throws JSONException {
         JSONArray jsonArray = consultarProducto();
+        jsonArray = jsonArray.getJSONArray(0);
         ContentValues cv = new ContentValues();
         ConexionLocal conexionLocal = new ConexionLocal(c);
         conexionLocal.abrir();
@@ -216,5 +172,4 @@ public class Producto {
         return alist;
 
     }
-
 }

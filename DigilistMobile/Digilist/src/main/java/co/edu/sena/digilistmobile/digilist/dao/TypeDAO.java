@@ -1,4 +1,4 @@
-package co.edu.sena.digilistmobile.digilist;
+package co.edu.sena.digilistmobile.digilist.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -12,46 +12,29 @@ import java.util.ArrayList;
 
 import co.edu.sena.digilistmobile.digilist.util.conexiones.ConexionLocal;
 import co.edu.sena.digilistmobile.digilist.util.conexiones.RequestsAndResponses;
+import co.edu.sena.digilistmobile.digilist.vo.TypeVO;
 
-
-public class Material {
-    private String nombre, descripcion;
+public class TypeDAO {
     RequestsAndResponses requestsAndResponses;
     Context c;
 
-    public Material(Context c) {
+    public TypeDAO(Context c) {
         this.c = c;
 
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public boolean agregarMaterial(Material material, int token) throws JSONException {
+    public boolean agregarTipo(TypeVO tipo) {
         requestsAndResponses = new RequestsAndResponses(c);
-        requestsAndResponses.postMateriales();
+        requestsAndResponses.postTipos();
         return false;
     }
 
-    public String agregarMaterial() throws JSONException {
-        JSONArray jsonArray = consultarMaterial("", "");
+    public String agregarTipo() throws JSONException {
+        JSONArray jsonArray = consultarTipo("", "");
+        jsonArray = jsonArray.getJSONArray(0);
         ContentValues cv = new ContentValues();
         ConexionLocal conexionLocal = new ConexionLocal(c);
         String conf = "";
-        //jsonArray = jsonArray.getJSONArray(0);
         conexionLocal.abrir();
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -59,37 +42,36 @@ public class Material {
             for (int j = 0; j < names.length(); j++) {
                 cv.put(names.getString(j), jsonObject.getString(names.getString(j)));
             }
-            conf += conexionLocal.insert("material", cv);
+            conf += conexionLocal.insert("type", cv);
         }
         conexionLocal.cerrar();
-
         return conf;
     }
 
-    public boolean eliminarMaterial(String nombre) {
+    public boolean eliminarTipo(String nombre) {
         requestsAndResponses = new RequestsAndResponses(c);
-        requestsAndResponses.deleteMateriales();
+        requestsAndResponses.deleteTipos();
         return false;
     }
 
-    public boolean modificarMaterial(String criterio, String terminoModificar) {
+    public boolean modificarTipo(String criterio, String terminoModificar) {
         requestsAndResponses = new RequestsAndResponses(c);
-        requestsAndResponses.putMateriales();
+        requestsAndResponses.putTipos();
         return false;
     }
 
-    public JSONArray consultarMaterial(String criterio, String terminoBuscar) throws JSONException {
+    public JSONArray consultarTipo(String criterio, String terminoBuscar) {
         requestsAndResponses = new RequestsAndResponses(c);
-        return requestsAndResponses.getMateriales();
+        return requestsAndResponses.getTipos();
 
     }
 
-    public ArrayList<String> consultarMateriales() {
+    public ArrayList<String> consultarTipos() {
         requestsAndResponses = new RequestsAndResponses(c);
         ConexionLocal conexionLocal = new ConexionLocal(c);
         conexionLocal.abrir();
         String sql = "select * " +
-                "from material";
+                "from type group by name order by name";
         final ArrayList<String> alist = new ArrayList<String>();
         alist.add("Seleccione uno");
         Cursor ct = conexionLocal.read(sql);
@@ -105,5 +87,24 @@ public class Material {
 
     }
 
+    public ArrayList<String> consultarTiposTamanio(String tipo) {
+        requestsAndResponses = new RequestsAndResponses(c);
+        ConexionLocal conexionLocal = new ConexionLocal(c);
+        conexionLocal.abrir();
+        String sql = "select * " +
+                "from type where name like '%" + tipo + "%'";
+        final ArrayList<String> alist = new ArrayList<String>();
+        alist.add("Seleccione uno");
+        Cursor ct = conexionLocal.read(sql);
+        //recorre y agrega
+        for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
+            //alist.add(ct.getString(0));
+            alist.add(ct.getString(3));
+            //alist.add(ct.getString(2));
+            //alist.add(ct.getString(3));
+        }
+        conexionLocal.cerrar();
+        return alist;
 
+    }
 }

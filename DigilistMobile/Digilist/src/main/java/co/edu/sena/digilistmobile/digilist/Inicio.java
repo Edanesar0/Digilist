@@ -19,6 +19,8 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.SubMenu;
 
+import co.edu.sena.digilistmobile.digilist.dao.ProductDAO;
+
 
 /**
  * Created by ADMIN on 16/04/2014.
@@ -36,7 +38,7 @@ public class Inicio extends SherlockActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.inicio_almacenista);
         Typeface font = Typeface.createFromAsset(getAssets(), "Station.ttf");
-        Producto producto = new Producto(Inicio.this);
+        ProductDAO producto = new ProductDAO(Inicio.this);
         ab = getSupportActionBar();//instancia
         ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_HOME_AS_UP);//Atributos titulo boton home y flecha de acompañamiento de home
         ab.setHomeButtonEnabled(true);//activar el boton home

@@ -1,4 +1,4 @@
-package co.edu.sena.digilistmobile.digilist;
+package co.edu.sena.digilistmobile.digilist.dao;
 
 
 import android.content.ContentValues;
@@ -11,33 +11,14 @@ import org.json.JSONObject;
 import co.edu.sena.digilistmobile.digilist.util.conexiones.ConexionLocal;
 import co.edu.sena.digilistmobile.digilist.util.conexiones.RequestsAndResponses;
 
-public class Stand {
-    private int capacidad;
-    private String descripcion;
+public class StandDAO {
     RequestsAndResponses requestsAndResponses;
     Context c;
 
-    public Stand(Context c) {
+    public StandDAO(Context c) {
         this.c = c;
 
     }
-
-    public int getCapacidad() {
-        return capacidad;
-    }
-
-    public void setCapacidad(int capacidad) {
-        this.capacidad = capacidad;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
     public JSONArray revisarStand(int identificador) {
         requestsAndResponses = new RequestsAndResponses(c);
         return requestsAndResponses.getStand();
