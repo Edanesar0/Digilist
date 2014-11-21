@@ -50,7 +50,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
     private AutoCompleteTextView auproducto;
     private TextView lvlTipo, lvlMaterial, lvlTamano;
     private EditText edtcantidad;
-    Button binfo, binfocli, bedit, btnLimpiar, btnAgregar;
+    private Button binfo, binfocli, bedit, btnLimpiar, btnAgregar;
     private TableLayout tl;
     private ProductDAO producto;
     private Typeface font;
@@ -236,10 +236,10 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
                             lvlTamano.setText("");
                             lvlMaterial.setText("");
                             edtcantidad.setText("");
-                            toast = new Toast(c.getApplicationContext());
-                            toast.setDuration(Toast.LENGTH_SHORT);
-                            toast.setText("Inventario agregado");
-                            toast.show();
+                            toast = Toast.makeText(c, "Inventario agregado", Toast.LENGTH_SHORT);
+
+
+
 
                         } else {
                             LayoutInflater inflater = a.getLayoutInflater();
