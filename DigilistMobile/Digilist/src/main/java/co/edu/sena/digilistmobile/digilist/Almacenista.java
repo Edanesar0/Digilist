@@ -226,7 +226,6 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
                     validacion2 = false;
                 }
                 if (validacion && validacion2) {
-
                     try {
                         JSONArray jspro = producto.agregarInventario(auproducto.getText().toString(), Float.parseFloat(edtcantidad.getText().toString()));
                         String mensaje = jspro.getString(0);
@@ -237,10 +236,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
                             lvlMaterial.setText("");
                             edtcantidad.setText("");
                             toast = Toast.makeText(c, "Inventario agregado", Toast.LENGTH_SHORT);
-
-
-
-
+                            toast.show();
                         } else {
                             LayoutInflater inflater = a.getLayoutInflater();
                             View layout = inflater.inflate(R.layout.custom_toast_error,
