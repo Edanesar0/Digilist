@@ -36,5 +36,6 @@
 
     <string name="Agregar_Producto">Agregar Producto</string>
     <string name="ErrorServidor">Error en enviar la petición</string>
+    <string name="Inventario_Agregado">Inventario Agregado</string>
 
 </resources>

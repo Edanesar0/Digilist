@@ -137,7 +137,7 @@
                     android:paddingBottom="15dp">
 
                     <Button
-                        android:id="@+id/btnAgregar"
+                        android:id="@+id/btnAgregarProducto"
                         android:layout_width="95dp"
                         android:layout_height="40dp"
                         android:layout_alignParentLeft="true"
@@ -153,7 +153,7 @@
                         android:id="@+id/btnLimpiar"
                         android:layout_width="95dp"
                         android:layout_height="40dp"
-                        android:layout_alignBottom="@+id/btnAgregar"
+                        android:layout_alignBottom="@+id/btnAgregarProducto"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentTop="true"
                         android:layout_gravity="left|center_vertical"
@@ -170,7 +170,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_toLeftOf="@+id/btnLimpiar"
-                        android:layout_toRightOf="@+id/btnAgregar"
+                        android:layout_toRightOf="@+id/btnAgregarProducto"
                         android:gravity="center_horizontal"
                         android:text="ó"
                         android:textAppearance="?android:attr/textAppearanceMedium"

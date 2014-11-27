@@ -38,7 +38,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import co.edu.sena.digilistmobile.digilist.util.Encrypting;
-import co.edu.sena.digilistmobile.digilist.util.conexiones.Conexion;
+import co.edu.sena.digilistmobile.digilist.util.conexiones.ConexionHTTP;
 
 
 public class Login extends SherlockActivity {
@@ -46,7 +46,7 @@ public class Login extends SherlockActivity {
     Typeface font;
     ActionBar ab;
     EditText edtPassw, edtUsuario;
-    Conexion conexion;
+    ConexionHTTP conexion;
     String URL_connect;
 
     @Override
@@ -265,7 +265,7 @@ public class Login extends SherlockActivity {
             int cant = 0;
             /*Creamos un ArrayList del tipo nombre valor para agregar los datos recibidos por los parametros anteriores
              * y enviarlo mediante POST a nuestro sistema para relizar la validacion*/
-            conexion = new Conexion();
+            conexion = new ConexionHTTP();
             ArrayList<NameValuePair> postparameters2send = new ArrayList<NameValuePair>();
             postparameters2send.add(new BasicNameValuePair("usuario", username));
             postparameters2send.add(new BasicNameValuePair("password", password));

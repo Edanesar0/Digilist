@@ -35,5 +35,6 @@
 
     <string name="Agregar_Producto">Ajouter un produit</string>
     <string name="ErrorServidor">Impossible d envoyer la demande</string>
+    <string name="Inventario_Agregado">Inventaire Globale</string>
 
 </resources>

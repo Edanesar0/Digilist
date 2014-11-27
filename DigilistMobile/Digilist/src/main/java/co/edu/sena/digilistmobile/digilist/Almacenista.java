@@ -41,7 +41,7 @@ import co.edu.sena.digilistmobile.digilist.dao.StandDAO;
 import co.edu.sena.digilistmobile.digilist.dao.TypeDAO;
 
 
-public class Almacenista implements AdapterView.OnItemSelectedListener {
+public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnClickListener {
     private View v;
     private Context c;
     private ViewPager vp;
@@ -49,12 +49,12 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
     private ProgressDialog progressDialog = null;
     private AutoCompleteTextView auproducto;
     private TextView lvlTipo, lvlMaterial, lvlTamano;
-    private EditText edtcantidad;
+    private EditText edtcantidad, edtNombreProducto;
     private Button binfo, binfocli, bedit, btnLimpiar, btnAgregar;
     private TableLayout tl;
     private ProductDAO producto;
     private Typeface font;
-    ArrayList<String> aTamanio;
+    private ArrayList<String> aTamanio;
     private Activity a;
     private Spinner sTipo, sMaterial, sTamanio;
     TypeDAO type;
@@ -78,64 +78,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
         lvlTamano.setTypeface(font);
         binfo = (Button) v.findViewById(R.id.btnInfo);
         binfo.setTypeface(font);
-        binfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    final String[] prodSel = {""};
-                    ArrayList lis = producto.consultarProductos();
-                    final String[] pro = new String[lis.size() / 4];
-                    int y = 0;
-                    for (int j = 0; j < lis.size(); j = j + 4) {
-                        pro[y] = lis.get(j).toString() + " - " + lis.get(j + 2).toString();
-                        y++;
-                    }
-
-
-                    LayoutInflater inflater = a.getLayoutInflater();
-                    View v2 = inflater.inflate(R.layout.mensaje_producto, null);
-                    AlertDialog.Builder builder3 = new AlertDialog.Builder(c);
-                    builder3.setSingleChoiceItems(pro, -1, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            prodSel[0] = pro[which].substring(0, pro[which].indexOf("-") - 1);
-
-                        }
-                    });
-                    builder3.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            ArrayList lis = producto.consultarProducto("product.name", prodSel[0]);
-                            auproducto.setText(prodSel[0]);
-                            lvlTipo.setText("" + lis.get(1));
-                            lvlTamano.setText("" + lis.get(2));
-                            lvlMaterial.setText("" + lis.get(3));
-                            edtcantidad.setText("1");
-
-                        }
-                    }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            auproducto.setText("");
-                            lvlTipo.setText("");
-                            lvlTamano.setText("");
-                            lvlMaterial.setText("");
-                            edtcantidad.setText("");
-                        }
-                    });
-                    AlertDialog dialog3;
-                    dialog3 = builder3.create();
-                    dialog3.setTitle("Productos");
-                    dialog3.show();
-
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-
-            }
-        });
+        binfo.setOnClickListener(this);
         lvlMaterial = (TextView) v.findViewById(R.id.lvlMaterial);
         lvlMaterial.setTypeface(font);
         edtcantidad = (EditText) v.findViewById(R.id.edtcantidad);
@@ -164,6 +107,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
                 lvlMaterial.setText("");
                 edtcantidad.setText("");
             }
+
             @Override
             public void afterTextChanged(Editable s) {
 
@@ -172,101 +116,22 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
 
 
         btnLimpiar = (Button) v.findViewById(R.id.btnLimpiar);
-        btnLimpiar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                auproducto.setText("");
-                lvlTipo.setText("");
-                lvlTamano.setText("");
-                lvlMaterial.setText("");
-                edtcantidad.setText("");
-            }
-        });
+        btnLimpiar.setOnClickListener(this);
         btnAgregar = (Button) v.findViewById(R.id.btnAgregarInve);
-        btnAgregar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast toast = null;
-                Vibrator vibrator = (Vibrator) c.getSystemService(Context.VIBRATOR_SERVICE);
-                boolean validacion = false, validacion2 = false;
-
-                if (validacion(auproducto.getText().toString())) {
-                    validacion = true;
-
-                } else {
-                    vibrator.vibrate(200);
-                    LayoutInflater inflater = a.getLayoutInflater();
-                    View layout = inflater.inflate(R.layout.custom_toast_error,
-                            (ViewGroup) v.findViewById(R.id.toast_layout_root));
-                    TextView text = (TextView) layout.findViewById(R.id.text);
-                    text.setTextColor(Color.BLACK);
-                    text.setText(R.string.prodvac);
-                    toast = new Toast(c.getApplicationContext());
-                    //toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
-                    toast.setDuration(Toast.LENGTH_SHORT);
-                    toast.setView(layout);
-                    toast.show();
-                    validacion = false;
-                }
-                if (validacion(edtcantidad.getText().toString())) {
-                    validacion2 = true;
-                } else {
-                    vibrator.vibrate(200);
-                    LayoutInflater inflater = a.getLayoutInflater();
-                    View layout = inflater.inflate(R.layout.custom_toast_error,
-                            (ViewGroup) v.findViewById(R.id.toast_layout_root));
-                    TextView text = (TextView) layout.findViewById(R.id.text);
-                    text.setTextColor(Color.BLACK);
-                    text.setText(R.string.canvac);
-                    toast = new Toast(c.getApplicationContext());
-                    //toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
-                    toast.setDuration(Toast.LENGTH_SHORT);
-                    toast.setView(layout);
-                    toast.show();
-                    validacion2 = false;
-                }
-                if (validacion && validacion2) {
-                    try {
-                        JSONArray jspro = producto.agregarInventario(auproducto.getText().toString(), Float.parseFloat(edtcantidad.getText().toString()));
-                        String mensaje = jspro.getString(0);
-                        if (mensaje.contains("There stock has been updated.")) {
-                            auproducto.setText("");
-                            lvlTipo.setText("");
-                            lvlTamano.setText("");
-                            lvlMaterial.setText("");
-                            edtcantidad.setText("");
-                            toast = Toast.makeText(c, "Inventario agregado", Toast.LENGTH_SHORT);
-                            toast.show();
-                        } else {
-                            LayoutInflater inflater = a.getLayoutInflater();
-                            View layout = inflater.inflate(R.layout.custom_toast_error,
-                                    (ViewGroup) v.findViewById(R.id.toast_layout_root));
-                            TextView text = (TextView) layout.findViewById(R.id.text);
-                            text.setTextColor(Color.BLACK);
-                            text.setText(R.string.ErrorServidor);
-                            toast = new Toast(c.getApplicationContext());
-                            //toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
-                            toast.setDuration(Toast.LENGTH_SHORT);
-                            toast.setView(layout);
-                            toast.show();
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-            }
-        });
+        btnAgregar.setOnClickListener(this);
 
     }
 
     public void productos() {
+        edtNombreProducto = (EditText) v.findViewById(R.id.edtNombreProducto);
         sTipo = (Spinner) v.findViewById(R.id.sTipo);
         sMaterial = (Spinner) v.findViewById(R.id.sMaterial);
         sTamanio = (Spinner) v.findViewById(R.id.sTamanio);
         new asynclogin().execute(2 + "");
         sTamanio.setOnItemSelectedListener(this);
         sTipo.setOnItemSelectedListener(this);
+        btnAgregar = (Button) v.findViewById(R.id.btnAgregarProducto);
+        btnAgregar.setOnClickListener(this);
 
 
     }
@@ -326,6 +191,152 @@ public class Almacenista implements AdapterView.OnItemSelectedListener {
             val = false;
         }
         return val;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btnInfo:
+                try {
+                    final String[] prodSel = {""};
+                    ArrayList lis = producto.consultarProductos();
+                    final String[] pro = new String[lis.size() / 4];
+                    int y = 0;
+                    for (int j = 0; j < lis.size(); j = j + 4) {
+                        pro[y] = lis.get(j).toString() + " - " + lis.get(j + 2).toString();
+                        y++;
+                    }
+
+
+                    LayoutInflater inflater = a.getLayoutInflater();
+                    View v2 = inflater.inflate(R.layout.mensaje_producto, null);
+                    AlertDialog.Builder builder3 = new AlertDialog.Builder(c);
+                    builder3.setSingleChoiceItems(pro, -1, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            prodSel[0] = pro[which].substring(0, pro[which].indexOf("-") - 1);
+
+                        }
+                    });
+                    builder3.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            ArrayList lis = producto.consultarProducto("product.name", prodSel[0]);
+                            auproducto.setText(prodSel[0]);
+                            lvlTipo.setText("" + lis.get(1));
+                            lvlTamano.setText("" + lis.get(2));
+                            lvlMaterial.setText("" + lis.get(3));
+                            edtcantidad.setText("1");
+
+                        }
+                    }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            auproducto.setText("");
+                            lvlTipo.setText("");
+                            lvlTamano.setText("");
+                            lvlMaterial.setText("");
+                            edtcantidad.setText("");
+                        }
+                    });
+                    AlertDialog dialog3;
+                    dialog3 = builder3.create();
+                    dialog3.setTitle("Productos");
+                    dialog3.show();
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+
+            case R.id.btnLimpiar:
+                auproducto.setText("");
+                lvlTipo.setText("");
+                lvlTamano.setText("");
+                lvlMaterial.setText("");
+                edtcantidad.setText("");
+
+                break;
+            case R.id.btnAgregarInve:
+                Toast toast = null;
+                Vibrator vibrator = (Vibrator) c.getSystemService(Context.VIBRATOR_SERVICE);
+                boolean validacion = false, validacion2 = false;
+
+                if (validacion(auproducto.getText().toString())) {
+                    validacion = true;
+
+                } else {
+                    vibrator.vibrate(200);
+                    LayoutInflater inflater = a.getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.custom_toast_error,
+                            (ViewGroup) v.findViewById(R.id.toast_layout_root));
+                    TextView text = (TextView) layout.findViewById(R.id.text);
+                    text.setTextColor(Color.BLACK);
+                    text.setText(R.string.prodvac);
+                    toast = new Toast(c.getApplicationContext());
+                    //toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setView(layout);
+                    toast.show();
+                    validacion = false;
+                }
+                if (validacion(edtcantidad.getText().toString())) {
+                    validacion2 = true;
+                } else {
+                    vibrator.vibrate(200);
+                    LayoutInflater inflater = a.getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.custom_toast_error,
+                            (ViewGroup) v.findViewById(R.id.toast_layout_root));
+                    TextView text = (TextView) layout.findViewById(R.id.text);
+                    text.setTextColor(Color.BLACK);
+                    text.setText(R.string.canvac);
+                    toast = new Toast(c.getApplicationContext());
+                    //toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setView(layout);
+                    toast.show();
+                    validacion2 = false;
+                }
+                if (validacion && validacion2) {
+                    try {
+                        JSONArray jspro = producto.agregarInventario(auproducto.getText().toString(), Float.parseFloat(edtcantidad.getText().toString()));
+                        String mensaje = jspro.getString(0);
+                        if (mensaje.contains("There stock has been updated.")) {
+                            auproducto.setText("");
+                            lvlTipo.setText("");
+                            lvlTamano.setText("");
+                            lvlMaterial.setText("");
+                            edtcantidad.setText("");
+                            toast = Toast.makeText(c, R.string.Inventario_Agregado, Toast.LENGTH_SHORT);
+                            toast.show();
+                        } else {
+                            LayoutInflater inflater = a.getLayoutInflater();
+                            View layout = inflater.inflate(R.layout.custom_toast_error,
+                                    (ViewGroup) v.findViewById(R.id.toast_layout_root));
+                            TextView text = (TextView) layout.findViewById(R.id.text);
+                            text.setTextColor(Color.BLACK);
+                            text.setText(R.string.ErrorServidor);
+                            toast = new Toast(c.getApplicationContext());
+                            //toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+                            toast.setDuration(Toast.LENGTH_SHORT);
+                            toast.setView(layout);
+                            toast.show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+                break;
+
+            case R.id.btnAgregarProducto:
+
+                break;
+
+
+        }
+
     }
 
     class asynclogin extends AsyncTask<String, String, String> {

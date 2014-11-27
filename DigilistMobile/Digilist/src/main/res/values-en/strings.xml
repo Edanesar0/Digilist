@@ -36,5 +36,6 @@
 
     <string name="Agregar_Producto">Add Product</string>
     <string name="ErrorServidor">Failed to send request</string>
+    <string name="Inventario_Agregado">Aggregate Inventory</string>
 
 </resources>
