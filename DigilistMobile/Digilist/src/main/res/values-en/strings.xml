@@ -37,5 +37,10 @@
     <string name="Agregar_Producto">Add Product</string>
     <string name="ErrorServidor">Failed to send request</string>
     <string name="Inventario_Agregado">Aggregate Inventory</string>
+    <string name="matvac">Select a material</string>
+    <string name="nomvac">Empty Name field </string>
+    <string name="refvac">Reference field empty</string>
+    <string name="tamvac">Select a size</string>
+    <string name="tipvac">Select a type</string>
 
 </resources>

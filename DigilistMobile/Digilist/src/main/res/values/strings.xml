@@ -16,8 +16,8 @@
     <string name="Limpiar">Limpiar</string>
     <string name="Nombre">Nombre</string>
     <string name="Referencia">Referencia</string>
-    <string name="prodvac">Campo producto vacio</string>
-    <string name="canvac">Campo cantidad vacío</string>
+    <string name="prodvac">Campo producto vació</string>
+    <string name="canvac">Campo cantidad vació</string>
     <string name="Agregar_inventario">Agregar Inventario</string>
 
 
@@ -37,5 +37,10 @@
     <string name="Agregar_Producto">Agregar Producto</string>
     <string name="ErrorServidor">Error en enviar la petición</string>
     <string name="Inventario_Agregado">Inventario Agregado</string>
+    <string name="nomvac">Campo nombre vació</string>
+    <string name="refvac">Campo referencia vació</string>
+    <string name="tipvac">Seleccione un tipo</string>
+    <string name="matvac">Seleccione un material</string>
+    <string name="tamvac">Seleccione un tamaño</string>
 
 </resources>

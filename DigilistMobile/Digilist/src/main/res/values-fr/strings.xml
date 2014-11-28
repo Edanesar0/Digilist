@@ -36,5 +36,10 @@
     <string name="Agregar_Producto">Ajouter un produit</string>
     <string name="ErrorServidor">Impossible d envoyer la demande</string>
     <string name="Inventario_Agregado">Inventaire Globale</string>
+    <string name="nomvac">Champ vide de Nom</string>
+    <string name="matvac">Choisissez un matériau</string>
+    <string name="refvac">Zone de référence vide</string>
+    <string name="tamvac">Choisissez une taille</string>
+    <string name="tipvac">Sélectionnez un type</string>
 
 </resources>

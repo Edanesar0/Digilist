@@ -73,10 +73,12 @@ public class Menu_Inicial extends SherlockActivity implements View.OnClickListen
                 Intent i2 = new Intent(this, Inicio.class);
                 i2.putExtra("pos", 1);
                 startActivity(i2);
+                break;
             case R.id.relativeLayout3:
                 Intent i3 = new Intent(this, Inicio.class);
                 i3.putExtra("pos", 2);
                 startActivity(i3);
+                break;
 
 
         }

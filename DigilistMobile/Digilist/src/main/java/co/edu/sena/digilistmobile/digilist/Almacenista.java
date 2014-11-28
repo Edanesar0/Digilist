@@ -49,7 +49,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
     private ProgressDialog progressDialog = null;
     private AutoCompleteTextView auproducto;
     private TextView lvlTipo, lvlMaterial, lvlTamano;
-    private EditText edtcantidad, edtNombreProducto;
+    private EditText edtcantidad, edtNombreProducto, edtReferencia;
     private Button binfo, binfocli, bedit, btnLimpiar, btnAgregar;
     private TableLayout tl;
     private ProductDAO producto;
@@ -86,7 +86,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
         auproducto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ArrayList lis = producto.consultarProducto("product.name", auproducto.getText().toString());
+                ArrayList<String> lis = producto.consultarProducto("product.name", auproducto.getText().toString());
                 lvlTipo.setText("" + lis.get(1));
                 lvlTamano.setText("" + lis.get(2));
                 lvlMaterial.setText("" + lis.get(3));
@@ -124,14 +124,15 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
 
     public void productos() {
         edtNombreProducto = (EditText) v.findViewById(R.id.edtNombreProducto);
+        edtReferencia = (EditText) v.findViewById(R.id.edtReferencia);
         sTipo = (Spinner) v.findViewById(R.id.sTipo);
-        sMaterial = (Spinner) v.findViewById(R.id.sMaterial);
         sTamanio = (Spinner) v.findViewById(R.id.sTamanio);
-        new asynclogin().execute(2 + "");
+        sMaterial = (Spinner) v.findViewById(R.id.sMaterial);
         sTamanio.setOnItemSelectedListener(this);
         sTipo.setOnItemSelectedListener(this);
         btnAgregar = (Button) v.findViewById(R.id.btnAgregarProducto);
         btnAgregar.setOnClickListener(this);
+        new asynclogin().execute(2 + "");
 
 
     }
@@ -160,10 +161,16 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
             case R.id.sTipo:
                 if (!sTipo.getSelectedItem().toString().equals("Seleccione uno")) {
                     type = new TypeDAO(c);
-                    Spinner sTamanio = (Spinner) v.findViewById(R.id.sTamanio);
+                    //sTamanio = (Spinner) v.findViewById(R.id.sTamanio);
                     aTamanio = type.consultarTiposTamanio(sTipo.getSelectedItem().toString());
                     ArrayAdapter<String> adaptadorTamanio = new ArrayAdapter<String>(c, android.R.layout.simple_spinner_item, aTamanio);//creamos el adaptador de los spinner agregando los Arraylist
                     sTamanio.setAdapter(adaptadorTamanio);
+                } else {
+                    ArrayList<String> lis = new ArrayList<String>();
+                    lis.add("Seleccione Tipo");
+                    ArrayAdapter<String> adaptadorTamanio = new ArrayAdapter<String>(c, android.R.layout.simple_spinner_item, lis);//creamos el adaptador de los spinner agregando los Arraylist
+                    sTamanio.setAdapter(adaptadorTamanio);
+
                 }
                 break;
 
@@ -199,7 +206,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
             case R.id.btnInfo:
                 try {
                     final String[] prodSel = {""};
-                    ArrayList lis = producto.consultarProductos();
+                    ArrayList<String> lis = producto.consultarProductos();
                     final String[] pro = new String[lis.size() / 4];
                     int y = 0;
                     for (int j = 0; j < lis.size(); j = j + 4) {
@@ -331,6 +338,63 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                 break;
 
             case R.id.btnAgregarProducto:
+                Toast mensaje = null;
+                Vibrator vibra = (Vibrator) c.getSystemService(Context.VIBRATOR_SERVICE);
+                boolean val1, val2, val3, val4, val5;
+                if (validacion(edtNombreProducto.getText().toString())) {
+                    val1 = true;
+                } else {
+                    mensaje = Toast.makeText(c, R.string.nomvac, Toast.LENGTH_SHORT);
+                    mensaje.show();
+                    val1 = false;
+
+                }
+                if (validacion(edtReferencia.getText().toString())) {
+                    val2 = true;
+
+                } else {
+                    vibra.vibrate(200);
+                    mensaje = Toast.makeText(c, R.string.refvac, Toast.LENGTH_SHORT);
+                    mensaje.show();
+                    val2 = false;
+
+                }
+                if (!sTipo.getSelectedItem().toString().equals("Seleccione uno")) {
+                    val3 = true;
+
+                } else {
+                    vibra.vibrate(200);
+                    mensaje = Toast.makeText(c, R.string.tipvac, Toast.LENGTH_SHORT);
+                    mensaje.show();
+                    val3 = false;
+
+                }
+                if (!sTamanio.getSelectedItem().toString().equals("Seleccione uno")) {
+                    val4 = true;
+
+                } else {
+                    vibra.vibrate(200);
+                    mensaje = Toast.makeText(c, R.string.tamvac, Toast.LENGTH_SHORT);
+                    mensaje.show();
+                    val4 = false;
+
+                }
+                if (!sMaterial.getSelectedItem().toString().equals("Seleccione uno")) {
+                    val5 = true;
+
+                } else {
+                    vibra.vibrate(200);
+                    mensaje = Toast.makeText(c, R.string.matvac, Toast.LENGTH_SHORT);
+                    mensaje.show();
+                    val5 = false;
+
+                }
+                if (val1 && val2 && val3 && val4 && val5) {
+                    mensaje = Toast.makeText(c, R.string.Inventario_Agregado, Toast.LENGTH_SHORT);
+                    mensaje.show();
+
+
+                }
 
                 break;
 
