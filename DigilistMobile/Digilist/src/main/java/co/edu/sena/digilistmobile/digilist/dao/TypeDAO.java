@@ -10,8 +10,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import co.edu.sena.digilistmobile.digilist.util.conexiones.ConexionLocal;
-import co.edu.sena.digilistmobile.digilist.util.conexiones.RequestsAndResponses;
+import co.edu.sena.digilistmobile.digilist.utils.conexiones.ConexionLocal;
+import co.edu.sena.digilistmobile.digilist.utils.conexiones.RequestsAndResponses;
 import co.edu.sena.digilistmobile.digilist.vo.TypeVO;
 
 public class TypeDAO {

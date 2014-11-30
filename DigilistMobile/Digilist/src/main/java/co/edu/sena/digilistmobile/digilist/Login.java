@@ -37,8 +37,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import co.edu.sena.digilistmobile.digilist.util.Encrypting;
-import co.edu.sena.digilistmobile.digilist.util.conexiones.ConexionHTTP;
+import co.edu.sena.digilistmobile.digilist.utils.Encrypting;
+import co.edu.sena.digilistmobile.digilist.utils.conexiones.ConexionHTTP;
 
 
 public class Login extends SherlockActivity {

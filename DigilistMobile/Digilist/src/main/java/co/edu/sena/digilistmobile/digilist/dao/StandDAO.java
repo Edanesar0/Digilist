@@ -8,8 +8,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import co.edu.sena.digilistmobile.digilist.util.conexiones.ConexionLocal;
-import co.edu.sena.digilistmobile.digilist.util.conexiones.RequestsAndResponses;
+import co.edu.sena.digilistmobile.digilist.utils.conexiones.ConexionLocal;
+import co.edu.sena.digilistmobile.digilist.utils.conexiones.RequestsAndResponses;
 
 public class StandDAO {
     RequestsAndResponses requestsAndResponses;

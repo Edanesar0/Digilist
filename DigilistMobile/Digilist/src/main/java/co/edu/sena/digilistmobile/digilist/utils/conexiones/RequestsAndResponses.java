@@ -1,4 +1,4 @@
-package co.edu.sena.digilistmobile.digilist.util.conexiones;
+package co.edu.sena.digilistmobile.digilist.utils.conexiones;
 
 import android.content.Context;
 

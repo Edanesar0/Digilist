@@ -9,7 +9,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
 
-import co.edu.sena.digilistmobile.digilist.util.conexiones.ConexionLocal;
+import co.edu.sena.digilistmobile.digilist.utils.conexiones.ConexionLocal;
 
 
 public class Menu_Inicial extends SherlockActivity implements View.OnClickListener {
