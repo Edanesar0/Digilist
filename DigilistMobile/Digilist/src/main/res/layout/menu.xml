@@ -62,7 +62,7 @@
                     android:layout_height="50dp"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
-                    android:src="@drawable/icon_marcador" />
+                    android:src="@drawable/icon_productos2" />
 
                 <TextView
                     android:id="@+id/textView"
@@ -71,7 +71,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_below="@+id/imageView"
                     android:gravity="center"
-                    android:text="Agregar Productos"
+                    android:text="@string/Agregar_Productos"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="#ff9a9a9a"
                     android:textSize="25dp" />
@@ -92,7 +92,7 @@
                     android:layout_height="50dp"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
-                    android:src="@drawable/search" />
+                    android:src="@drawable/ventas_enviadas" />
 
                 <TextView
                     android:id="@+id/textView3"
@@ -100,7 +100,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_below="@+id/imageView3"
-                    android:text="Inventario"
+                    android:text="@string/Inventario"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="#ff9a9a9a"
                     android:textSize="25dp" />
@@ -121,18 +121,18 @@
                     android:layout_height="50dp"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
-                    android:src="@drawable/ventas_enviadas" />
+                    android:src="@drawable/graficas" />
 
                 <TextView
                     android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_below="@+id/imageView4"
-                    android:text="Inventario"
+                    android:text="@string/Graficas"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="#ff9a9a9a"
-                    android:textSize="25dp" />
+                    android:textSize="25dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true" />
             </RelativeLayout>
 
         </RelativeLayout>

@@ -42,5 +42,8 @@
     <string name="refvac">Reference field empty</string>
     <string name="tamvac">Select a size</string>
     <string name="tipvac">Select a type</string>
+    <string name="Agregar_Productos">Add Products</string>
+    <string name="Inventario">Inventory</string>
+    <string name="Graficas">Graphics</string>
 
 </resources>

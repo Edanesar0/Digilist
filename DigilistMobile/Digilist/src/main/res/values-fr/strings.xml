@@ -41,5 +41,8 @@
     <string name="refvac">Zone de référence vide</string>
     <string name="tamvac">Choisissez une taille</string>
     <string name="tipvac">Sélectionnez un type</string>
+    <string name="Agregar_Productos">Ajouter Produits</string>
+    <string name="Inventario">Inventaire</string>
+    <string name="Graficas">Graphique</string>
 
 </resources>

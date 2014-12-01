@@ -42,5 +42,8 @@
     <string name="tipvac">Seleccione un tipo</string>
     <string name="matvac">Seleccione un material</string>
     <string name="tamvac">Seleccione un tamaño</string>
+    <string name="Agregar_Productos">Agregar Productos</string>
+    <string name="Inventario">Inventario</string>
+    <string name="Graficas">Graficas</string>
 
 </resources>
