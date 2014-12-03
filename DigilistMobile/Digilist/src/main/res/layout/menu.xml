@@ -92,7 +92,7 @@
                     android:layout_height="50dp"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
-                    android:src="@drawable/ventas_enviadas" />
+                    android:src="@drawable/ic_notepencil32" />
 
                 <TextView
                     android:id="@+id/textView3"
@@ -121,7 +121,7 @@
                     android:layout_height="50dp"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
-                    android:src="@drawable/graficas" />
+                    android:src="@drawable/ic_graficas" />
 
                 <TextView
                     android:id="@+id/textView4"

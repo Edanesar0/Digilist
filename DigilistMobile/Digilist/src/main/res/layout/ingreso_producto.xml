@@ -82,8 +82,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:background="@drawable/edittext_rounded_corners"
-                    android:inputType="number"
-                    android:textColor="#0C8FD4" />
+                    android:textColor="#565656" />
 
                 <TextView
                     android:id="@+id/txtTipo"
