@@ -44,7 +44,7 @@ public class ConexionHTTP {
     }
 
     //peticion HTTP
-    private void httppostconnect(ArrayList<NameValuePair> parametros, String urlwebserver, String fun, JSONObject para) {
+    private void httppostconnect(ArrayList<NameValuePair> parametros, String urlwebserver, String fun, JSONObject json) {
 
         //
         try {
@@ -60,7 +60,7 @@ public class ConexionHTTP {
             if (fun.equals("POST2")) {
                 DefaultHttpClient httpclient = new DefaultHttpClient();
                 HttpPost httppost = new HttpPost(urlwebserver);
-                StringEntity se = new StringEntity(para.toString());
+                StringEntity se = new StringEntity(json.toString());
                 httppost.setEntity(se);
                 httppost.setHeader("Accept", "application/json");
                 httppost.setHeader("Content-type", "application/json");
@@ -90,7 +90,7 @@ public class ConexionHTTP {
             if (fun.equals("PUT")) {
                 DefaultHttpClient httpclient = new DefaultHttpClient();
                 HttpPut httput = new HttpPut(urlwebserver);
-                StringEntity se = new StringEntity(para.toString());
+                StringEntity se = new StringEntity(json.toString());
                 httput.setEntity(se);
                 httput.setHeader("Accept", "application/json");
                 httput.setHeader("Content-type", "application/json");

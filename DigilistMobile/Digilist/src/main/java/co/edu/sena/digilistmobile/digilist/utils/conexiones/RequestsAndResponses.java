@@ -87,10 +87,10 @@ public class RequestsAndResponses {
         return conexion.getserverdata(null, URL_connect2 + "/product/insert-record", "POST2", null);
     }
 
-    public JSONArray postProductos() {
+    public JSONArray postProductos(JSONObject productos) {
         conexion = new ConexionHTTP();
         //realizamos una peticion y como respuesta obtenes un array JSON
-        return conexion.getserverdata(null, URL_connect2 + "/product/insert-record", "POST", null);
+        return conexion.getserverdata(null, URL_connect2 + "/product/insert-record", "POST2", productos);
     }
 
     public JSONArray postInventario() {

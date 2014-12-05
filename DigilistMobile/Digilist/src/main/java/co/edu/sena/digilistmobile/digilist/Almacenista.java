@@ -39,6 +39,7 @@ import co.edu.sena.digilistmobile.digilist.dao.MaterialDAO;
 import co.edu.sena.digilistmobile.digilist.dao.ProductDAO;
 import co.edu.sena.digilistmobile.digilist.dao.StandDAO;
 import co.edu.sena.digilistmobile.digilist.dao.TypeDAO;
+import co.edu.sena.digilistmobile.digilist.vo.ProductVO;
 
 
 public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnClickListener {
@@ -55,16 +56,16 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
     private ProductDAO producto;
     private Typeface font;
     private ArrayList<String> aTamanio;
-    private Activity a;
+    private Activity act;
     private Spinner sTipo, sMaterial, sTamanio;
     TypeDAO type;
     MaterialDAO material;
     StandDAO stand;
 
-    public Almacenista(View v, Context c, Activity a) {
+    public Almacenista(View v, Context c, Activity act) {
         this.v = v;
         this.c = c;
-        this.a = a;
+        this.act = act;
 
 
     }
@@ -210,12 +211,12 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                     final String[] pro = new String[lis.size() / 4];
                     int y = 0;
                     for (int j = 0; j < lis.size(); j = j + 4) {
-                        pro[y] = lis.get(j).toString() + " - " + lis.get(j + 2).toString();
+                        pro[y] = lis.get(j) + " - " + lis.get(j + 2);
                         y++;
                     }
 
 
-                    LayoutInflater inflater = a.getLayoutInflater();
+                    LayoutInflater inflater = act.getLayoutInflater();
                     View v2 = inflater.inflate(R.layout.mensaje_producto, null);
                     AlertDialog.Builder builder3 = new AlertDialog.Builder(c);
                     builder3.setSingleChoiceItems(pro, -1, new DialogInterface.OnClickListener() {
@@ -275,7 +276,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
 
                 } else {
                     vibrator.vibrate(200);
-                    LayoutInflater inflater = a.getLayoutInflater();
+                    LayoutInflater inflater = act.getLayoutInflater();
                     View layout = inflater.inflate(R.layout.custom_toast_error,
                             (ViewGroup) v.findViewById(R.id.toast_layout_root));
                     TextView text = (TextView) layout.findViewById(R.id.text);
@@ -292,7 +293,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                     validacion2 = true;
                 } else {
                     vibrator.vibrate(200);
-                    LayoutInflater inflater = a.getLayoutInflater();
+                    LayoutInflater inflater = act.getLayoutInflater();
                     View layout = inflater.inflate(R.layout.custom_toast_error,
                             (ViewGroup) v.findViewById(R.id.toast_layout_root));
                     TextView text = (TextView) layout.findViewById(R.id.text);
@@ -318,7 +319,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                             toast = Toast.makeText(c, R.string.Inventario_Agregado, Toast.LENGTH_SHORT);
                             toast.show();
                         } else {
-                            LayoutInflater inflater = a.getLayoutInflater();
+                            LayoutInflater inflater = act.getLayoutInflater();
                             View layout = inflater.inflate(R.layout.custom_toast_error,
                                     (ViewGroup) v.findViewById(R.id.toast_layout_root));
                             TextView text = (TextView) layout.findViewById(R.id.text);
@@ -390,8 +391,42 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
 
                 }
                 if (val1 && val2 && val3 && val4 && val5) {
-                    mensaje = Toast.makeText(c, R.string.Inventario_Agregado, Toast.LENGTH_SHORT);
-                    mensaje.show();
+                    producto = new ProductDAO(c);
+                    JSONArray jspro = null;
+                    try {
+                        ProductVO productVO = new ProductVO();
+                        productVO.setName(edtNombreProducto.getText().toString());
+                        productVO.setReference(edtReferencia.getText().toString());
+                        productVO.setIdType(sTipo.getSelectedItem().toString());
+                        productVO.setTamanio(sTamanio.getSelectedItem().toString());
+                        productVO.setIdMaterial(sMaterial.getSelectedItem().toString());
+                        jspro = producto.agregarProducto(productVO);
+                        String mensajes = jspro.getString(0);
+                        if (mensajes.contains("The record has been inserted.")) {
+                            edtNombreProducto.setText("");
+                            edtReferencia.setText("");
+                            sTipo.setSelection(0);
+                            sTamanio.setSelection(0);
+                            sMaterial.setSelection(0);
+                            toast = Toast.makeText(c, R.string.Inventario_Agregado, Toast.LENGTH_SHORT);
+                            toast.show();
+                        } else {
+                            LayoutInflater inflater = act.getLayoutInflater();
+                            View layout = inflater.inflate(R.layout.custom_toast_error,
+                                    (ViewGroup) v.findViewById(R.id.toast_layout_root));
+                            TextView text = (TextView) layout.findViewById(R.id.text);
+                            text.setTextColor(Color.BLACK);
+                            text.setText(R.string.ErrorServidor);
+                            toast = new Toast(c.getApplicationContext());
+                            //toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+                            toast.setDuration(Toast.LENGTH_SHORT);
+                            toast.setView(layout);
+                            toast.show();
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
 
                 }
@@ -530,6 +565,64 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                             txtCantidad.setGravity(Gravity.CENTER);
                             tr.addView(txtCantidad);
                             count++;
+                            tr.setOnLongClickListener(new View.OnLongClickListener() {
+                                @Override
+                                public boolean onLongClick(View v) {
+                                    try {
+                                        final String[] prodSel = {""};
+                                        ArrayList<String> lis = producto.consultarProductos();
+                                        final String[] pro = new String[lis.size() / 4];
+                                        int y = 0;
+                                        for (int j = 0; j < lis.size(); j = j + 4) {
+                                            pro[y] = lis.get(j) + " - " + lis.get(j + 2);
+                                            y++;
+                                        }
+
+
+                                        LayoutInflater inflater = act.getLayoutInflater();
+                                        View v2 = inflater.inflate(R.layout.mensaje_producto, null);
+                                        AlertDialog.Builder builder3 = new AlertDialog.Builder(c);
+                                        builder3.setSingleChoiceItems(pro, -1, new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                prodSel[0] = pro[which].substring(0, pro[which].indexOf("-") - 1);
+
+                                            }
+                                        });
+                                        builder3.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                ArrayList lis = producto.consultarProducto("product.name", prodSel[0]);
+                                                auproducto.setText(prodSel[0]);
+                                                lvlTipo.setText("" + lis.get(1));
+                                                lvlTamano.setText("" + lis.get(2));
+                                                lvlMaterial.setText("" + lis.get(3));
+                                                edtcantidad.setText("1");
+
+                                            }
+                                        }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                auproducto.setText("");
+                                                lvlTipo.setText("");
+                                                lvlTamano.setText("");
+                                                lvlMaterial.setText("");
+                                                edtcantidad.setText("");
+                                            }
+                                        });
+                                        AlertDialog dialog3;
+                                        dialog3 = builder3.create();
+                                        dialog3.setTitle("Productos");
+                                        dialog3.show();
+
+
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    return false;
+                                }
+                            });
                             tl.addView(tr, new TableLayout.LayoutParams(
                                     TableLayout.LayoutParams.WRAP_CONTENT,
                                     TableLayout.LayoutParams.WRAP_CONTENT));

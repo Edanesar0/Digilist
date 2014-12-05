@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import co.edu.sena.digilistmobile.digilist.utils.conexiones.ConexionLocal;
 import co.edu.sena.digilistmobile.digilist.utils.conexiones.RequestsAndResponses;
+import co.edu.sena.digilistmobile.digilist.vo.ProductVO;
 
 public class ProductDAO {
     RequestsAndResponses requestsAndResponses;
@@ -73,10 +74,30 @@ public class ProductDAO {
         return alist;
     }
 
-    public boolean agregarProducto(int capacidad, String descripcion) {
+    public JSONArray agregarProducto(ProductVO produc) {
+        ConexionLocal conexionLocal = new ConexionLocal(c);
+        conexionLocal.abrir();
+        String sql = "select idMaterial from material where name ='" + produc.getIdMaterial() + "'";
+        JSONObject jsonObject = new JSONObject();
+        try {
+            Cursor ct = conexionLocal.read(sql);
+            //recorre y agrega
+            ct.moveToFirst();
+            jsonObject.put("idMaterial", ct.getString(0));
+            jsonObject.put("name", produc.getName());
+            jsonObject.put("reference", produc.getReference());
+            jsonObject.put("description", produc.getName());
+            jsonObject.put("price", "0");
+            sql = "select idType from type where name ='" + produc.getIdType() + "' and dimension='" + produc.getTamanio() + "'";
+            Cursor ct2 = conexionLocal.read(sql);
+            ct2.moveToFirst();
+            jsonObject.put("idType", ct2.getString(0));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        conexionLocal.cerrar();
         requestsAndResponses = new RequestsAndResponses(c);
-        requestsAndResponses.postProductos();
-        return false;
+        return requestsAndResponses.postProductos(jsonObject);
     }
 
     public String agregarProducto() throws JSONException {
@@ -156,7 +177,8 @@ public class ProductDAO {
                 "from product " +
                 "inner join stock on stock.idProduct=product.idProduct " +
                 "inner join type on type.idType=product.idType " +
-                "inner join material on material.idMaterial=product.idMaterial";
+                "inner join material on material.idMaterial=product.idMaterial " +
+                "where stock.amount>0";
         final ArrayList<String> alist = new ArrayList<String>();
         Cursor ct = conexionLocal.read(sql);
         //recorre y agrega
