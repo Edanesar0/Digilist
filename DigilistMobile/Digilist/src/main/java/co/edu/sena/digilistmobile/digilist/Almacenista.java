@@ -535,9 +535,11 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                         for (int i = 0; i <= productos.size() - 5; i = i + 5) {
                             TableRow tr = new TableRow(c);
                             if (count % 2 != 0) {
-                                tr.setBackgroundColor(Color.argb(15, 203, 47, 23));
+                                tr.setBackgroundResource(R.drawable.row_selector_r);
+                                //tr.setBackgroundColor(Color.argb(15, 203, 47, 23));
                             } else {
-                                tr.setBackgroundColor(Color.WHITE);
+                                tr.setBackgroundResource(R.drawable.row_selector_w);
+                                //tr.setBackgroundColor(Color.WHITE);
                             }
                             TextView txtProducto = new TextView(c);
                             txtProducto.setTypeface(font);
@@ -567,6 +569,13 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                             txtCantidad.setGravity(Gravity.CENTER);
                             tr.addView(txtCantidad);
                             count++;
+                            tr.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                }
+                            });
+
                             tr.setOnLongClickListener(new View.OnLongClickListener() {
                                 @Override
                                 public boolean onLongClick(View v) {
@@ -581,8 +590,6 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                                         builder3.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialogInterface, int i) {
-
-
                                             }
                                         }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                                             @Override
