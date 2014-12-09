@@ -23,12 +23,12 @@ public class ProductDAO {
         this.c = c;
     }
 
-    public JSONArray consultarProducto() {
+    public JSONArray consultarProductoHTTP() {
         requestsAndResponses = new RequestsAndResponses(c);
         return requestsAndResponses.getProductos();
     }
 
-    public JSONArray consultarInventario() throws JSONException {
+    public JSONArray consultarInventarioHTTP() throws JSONException {
         requestsAndResponses = new RequestsAndResponses(c);
         return requestsAndResponses.getInventario();
     }
@@ -101,7 +101,7 @@ public class ProductDAO {
     }
 
     public String agregarProducto() throws JSONException {
-        JSONArray jsonArray = consultarProducto();
+        JSONArray jsonArray = consultarProductoHTTP();
         jsonArray = jsonArray.getJSONArray(0);
         ContentValues cv = new ContentValues();
         ConexionLocal conexionLocal = new ConexionLocal(c);
@@ -119,7 +119,7 @@ public class ProductDAO {
     }
 
     public String agregarInventario() throws JSONException {
-        JSONArray jsonArray = consultarInventario();
+        JSONArray jsonArray = consultarInventarioHTTP();
         ContentValues cv = new ContentValues();
         ConexionLocal conexionLocal = new ConexionLocal(c);
         conexionLocal.abrir();

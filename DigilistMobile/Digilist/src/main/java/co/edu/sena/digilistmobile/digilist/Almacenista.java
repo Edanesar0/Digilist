@@ -217,7 +217,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
 
 
                     LayoutInflater inflater = act.getLayoutInflater();
-                    View v2 = inflater.inflate(R.layout.mensaje_producto, null);
+                    View v2 = inflater.inflate(R.layout.mensaje_productos, null);
                     AlertDialog.Builder builder3 = new AlertDialog.Builder(c);
                     builder3.setSingleChoiceItems(pro, -1, new DialogInterface.OnClickListener() {
                         @Override
@@ -269,7 +269,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
             case R.id.btnAgregarInve:
                 Toast toast = null;
                 Vibrator vibrator = (Vibrator) c.getSystemService(Context.VIBRATOR_SERVICE);
-                boolean validacion = false, validacion2 = false;
+                boolean validacion, validacion2;
 
                 if (validacion(auproducto.getText().toString())) {
                     validacion = true;
@@ -543,11 +543,13 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                             txtProducto.setTypeface(font);
                             txtProducto.setText(productos.get(i));
                             txtProducto.setGravity(Gravity.CENTER);
+                            //txtProducto.setTextSize(20);
                             tr.addView(txtProducto);
                             TextView txtTipo = new TextView(c);
                             txtTipo.setTypeface(font);
                             txtTipo.setText(productos.get(i + 1));
                             txtTipo.setGravity(Gravity.CENTER);
+                            txtTipo.setLines(2);
                             tr.addView(txtTipo);
                             TextView txtTamanio = new TextView(c);
                             txtTamanio.setTypeface(font);
@@ -570,44 +572,22 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                                 public boolean onLongClick(View v) {
                                     try {
                                         final String[] prodSel = {""};
-                                        ArrayList<String> lis = producto.consultarProductos();
-                                        final String[] pro = new String[lis.size() / 4];
-                                        int y = 0;
-                                        for (int j = 0; j < lis.size(); j = j + 4) {
-                                            pro[y] = lis.get(j) + " - " + lis.get(j + 2);
-                                            y++;
-                                        }
-
-
+                                        ArrayList<String> lis = null;
                                         LayoutInflater inflater = act.getLayoutInflater();
+
                                         View v2 = inflater.inflate(R.layout.mensaje_producto, null);
                                         AlertDialog.Builder builder3 = new AlertDialog.Builder(c);
-                                        builder3.setSingleChoiceItems(pro, -1, new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                prodSel[0] = pro[which].substring(0, pro[which].indexOf("-") - 1);
-
-                                            }
-                                        });
+                                        builder3.setView(v2);
                                         builder3.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialogInterface, int i) {
-                                                ArrayList lis = producto.consultarProducto("product.name", prodSel[0]);
-                                                auproducto.setText(prodSel[0]);
-                                                lvlTipo.setText("" + lis.get(1));
-                                                lvlTamano.setText("" + lis.get(2));
-                                                lvlMaterial.setText("" + lis.get(3));
-                                                edtcantidad.setText("1");
+
 
                                             }
                                         }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
-                                                auproducto.setText("");
-                                                lvlTipo.setText("");
-                                                lvlTamano.setText("");
-                                                lvlMaterial.setText("");
-                                                edtcantidad.setText("");
+
                                             }
                                         });
                                         AlertDialog dialog3;
