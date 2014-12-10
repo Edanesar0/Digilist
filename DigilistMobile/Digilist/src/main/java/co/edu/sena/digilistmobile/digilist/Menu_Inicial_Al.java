@@ -12,13 +12,13 @@ import com.actionbarsherlock.view.MenuItem;
 import co.edu.sena.digilistmobile.digilist.utils.conexiones.ConexionLocal;
 
 
-public class Menu_Inicial extends SherlockActivity implements View.OnClickListener {
+public class Menu_Inicial_Al extends SherlockActivity implements View.OnClickListener {
     ActionBar ab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.menu);
+        setContentView(R.layout.menu_al);
         ConexionLocal conexionLocal = new ConexionLocal(this);
         conexionLocal.abrir();
         conexionLocal.limpiar();
@@ -31,7 +31,7 @@ public class Menu_Inicial extends SherlockActivity implements View.OnClickListen
 
         RelativeLayout bt = (RelativeLayout) findViewById(R.id.relativeLayout);
         bt.setOnClickListener(this);
-        RelativeLayout bt2 = (RelativeLayout) findViewById(R.id.relativeLayout2);
+        RelativeLayout bt2 = (RelativeLayout) findViewById(R.id.rl2);
         bt2.setOnClickListener(this);
         RelativeLayout bt3 = (RelativeLayout) findViewById(R.id.relativeLayout3);
         bt3.setOnClickListener(this);
@@ -69,7 +69,7 @@ public class Menu_Inicial extends SherlockActivity implements View.OnClickListen
                 Intent i = new Intent(this, Inicio.class);
                 startActivity(i);
                 break;
-            case R.id.relativeLayout2:
+            case R.id.rl2:
                 Intent i2 = new Intent(this, Inicio.class);
                 i2.putExtra("pos", 1);
                 startActivity(i2);

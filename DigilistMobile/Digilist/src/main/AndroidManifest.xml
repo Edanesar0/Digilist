@@ -16,10 +16,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Menu_Inicial"
+            android:name=".Menu_Inicial_Al"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity android:name=".Inicio" />
+        <activity android:name=".Menu_Inicial_Ad" />
     </application>
 
     <uses-permission android:name="android.permission.VIBRATE" />

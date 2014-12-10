@@ -139,6 +139,7 @@
                         android:id="@+id/btnAgregarProducto"
                         android:layout_width="95dp"
                         android:layout_height="40dp"
+                        style="@style/ButtonText"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentTop="true"
                         android:layout_gravity="right|center_vertical"
@@ -151,6 +152,7 @@
                     <Button
                         android:id="@+id/btnLimpiar"
                         android:layout_width="95dp"
+                        style="@style/ButtonText"
                         android:layout_height="40dp"
                         android:layout_alignBottom="@+id/btnAgregarProducto"
                         android:layout_alignParentRight="true"

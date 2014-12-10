@@ -48,6 +48,7 @@ public class Login extends SherlockActivity {
     EditText edtPassw, edtUsuario;
     ConexionHTTP conexion;
     String URL_connect;
+    int rol;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -203,28 +204,23 @@ public class Login extends SherlockActivity {
             pDialog.dismiss();//ocultamos progess dialog.
             Log.e("onPostExecute=", "" + result);
             if (result.equals("ok")) {
-                Intent i = new Intent(Login.this, Menu_Inicial.class);
-                startActivity(i);
-                finish();
-                /*if (cargo.equals("Coordinador")) {
-                    Intent i = new Intent(Login.this, InicioCoordinadores.class);
-                    i.putExtra("user", user);
-                    i.putExtra("nombre", nombre);
-                    i.putExtra("cargo", cargo);
-                    finish();
+                if (rol == 3) {
+                    Intent i = new Intent(Login.this, Menu_Inicial_Al.class);
+                    //i.putExtra("user", user);
+                    //i.putExtra("nombre", nombre);
+                    //i.putExtra("cargo", cargo);
                     startActivity(i);
+                    finish();
                 }
-                if (cargo.equals("Vendedor") || cargo.equals("Reseller")) {
-                    Intent i = new Intent(Login.this, InicioAsesores.class);
-                    i.putExtra("user", user);
-                    i.putExtra("cargo", cargo);
-                    i.putExtra("pos", 0);
-                    NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                    mNotificationManager.cancel(0);
-                    finish();
+                if (rol == 1) {
+                    Intent i = new Intent(Login.this, Menu_Inicial_Ad.class);
+                    //i.putExtra("user", user);
+                    //i.putExtra("nombre", nombre);
+                    //i.putExtra("cargo", cargo);
                     startActivity(i);
+                    finish();
+                }
 
-                }*/
 
             } else {
                 err_login(2);
@@ -279,6 +275,7 @@ public class Login extends SherlockActivity {
                     for (int i = 0; i < jdata.length(); i++) {//se recorre el json
                         json_data = jdata.getJSONObject(0); //leemos el primer segmento en nuestro caso el unico
                         logstatus = json_data.getInt("logstatus");//accedemos al valor
+                        rol = json_data.getInt("rol");//accedemos al valor
                     }
                     Log.e("loginstatus", "logstatus= " + logstatus);
                     //muestro por log que obtuvimos
