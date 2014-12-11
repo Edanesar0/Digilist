@@ -20,7 +20,10 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity android:name=".Inicio" />
-        <activity android:name=".Menu_Inicial_Ad" />
+        <activity
+            android:name=".Menu_Inicial_Ad"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
     </application>
 
     <uses-permission android:name="android.permission.VIBRATE" />

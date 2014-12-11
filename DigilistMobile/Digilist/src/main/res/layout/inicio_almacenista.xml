@@ -33,6 +33,167 @@
 
 
     <!-- The navigation drawer -->
+    <!-- <LinearLayout
+     android:id="@+id/left_drawer"
+     android:layout_width="252dp"
+     android:layout_height="fill_parent"
+     android:layout_gravity="start"
+     android:background="#E2E2E2"
+     android:choiceMode="multipleChoice"
+     android:divider="@android:color/transparent"
+     android:dividerHeight="0dp"
+     android:showDividers="beginning|middle">
+
+     <ScrollView
+         android:id="@+id/scrollView"
+         android:layout_width="fill_parent"
+         android:layout_height="fill_parent"
+         android:layout_marginRight="1dp"
+         android:background="#fff5f5f5">
+
+         <LinearLayout
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+             android:orientation="vertical">
+
+             <RelativeLayout
+                 android:id="@+id/relativeLayout"
+                 android:layout_width="fill_parent"
+                 android:layout_height="60dp"
+                 android:layout_marginBottom="1dp"
+                 android:background="#ffffff">
+
+                 <RelativeLayout
+                     android:id="@+id/frameLayout3"
+                     android:layout_width="50dp"
+                     android:layout_height="fill_parent"
+                     android:layout_alignParentLeft="true"
+                     android:layout_alignParentTop="true">
+
+                 </RelativeLayout>
+
+             </RelativeLayout>
+
+             <FrameLayout
+                 android:layout_width="fill_parent"
+                 android:layout_height="fill_parent"
+                 android:background="#E2E2E2"
+                 android:orientation="vertical">
+
+                 <LinearLayout
+                     android:layout_width="fill_parent"
+                     android:layout_height="fill_parent"
+                     android:layout_marginTop="1dp"
+                     android:orientation="vertical">
+
+                     <RelativeLayout
+                         android:layout_width="fill_parent"
+                         android:layout_height="fill_parent"
+                         android:layout_marginTop="1dp">
+
+                         <RelativeLayout
+                             android:id="@+id/rlat"
+                             android:layout_width="124dp"
+                             android:layout_height="124dp"
+                             android:background="@drawable/white_button">
+
+                         </RelativeLayout>
+
+                         <RelativeLayout
+                             android:id="@+id/rlat2"
+                             android:layout_width="124dp"
+                             android:layout_height="124dp"
+                             android:layout_alignParentRight="true"
+                             android:layout_alignParentTop="true"
+                             android:background="@drawable/white_button">
+
+                         </RelativeLayout>
+                     </RelativeLayout>
+
+                     <RelativeLayout
+                         android:layout_width="fill_parent"
+                         android:layout_height="fill_parent"
+                         android:layout_marginBottom="1dp"
+                         android:layout_marginTop="2dp">
+
+                         <RelativeLayout
+                             android:id="@+id/rlat3"
+                             android:layout_width="124dp"
+                             android:layout_height="124dp"
+                             android:layout_alignParentBottom="true"
+                             android:background="@drawable/white_button">
+
+                         </RelativeLayout>
+
+                         <RelativeLayout
+                             android:id="@+id/rlat4"
+                             android:layout_width="124dp"
+                             android:layout_height="124dp"
+                             android:layout_alignParentRight="true"
+                             android:layout_alignParentTop="true"
+                             android:background="@drawable/white_button">
+
+                         </RelativeLayout>
+
+                     </RelativeLayout>
+                 </LinearLayout>
+
+                 <Button
+                     android:id="@+id/button"
+                     android:layout_width="10dp"
+                     android:layout_height="10dp"
+                     android:layout_gravity="center"
+                     android:background="@drawable/round_button" />
+
+             </FrameLayout>
+
+             <LinearLayout
+                 android:id="@+id/linearLayout"
+                 android:layout_width="fill_parent"
+                 android:layout_height="50dp"
+                 android:background="#E2E2E2"
+                 android:orientation="vertical">
+
+                 <RelativeLayout
+                     android:layout_width="fill_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_marginBottom="1dp"
+                     android:background="#F5F5F5">
+
+                 </RelativeLayout>
+             </LinearLayout>
+
+             <LinearLayout
+                 android:layout_width="fill_parent"
+                 android:layout_height="50dp"
+                 android:background="#E2E2E2"
+                 android:orientation="vertical">
+
+                 <RelativeLayout
+                     android:id="@+id/rltCuota"
+                     android:layout_width="fill_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_marginBottom="1dp"
+                     android:background="#F5F5F5">
+
+                     <FrameLayout
+                         android:id="@+id/frameLayout"
+                         android:layout_width="40dp"
+                         android:layout_height="fill_parent"
+                         android:layout_alignParentLeft="true"
+                         android:layout_alignParentTop="true"
+                         android:background="#f5f5f5">
+
+                     </FrameLayout>
+
+                 </RelativeLayout>
+
+             </LinearLayout>
+
+         </LinearLayout>
+     </ScrollView>
+ </LinearLayout> -->
+
     <LinearLayout
         android:id="@+id/left_drawer"
         android:layout_width="252dp"
@@ -54,141 +215,40 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <RelativeLayout
-                    android:id="@+id/relativeLayout"
-                    android:layout_width="fill_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginBottom="1dp"
-                    android:background="#ffffff">
-
-                    <RelativeLayout
-                        android:id="@+id/frameLayout3"
-                        android:layout_width="50dp"
-                        android:layout_height="fill_parent"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentTop="true">
-
-                    </RelativeLayout>
-
-                </RelativeLayout>
-
-                <FrameLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:background="#E2E2E2"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:layout_marginTop="1dp"
-                        android:orientation="vertical">
-
-                        <RelativeLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
-                            android:layout_marginTop="1dp">
-
-                            <RelativeLayout
-                                android:id="@+id/rlat"
-                                android:layout_width="124dp"
-                                android:layout_height="124dp"
-                                android:background="@drawable/white_button">
-
-                            </RelativeLayout>
-
-                            <RelativeLayout
-                                android:id="@+id/rlat2"
-                                android:layout_width="124dp"
-                                android:layout_height="124dp"
-                                android:layout_alignParentRight="true"
-                                android:layout_alignParentTop="true"
-                                android:background="@drawable/white_button">
-
-                            </RelativeLayout>
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
-                            android:layout_marginBottom="1dp"
-                            android:layout_marginTop="2dp">
-
-                            <RelativeLayout
-                                android:id="@+id/rlat3"
-                                android:layout_width="124dp"
-                                android:layout_height="124dp"
-                                android:layout_alignParentBottom="true"
-                                android:background="@drawable/white_button">
-
-                            </RelativeLayout>
-
-                            <RelativeLayout
-                                android:id="@+id/rlat4"
-                                android:layout_width="124dp"
-                                android:layout_height="124dp"
-                                android:layout_alignParentRight="true"
-                                android:layout_alignParentTop="true"
-                                android:background="@drawable/white_button">
-
-                            </RelativeLayout>
-
-                        </RelativeLayout>
-                    </LinearLayout>
-
-                    <Button
-                        android:id="@+id/button"
-                        android:layout_width="10dp"
-                        android:layout_height="10dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/round_button" />
-
-                </FrameLayout>
+                android:orientation="vertical"
+                android:background="#E2E2E2">
 
                 <LinearLayout
-                    android:id="@+id/linearLayout"
+
                     android:layout_width="fill_parent"
                     android:layout_height="50dp"
-                    android:background="#E2E2E2"
-                    android:orientation="vertical">
-
-                    <RelativeLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="1dp"
-                        android:background="#F5F5F5">
-
-                    </RelativeLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="50dp"
-                    android:background="#E2E2E2"
-                    android:orientation="vertical">
-
-                    <RelativeLayout
-                        android:id="@+id/rltCuota"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="1dp"
-                        android:background="#F5F5F5">
-
-                        <FrameLayout
-                            android:id="@+id/frameLayout"
-                            android:layout_width="40dp"
-                            android:layout_height="fill_parent"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentTop="true"
-                            android:background="#f5f5f5">
-
-                        </FrameLayout>
-
-                    </RelativeLayout>
+                    android:background="#FFFFFF"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="5dp">
 
                 </LinearLayout>
+
+                <ExpandableListView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/expandableListView"
+                    android:background="#FFF"
+                    android:layout_marginBottom="5dp" />
+
+                <ExpandableListView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/expandableListView2"
+                    android:background="#FFF"
+                    android:layout_marginBottom="5dp" />
+
+                <ExpandableListView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/expandableListView3"
+                    android:background="#FFF"
+                    android:layout_marginBottom="5dp" />
+
 
             </LinearLayout>
         </ScrollView>

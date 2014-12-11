@@ -36,8 +36,8 @@
                 <TextView
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
                     android:layout_below="@+id/imageView2"
                     android:gravity="center"
                     android:lines="2"
@@ -66,7 +66,7 @@
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_below="@+id/imageView"
                     android:gravity="center"
@@ -88,28 +88,28 @@
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true">
 
                     <ImageView
-                    android:id="@+id/imageView3"
-                    android:layout_width="75dp"
-                    android:layout_height="50dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
+                        android:id="@+id/imageView3"
+                        android:layout_width="75dp"
+                        android:layout_height="50dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
                         android:src="@drawable/ic_notepencil32"
                         android:layout_gravity="center_horizontal" />
 
                     <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_below="@+id/imageView3"
-                    android:text="@string/Inventario"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="#ff9a9a9a"
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@+id/imageView3"
+                        android:text="@string/Inventario"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="#ff9a9a9a"
                         android:textSize="25dp"
                         android:layout_gravity="center_horizontal" />
                 </LinearLayout>
@@ -128,34 +128,34 @@
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true">
 
                     <ImageView
-                    android:id="@+id/imageView4"
-                    android:layout_width="75dp"
-                    android:layout_height="50dp"
+                        android:id="@+id/imageView4"
+                        android:layout_width="75dp"
+                        android:layout_height="50dp"
                         android:src="@drawable/ic_graficas"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
                         android:layout_gravity="center_horizontal" />
 
                     <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/Graficas"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="#ff9a9a9a"
-                    android:textSize="25dp"
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/Graficas"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="#ff9a9a9a"
+                        android:textSize="25dp"
                         android:layout_below="@+id/imageView4"
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center_horizontal" />
                 </LinearLayout>
             </RelativeLayout>
 
-    </RelativeLayout>
+        </RelativeLayout>
 
     </RelativeLayout>
 
