@@ -30,6 +30,12 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.androidplot.pie.PieChart;
+import com.androidplot.pie.PieRenderer;
+import com.androidplot.pie.Segment;
+import com.androidplot.pie.SegmentFormatter;
+import com.androidplot.xy.XYPlot;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -153,6 +159,12 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
         TextView lblCantidad = (TextView) v.findViewById(R.id.lblCantidad);
         lblCantidad.setTypeface(font);
         new asynclogin().execute(3 + "");
+
+    }
+
+    public void pie() {
+        new asynclogin().execute(4 + "");
+
 
     }
 
@@ -446,10 +458,13 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
         LinearLayout lyPro = (LinearLayout) v.findViewById(R.id.lyProducto);
         ProgressBar pbInv = (ProgressBar) v.findViewById(R.id.pbInventario);
         ScrollView lyInv = (ScrollView) v.findViewById(R.id.svInventario);
+        PieChart pie = (PieChart) v.findViewById(R.id.mySimplePieChart);
+        LinearLayout lyPie = (LinearLayout) v.findViewById(R.id.lypie);
+        ProgressBar pbpie = (ProgressBar) v.findViewById(R.id.pbPie);
 
         protected void onPreExecute() {
-            lyPro = (LinearLayout) v.findViewById(R.id.lyProducto);
-            pbPro = (ProgressBar) v.findViewById(R.id.progressBarProducto);
+            //lyPro = (LinearLayout) v.findViewById(R.id.lyProducto);
+            //pbPro = (ProgressBar) v.findViewById(R.id.progressBarProducto);
             type = new TypeDAO(c);
             material = new MaterialDAO(c);
             producto = new ProductDAO(c);
@@ -491,6 +506,15 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                     case '3':
                         lyInv.setVisibility(View.INVISIBLE);
                         pbInv.setVisibility(ProgressBar.VISIBLE);
+                        type.agregarTipo();
+                        material.agregarMaterial();
+                        producto.agregarProducto();
+                        stand.agregarStand();
+                        producto.agregarInventario();
+                        break;
+                    case '4':
+                        pbpie.setVisibility(ProgressBar.VISIBLE);
+                        lyPie.setVisibility(View.INVISIBLE);
                         type.agregarTipo();
                         material.agregarMaterial();
                         producto.agregarProducto();
@@ -641,6 +665,51 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                     }
                     lyInv.setVisibility(View.VISIBLE);
                     pbInv.setVisibility(ProgressBar.INVISIBLE);
+
+                    break;
+                case '4':
+
+                    PieChart pie = (PieChart) v.findViewById(R.id.mySimplePieChart);
+
+                    producto = new ProductDAO(c);
+                    ArrayList ar = new ArrayList();
+                    ar = producto.consultarInventarioGraficas("product.name");
+                    for (int i2 = 0; i2 < ar.size() - 1; i2++) {
+                        Segment s = new Segment(ar.get(i2).toString() + ": " + ar.get(i2 + 1).toString(), Integer.parseInt(ar.get(i2 + 1).toString()));
+
+
+                        switch (i2) {
+                            case 0:
+                                pie.addSeries(s, new SegmentFormatter(Color.rgb(254, 145, 76)));
+                                break;
+                            case 2:
+
+                                pie.addSeries(s, new SegmentFormatter(Color.rgb(217, 76, 92)));
+                                break;
+                            case 4:
+                                pie.addSeries(s, new SegmentFormatter(Color.rgb(76, 129, 182)));//azul
+                                break;
+                            case 6:
+                                pie.addSeries(s, new SegmentFormatter(Color.rgb(182, 218, 111)));
+                                break;
+                            default:
+                                pie.addSeries(s, new SegmentFormatter(Color.rgb(204, 5, 31)));
+                                break;
+                        }
+                        i2++;
+
+                        pie.getRenderer(PieRenderer.class).setDonutSize(0 / 100f, PieRenderer.DonutMode.PERCENT);
+                        pie.redraw();
+                    }
+
+
+                    pie.setBorderStyle(XYPlot.BorderStyle.NONE, null, null);
+                    pie.getBorderPaint().setColor(Color.rgb(245, 245, 245));
+                    pie.getBackgroundPaint().setColor(Color.rgb(245, 245, 245));
+                    //pie.getGridBackgroundPaint().setColor(Color.WHITE);
+                    pie.redraw();
+                    lyPie.setVisibility(View.VISIBLE);
+                    pbpie.setVisibility(ProgressBar.INVISIBLE);
 
                     break;
             }

@@ -194,4 +194,28 @@ public class ProductDAO {
         return alist;
 
     }
+
+    public ArrayList<String> consultarInventarioGraficas(String criterio) {
+
+        ConexionLocal conexionLocal = new ConexionLocal(c);
+        conexionLocal.abrir();
+        String sql = "select " + criterio + ",stock.amount " +
+                "from product " +
+                "inner join stock on stock.idProduct=product.idProduct " +
+                "inner join type on type.idType=product.idType " +
+                "inner join material on material.idMaterial=product.idMaterial " +
+                "where stock.amount>0 group by " + criterio;
+        final ArrayList<String> alist = new ArrayList<String>();
+        Cursor ct = conexionLocal.read(sql);
+        //recorre y agrega
+        for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
+            alist.add(ct.getString(0));
+            alist.add(ct.getString(1));
+
+        }
+        conexionLocal.cerrar();
+        Log.e("Stock", alist.toString());
+        return alist;
+
+    }
 }
