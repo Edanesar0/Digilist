@@ -25,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -63,10 +64,12 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
     private Typeface font;
     private ArrayList<String> aTamanio;
     private Activity act;
-    private Spinner sTipo, sMaterial, sTamanio;
-    TypeDAO type;
-    MaterialDAO material;
-    StandDAO stand;
+    private Spinner sTipo, sMaterial, sTamanio, sPie;
+    private String selPie = "product.name";
+    private TypeDAO type;
+    PieChart pie;
+    private MaterialDAO material;
+    private StandDAO stand;
 
     public Almacenista(View v, Context c, Activity act) {
         this.v = v;
@@ -163,6 +166,17 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
     }
 
     public void pie() {
+        sPie = (Spinner) v.findViewById(R.id.sPie);
+        sPie.setOnItemSelectedListener(this);
+        ArrayList<String> apie = new ArrayList<String>();
+        apie.add(c.getResources().getString(R.string.Producto));
+        apie.add(c.getResources().getString(R.string.Tipo));
+        apie.add(c.getResources().getString(R.string.Tamaño));
+        apie.add(c.getResources().getString(R.string.Material));
+        SpinnerAdapter spinnerAdapter = new ArrayAdapter<String>(c, android.R.layout.simple_list_item_1, apie);
+
+        sPie.setAdapter(spinnerAdapter);
+
         new asynclogin().execute(4 + "");
 
 
@@ -184,6 +198,25 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                     ArrayAdapter<String> adaptadorTamanio = new ArrayAdapter<String>(c, android.R.layout.simple_spinner_item, lis);//creamos el adaptador de los spinner agregando los Arraylist
                     sTamanio.setAdapter(adaptadorTamanio);
 
+                }
+                break;
+            case R.id.sPie:
+                if (sPie.getSelectedItem().toString().equals(c.getResources().getString(R.string.Producto))) {
+                    selPie = "product.name";
+                    new asynclogin().execute(4 + "");
+                }
+                if (sPie.getSelectedItem().toString().equals(c.getResources().getString(R.string.Tipo))) {
+                    selPie = "type.name";
+                    new asynclogin().execute(4 + "");
+
+                }
+                if (sPie.getSelectedItem().toString().equals(c.getResources().getString(R.string.Tamaño))) {
+                    selPie = "type.dimension";
+                    new asynclogin().execute(4 + "");
+                }
+                if (sPie.getSelectedItem().toString().equals(c.getResources().getString(R.string.Material))) {
+                    selPie = "material.name";
+                    new asynclogin().execute(4 + "");
                 }
                 break;
 
@@ -458,7 +491,6 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
         LinearLayout lyPro = (LinearLayout) v.findViewById(R.id.lyProducto);
         ProgressBar pbInv = (ProgressBar) v.findViewById(R.id.pbInventario);
         ScrollView lyInv = (ScrollView) v.findViewById(R.id.svInventario);
-        PieChart pie = (PieChart) v.findViewById(R.id.mySimplePieChart);
         LinearLayout lyPie = (LinearLayout) v.findViewById(R.id.lypie);
         ProgressBar pbpie = (ProgressBar) v.findViewById(R.id.pbPie);
 
@@ -668,12 +700,11 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
 
                     break;
                 case '4':
-
-                    PieChart pie = (PieChart) v.findViewById(R.id.mySimplePieChart);
-
+                    pie = (PieChart) v.findViewById(R.id.mySimplePieChart);
+                    pie.clear();
+                    pie.redraw();
                     producto = new ProductDAO(c);
-                    ArrayList ar = new ArrayList();
-                    ar = producto.consultarInventarioGraficas("product.name");
+                    ArrayList ar = producto.consultarInventarioGraficas(selPie);
                     for (int i2 = 0; i2 < ar.size() - 1; i2++) {
                         Segment s = new Segment(ar.get(i2).toString() + ": " + ar.get(i2 + 1).toString(), Integer.parseInt(ar.get(i2 + 1).toString()));
 
@@ -703,11 +734,17 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                     }
 
 
-                    pie.setBorderStyle(XYPlot.BorderStyle.NONE, null, null);
-                    pie.getBorderPaint().setColor(Color.rgb(245, 245, 245));
                     pie.getBackgroundPaint().setColor(Color.rgb(245, 245, 245));
-                    //pie.getGridBackgroundPaint().setColor(Color.WHITE);
+
+                    //pie.getBorderPaint().setColor(Color.rgb(245, 245, 245));
                     pie.redraw();
+                    pie.getBorderPaint().setColor(Color.TRANSPARENT);
+                    pie.redraw();
+                    //pie.setBorderPaint(null);
+                    //pie.setPlotMargins(0,0,0,0);
+                    pie.setBorderStyle(XYPlot.BorderStyle.SQUARE, null, null);
+                    //pie.getGridBackgroundPaint().setColor(Color.WHITE);
+                    //pie.redraw();
                     lyPie.setVisibility(View.VISIBLE);
                     pbpie.setVisibility(ProgressBar.INVISIBLE);
 

@@ -30,16 +30,32 @@
                 android:id="@+id/lypie">
 
                 <Spinner
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/spie" />
+                    android:id="@+id/sPie" />
 
-                <com.androidplot.pie.PieChart
-                    android:id="@+id/mySimplePieChart"
+                <RelativeLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:background="#f5f5f5" />
+                    android:layout_height="fill_parent">
+
+                    <com.androidplot.pie.PieChart
+                        android:id="@+id/mySimplePieChart"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="center_horizontal" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:id="@+id/textView9"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/borde3"
+                        android:autoText="false" />
+                </RelativeLayout>
+
             </LinearLayout>
         </LinearLayout>
 
