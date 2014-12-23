@@ -44,5 +44,9 @@
     <string name="Agregar_Productos">Ajouter Produits</string>
     <string name="Inventario">Inventaire</string>
     <string name="Graficas">Graphique</string>
+    <string name="Fecha">Date</string>
+    <string name="Cantidad_Anterior">Quantité\nPrécédent</string>
+    <string name="Accion">Action</string>
+    <string name="Nueva_Cantidad">Neuf\nQuantité</string>
 
 </resources>

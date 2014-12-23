@@ -173,7 +173,7 @@ public class ProductDAO {
 
         ConexionLocal conexionLocal = new ConexionLocal(c);
         conexionLocal.abrir();
-        String sql = "select product.name,type.name,type.dimension,material.name,stock.amount " +
+        String sql = "select product.name,type.name,type.dimension,material.name,stock.amount,product.idProduct " +
                 "from product " +
                 "inner join stock on stock.idProduct=product.idProduct " +
                 "inner join type on type.idType=product.idType " +
@@ -188,6 +188,7 @@ public class ProductDAO {
             alist.add(ct.getString(2));
             alist.add(ct.getString(3));
             alist.add(ct.getString(4));
+            alist.add(ct.getString(5));
         }
         conexionLocal.cerrar();
         Log.e("Stock", alist.toString());
@@ -199,7 +200,7 @@ public class ProductDAO {
 
         ConexionLocal conexionLocal = new ConexionLocal(c);
         conexionLocal.abrir();
-        String sql = "select " + criterio + ",stock.amount " +
+        String sql = "select " + criterio + ",sum(stock.amount)" +
                 "from product " +
                 "inner join stock on stock.idProduct=product.idProduct " +
                 "inner join type on type.idType=product.idType " +

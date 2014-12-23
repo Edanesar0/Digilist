@@ -75,6 +75,12 @@ public class RequestsAndResponses {
         //return conexion.getserverdata(postparameters2send, URL_connect + "/stand.php", "GET1", null);
     }
 
+    public JSONArray getHistoricalSupply() {
+        conexion = new ConexionHTTP();
+        //realizamos una peticion y como respuesta obtenes un array JSON
+        return conexion.getserverdata(null, URL_connect + "/historicalSupply.php", "GET1", null);
+    }
+
     public JSONArray postMateriales() {
         conexion = new ConexionHTTP();
         //realizamos una peticion y como respuesta obtenes un array JSON

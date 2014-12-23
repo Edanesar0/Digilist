@@ -38,10 +38,10 @@ import com.androidplot.pie.SegmentFormatter;
 import com.androidplot.xy.XYPlot;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 
 import java.util.ArrayList;
 
+import co.edu.sena.digilistmobile.digilist.dao.HistoricalSupplyDAO;
 import co.edu.sena.digilistmobile.digilist.dao.MaterialDAO;
 import co.edu.sena.digilistmobile.digilist.dao.ProductDAO;
 import co.edu.sena.digilistmobile.digilist.dao.StandDAO;
@@ -61,13 +61,14 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
     private Button binfo, binfocli, bedit, btnLimpiar, btnAgregar;
     private TableLayout tl;
     private ProductDAO producto;
+    private HistoricalSupplyDAO historical;
     private Typeface font;
     private ArrayList<String> aTamanio;
     private Activity act;
     private Spinner sTipo, sMaterial, sTamanio, sPie;
     private String selPie = "product.name";
     private TypeDAO type;
-    PieChart pie;
+    private PieChart pie;
     private MaterialDAO material;
     private StandDAO stand;
 
@@ -376,7 +377,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                             toast.setView(layout);
                             toast.show();
                         }
-                    } catch (JSONException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
 
@@ -469,7 +470,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                             toast.show();
                         }
 
-                    } catch (JSONException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
 
@@ -501,6 +502,8 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
             material = new MaterialDAO(c);
             producto = new ProductDAO(c);
             stand = new StandDAO(c);
+            historical = new HistoricalSupplyDAO(c);
+
 
         }
 
@@ -516,6 +519,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                         material.agregarMaterial();
                         producto.agregarProducto();
                         stand.agregarStand();
+                        historical.agregarHistorico();
                         producto.agregarInventario();
                         ArrayList<String> AProductos = producto.consultarProductos();//retornamos la consulta de inventario
                         ArrayList<String> Apr = new ArrayList<String>();
@@ -533,6 +537,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                         material.agregarMaterial();
                         producto.agregarProducto();
                         stand.agregarStand();
+                        historical.agregarHistorico();
                         producto.agregarInventario();
                         break;
                     case '3':
@@ -541,6 +546,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                         type.agregarTipo();
                         material.agregarMaterial();
                         producto.agregarProducto();
+                        historical.agregarHistorico();
                         stand.agregarStand();
                         producto.agregarInventario();
                         break;
@@ -549,6 +555,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                         lyPie.setVisibility(View.INVISIBLE);
                         type.agregarTipo();
                         material.agregarMaterial();
+                        historical.agregarHistorico();
                         producto.agregarProducto();
                         stand.agregarStand();
                         producto.agregarInventario();
@@ -585,10 +592,10 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                     break;
                 case '3':
 
-                    ArrayList<String> productos = producto.consultarInventarios();
+                    ArrayList<String> producto = Almacenista.this.producto.consultarInventarios();
                     int count = 0;
-                    if (productos.size() != 0) {
-                        for (int i = 0; i <= productos.size() - 5; i = i + 5) {
+                    if (producto.size() != 0) {
+                        for (int i = 0; i <= producto.size() - 6; i = i + 6) {
                             TableRow tr = new TableRow(c);
                             if (count % 2 != 0) {
                                 tr.setBackgroundResource(R.drawable.row_selector_r);
@@ -597,41 +604,35 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                                 tr.setBackgroundResource(R.drawable.row_selector_w);
                                 //tr.setBackgroundColor(Color.WHITE);
                             }
-                            TextView txtProducto = new TextView(c);
+                            final TextView txtProducto = new TextView(c);
                             txtProducto.setTypeface(font);
-                            txtProducto.setText(productos.get(i));
+                            txtProducto.setId(Integer.parseInt(producto.get(i + 5)));
+                            txtProducto.setText(producto.get(i));
                             txtProducto.setGravity(Gravity.CENTER);
                             //txtProducto.setTextSize(20);
                             tr.addView(txtProducto);
                             TextView txtTipo = new TextView(c);
                             txtTipo.setTypeface(font);
-                            txtTipo.setText(productos.get(i + 1));
+                            txtTipo.setText(producto.get(i + 1));
                             txtTipo.setGravity(Gravity.CENTER);
                             txtTipo.setLines(2);
                             tr.addView(txtTipo);
                             TextView txtTamanio = new TextView(c);
                             txtTamanio.setTypeface(font);
-                            txtTamanio.setText(productos.get(i + 2));
+                            txtTamanio.setText(producto.get(i + 2));
                             txtTamanio.setGravity(Gravity.CENTER);
                             tr.addView(txtTamanio);
                             TextView txtMaterial = new TextView(c);
                             txtMaterial.setTypeface(font);
-                            txtMaterial.setText(productos.get(i + 3));
+                            txtMaterial.setText(producto.get(i + 3));
                             txtMaterial.setGravity(Gravity.CENTER);
                             tr.addView(txtMaterial);
                             TextView txtCantidad = new TextView(c);
                             txtCantidad.setTypeface(font);
-                            txtCantidad.setText(productos.get(i + 4));
+                            txtCantidad.setText(producto.get(i + 4));
                             txtCantidad.setGravity(Gravity.CENTER);
                             tr.addView(txtCantidad);
                             count++;
-                            tr.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-
-                                }
-                            });
-
                             tr.setOnLongClickListener(new View.OnLongClickListener() {
                                 @Override
                                 public boolean onLongClick(View v) {
@@ -639,8 +640,54 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                                         final String[] prodSel = {""};
                                         ArrayList<String> lis = null;
                                         LayoutInflater inflater = act.getLayoutInflater();
-
+                                        ArrayList<String> historico = historical.consultarHistorico(txtProducto.getId() + "");
+                                        int count = 0;
                                         View v2 = inflater.inflate(R.layout.mensaje_producto, null);
+                                        TableLayout tl2 = (TableLayout) v2.findViewById(R.id.tlInventario);
+                                        tl2.setStretchAllColumns(true);
+                                        tl2.setShrinkAllColumns(true);
+
+                                        if (historico.size() != 0) {
+                                            for (int i = 0; i <= historico.size() - 4; i = i + 4) {
+                                                TableRow tr = new TableRow(c);
+                                                if (count % 2 != 0) {
+                                                    tr.setBackgroundResource(R.drawable.row_selector_r);
+                                                    //tr.setBackgroundColor(Color.argb(15, 203, 47, 23));
+                                                } else {
+                                                    tr.setBackgroundResource(R.drawable.row_selector_w);
+                                                    //tr.setBackgroundColor(Color.WHITE);
+                                                }
+                                                TextView txtFecha = new TextView(c);
+                                                txtFecha.setTypeface(font);
+                                                txtFecha.setText(historico.get(i));
+                                                txtFecha.setGravity(Gravity.CENTER);
+                                                //txtProducto.setTextSize(20);
+                                                tr.addView(txtFecha);
+                                                TextView txtNCant = new TextView(c);
+                                                txtNCant.setTypeface(font);
+                                                txtNCant.setText(historico.get(i + 1));
+                                                txtNCant.setGravity(Gravity.CENTER);
+                                                txtNCant.setLines(2);
+                                                tr.addView(txtNCant);
+                                                TextView txtACant = new TextView(c);
+                                                txtACant.setTypeface(font);
+                                                txtACant.setText(historico.get(i + 2));
+                                                txtACant.setGravity(Gravity.CENTER);
+                                                tr.addView(txtACant);
+                                                TextView txtAccion = new TextView(c);
+                                                txtAccion.setTypeface(font);
+                                                txtAccion.setText(historico.get(i + 3));
+                                                txtAccion.setGravity(Gravity.CENTER);
+                                                tr.addView(txtAccion);
+
+                                                count++;
+                                                tl2.addView(tr, new TableLayout.LayoutParams(
+                                                        TableLayout.LayoutParams.WRAP_CONTENT,
+                                                        TableLayout.LayoutParams.WRAP_CONTENT));
+                                            }
+                                        }
+
+
                                         AlertDialog.Builder builder3 = new AlertDialog.Builder(c);
                                         builder3.setView(v2);
                                         builder3.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
@@ -703,8 +750,8 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                     pie = (PieChart) v.findViewById(R.id.mySimplePieChart);
                     pie.clear();
                     pie.redraw();
-                    producto = new ProductDAO(c);
-                    ArrayList ar = producto.consultarInventarioGraficas(selPie);
+                    Almacenista.this.producto = new ProductDAO(c);
+                    ArrayList ar = Almacenista.this.producto.consultarInventarioGraficas(selPie);
                     for (int i2 = 0; i2 < ar.size() - 1; i2++) {
                         Segment s = new Segment(ar.get(i2).toString() + ": " + ar.get(i2 + 1).toString(), Integer.parseInt(ar.get(i2 + 1).toString()));
 
