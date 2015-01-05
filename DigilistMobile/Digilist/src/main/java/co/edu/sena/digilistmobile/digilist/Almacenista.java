@@ -52,6 +52,7 @@ import co.edu.sena.digilistmobile.digilist.vo.ProductVO;
 public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnClickListener {
     private View v;
     private Context c;
+    private Activity act;
     private ViewPager vp;
     private ArrayAdapter<String> adaptadorProductos;
     private ProgressDialog progressDialog = null;
@@ -64,7 +65,6 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
     private HistoricalSupplyDAO historical;
     private Typeface font;
     private ArrayList<String> aTamanio;
-    private Activity act;
     private Spinner sTipo, sMaterial, sTamanio, sPie;
     private String selPie = "product.name";
     private TypeDAO type;

@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Digilist Mobile</string>
     <string name="action_settings">Paramètres </string>
-    <string name="txtUsuario">Utilisateur</string>
+    <string name="Usuario">Utilisateur</string>
     <string name="txtpassword">Mot de passe </string>
     <string name="txtEntrar">Entrer </string>
     <string name="Tipo">Taux</string>
@@ -50,5 +50,10 @@
     <string name="Nueva_Cantidad">Neuf\nQuantité</string>
     <string name="Productos">Produire</string>
     <string name="Usuarios">Utilisateurs</string>
+    <string name="Nombres">Noms</string>
+    <string name="Apellidos">Nom de Famille</string>
+    <string name="Telefono">Téléphone</string>
+    <string name="Direccion">Adresse De La Rue</string>
+    <string name="Rol">Rôle</string>
 
 </resources>

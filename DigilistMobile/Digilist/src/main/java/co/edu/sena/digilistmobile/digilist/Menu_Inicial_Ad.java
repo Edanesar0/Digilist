@@ -1,5 +1,6 @@
 package co.edu.sena.digilistmobile.digilist;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -43,8 +44,9 @@ public class Menu_Inicial_Ad extends SherlockActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rl:
-                //Intent i = new Intent(this, Inicio.class);
-                //startActivity(i);
+                Intent i = new Intent(this, Administrador.class);
+                i.putExtra("pos", 0);
+                startActivity(i);
                 break;
             case R.id.rl2:
                 //Inent i2 = new Intent(this, Inicio.class);

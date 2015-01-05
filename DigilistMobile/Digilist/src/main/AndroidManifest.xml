@@ -21,6 +21,7 @@
             android:screenOrientation="portrait" />
         <activity android:name="co.edu.sena.digilistmobile.digilist.Inicio" />
         <activity android:name="co.edu.sena.digilistmobile.digilist.Graficas" />
+        <activity android:name="co.edu.sena.digilistmobile.digilist.Administrador" />
         <activity
             android:name="co.edu.sena.digilistmobile.digilist.Menu_Inicial_Ad"
             android:configChanges="orientation"
