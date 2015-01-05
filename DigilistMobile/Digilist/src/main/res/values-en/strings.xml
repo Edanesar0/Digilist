@@ -49,5 +49,7 @@
     <string name="Cantidad_Anterior">Quantity\nPrevious</string>
     <string name="Accion">Action</string>
     <string name="Nueva_Cantidad">New\nQuantity</string>
+    <string name="Productos">Products</string>
+    <string name="Usuarios">Users</string>
 
 </resources>

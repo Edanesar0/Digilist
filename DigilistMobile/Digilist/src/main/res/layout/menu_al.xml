@@ -96,8 +96,6 @@
                         android:id="@+id/imageView3"
                         android:layout_width="75dp"
                         android:layout_height="50dp"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
                         android:src="@drawable/ic_notepencil32"
                         android:layout_gravity="center_horizontal" />
 
@@ -105,8 +103,6 @@
                         android:id="@+id/textView3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_below="@+id/imageView3"
                         android:text="@string/Inventario"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="#ff9a9a9a"
@@ -137,8 +133,6 @@
                         android:layout_width="75dp"
                         android:layout_height="50dp"
                         android:src="@drawable/ic_graficas"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
                         android:layout_gravity="center_horizontal" />
 
                     <TextView
@@ -149,8 +143,6 @@
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="#ff9a9a9a"
                         android:textSize="25dp"
-                        android:layout_below="@+id/imageView4"
-                        android:layout_centerHorizontal="true"
                         android:layout_gravity="center_horizontal" />
                 </LinearLayout>
             </RelativeLayout>

@@ -53,7 +53,7 @@
                 android:paddingTop="5dp"
                 android:saveEnabled="true"
                 android:singleLine="false"
-                android:text="Almacenista"
+                android:text="Administrador"
                 android:textColor="#565656" />
 
             <TextView

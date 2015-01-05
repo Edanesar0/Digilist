@@ -16,13 +16,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Menu_Inicial_Al"
+            android:name="co.edu.sena.digilistmobile.digilist.Menu_Inicial_Al"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
-        <activity android:name=".Inicio" />
-        <activity android:name=".Graficas" />
+        <activity android:name="co.edu.sena.digilistmobile.digilist.Inicio" />
+        <activity android:name="co.edu.sena.digilistmobile.digilist.Graficas" />
         <activity
-            android:name=".Menu_Inicial_Ad"
+            android:name="co.edu.sena.digilistmobile.digilist.Menu_Inicial_Ad"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
     </application>

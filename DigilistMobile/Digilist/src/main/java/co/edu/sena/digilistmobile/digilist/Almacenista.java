@@ -611,7 +611,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                             txtProducto.setGravity(Gravity.CENTER);
                             //txtProducto.setTextSize(20);
                             tr.addView(txtProducto);
-                            TextView txtTipo = new TextView(c);
+                            final TextView txtTipo = new TextView(c);
                             txtTipo.setTypeface(font);
                             txtTipo.setText(producto.get(i + 1));
                             txtTipo.setGravity(Gravity.CENTER);
@@ -690,19 +690,10 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
 
                                         AlertDialog.Builder builder3 = new AlertDialog.Builder(c);
                                         builder3.setView(v2);
-                                        builder3.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialogInterface, int i) {
-                                            }
-                                        }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-
-                                            }
-                                        });
+                                        builder3.setPositiveButton("Aceptar", null).setNegativeButton("Cancelar", null);
                                         AlertDialog dialog3;
                                         dialog3 = builder3.create();
-                                        dialog3.setTitle("Productos");
+                                        dialog3.setTitle(txtProducto.getText()+" "+txtTipo.getText());
                                         dialog3.show();
 
 
