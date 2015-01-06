@@ -56,5 +56,8 @@
     <string name="Telefono">Teléfono</string>
     <string name="Direccion">Dirección</string>
     <string name="Rol">Rol</string>
+    <string name="Editar">Editar</string>
+    <string name="Eliminar">Eliminar</string>
+    <string name="Detalles">Detalles</string>
 
 </resources>

@@ -266,6 +266,7 @@ public class ConexionLocal {
 
     public void limpiar() {
         try {
+            nBD.delete("user", null, null);
             nBD.delete("comentarios", null, null);
             nBD.delete("historicalSupply", null, null);
             nBD.delete("order_has_product", null, null);
@@ -278,7 +279,6 @@ public class ConexionLocal {
             nBD.delete("permission", null, null);
             nBD.delete("`order`", null, null);
             nBD.delete("client", null, null);
-            nBD.delete("user", null, null);
             nBD.delete("role", null, null);
             nBD.delete("city", null, null);
 

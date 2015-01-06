@@ -10,18 +10,17 @@ import org.json.JSONObject;
 import co.edu.sena.digilistmobile.digilist.utils.conexiones.ConexionLocal;
 import co.edu.sena.digilistmobile.digilist.utils.conexiones.RequestsAndResponses;
 
-public class CityDAO {
+public class RolDAO {
     RequestsAndResponses requestsAndResponses;
     Context c;
 
-    public CityDAO(Context c) {
+    public RolDAO(Context c) {
         this.c = c;
 
     }
 
-    public String agregarCiudades() throws JSONException {
-        JSONArray jsonArray = consultarCiudades("", "");
-//        jsonArray = jsonArray.getJSONArray(0);
+    public String agregarRoles() throws JSONException {
+        JSONArray jsonArray = consultarRoles("", "");
         ContentValues cv = new ContentValues();
         ConexionLocal conexionLocal = new ConexionLocal(c);
         String conf = "";
@@ -32,15 +31,15 @@ public class CityDAO {
             for (int j = 0; j < names.length(); j++) {
                 cv.put(names.getString(j), jsonObject.getString(names.getString(j)));
             }
-            conf += conexionLocal.insert("city", cv);
+            conf += conexionLocal.insert("role", cv);
         }
         conexionLocal.cerrar();
         return conf;
     }
 
-    public JSONArray consultarCiudades(String criterio, String terminoABuscar) {
+    public JSONArray consultarRoles(String criterio, String terminoABuscar) {
         requestsAndResponses = new RequestsAndResponses(c);
-        return requestsAndResponses.getCities();
+        return requestsAndResponses.getRol();
 
     }
 }

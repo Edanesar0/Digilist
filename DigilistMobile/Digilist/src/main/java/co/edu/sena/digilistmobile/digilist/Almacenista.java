@@ -61,21 +61,22 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
     private EditText edtcantidad, edtNombreProducto, edtReferencia;
     private Button binfo, binfocli, bedit, btnLimpiar, btnAgregar;
     private TableLayout tl;
-    private ProductDAO producto;
     private HistoricalSupplyDAO historical;
     private Typeface font;
     private ArrayList<String> aTamanio;
     private Spinner sTipo, sMaterial, sTamanio, sPie;
     private String selPie = "product.name";
+    private ProductDAO producto;
     private TypeDAO type;
-    private PieChart pie;
     private MaterialDAO material;
     private StandDAO stand;
+    private PieChart pie;
 
     public Almacenista(View v, Context c, Activity act) {
         this.v = v;
         this.c = c;
         this.act = act;
+        font = Typeface.createFromAsset(c.getAssets(), "Station.ttf");
 
 
     }
@@ -592,10 +593,10 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                     break;
                 case '3':
 
-                    ArrayList<String> producto = Almacenista.this.producto.consultarInventarios();
+                    ArrayList<String> productos = producto.consultarInventarios();
                     int count = 0;
-                    if (producto.size() != 0) {
-                        for (int i = 0; i <= producto.size() - 6; i = i + 6) {
+                    if (productos.size() != 0) {
+                        for (int i = 0; i <= productos.size() - 6; i = i + 6) {
                             TableRow tr = new TableRow(c);
                             if (count % 2 != 0) {
                                 tr.setBackgroundResource(R.drawable.row_selector_r);
@@ -606,30 +607,30 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                             }
                             final TextView txtProducto = new TextView(c);
                             txtProducto.setTypeface(font);
-                            txtProducto.setId(Integer.parseInt(producto.get(i + 5)));
-                            txtProducto.setText(producto.get(i));
+                            txtProducto.setId(Integer.parseInt(productos.get(i + 5)));
+                            txtProducto.setText(productos.get(i));
                             txtProducto.setGravity(Gravity.CENTER);
                             //txtProducto.setTextSize(20);
                             tr.addView(txtProducto);
                             final TextView txtTipo = new TextView(c);
                             txtTipo.setTypeface(font);
-                            txtTipo.setText(producto.get(i + 1));
+                            txtTipo.setText(productos.get(i + 1));
                             txtTipo.setGravity(Gravity.CENTER);
                             txtTipo.setLines(2);
                             tr.addView(txtTipo);
                             TextView txtTamanio = new TextView(c);
                             txtTamanio.setTypeface(font);
-                            txtTamanio.setText(producto.get(i + 2));
+                            txtTamanio.setText(productos.get(i + 2));
                             txtTamanio.setGravity(Gravity.CENTER);
                             tr.addView(txtTamanio);
                             TextView txtMaterial = new TextView(c);
                             txtMaterial.setTypeface(font);
-                            txtMaterial.setText(producto.get(i + 3));
+                            txtMaterial.setText(productos.get(i + 3));
                             txtMaterial.setGravity(Gravity.CENTER);
                             tr.addView(txtMaterial);
                             TextView txtCantidad = new TextView(c);
                             txtCantidad.setTypeface(font);
-                            txtCantidad.setText(producto.get(i + 4));
+                            txtCantidad.setText(productos.get(i + 4));
                             txtCantidad.setGravity(Gravity.CENTER);
                             tr.addView(txtCantidad);
                             count++;
@@ -693,7 +694,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                                         builder3.setPositiveButton("Aceptar", null).setNegativeButton("Cancelar", null);
                                         AlertDialog dialog3;
                                         dialog3 = builder3.create();
-                                        dialog3.setTitle(txtProducto.getText()+" "+txtTipo.getText());
+                                        dialog3.setTitle(txtProducto.getText() + " " + txtTipo.getText());
                                         dialog3.show();
 
 

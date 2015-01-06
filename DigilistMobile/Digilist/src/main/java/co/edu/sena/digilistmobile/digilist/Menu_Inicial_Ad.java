@@ -41,6 +41,15 @@ public class Menu_Inicial_Ad extends SherlockActivity implements View.OnClickLis
     }
 
     @Override
+    protected void onResume() {
+        ConexionLocal conexionLocal = new ConexionLocal(this);
+        conexionLocal.abrir();
+        conexionLocal.limpiar();
+        conexionLocal.cerrar();
+        super.onResume();
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rl:

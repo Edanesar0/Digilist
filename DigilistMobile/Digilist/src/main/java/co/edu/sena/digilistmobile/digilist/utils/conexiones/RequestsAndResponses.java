@@ -81,6 +81,26 @@ public class RequestsAndResponses {
         return conexion.getserverdata(null, URL_connect + "/historicalSupply.php", "GET1", null);
     }
 
+    public JSONArray getUsers() {
+        conexion = new ConexionHTTP();
+        //realizamos una peticion y como respuesta obtenes un array JSON
+        return conexion.getserverdata(null, URL_connect + "/users.php", "GET1", null);
+    }
+
+    public JSONArray getCities() {
+        conexion = new ConexionHTTP();
+        //realizamos una peticion y como respuesta obtenes un array JSON
+        //return conexion.getserverdata(null, URL_connect2 + "/city/retrieving-records", "GET1", null);
+        return conexion.getserverdata(null, URL_connect + "/ciudades.php", "GET1", null);
+
+    }
+
+    public JSONArray getRol() {
+        conexion = new ConexionHTTP();
+        //realizamos una peticion y como respuesta obtenes un array JSON
+        return conexion.getserverdata(null, URL_connect + "/rol.php", "GET1", null);
+    }
+
     public JSONArray postMateriales() {
         conexion = new ConexionHTTP();
         //realizamos una peticion y como respuesta obtenes un array JSON
