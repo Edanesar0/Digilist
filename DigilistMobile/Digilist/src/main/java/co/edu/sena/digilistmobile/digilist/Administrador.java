@@ -15,6 +15,7 @@ import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
 
@@ -152,6 +153,13 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                             opc.add(Administrador.this.getResources().getString(R.string.Eliminar));
                             ArrayAdapter<String> adpOpc = new ArrayAdapter<String>(Administrador.this, R.layout.list_center, opc);
                             listview.setAdapter(adpOpc);
+                            listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    Toast toast = Toast.makeText(Administrador.this, "", Toast.LENGTH_SHORT);
+                                    toast.show();
+                                }
+                            });
 
                             AlertDialog.Builder builder3 = new AlertDialog.Builder(Administrador.this);
                             builder3.setView(v2);
