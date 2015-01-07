@@ -1,6 +1,7 @@
 package co.edu.sena.digilistmobile.digilist;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -9,13 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
 
@@ -43,6 +46,7 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
     private UserDAO user;
     ProgressBar pbUsu;
     private RolDAO rol;
+    AlertDialog dialog3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +81,7 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
             case 1:
                 break;
             case 2:
+                setContentView(R.layout.addusers);
                 break;
             case 3:
                 break;
@@ -89,6 +94,8 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
         lyInv = (ScrollView) findViewById(R.id.svUsuarios);
         lyInv.setVisibility(View.INVISIBLE);
         pbUsu.setVisibility(ProgressBar.VISIBLE);
+        ImageButton btnAdd = (ImageButton) findViewById(R.id.btnAgregarUsr);
+        btnAdd.setOnClickListener(this);
         TableLayout tl = (TableLayout) findViewById(R.id.tlUsuarios);
         tl.setStretchAllColumns(true);
         tl.setShrinkAllColumns(true);
@@ -144,6 +151,7 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                     @Override
                     public boolean onLongClick(View v) {
                         try {
+
                             LayoutInflater inflater = getLayoutInflater();
                             View v2 = inflater.inflate(R.layout.opciones, null);
                             ListView listview = (ListView) v2.findViewById(R.id.lvOpciones);
@@ -153,42 +161,84 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                             opc.add(Administrador.this.getResources().getString(R.string.Eliminar));
                             ArrayAdapter<String> adpOpc = new ArrayAdapter<String>(Administrador.this, R.layout.list_center, opc);
                             listview.setAdapter(adpOpc);
-                            listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    Toast toast = Toast.makeText(Administrador.this, "", Toast.LENGTH_SHORT);
-                                    toast.show();
-                                }
-                            });
-
                             AlertDialog.Builder builder3 = new AlertDialog.Builder(Administrador.this);
                             builder3.setView(v2);
-                            final AlertDialog dialog3;
                             builder3.setPositiveButton("Aceptar", null).setNegativeButton("Cancelar", null);
                             dialog3 = builder3.create();
                             dialog3.setTitle(txtNombre.getText() + " " + txtApellido.getText());
                             dialog3.show();
-                            try {
-                                dialog3.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        Boolean wantToCloseDialog = false;
-                                        try {
-                                            if (txtNombre.getText().toString() != null) {
-                                                wantToCloseDialog = false;
-                                            }
-                                            //Do stuff, possibly set wantToCloseDialog to true then...
-                                            if (wantToCloseDialog) {
-                                                dialog3.dismiss();
-                                            }
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
+
+                            dialog3.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Boolean wantToCloseDialog = false;
+                                    try {
+                                        if (txtNombre.getText().toString() != null) {
+                                            wantToCloseDialog = false;
                                         }
+                                        //Do stuff, possibly set wantToCloseDialog to true then...
+                                        if (wantToCloseDialog) {
+                                            dialog3.dismiss();
+                                        }
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
                                     }
-                                });
-                            } catch (NullPointerException ee) {
-                                ee.printStackTrace();
-                            }
+                                }
+                            });
+                            listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    switch (position) {
+                                        case 0:
+                                            dialog3.dismiss();
+                                            LayoutInflater inflater = getLayoutInflater();
+                                            View v = inflater.inflate(R.layout.addusers, null);
+                                            LinearLayout llUser = (LinearLayout) v.findViewById(R.id.llUser);
+                                            View v2 = v.findViewById(R.id.rlButtons);
+                                            llUser.removeView(v2);
+                                            v2 = v.findViewById(R.id.txtTitulo);
+                                            llUser.removeView(v2);
+                                            EditText edtNombre = (EditText) v.findViewById(R.id.edtNombres);
+                                            edtNombre.setBackgroundResource(R.drawable.white_button);
+                                            edtNombre.setEnabled(false);
+                                            EditText edtApellido = (EditText) v.findViewById(R.id.edtApellidos);
+                                            edtApellido.setBackgroundResource(R.drawable.white_button);
+                                            edtApellido.setEnabled(false);
+                                            EditText edtTelefono = (EditText) v.findViewById(R.id.edtTelefono);
+                                            edtTelefono.setBackgroundResource(R.drawable.white_button);
+                                            edtTelefono.setEnabled(false);
+                                            EditText edtDireccion = (EditText) v.findViewById(R.id.edtDireccion);
+                                            edtDireccion.setBackgroundResource(R.drawable.white_button);
+                                            edtDireccion.setEnabled(false);
+                                            EditText edtUsuario = (EditText) v.findViewById(R.id.edtUsuario);
+                                            edtUsuario.setBackgroundResource(R.drawable.white_button);
+                                            edtUsuario.setEnabled(false);
+                                            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(280, LinearLayout.LayoutParams.WRAP_CONTENT);
+                                            layoutParams.setMargins(0, 0, 0, 30);
+                                            v2 = v.findViewById(R.id.txtPass);
+
+                                            llUser.removeView(v2);
+                                            v2 = v.findViewById(R.id.edtPass);
+                                            llUser.removeView(v2);
+                                            AlertDialog.Builder builder3 = new AlertDialog.Builder(Administrador.this);
+                                            builder3.setView(v);
+                                            AlertDialog dialog;
+                                            builder3.setPositiveButton("Aceptar", null).setNegativeButton("Cancelar", null);
+                                            dialog = builder3.create();
+                                            dialog.setTitle("Información");
+                                            dialog.show();
+
+                                            break;
+                                        case 1:
+                                            break;
+                                        case 2:
+                                            break;
+
+
+                                    }
+                                }
+                            });
+
 
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -234,6 +284,13 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btnAgregarUsr:
+                Intent i = getIntent();
+                i.putExtra("pos", 2);
+                startActivity(i);
+                break;
+        }
 
     }
 

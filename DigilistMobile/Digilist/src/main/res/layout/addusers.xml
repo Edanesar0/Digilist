@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center_horizontal"
+        android:background="#f5f5f5">
+
+        <LinearLayout
+            android:id="@+id/llUser"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtTitulo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="4dp"
+                android:layout_marginTop="22dp"
+                android:text=""
+                android:textColor="#CB2F17"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/txtNombres"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:text="@string/Nombres"
+                android:textColor="#9a9a9a"
+                android:textIsSelectable="false"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edtNombres"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/edittext_rounded_corners"
+                android:completionThreshold="1"
+                android:textColor="#565656" />
+
+
+            <TextView
+                android:id="@+id/txtApellido"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/Apellidos"
+                android:textColor="#9a9a9a"
+                android:textIsSelectable="false"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edtApellidos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_rounded_corners"
+                android:textColor="#565656" />
+
+            <TextView
+                android:id="@+id/txtTelefono"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/Telefono"
+                android:textColor="#9a9a9a"
+                android:textIsSelectable="false"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edtTelefono"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_rounded_corners"
+                android:textColor="#565656" />
+
+            <TextView
+                android:id="@+id/txtDireccion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/Direccion"
+                android:textColor="#9a9a9a"
+                android:textIsSelectable="false"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edtDireccion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_rounded_corners"
+                android:textColor="#565656" />
+
+            <TextView
+                android:id="@+id/txtRol"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/Rol"
+                android:textColor="#9a9a9a"
+                android:textIsSelectable="false"
+                android:textSize="18sp" />
+
+            <Spinner
+                android:id="@+id/sRol"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/txtUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/Usuario"
+                android:textColor="#9a9a9a"
+                android:textIsSelectable="false"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edtUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_rounded_corners"
+                android:textColor="#565656" />
+
+            <TextView
+                android:id="@+id/txtPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/password"
+                android:textColor="#9a9a9a"
+                android:textIsSelectable="false"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/edtPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_rounded_corners"
+                android:textColor="#565656" />
+
+
+            <RelativeLayout
+                android:id="@+id/rlButtons"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="26dp"
+                android:paddingBottom="15dp">
+
+                <Button
+                    android:id="@+id/btnAgregarProducto"
+                    android:layout_width="95dp"
+                    android:layout_height="40dp"
+                    style="@style/ButtonText"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_gravity="right|center_vertical"
+                    android:background="@drawable/red_button"
+                    android:drawablePadding="3dp"
+                    android:text="@string/Agregar"
+                    android:textColor="#FFF"
+                    android:textSize="16dp" />
+
+                <Button
+                    android:id="@+id/btnLimpiar"
+                    android:layout_width="95dp"
+                    style="@style/ButtonText"
+                    android:layout_height="40dp"
+                    android:layout_alignBottom="@+id/btnAgregarProducto"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/gray_button"
+                    android:drawablePadding="3dp"
+                    android:text="@string/Limpiar"
+                    android:textColor="#FFF"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/txto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/btnLimpiar"
+                    android:layout_toRightOf="@+id/btnAgregarProducto"
+                    android:gravity="center_horizontal"
+                    android:text="ó"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#9a9a9a" />
+
+
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -62,7 +62,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="@string/txtpassword"
+                android:text="@string/password"
                 android:textColor="#9a9a9a" />
 
             <EditText

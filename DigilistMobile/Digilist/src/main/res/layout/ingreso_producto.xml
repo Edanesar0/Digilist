@@ -60,7 +60,7 @@
                 <EditText
                     android:id="@+id/edtNombreProducto"
                     android:layout_width="fill_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@drawable/edittext_rounded_corners"
                     android:completionThreshold="1"
@@ -80,7 +80,7 @@
                 <EditText
                     android:id="@+id/edtReferencia"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/edittext_rounded_corners"
                     android:textColor="#565656" />
 
@@ -116,7 +116,7 @@
 
                 <TextView
                     android:id="@+id/txtMaterial"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="@string/Material"

@@ -68,6 +68,26 @@ public class UserDAO {
 
     }
 
+    public ArrayList<String> consultarUsuario(String idUser) {
+        ConexionLocal conexionLocal = new ConexionLocal(c);
+        conexionLocal.abrir();
+        String sql = "SELECT idUser,names,last_name,user,description FROM user inner join role on role.idRol=user.idRol where idUser=" + " order by 1";
+        final ArrayList<String> alist = new ArrayList<String>();
+        Cursor ct = conexionLocal.read(sql);
+        //recorre y agrega
+        for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
+            alist.add(ct.getString(0));
+            alist.add(ct.getString(1));
+            alist.add(ct.getString(2));
+            alist.add(ct.getString(3));
+            alist.add(ct.getString(4));
+
+        }
+        conexionLocal.cerrar();
+        return alist;
+
+    }
+
 
     public boolean agregarUsuario(UserVO Usuario) {
 
