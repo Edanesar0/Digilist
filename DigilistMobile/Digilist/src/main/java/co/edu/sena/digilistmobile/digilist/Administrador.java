@@ -1,6 +1,7 @@
 package co.edu.sena.digilistmobile.digilist;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -16,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -167,8 +169,7 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                             dialog3 = builder3.create();
                             dialog3.setTitle(txtNombre.getText() + " " + txtApellido.getText());
                             dialog3.show();
-
-                            dialog3.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                            /*dialog3.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     Boolean wantToCloseDialog = false;
@@ -184,54 +185,166 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                                         e.printStackTrace();
                                     }
                                 }
-                            });
+                            });*/
                             listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    ArrayList<String> us;
+                                    LayoutInflater inflater;
+                                    LinearLayout llUser;
+                                    View v, v2;
+                                    EditText edtNombre, edtApellido, edtTelefono, edtDireccion, edtUsuario;
+                                    TextView txtNombres, txtApellidos, txtTelefono, txtDireccion, txtUsuario, txtRol;
+                                    Spinner srol;
+                                    ArrayAdapter<String> adpRol;
+                                    AlertDialog.Builder builder;
+                                    AlertDialog dialog;
+                                    ArrayList<String> opc;
                                     switch (position) {
                                         case 0:
-                                            dialog3.dismiss();
-                                            LayoutInflater inflater = getLayoutInflater();
-                                            View v = inflater.inflate(R.layout.addusers, null);
-                                            LinearLayout llUser = (LinearLayout) v.findViewById(R.id.llUser);
-                                            View v2 = v.findViewById(R.id.rlButtons);
+                                            //dialog3.dismiss();
+                                            us = user.consultarUsuario(txtNombre.getId() + "");
+                                            inflater = getLayoutInflater();
+                                            v = inflater.inflate(R.layout.addusers, null);
+                                            llUser = (LinearLayout) v.findViewById(R.id.llUser);
+                                            v2 = v.findViewById(R.id.rlButtons);
                                             llUser.removeView(v2);
                                             v2 = v.findViewById(R.id.txtTitulo);
                                             llUser.removeView(v2);
-                                            EditText edtNombre = (EditText) v.findViewById(R.id.edtNombres);
+                                            txtNombres = (TextView) v.findViewById(R.id.txtNombres);
+                                            txtNombres.setTypeface(font);
+                                            txtApellidos = (TextView) v.findViewById(R.id.txtApellido);
+                                            txtApellidos.setTypeface(font);
+                                            txtTelefono = (TextView) v.findViewById(R.id.txtTelefono);
+                                            txtTelefono.setTypeface(font);
+                                            txtDireccion = (TextView) v.findViewById(R.id.txtDireccion);
+                                            txtDireccion.setTypeface(font);
+                                            txtUsuario = (TextView) v.findViewById(R.id.txtUsuario);
+                                            txtUsuario.setTypeface(font);
+                                            txtRol = (TextView) v.findViewById(R.id.txtRol);
+                                            txtRol.setTypeface(font);
+                                            edtNombre = (EditText) v.findViewById(R.id.edtNombres);
                                             edtNombre.setBackgroundResource(R.drawable.white_button);
                                             edtNombre.setEnabled(false);
-                                            EditText edtApellido = (EditText) v.findViewById(R.id.edtApellidos);
+                                            edtNombre.setTypeface(font);
+                                            edtNombre.setText(us.get(1));
+                                            edtApellido = (EditText) v.findViewById(R.id.edtApellidos);
                                             edtApellido.setBackgroundResource(R.drawable.white_button);
                                             edtApellido.setEnabled(false);
-                                            EditText edtTelefono = (EditText) v.findViewById(R.id.edtTelefono);
+                                            edtApellido.setTypeface(font);
+                                            edtApellido.setText(us.get(2));
+                                            edtTelefono = (EditText) v.findViewById(R.id.edtTelefono);
                                             edtTelefono.setBackgroundResource(R.drawable.white_button);
                                             edtTelefono.setEnabled(false);
-                                            EditText edtDireccion = (EditText) v.findViewById(R.id.edtDireccion);
+                                            edtTelefono.setTypeface(font);
+                                            edtTelefono.setText(us.get(3));
+                                            edtDireccion = (EditText) v.findViewById(R.id.edtDireccion);
                                             edtDireccion.setBackgroundResource(R.drawable.white_button);
                                             edtDireccion.setEnabled(false);
-                                            EditText edtUsuario = (EditText) v.findViewById(R.id.edtUsuario);
+                                            edtDireccion.setTypeface(font);
+                                            edtDireccion.setText(us.get(4));
+                                            srol = (Spinner) v.findViewById(R.id.sRol);
+                                            opc = new ArrayList<String>();
+                                            opc.add(us.get(5));
+                                            adpRol = new ArrayAdapter<String>(Administrador.this, android.R.layout.simple_list_item_1, opc);
+                                            srol.setAdapter(adpRol);
+                                            srol.setBackgroundResource(R.drawable.white_button);
+                                            srol.setClickable(false);
+                                            edtUsuario = (EditText) v.findViewById(R.id.edtUsuario);
                                             edtUsuario.setBackgroundResource(R.drawable.white_button);
                                             edtUsuario.setEnabled(false);
-                                            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(280, LinearLayout.LayoutParams.WRAP_CONTENT);
-                                            layoutParams.setMargins(0, 0, 0, 30);
+                                            edtUsuario.setTypeface(font);
+                                            edtUsuario.setText(us.get(6));
                                             v2 = v.findViewById(R.id.txtPass);
-
                                             llUser.removeView(v2);
                                             v2 = v.findViewById(R.id.edtPass);
                                             llUser.removeView(v2);
-                                            AlertDialog.Builder builder3 = new AlertDialog.Builder(Administrador.this);
-                                            builder3.setView(v);
-                                            AlertDialog dialog;
-                                            builder3.setPositiveButton("Aceptar", null).setNegativeButton("Cancelar", null);
-                                            dialog = builder3.create();
+                                            builder = new AlertDialog.Builder(Administrador.this);
+                                            builder.setView(v);
+                                            builder.setPositiveButton("Aceptar", null);
+                                            dialog = builder.create();
                                             dialog.setTitle("Información");
                                             dialog.show();
-
                                             break;
                                         case 1:
+                                            us = user.consultarUsuario(txtNombre.getId() + "");
+                                            inflater = getLayoutInflater();
+                                            v = inflater.inflate(R.layout.addusers, null);
+                                            llUser = (LinearLayout) v.findViewById(R.id.llUser);
+                                            v2 = v.findViewById(R.id.rlButtons);
+                                            llUser.removeView(v2);
+                                            v2 = v.findViewById(R.id.txtTitulo);
+                                            llUser.removeView(v2);
+                                            txtNombres = (TextView) v.findViewById(R.id.txtNombres);
+                                            txtNombres.setTypeface(font);
+                                            txtApellidos = (TextView) v.findViewById(R.id.txtApellido);
+                                            txtApellidos.setTypeface(font);
+                                            txtTelefono = (TextView) v.findViewById(R.id.txtTelefono);
+                                            txtTelefono.setTypeface(font);
+                                            txtDireccion = (TextView) v.findViewById(R.id.txtDireccion);
+                                            txtDireccion.setTypeface(font);
+                                            txtUsuario = (TextView) v.findViewById(R.id.txtUsuario);
+                                            txtUsuario.setTypeface(font);
+                                            txtRol = (TextView) v.findViewById(R.id.txtRol);
+                                            txtRol.setTypeface(font);
+                                            edtNombre = (EditText) v.findViewById(R.id.edtNombres);
+
+
+                                            edtNombre.setTypeface(font);
+                                            edtNombre.setText(us.get(1));
+                                            edtApellido = (EditText) v.findViewById(R.id.edtApellidos);
+
+
+                                            edtApellido.setTypeface(font);
+                                            edtApellido.setText(us.get(2));
+                                            edtTelefono = (EditText) v.findViewById(R.id.edtTelefono);
+
+
+                                            edtTelefono.setTypeface(font);
+                                            edtTelefono.setText(us.get(3));
+                                            edtDireccion = (EditText) v.findViewById(R.id.edtDireccion);
+
+
+                                            edtDireccion.setTypeface(font);
+                                            edtDireccion.setText(us.get(4));
+                                            srol = (Spinner) v.findViewById(R.id.sRol);
+                                            opc = new ArrayList<String>();
+                                            opc.add(us.get(5));
+                                            adpRol = new ArrayAdapter<String>(Administrador.this, android.R.layout.simple_list_item_1, opc);
+                                            srol.setAdapter(adpRol);
+
+
+                                            edtUsuario = (EditText) v.findViewById(R.id.edtUsuario);
+
+
+                                            edtUsuario.setTypeface(font);
+                                            edtUsuario.setText(us.get(6));
+                                            v2 = v.findViewById(R.id.txtPass);
+                                            llUser.removeView(v2);
+                                            v2 = v.findViewById(R.id.edtPass);
+                                            llUser.removeView(v2);
+                                            builder = new AlertDialog.Builder(Administrador.this);
+                                            builder.setView(v);
+                                            builder.setPositiveButton("Aceptar", null);
+                                            dialog = builder.create();
+                                            dialog.setTitle("Editar");
+                                            dialog.show();
+
+
                                             break;
                                         case 2:
+                                            builder = new AlertDialog.Builder(Administrador.this);
+                                            builder.setMessage(Administrador.this.getResources().getString(R.string.MensajeEliminar));
+                                            builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+
+                                                }
+                                            }).setNegativeButton("Cancelar", null);
+                                            dialog = builder.create();
+                                            dialog.setTitle("Eliminar");
+                                            dialog.show();
+
                                             break;
 
 

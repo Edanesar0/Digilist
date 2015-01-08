@@ -14,7 +14,7 @@
             android:id="@+id/llUser"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
+            android:paddingBottom="30dp"
             android:layout_gravity="center_horizontal"
             android:orientation="vertical">
 

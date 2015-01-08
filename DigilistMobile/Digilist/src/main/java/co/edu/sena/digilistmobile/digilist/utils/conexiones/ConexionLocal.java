@@ -266,6 +266,7 @@ public class ConexionLocal {
 
     public void limpiar() {
         try {
+            nBD.execSQL("PRAGMA foreign_keys=off;");
             nBD.delete("user", null, null);
             nBD.delete("comentarios", null, null);
             nBD.delete("historicalSupply", null, null);
@@ -281,6 +282,7 @@ public class ConexionLocal {
             nBD.delete("client", null, null);
             nBD.delete("role", null, null);
             nBD.delete("city", null, null);
+            nBD.execSQL("PRAGMA foreign_keys=on;");
 
         } catch (Exception e) {
             Log.e("Error", e.getMessage());

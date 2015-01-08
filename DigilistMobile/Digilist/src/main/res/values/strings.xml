@@ -59,5 +59,6 @@
     <string name="Editar">Editar</string>
     <string name="Eliminar">Eliminar</string>
     <string name="Detalles">Detalles</string>
+    <string name="MensajeEliminar">¿Desea eliminar el usuario?</string>
 
 </resources>
