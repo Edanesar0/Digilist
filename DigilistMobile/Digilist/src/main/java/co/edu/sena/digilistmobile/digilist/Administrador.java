@@ -81,6 +81,7 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                 }
                 break;
             case 1:
+                setContentView(R.layout.inventario);
                 break;
             case 2:
                 setContentView(R.layout.addusers);
