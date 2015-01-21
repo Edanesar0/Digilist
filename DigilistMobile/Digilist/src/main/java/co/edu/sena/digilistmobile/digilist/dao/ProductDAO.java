@@ -102,7 +102,7 @@ public class ProductDAO {
 
     public String agregarProducto() throws JSONException {
         JSONArray jsonArray = consultarProductoHTTP();
-        jsonArray = jsonArray.getJSONArray(0);
+        //jsonArray = jsonArray.getJSONArray(0);
         ContentValues cv = new ContentValues();
         ConexionLocal conexionLocal = new ConexionLocal(c);
         conexionLocal.abrir();

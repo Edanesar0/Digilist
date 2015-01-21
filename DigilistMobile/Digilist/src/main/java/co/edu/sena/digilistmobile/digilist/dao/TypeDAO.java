@@ -31,7 +31,7 @@ public class TypeDAO {
 
     public String agregarTipo() throws JSONException {
         JSONArray jsonArray = consultarTipo("", "");
-        jsonArray = jsonArray.getJSONArray(0);
+//        jsonArray = jsonArray.getJSONArray(0);
         ContentValues cv = new ContentValues();
         ConexionLocal conexionLocal = new ConexionLocal(c);
         String conf = "";

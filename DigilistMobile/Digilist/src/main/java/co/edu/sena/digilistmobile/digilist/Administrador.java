@@ -384,11 +384,13 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
 
     public void inventario() {
         pbInv = (ProgressBar) findViewById(R.id.pbInventario);
+        tl=(TableLayout) findViewById(R.id.tlInventario);
         ArrayList<String> productos = producto.consultarInventarios();
         int count = 0;
         if (productos.size() != 0) {
             for (int i = 0; i <= productos.size() - 6; i = i + 6) {
                 TableRow tr = new TableRow(this);
+                tr.setGravity(Gravity.CENTER);
                 if (count % 2 != 0) {
                     tr.setBackgroundResource(R.drawable.row_selector_r);
                     //tr.setBackgroundColor(Color.argb(15, 203, 47, 23));
@@ -604,6 +606,7 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
 
             } catch (Exception e) {
                 mensaje = e.getMessage();
+                e.printStackTrace();
 
             }
             return mensaje;
