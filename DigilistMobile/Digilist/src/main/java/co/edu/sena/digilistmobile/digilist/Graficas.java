@@ -32,7 +32,7 @@ public class Graficas extends SherlockActivity {
     private class vpAdapter2 extends PagerAdapter {
         @Override
         public int getCount() {
-            return 1;
+            return 2;
         }
 
         @Override
