@@ -72,8 +72,9 @@ public class ConexionHTTP {
             if (fun.equals("GET1")) {
                 HttpClient httpclient = new DefaultHttpClient();
                 HttpGet httpget = new HttpGet(urlwebserver);
-                httpget.setHeader("user", "almacenista");
-                httpget.setHeader("password", "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5");
+                //httpget.setHeader("user", "almacenista");
+                httpget.setHeader("Authorization", "eeee");
+                //httpget.setHeader("password", "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5");
                 //ejecuto peticion enviando datos por POST
                 HttpResponse response = httpclient.execute(httpget);
                 HttpEntity entity = response.getEntity();
