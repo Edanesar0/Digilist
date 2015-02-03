@@ -156,7 +156,23 @@ public class ConexionHTTP {
 
         } catch (JSONException e) {
             Log.e("log_tag", "Error parsing data " + e.toString());
-            return null;
+            try {
+                JSONObject jo = new JSONObject(result);
+                if (jo.has("authenticated_user"))
+                    return jo.getJSONArray("authenticated_user");
+                else {
+
+                    JSONArray jsonArray = new JSONArray();
+
+                    jsonArray.put(0, jo);
+                    return jsonArray;
+                }
+
+
+            } catch (Exception ex) {
+
+                return null;
+            }
         }
 
     }

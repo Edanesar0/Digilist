@@ -26,15 +26,12 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Properties;
 
 import co.edu.sena.digilistmobile.digilist.utils.Encrypting;
@@ -48,6 +45,7 @@ public class Login extends SherlockActivity {
     EditText edtPassw, edtUsuario;
     ConexionHTTP conexion;
     String URL_connect;
+    String URL_connect2;
     int rol;
 
     @Override
@@ -73,6 +71,7 @@ public class Login extends SherlockActivity {
         }
 
         URL_connect = prop.getProperty("URL_connect");
+        URL_connect2 = prop.getProperty("URL_connect2");
 
         font = Typeface.createFromAsset(this.getAssets(), "Station.ttf");
         Button bo = (Button) findViewById(R.id.Blogin);
@@ -262,11 +261,12 @@ public class Login extends SherlockActivity {
             /*Creamos un ArrayList del tipo nombre valor para agregar los datos recibidos por los parametros anteriores
              * y enviarlo mediante POST a nuestro sistema para relizar la validacion*/
             conexion = new ConexionHTTP();
-            ArrayList<NameValuePair> postparameters2send = new ArrayList<NameValuePair>();
-            postparameters2send.add(new BasicNameValuePair("usuario", username));
-            postparameters2send.add(new BasicNameValuePair("password", password));
             //realizamos una peticion y como respuesta obtenes un array JSON
-            JSONArray jdata = conexion.getserverdata(postparameters2send, URL_connect + "/acces.php", "POST1", null);
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("user", username);
+            jsonObject.put("pass", password);
+            //JSONArray jdata = conexion.getserverdata(postparameters2send, URL_connect + "/acces.php", "POST1", null);
+            JSONArray jdata = conexion.getserverdata(null, URL_connect2 + "/login", "POST2", jsonObject);
 
             //si lo que obtuvimos no es null
             if (jdata != null && jdata.length() > 0) {
@@ -274,8 +274,13 @@ public class Login extends SherlockActivity {
                 try {
                     for (int i = 0; i < jdata.length(); i++) {//se recorre el json
                         json_data = jdata.getJSONObject(0); //leemos el primer segmento en nuestro caso el unico
-                        logstatus = json_data.getInt("logstatus");//accedemos al valor
-                        rol = json_data.getInt("rol");//accedemos al valor
+                        if (json_data.has("response")) {
+                            logstatus = 0;//accedemos al valor
+
+                        } else {
+                            logstatus = 1;
+                            rol = json_data.getInt("idRol");//accedemos al valor
+                        }
                     }
                     Log.e("loginstatus", "logstatus= " + logstatus);
                     //muestro por log que obtuvimos
