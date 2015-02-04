@@ -1,6 +1,8 @@
 package co.edu.sena.digilistmobile.digilist.utils.conexiones;
 
 
+import android.content.Context;
+import android.database.Cursor;
 import android.util.Log;
 
 import org.apache.http.HttpEntity;
@@ -26,6 +28,13 @@ import java.util.ArrayList;
 public class ConexionHTTP {
     InputStream is = null;
     String result = "";
+    Context c;
+    String token = "";
+
+    public ConexionHTTP(Context c) {
+        this.c = c;
+
+    }
 
 
     public JSONArray getserverdata(ArrayList<NameValuePair> parameters, String urlwebserver, String fun, JSONObject para) {
@@ -48,11 +57,22 @@ public class ConexionHTTP {
 
         //
         try {
+            ConexionLocal conexionLocal = new ConexionLocal(c);
+            conexionLocal.abrir();
+            String sql = "select remember_token from user where remember_token is not null ";
+            Cursor ct = conexionLocal.read(sql);
+            for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
+                token = ct.getString(0);
+            }
+            conexionLocal.cerrar();
+
+
             if (fun.equals("POST1")) {
                 HttpClient httpclient = new DefaultHttpClient();
                 HttpPost httppost = new HttpPost(urlwebserver);
                 httppost.setEntity(new UrlEncodedFormEntity(parametros));
                 //ejecuto peticion enviando datos por POST
+                httppost.setHeader("Authorization", token);
                 HttpResponse response = httpclient.execute(httppost);
                 HttpEntity entity = response.getEntity();
                 is = entity.getContent();
@@ -64,6 +84,7 @@ public class ConexionHTTP {
                 httppost.setEntity(se);
                 httppost.setHeader("Accept", "application/json");
                 httppost.setHeader("Content-type", "application/json");
+                httppost.setHeader("Authorization", token);
                 HttpResponse response = httpclient.execute(httppost);
                 HttpEntity entity = response.getEntity();
                 is = entity.getContent();
@@ -72,9 +93,7 @@ public class ConexionHTTP {
             if (fun.equals("GET1")) {
                 HttpClient httpclient = new DefaultHttpClient();
                 HttpGet httpget = new HttpGet(urlwebserver);
-                //httpget.setHeader("user", "almacenista");
-                httpget.setHeader("Authorization", "eeee");
-                //httpget.setHeader("password", "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5");
+                httpget.setHeader("Authorization", token);
                 //ejecuto peticion enviando datos por POST
                 HttpResponse response = httpclient.execute(httpget);
                 HttpEntity entity = response.getEntity();
@@ -85,6 +104,7 @@ public class ConexionHTTP {
                 HttpGet httpget = new HttpGet(urlwebserver);
                 httpget.setHeader("Accept", "application/json");
                 httpget.setHeader("Content-type", "application/json");
+                httpget.setHeader("Authorization", token);
                 HttpResponse response = httpclient.execute(httpget);
                 HttpEntity entity = response.getEntity();
                 is = entity.getContent();
@@ -97,6 +117,7 @@ public class ConexionHTTP {
                 httput.setEntity(se);
                 httput.setHeader("Accept", "application/json");
                 httput.setHeader("Content-type", "application/json");
+                httput.setHeader("Authorization", token);
                 HttpResponse response = httpclient.execute(httput);
                 HttpEntity entity = response.getEntity();
                 is = entity.getContent();
@@ -105,6 +126,7 @@ public class ConexionHTTP {
             if (fun.equals("DELETE1")) {
                 HttpClient httpclient = new DefaultHttpClient();
                 HttpDelete httpdelete = new HttpDelete(urlwebserver);
+                httpdelete.setHeader("Authorization", token);
                 //ejecuto peticion enviando datos por POST
                 HttpResponse response = httpclient.execute(httpdelete);
                 HttpEntity entity = response.getEntity();
@@ -115,6 +137,7 @@ public class ConexionHTTP {
                 HttpDelete httpdelete = new HttpDelete(urlwebserver);
                 httpdelete.setHeader("Accept", "application/json");
                 httpdelete.setHeader("Content-type", "application/json");
+                httpdelete.setHeader("Authorization", token);
                 HttpResponse response = httpclient.execute(httpdelete);
                 HttpEntity entity = response.getEntity();
                 is = entity.getContent();

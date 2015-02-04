@@ -37,15 +37,13 @@ public class RequestsAndResponses {
     }
 
     public JSONArray getMateriales() {
-        conexion = new ConexionHTTP();
-        ArrayList<NameValuePair> postparameters2send = new ArrayList<NameValuePair>();
-        postparameters2send.add(new BasicNameValuePair("token", ""));
+        conexion = new ConexionHTTP(context);
         //realizamos una peticion y como respuesta obtenes un array JSON
-        return conexion.getserverdata(postparameters2send, URL_connect2 + "/material/retrieving-records", "GET1", null);
+        return conexion.getserverdata(null, URL_connect2 + "/material/retrieving-records", "GET1", null);
     }
 
     public JSONArray getTipos() {
-        conexion = new ConexionHTTP();
+        conexion = new ConexionHTTP(context);
         ArrayList<NameValuePair> postparameters2send = new ArrayList<NameValuePair>();
         postparameters2send.add(new BasicNameValuePair("token", ""));
         //realizamos una peticion y como respuesta obtenes un array JSON
@@ -53,13 +51,13 @@ public class RequestsAndResponses {
     }
 
     public JSONArray getProductos() {
-        conexion = new ConexionHTTP();
+        conexion = new ConexionHTTP(context);
         //realizamos una peticion y como respuesta obtenes un array JSON
         return conexion.getserverdata(null, URL_connect2 + "/product/retrieving-records", "GET1", null);
     }
 
     public JSONArray getInventario() throws JSONException {
-        conexion = new ConexionHTTP();
+        conexion = new ConexionHTTP(context);
         ArrayList<NameValuePair> postparameters2send = new ArrayList<NameValuePair>();
         postparameters2send.add(new BasicNameValuePair("token", ""));
         //realizamos una peticion y como respuesta obtenes un array JSON
@@ -67,7 +65,7 @@ public class RequestsAndResponses {
     }
 
     public JSONArray getStand() {
-        conexion = new ConexionHTTP();
+        conexion = new ConexionHTTP(context);
         ArrayList<NameValuePair> postparameters2send = new ArrayList<NameValuePair>();
         postparameters2send.add(new BasicNameValuePair("token", ""));
         //realizamos una peticion y como respuesta obtenes un array JSON
@@ -76,19 +74,19 @@ public class RequestsAndResponses {
     }
 
     public JSONArray getHistoricalSupply() {
-        conexion = new ConexionHTTP();
+        conexion = new ConexionHTTP(context);
         //realizamos una peticion y como respuesta obtenes un array JSON
         return conexion.getserverdata(null, URL_connect + "/historicalSupply.php", "GET1", null);
     }
 
     public JSONArray getUsers() {
-        conexion = new ConexionHTTP();
+        conexion = new ConexionHTTP(context);
         //realizamos una peticion y como respuesta obtenes un array JSON
         return conexion.getserverdata(null, URL_connect + "/users.php", "GET1", null);
     }
 
     public JSONArray getCities() {
-        conexion = new ConexionHTTP();
+        conexion = new ConexionHTTP(context);
         //realizamos una peticion y como respuesta obtenes un array JSON
         //return conexion.getserverdata(null, URL_connect2 + "/city/retrieving-records", "GET1", null);
         return conexion.getserverdata(null, URL_connect + "/ciudades.php", "GET1", null);
@@ -96,79 +94,79 @@ public class RequestsAndResponses {
     }
 
     public JSONArray getRol() {
-        conexion = new ConexionHTTP();
+        conexion = new ConexionHTTP(context);
         //realizamos una peticion y como respuesta obtenes un array JSON
         return conexion.getserverdata(null, URL_connect + "/rol.php", "GET1", null);
     }
 
     public JSONArray postMateriales() {
-        conexion = new ConexionHTTP();
+        conexion = new ConexionHTTP(context);
         //realizamos una peticion y como respuesta obtenes un array JSON
         return conexion.getserverdata(null, URL_connect2 + "/product/insert-record", "POST2", null);
     }
 
     public JSONArray postTipos() {
-        conexion = new ConexionHTTP();
+        conexion = new ConexionHTTP(context);
         //realizamos una peticion y como respuesta obtenes un array JSON
         return conexion.getserverdata(null, URL_connect2 + "/product/insert-record", "POST2", null);
     }
 
     public JSONArray postProductos(JSONObject productos) {
-        conexion = new ConexionHTTP();
+        conexion = new ConexionHTTP(context);
         //realizamos una peticion y como respuesta obtenes un array JSON
         return conexion.getserverdata(null, URL_connect2 + "/product/insert-record", "POST2", productos);
     }
 
     public JSONArray postInventario() {
-        conexion = new ConexionHTTP();
+        conexion = new ConexionHTTP(context);
         //realizamos una peticion y como respuesta obtenes un array JSON
         return conexion.getserverdata(null, URL_connect2 + "/product/insert-record", "POST2", null);
     }
 
     public JSONArray putMateriales() {
-        conexion = new ConexionHTTP();
+        conexion = new ConexionHTTP(context);
         //realizamos una peticion y como respuesta obtenes un array JSON
         return conexion.getserverdata(null, URL_connect, "PUT1", null);
     }
 
     public JSONArray putTipos() {
-        conexion = new ConexionHTTP();
+        conexion = new ConexionHTTP(context);
         //realizamos una peticion y como respuesta obtenes un array JSON
         return conexion.getserverdata(null, URL_connect, "PUT1", null);
     }
 
     public JSONArray putProductos() {
-        conexion = new ConexionHTTP();
+        conexion = new ConexionHTTP(context);
         //realizamos una peticion y como respuesta obtenes un array JSON
         return conexion.getserverdata(null, URL_connect, "PUT1", null);
     }
 
     public JSONArray putInventario(JSONObject datos) {
-        conexion = new ConexionHTTP();
+        conexion = new ConexionHTTP(context);
         //realizamos una peticion y como respuesta obtenes un array JSON
         return conexion.getserverdata(null, URL_connect2 + "/stock/update-record-by-id", "PUT", datos);
     }
 
     public JSONArray deleteMateriales() {
-        conexion = new ConexionHTTP();
+        conexion = new ConexionHTTP(context);
         //realizamos una peticion y como respuesta obtenes un array JSON
         return conexion.getserverdata(null, URL_connect, "DELETE1", null);
     }
 
     public JSONArray deleteTipos() {
-        conexion = new ConexionHTTP();
+        conexion = new ConexionHTTP(context);
         //realizamos una peticion y como respuesta obtenes un array JSON
         return conexion.getserverdata(null, URL_connect, "DELETE1", null);
     }
 
     public JSONArray deleteProductos() {
-        conexion = new ConexionHTTP();
+        conexion = new ConexionHTTP(context);
         //realizamos una peticion y como respuesta obtenes un array JSON
         return conexion.getserverdata(null, URL_connect, "DELETE1", null);
     }
 
     public JSONArray deleteInventario() {
-        conexion = new ConexionHTTP();
+        conexion = new ConexionHTTP(context);
         //realizamos una peticion y como respuesta obtenes un array JSON
         return conexion.getserverdata(null, URL_connect, "DELETE1", null);
     }

@@ -2,6 +2,7 @@ package co.edu.sena.digilistmobile.digilist;
 
 
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -34,8 +35,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import co.edu.sena.digilistmobile.digilist.dao.CityDAO;
+import co.edu.sena.digilistmobile.digilist.dao.RolDAO;
 import co.edu.sena.digilistmobile.digilist.utils.Encrypting;
 import co.edu.sena.digilistmobile.digilist.utils.conexiones.ConexionHTTP;
+import co.edu.sena.digilistmobile.digilist.utils.conexiones.ConexionLocal;
 
 
 public class Login extends SherlockActivity {
@@ -260,28 +264,46 @@ public class Login extends SherlockActivity {
             int cant = 0;
             /*Creamos un ArrayList del tipo nombre valor para agregar los datos recibidos por los parametros anteriores
              * y enviarlo mediante POST a nuestro sistema para relizar la validacion*/
-            conexion = new ConexionHTTP();
+            conexion = new ConexionHTTP(this);
             //realizamos una peticion y como respuesta obtenes un array JSON
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("user", username);
-            jsonObject.put("pass", password);
+            JSONObject jo = new JSONObject();
+            jo.put("user", username);
+            jo.put("pass", password);
             //JSONArray jdata = conexion.getserverdata(postparameters2send, URL_connect + "/acces.php", "POST1", null);
-            JSONArray jdata = conexion.getserverdata(null, URL_connect2 + "/login", "POST2", jsonObject);
+            JSONArray jdata = conexion.getserverdata(null, URL_connect2 + "/login", "POST2", jo);
+            CityDAO cityDAO = new CityDAO(this);
+            cityDAO.agregarCiudades();
+            RolDAO rolDAO = new RolDAO(this);
+            rolDAO.agregarRoles();
 
             //si lo que obtuvimos no es null
             if (jdata != null && jdata.length() > 0) {
-                JSONObject json_data; //creamos un objeto JSON
                 try {
-                    for (int i = 0; i < jdata.length(); i++) {//se recorre el json
-                        json_data = jdata.getJSONObject(0); //leemos el primer segmento en nuestro caso el unico
-                        if (json_data.has("response")) {
+                    ContentValues cv = new ContentValues();
+                    ConexionLocal conexionLocal = new ConexionLocal(this);
+
+                    String conf = "";
+                    conexionLocal.abrir();
+                    for (int i = 0; i < jdata.length(); i++) {
+                        JSONObject jsonObject = jdata.getJSONObject(i);
+                        if (jsonObject.has("response")) {
                             logstatus = 0;//accedemos al valor
 
                         } else {
                             logstatus = 1;
-                            rol = json_data.getInt("idRol");//accedemos al valor
+                            JSONArray names = jsonObject.names();
+                            for (int j = 0; j < names.length(); j++) {
+                                cv.put(names.getString(j), jsonObject.getString(names.getString(j)));
+                            }
+                            rol = jsonObject.getInt("idRol");//accedemos al valor
+                            Log.e("cv", "" + cv.toString());
                         }
+
+                        conf += conexionLocal.insert("user", cv);
+                        Log.e("conf", "" + conf);
                     }
+                    conexionLocal.cerrar();
+
                     Log.e("loginstatus", "logstatus= " + logstatus);
                     //muestro por log que obtuvimos
                 } catch (JSONException e) {

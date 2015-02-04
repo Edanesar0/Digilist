@@ -11,7 +11,7 @@ import android.util.Log;
 public class ConexionLocal {
 
     public static final String N_BD = "dbDigilist";
-    public static final int VERSION_BD = 2;
+    public static final int VERSION_BD = 3;
     private BDhelper nHelper;
     private final Context nContexto;
     private SQLiteDatabase nBD;
@@ -82,6 +82,7 @@ public class ConexionLocal {
                     "  `idRol` INT(11) NOT NULL," +
                     "  `user` VARCHAR(500) NULL," +
                     "  `pass` VARCHAR(500) NULL," +
+                    "  `remember_token` VARCHAR(500) NULL," +
                     "  PRIMARY KEY (`idUser`, `idRol`)," +
                     "  CONSTRAINT `vendedor_ibfk_1`" +
                     "    FOREIGN KEY (`idCity`)" +
@@ -267,7 +268,7 @@ public class ConexionLocal {
     public void limpiar() {
         try {
             nBD.execSQL("PRAGMA foreign_keys=off;");
-            nBD.delete("user", null, null);
+            //nBD.delete("user","remember_token is not null ", null);
             nBD.delete("comentarios", null, null);
             nBD.delete("historicalSupply", null, null);
             nBD.delete("order_has_product", null, null);
