@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -456,6 +457,9 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                             sTamanio.setSelection(0);
                             sMaterial.setSelection(0);
                             toast = Toast.makeText(c, R.string.Inventario_Agregado, Toast.LENGTH_SHORT);
+                            Intent it = act.getIntent();
+                            act.finish();
+                            act.startActivity(it);
                             toast.show();
                         } else {
                             LayoutInflater inflater = act.getLayoutInflater();
