@@ -11,7 +11,7 @@ import android.util.Log;
 public class ConexionLocal {
 
     public static final String N_BD = "dbDigilist";
-    public static final int VERSION_BD = 3;
+    public static final int VERSION_BD = 4;
     private BDhelper nHelper;
     private final Context nContexto;
     private SQLiteDatabase nBD;
@@ -24,6 +24,7 @@ public class ConexionLocal {
 
         public BDhelper(Context context) {
             super(context, N_BD, null, VERSION_BD);
+
         }
 
         /**
@@ -74,12 +75,12 @@ public class ConexionLocal {
                     "  PRIMARY KEY (`idRol`));");
             db.execSQL("CREATE TABLE IF NOT EXISTS `user` (" +
                     "  `idUser` INTEGER AUTO_INCREMENT NOT NULL ," +
-                    "  `idCity` INT(11) NOT NULL," +
+                    "  `idCity` INT(11)  NULL," +
                     "  `names` VARCHAR(500) NULL," +
                     "  `last_name` VARCHAR(500) NULL," +
                     "  `phone` INT(11) NULL DEFAULT NULL," +
                     "  `address` VARCHAR(45) NULL," +
-                    "  `idRol` INT(11) NOT NULL," +
+                    "  `idRol` INT(11)  NULL," +
                     "  `user` VARCHAR(500) NULL," +
                     "  `pass` VARCHAR(500) NULL," +
                     "  `remember_token` VARCHAR(500) NULL," +
@@ -204,7 +205,7 @@ public class ConexionLocal {
             super.onOpen(db);
             if (!db.isReadOnly()) {
                 // Enable foreign key constraints
-                db.execSQL("PRAGMA foreign_keys=ON;");
+                db.execSQL("PRAGMA foreign_keys=off;");
             }
         }
 
@@ -254,8 +255,13 @@ public class ConexionLocal {
      * Se agregan las tiendas
      */
     public long insert(String tabla, ContentValues cv) {
-        /**Se crea un contenedor para especifcar los campos y se agregan los datos y se coloca insertWithOnConflict para que ignore si hay un error*/
+
         return nBD.insertWithOnConflict(tabla, null, cv, SQLiteDatabase.CONFLICT_IGNORE);
+    }
+
+    public long insertU(String tabla, ContentValues cv) {
+
+        return nBD.insertWithOnConflict(tabla, null, cv, SQLiteDatabase.CONFLICT_REPLACE);
     }
 
     public Cursor read(String sql) {
@@ -268,7 +274,7 @@ public class ConexionLocal {
     public void limpiar() {
         try {
             nBD.execSQL("PRAGMA foreign_keys=off;");
-            //nBD.delete("user","remember_token is not null ", null);
+            nBD.execSQL("DELETE FROM user WHERE remember_token is null ");
             nBD.delete("comentarios", null, null);
             nBD.delete("historicalSupply", null, null);
             nBD.delete("order_has_product", null, null);
@@ -283,7 +289,7 @@ public class ConexionLocal {
             nBD.delete("client", null, null);
             nBD.delete("role", null, null);
             nBD.delete("city", null, null);
-            nBD.execSQL("PRAGMA foreign_keys=on;");
+            nBD.execSQL("PRAGMA foreign_keys=off;");
 
         } catch (Exception e) {
             Log.e("Error", e.getMessage());

@@ -291,15 +291,16 @@ public class Login extends SherlockActivity {
 
                         } else {
                             logstatus = 1;
+                            rol = jsonObject.getInt("idRol");//accedemos al valor
+                            jsonObject.remove("idRol");
+                            jsonObject.remove("idCity");
                             JSONArray names = jsonObject.names();
                             for (int j = 0; j < names.length(); j++) {
                                 cv.put(names.getString(j), jsonObject.getString(names.getString(j)));
                             }
-                            rol = jsonObject.getInt("idRol");//accedemos al valor
                             Log.e("cv", "" + cv.toString());
                         }
-
-                        conf += conexionLocal.insert("user", cv);
+                        conf += conexionLocal.insertU("user", cv);
                         Log.e("conf", "" + conf);
                     }
                     conexionLocal.cerrar();
