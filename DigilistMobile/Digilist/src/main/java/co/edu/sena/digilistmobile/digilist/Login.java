@@ -272,18 +272,15 @@ public class Login extends SherlockActivity {
             //JSONArray jdata = conexion.getserverdata(postparameters2send, URL_connect + "/acces.php", "POST1", null);
             JSONArray jdata = conexion.getserverdata(null, URL_connect2 + "/login", "POST2", jo);
             CityDAO cityDAO = new CityDAO(this);
-            cityDAO.agregarCiudades();
             RolDAO rolDAO = new RolDAO(this);
-            rolDAO.agregarRoles();
-
             //si lo que obtuvimos no es null
             if (jdata != null && jdata.length() > 0) {
                 try {
                     ContentValues cv = new ContentValues();
                     ConexionLocal conexionLocal = new ConexionLocal(this);
-
-                    String conf = "";
                     conexionLocal.abrir();
+                    conexionLocal.clearAll();
+                    String conf = "";
                     for (int i = 0; i < jdata.length(); i++) {
                         JSONObject jsonObject = jdata.getJSONObject(i);
                         if (jsonObject.has("response")) {
@@ -292,16 +289,19 @@ public class Login extends SherlockActivity {
                         } else {
                             logstatus = 1;
                             rol = jsonObject.getInt("idRol");//accedemos al valor
-                            jsonObject.remove("idRol");
-                            jsonObject.remove("idCity");
+                            conexion.setToken(jsonObject.getString("remember_token"));
                             JSONArray names = jsonObject.names();
                             for (int j = 0; j < names.length(); j++) {
                                 cv.put(names.getString(j), jsonObject.getString(names.getString(j)));
                             }
                             Log.e("cv", "" + cv.toString());
+                            JSONArray jdata2 = conexion.getserverdata(null, URL_connect2 + "/city/retrieving-records", "GET1", null);
+                            cityDAO.agregarCiudades(jdata2);
+                            JSONArray jdata3 = conexion.getserverdata(null, URL_connect + "/rol.php", "GET1", null);
+                            rolDAO.agregarRoles(jdata3);
+                            conf += conexionLocal.insert("user", cv);
+                            Log.e("conf", "" + conf);
                         }
-                        conf += conexionLocal.insertU("user", cv);
-                        Log.e("conf", "" + conf);
                     }
                     conexionLocal.cerrar();
 

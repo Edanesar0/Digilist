@@ -38,6 +38,25 @@ public class CityDAO {
         return conf;
     }
 
+    public String agregarCiudades(JSONArray jsonArray) throws JSONException {
+
+//        jsonArray = jsonArray.getJSONArray(0);
+        ContentValues cv = new ContentValues();
+        ConexionLocal conexionLocal = new ConexionLocal(c);
+        String conf = "";
+        conexionLocal.abrir();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            JSONArray names = jsonObject.names();
+            for (int j = 0; j < names.length(); j++) {
+                cv.put(names.getString(j), jsonObject.getString(names.getString(j)));
+            }
+            conf += conexionLocal.insert("city", cv);
+        }
+        conexionLocal.cerrar();
+        return conf;
+    }
+
     public JSONArray consultarCiudades(String criterio, String terminoABuscar) {
         requestsAndResponses = new RequestsAndResponses(c);
         return requestsAndResponses.getCities();

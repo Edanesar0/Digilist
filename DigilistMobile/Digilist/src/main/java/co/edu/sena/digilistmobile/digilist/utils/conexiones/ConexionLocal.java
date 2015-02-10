@@ -205,7 +205,7 @@ public class ConexionLocal {
             super.onOpen(db);
             if (!db.isReadOnly()) {
                 // Enable foreign key constraints
-                db.execSQL("PRAGMA foreign_keys=off;");
+                db.execSQL("PRAGMA foreign_keys=on;");
             }
         }
 
@@ -289,7 +289,33 @@ public class ConexionLocal {
             nBD.delete("client", null, null);
             nBD.delete("role", null, null);
             nBD.delete("city", null, null);
+            nBD.execSQL("PRAGMA foreign_keys=on;");
+
+        } catch (Exception e) {
+            Log.e("Error", e.getMessage());
+        }
+
+    }
+
+    public void clearAll() {
+        try {
             nBD.execSQL("PRAGMA foreign_keys=off;");
+            nBD.delete("user", null, null);
+            nBD.delete("comentarios", null, null);
+            nBD.delete("historicalSupply", null, null);
+            nBD.delete("order_has_product", null, null);
+            nBD.delete("role_has_permission", null, null);
+            nBD.delete("stock", null, null);
+            nBD.delete("stand", null, null);
+            nBD.delete("product", null, null);
+            nBD.delete("material", null, null);
+            nBD.delete("type", null, null);
+            nBD.delete("permission", null, null);
+            nBD.delete("`order`", null, null);
+            nBD.delete("client", null, null);
+            nBD.delete("role", null, null);
+            nBD.delete("city", null, null);
+            nBD.execSQL("PRAGMA foreign_keys=on;");
 
         } catch (Exception e) {
             Log.e("Error", e.getMessage());

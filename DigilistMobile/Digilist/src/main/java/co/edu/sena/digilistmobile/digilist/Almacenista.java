@@ -596,7 +596,6 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
 
                     break;
                 case '3':
-
                     ArrayList<String> productos = producto.consultarInventarios();
                     int count = 0;
                     if (productos.size() != 0) {
@@ -642,8 +641,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                                 @Override
                                 public boolean onLongClick(View v) {
                                     try {
-                                        final String[] prodSel = {""};
-                                        ArrayList<String> lis = null;
+
                                         LayoutInflater inflater = act.getLayoutInflater();
                                         ArrayList<String> historico = historical.consultarHistorico(txtProducto.getId() + "");
                                         int count = 0;

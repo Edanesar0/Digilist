@@ -384,13 +384,16 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
 
     public void inventario() {
         pbInv = (ProgressBar) findViewById(R.id.pbInventario);
-        tl=(TableLayout) findViewById(R.id.tlInventario);
+        tl = (TableLayout) findViewById(R.id.tlInventario);
+        tl.setStretchAllColumns(true);
+        tl.setShrinkAllColumns(true);
+
         ArrayList<String> productos = producto.consultarInventarios();
         int count = 0;
         if (productos.size() != 0) {
             for (int i = 0; i <= productos.size() - 6; i = i + 6) {
                 TableRow tr = new TableRow(this);
-                tr.setGravity(Gravity.CENTER);
+                //tr.setGravity(Gravity.CENTER);
                 if (count % 2 != 0) {
                     tr.setBackgroundResource(R.drawable.row_selector_r);
                     //tr.setBackgroundColor(Color.argb(15, 203, 47, 23));
@@ -431,8 +434,23 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                     @Override
                     public boolean onLongClick(View v) {
                         try {
-                            final String[] prodSel = {""};
-                            ArrayList<String> lis = null;
+                            LayoutInflater inflater = getLayoutInflater();
+                            View v2 = inflater.inflate(R.layout.opciones, null);
+                            ListView listview = (ListView) v2.findViewById(R.id.lvOpciones);
+                            ArrayList<String> opc = new ArrayList<String>();
+                            opc.add(Administrador.this.getResources().getString(R.string.Detalles));
+                            opc.add(Administrador.this.getResources().getString(R.string.Historico));
+                            opc.add(Administrador.this.getResources().getString(R.string.Editar));
+                            opc.add(Administrador.this.getResources().getString(R.string.Eliminar));
+                            ArrayAdapter<String> adpOpc = new ArrayAdapter<String>(Administrador.this, R.layout.list_center, opc);
+                            listview.setAdapter(adpOpc);
+                            AlertDialog.Builder builder3 = new AlertDialog.Builder(Administrador.this);
+                            builder3.setView(v2);
+                            builder3.setPositiveButton("Aceptar", null).setNegativeButton("Cancelar", null);
+                            dialog3 = builder3.create();
+                            dialog3.setTitle(txtProducto.getText() + " " + txtTipo.getText());
+                            dialog3.show();
+                            /*
                             LayoutInflater inflater = getLayoutInflater();
                             ArrayList<String> historico = historical.consultarHistorico(txtProducto.getId() + "");
                             int count = 0;
@@ -480,8 +498,6 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                                             TableLayout.LayoutParams.WRAP_CONTENT));
                                 }
                             }
-
-
                             AlertDialog.Builder builder3 = new AlertDialog.Builder(Administrador.this);
                             builder3.setView(v2);
                             builder3.setPositiveButton("Aceptar", null).setNegativeButton("Cancelar", null);
@@ -489,6 +505,7 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                             dialog3 = builder3.create();
                             dialog3.setTitle(txtProducto.getText() + " " + txtTipo.getText());
                             dialog3.show();
+                            */
 
 
                         } catch (Exception e) {
@@ -519,13 +536,7 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
             lblMensaje.setTextSize(20);
             lblMensaje.setGravity(Gravity.CENTER);
             lblMensaje.setPadding(3, 3, 3, 3);
-
             tr_head.addView(lblMensaje);// añadir la columna a la fila de la tabla aquí
-
-                        /*tl.addView(tr_head, new TableLayout.LayoutParams(
-                                TableLayout.LayoutParams.WRAP_CONTENT,
-                                TableLayout.LayoutParams.WRAP_CONTENT));*/
-
         }
 
     }

@@ -29,7 +29,11 @@ public class ConexionHTTP {
     InputStream is = null;
     String result = "";
     Context c;
-    String token = "";
+    private String token = "";
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public ConexionHTTP(Context c) {
         this.c = c;
@@ -57,14 +61,17 @@ public class ConexionHTTP {
 
         //
         try {
-            ConexionLocal conexionLocal = new ConexionLocal(c);
-            conexionLocal.abrir();
-            String sql = "select remember_token from user where remember_token is not null ";
-            Cursor ct = conexionLocal.read(sql);
-            for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
-                token = ct.getString(0);
+
+            if (token == null || token == "") {
+                ConexionLocal conexionLocal = new ConexionLocal(c);
+                conexionLocal.abrir();
+                String sql = "select remember_token from user where remember_token is not null ";
+                Cursor ct = conexionLocal.read(sql);
+                for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
+                    token = ct.getString(0);
+                }
+                conexionLocal.cerrar();
             }
-            conexionLocal.cerrar();
 
 
             if (fun.equals("POST1")) {
@@ -165,7 +172,7 @@ public class ConexionHTTP {
 
             is.close();
             result = sb.toString();
-            Log.e("getpostresponse", " result= " + result);
+            //Log.e("getpostresponse", " result= " + result);
         } catch (Exception e) {
             Log.e("log_tag", "Error converting result " + e.toString());
         }

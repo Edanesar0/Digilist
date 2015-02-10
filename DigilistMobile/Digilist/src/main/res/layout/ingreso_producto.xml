@@ -39,12 +39,13 @@
                     android:id="@+id/txtTitulo"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginRight="4dp"
                     android:layout_marginTop="22dp"
                     android:text="@string/Agregar_Producto"
                     android:textColor="#CB2F17"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:gravity="center" />
 
                 <TextView
                     android:id="@+id/txtNombre"

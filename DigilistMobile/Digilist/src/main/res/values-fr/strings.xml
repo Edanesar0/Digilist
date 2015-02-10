@@ -59,5 +59,6 @@
     <string name="Eliminar">Sortir</string>
     <string name="Detalles">Détails</string>
     <string name="MensajeEliminar">Voulez-vous supprimer l utilisateur?</string>
+    <string name="Historico">Historique</string>
 
 </resources>

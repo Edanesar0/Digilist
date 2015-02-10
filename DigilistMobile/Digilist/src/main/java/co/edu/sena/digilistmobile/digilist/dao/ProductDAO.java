@@ -3,7 +3,6 @@ package co.edu.sena.digilistmobile.digilist.dao;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -149,7 +148,7 @@ public class ProductDAO {
             jsonObject.put("idProduct", ct.getString(ct.getColumnIndex("idProduct")));
             jsonObject.put("idStan", ct.getString(ct.getColumnIndex("idStan")));
             jsonObject.put("amount", "" + (ct.getInt(ct.getColumnIndex("amount")) + amount));
-            Log.e("put", jsonObject.toString());
+
 
         }
         ct.close();
@@ -191,7 +190,7 @@ public class ProductDAO {
             alist.add(ct.getString(5));
         }
         conexionLocal.cerrar();
-        Log.e("Stock", alist.toString());
+
         return alist;
 
     }
@@ -215,7 +214,7 @@ public class ProductDAO {
 
         }
         conexionLocal.cerrar();
-        Log.e("Stock", alist.toString());
+
         return alist;
 
     }

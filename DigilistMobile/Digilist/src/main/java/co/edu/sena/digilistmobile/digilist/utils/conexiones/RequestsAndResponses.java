@@ -88,8 +88,8 @@ public class RequestsAndResponses {
     public JSONArray getCities() {
         conexion = new ConexionHTTP(context);
         //realizamos una peticion y como respuesta obtenes un array JSON
-        //return conexion.getserverdata(null, URL_connect2 + "/city/retrieving-records", "GET1", null);
-        return conexion.getserverdata(null, URL_connect + "/ciudades.php", "GET1", null);
+        return conexion.getserverdata(null, URL_connect2 + "/city/retrieving-records", "GET1", null);
+        //return conexion.getserverdata(null, URL_connect + "/ciudades.php", "GET1", null);
 
     }
 

@@ -29,67 +29,62 @@
                     android:layout_height="wrap_content"
                     android:background="#CB2F17"
                     android:baselineAligned="false"
-                    android:gravity="center|center_vertical|center_horizontal">
+                    android:gravity="center">
 
                     <TextView
                         android:id="@+id/lblProducto"
                         android:layout_width="fill_parent"
                         android:layout_height="45dp"
-                        android:layout_gravity="center_horizontal"
                         android:layout_marginLeft="1dp"
                         android:layout_marginRight="1dp"
-                        android:gravity="center|center_vertical|center_horizontal"
                         android:text="@string/Producto"
                         android:textAppearance="@android:style/TextAppearance.Small"
-                        android:textColor="@android:color/white" />
+                        android:textColor="@android:color/white"
+                        android:gravity="center" />
 
                     <TextView
                         android:id="@+id/lblTipo"
                         android:layout_width="fill_parent"
                         android:layout_height="45dp"
-                        android:layout_gravity="center_horizontal"
                         android:layout_marginLeft="1dp"
                         android:layout_marginRight="1dp"
-                        android:gravity="center|center_vertical|center_horizontal"
                         android:text="@string/Tipo"
                         android:textAppearance="@android:style/TextAppearance.Small"
-                        android:textColor="@android:color/white" />
+                        android:textColor="@android:color/white"
+                        android:gravity="center" />
 
                     <TextView
                         android:id="@+id/lblTamanio"
                         android:layout_width="fill_parent"
                         android:layout_height="45dp"
-                        android:layout_gravity="center_horizontal"
                         android:layout_marginLeft="1dp"
                         android:layout_marginRight="1dp"
-                        android:gravity="center|center_vertical|center_horizontal"
                         android:text="@string/Tamaño"
                         android:textAppearance="@android:style/TextAppearance.Small"
-                        android:textColor="@android:color/white" />
+                        android:textColor="@android:color/white"
+                        android:gravity="center" />
 
                     <TextView
                         android:id="@+id/lblMaterial"
                         android:layout_width="fill_parent"
                         android:layout_height="45dp"
-                        android:layout_gravity="center_horizontal"
                         android:layout_marginLeft="1dp"
                         android:layout_marginRight="1dp"
-                        android:gravity="center|center_vertical|center_horizontal"
                         android:text="@string/Material"
                         android:textAppearance="@android:style/TextAppearance.Small"
-                        android:textColor="@android:color/white" />
+                        android:textColor="@android:color/white"
+                        android:gravity="center" />
 
                     <TextView
                         android:id="@+id/lblCantidad"
                         android:layout_width="fill_parent"
                         android:layout_height="45dp"
-                        android:layout_gravity="center_horizontal"
                         android:layout_marginLeft="1dp"
                         android:layout_marginRight="1dp"
-                        android:gravity="center|center_vertical|center_horizontal"
                         android:text="@string/Cantidad"
                         android:textAppearance="@android:style/TextAppearance.Small"
-                        android:textColor="@android:color/white" />
+                        android:textColor="@android:color/white"
+                        android:gravity="center" />
 
                 </TableRow>
             </TableLayout>

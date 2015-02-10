@@ -60,5 +60,6 @@
     <string name="Eliminar">Eliminar</string>
     <string name="Detalles">Detalles</string>
     <string name="MensajeEliminar">¿Desea eliminar el usuario?</string>
+    <string name="Historico">Histórico</string>
 
 </resources>
