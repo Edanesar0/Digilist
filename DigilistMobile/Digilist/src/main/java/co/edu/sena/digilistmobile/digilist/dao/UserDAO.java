@@ -4,6 +4,7 @@ package co.edu.sena.digilistmobile.digilist.dao;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -71,7 +72,9 @@ public class UserDAO {
     public ArrayList<String> consultarUsuario(String idUser) {
         ConexionLocal conexionLocal = new ConexionLocal(c);
         conexionLocal.abrir();
-        String sql = "SELECT idUser,names,last_name,phone,address,role.description,user FROM user inner join role on role.idRol=user.idRol where idUser=" + idUser + " order by 1";
+        String sql = "SELECT idUser,names,last_name,phone,address,role.description,user,role.idRol " +
+                "FROM user inner join role on role.idRol=user.idRol " +
+                "where idUser=" + idUser + " order by 1";
         final ArrayList<String> alist = new ArrayList<String>();
         Cursor ct = conexionLocal.read(sql);
         //recorre y agrega
@@ -83,6 +86,7 @@ public class UserDAO {
             alist.add(ct.getString(4));
             alist.add(ct.getString(5));
             alist.add(ct.getString(6));
+            alist.add(ct.getString(7));
 
         }
         conexionLocal.cerrar();
@@ -91,9 +95,19 @@ public class UserDAO {
     }
 
 
-    public boolean agregarUsuario(UserVO Usuario) {
-
-        return false;
+    public JSONArray agregarUsuario(UserVO usuario) throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("IdUser", usuario.getIdUser());
+        jsonObject.put("Names", usuario.getNames());
+        jsonObject.put("Last_name", usuario.getLast_name());
+        jsonObject.put("IdCity", usuario.getIdCity());
+        jsonObject.put("IdRol", usuario.getIdRol());
+        jsonObject.put("Phone", usuario.getPhone());
+        jsonObject.put("Address", usuario.getAddress());
+        jsonObject.put("User", usuario.getUser());
+        Log.e("",jsonObject.toString());
+        RequestsAndResponses requestsAndResponses = new RequestsAndResponses(c);
+        return requestsAndResponses.putUser(jsonObject);
     }
 
     public boolean darBajaUsuario(String identificacion) {

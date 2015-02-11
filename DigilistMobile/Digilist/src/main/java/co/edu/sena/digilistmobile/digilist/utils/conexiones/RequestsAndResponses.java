@@ -82,7 +82,8 @@ public class RequestsAndResponses {
     public JSONArray getUsers() {
         conexion = new ConexionHTTP(context);
         //realizamos una peticion y como respuesta obtenes un array JSON
-        return conexion.getserverdata(null, URL_connect + "/users.php", "GET1", null);
+        return conexion.getserverdata(null, URL_connect2 + "/user/retrieving-records", "GET1", null);
+        //return conexion.getserverdata(null, URL_connect + "/users.php", "GET1", null);
     }
 
     public JSONArray getCities() {
@@ -145,6 +146,11 @@ public class RequestsAndResponses {
         conexion = new ConexionHTTP(context);
         //realizamos una peticion y como respuesta obtenes un array JSON
         return conexion.getserverdata(null, URL_connect2 + "/stock/update-record-by-id", "PUT", datos);
+    }
+    public JSONArray putUser(JSONObject datos) {
+        conexion = new ConexionHTTP(context);
+        //realizamos una peticion y como respuesta obtenes un array JSON
+        return conexion.getserverdata(null, URL_connect2 + "/user/update-record-by-id", "PUT", datos);
     }
 
     public JSONArray deleteMateriales() {
