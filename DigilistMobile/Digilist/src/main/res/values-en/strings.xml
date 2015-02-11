@@ -61,5 +61,7 @@
     <string name="Detalles">Details</string>
     <string name="MensajeEliminar">Do you want to delete the user?</string>
     <string name="Historico">Historical</string>
+    <string name="Ciudad">City</string>
+    <string name="IngresarUsuario">Add user</string>
 
 </resources>

@@ -60,5 +60,7 @@
     <string name="Detalles">Détails</string>
     <string name="MensajeEliminar">Voulez-vous supprimer l utilisateur?</string>
     <string name="Historico">Historique</string>
+    <string name="Ciudad">Ville</string>
+    <string name="IngresarUsuario">Connexion Nom d\'utilisateur</string>
 
 </resources>

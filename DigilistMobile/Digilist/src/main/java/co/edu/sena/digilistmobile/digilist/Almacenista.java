@@ -47,6 +47,7 @@ import co.edu.sena.digilistmobile.digilist.dao.MaterialDAO;
 import co.edu.sena.digilistmobile.digilist.dao.ProductDAO;
 import co.edu.sena.digilistmobile.digilist.dao.StandDAO;
 import co.edu.sena.digilistmobile.digilist.dao.TypeDAO;
+import co.edu.sena.digilistmobile.digilist.utils.conexiones.ConexionLocal;
 import co.edu.sena.digilistmobile.digilist.vo.ProductVO;
 
 
@@ -72,6 +73,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
     private MaterialDAO material;
     private StandDAO stand;
     private PieChart pie;
+    private Toast toast = null;
 
     public Almacenista(View v, Context c, Activity act) {
         this.v = v;
@@ -302,6 +304,8 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
 
 
                 } catch (Exception e) {
+                    toast = Toast.makeText(c, e.getMessage(), Toast.LENGTH_LONG);
+                    toast.show();
                     e.printStackTrace();
                 }
                 break;
@@ -315,7 +319,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
 
                 break;
             case R.id.btnAgregarInve:
-                Toast toast = null;
+
                 Vibrator vibrator = (Vibrator) c.getSystemService(Context.VIBRATOR_SERVICE);
                 boolean validacion, validacion2;
 
@@ -365,6 +369,13 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                             lvlMaterial.setText("");
                             edtcantidad.setText("");
                             toast = Toast.makeText(c, R.string.Inventario_Agregado, Toast.LENGTH_SHORT);
+                            Intent it = act.getIntent();
+                            act.finish();
+                            ConexionLocal conexionLocal = new ConexionLocal(c);
+                            conexionLocal.abrir();
+                            conexionLocal.limpiar();
+                            conexionLocal.cerrar();
+                            act.startActivity(it);
                             toast.show();
                         } else {
                             LayoutInflater inflater = act.getLayoutInflater();
@@ -380,6 +391,8 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                             toast.show();
                         }
                     } catch (Exception e) {
+                        toast = Toast.makeText(c, e.getMessage(), Toast.LENGTH_LONG);
+                        toast.show();
                         e.printStackTrace();
                     }
 
@@ -459,6 +472,10 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                             toast = Toast.makeText(c, R.string.Inventario_Agregado, Toast.LENGTH_SHORT);
                             Intent it = act.getIntent();
                             act.finish();
+                            ConexionLocal conexionLocal = new ConexionLocal(c);
+                            conexionLocal.abrir();
+                            conexionLocal.limpiar();
+                            conexionLocal.cerrar();
                             act.startActivity(it);
                             toast.show();
                         } else {
@@ -476,6 +493,8 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                         }
 
                     } catch (Exception e) {
+                        toast = Toast.makeText(c, e.getMessage(), Toast.LENGTH_LONG);
+                        toast.show();
                         e.printStackTrace();
                     }
 
@@ -531,7 +550,6 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                         for (int i = 0; i <= AProductos.size() - 4; i = i + 4) {
                             Apr.add(AProductos.get(i));
                         }
-
                         adaptadorProductos = new ArrayAdapter<String>(c, android.R.layout.simple_list_item_1, Apr);//creamos el adaptador de los spinner agregando los Arraylist
 
                         break;
@@ -568,6 +586,8 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                 }
 
             } catch (Exception e) {
+                //toast = Toast.makeText(c, e.getMessage(), Toast.LENGTH_LONG);
+                //toast.show();
                 e.printStackTrace();
             }
             return null;
@@ -641,7 +661,6 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                                 @Override
                                 public boolean onLongClick(View v) {
                                     try {
-
                                         LayoutInflater inflater = act.getLayoutInflater();
                                         ArrayList<String> historico = historical.consultarHistorico(txtProducto.getId() + "");
                                         int count = 0;
@@ -701,6 +720,8 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
 
 
                                     } catch (Exception e) {
+                                        toast = Toast.makeText(c, e.getMessage(), Toast.LENGTH_LONG);
+                                        toast.show();
                                         e.printStackTrace();
                                     }
 

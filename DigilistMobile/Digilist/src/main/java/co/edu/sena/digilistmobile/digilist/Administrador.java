@@ -58,6 +58,7 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
     AlertDialog dialog3;
     ProgressBar pbInv;
     ScrollView lyInv;
+    Toast toast;
 
     private TableLayout tl;
 
@@ -82,6 +83,8 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                     stand = new StandDAO(this);*/
                     //historical = new HistoricalSupplyDAO(this);
                 } catch (Exception e) {
+                    toast = Toast.makeText(Administrador.this, e.getMessage(), Toast.LENGTH_LONG);
+                    toast.show();
                     e.printStackTrace();
                 }
                 break;
@@ -91,6 +94,13 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                 break;
             case 2:
                 setContentView(R.layout.addusers);
+                try {
+                    agregarUsuarios();
+                } catch (Exception e) {
+                    toast = Toast.makeText(Administrador.this, e.getMessage(), Toast.LENGTH_LONG);
+                    toast.show();
+                    e.printStackTrace();
+                }
                 break;
             case 3:
                 break;
@@ -203,9 +213,9 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                                         LinearLayout llUser;
                                         View v, v2;
                                         final EditText edtNombre, edtApellido, edtTelefono, edtDireccion, edtUsuario;
-                                        final TextView txtNombres, txtApellidos, txtTelefono, txtDireccion, txtUsuario, txtRol;
-                                        final Spinner srol;
-                                        ArrayAdapter<String> adpRol;
+                                        final TextView txtNombres, txtApellidos, txtTelefono, txtDireccion, txtUsuario, txtRol, txtCiudad;
+                                        final Spinner srol, sCiudad;
+                                        ArrayAdapter<String> adpRol, adpCiudad;
                                         AlertDialog.Builder builder;
                                         AlertDialog dialog;
                                         ArrayList<String> opc;
@@ -232,6 +242,8 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                                                 txtUsuario.setTypeface(font);
                                                 txtRol = (TextView) v.findViewById(R.id.txtRol);
                                                 txtRol.setTypeface(font);
+                                                txtCiudad = (TextView) v.findViewById(R.id.txtCiudad);
+                                                txtCiudad.setTypeface(font);
                                                 edtNombre = (EditText) v.findViewById(R.id.edtNombres);
                                                 edtNombre.setBackgroundResource(R.drawable.white_button);
                                                 edtNombre.setEnabled(false);
@@ -259,6 +271,13 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                                                 srol.setAdapter(adpRol);
                                                 srol.setBackgroundResource(R.drawable.white_button);
                                                 srol.setClickable(false);
+                                                sCiudad = (Spinner) v.findViewById(R.id.sCiudad);
+                                                opc = new ArrayList<String>();
+                                                opc.add(us.get(8));
+                                                adpCiudad = new ArrayAdapter<String>(Administrador.this, android.R.layout.simple_list_item_1, opc);
+                                                sCiudad.setAdapter(adpCiudad);
+                                                sCiudad.setBackgroundResource(R.drawable.white_button);
+                                                sCiudad.setClickable(false);
                                                 edtUsuario = (EditText) v.findViewById(R.id.edtUsuario);
                                                 edtUsuario.setBackgroundResource(R.drawable.white_button);
                                                 edtUsuario.setEnabled(false);
@@ -305,6 +324,9 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                                                 txtRol = (TextView) v.findViewById(R.id.txtRol);
                                                 txtRol.setTypeface(font);
 
+                                                txtCiudad = (TextView) v.findViewById(R.id.txtCiudad);
+                                                txtCiudad.setTypeface(font);
+
                                                 edtNombre = (EditText) v.findViewById(R.id.edtNombres);
                                                 edtNombre.setTypeface(font);
                                                 edtNombre.setText(us.get(1));
@@ -324,11 +346,17 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
 
                                                 srol = (Spinner) v.findViewById(R.id.sRol);
                                                 opc = rol.consultarRoles();
-
                                                 //opc.add(us.get(5));
                                                 adpRol = new ArrayAdapter<String>(Administrador.this, android.R.layout.simple_list_item_1, opc);
                                                 srol.setAdapter(adpRol);
                                                 srol.setSelection(Integer.parseInt(us.get(7)) - 1);
+
+
+                                                sCiudad = (Spinner) v.findViewById(R.id.sCiudad);
+                                                opc = city.consultarCiudades();
+                                                adpCiudad = new ArrayAdapter<String>(Administrador.this, android.R.layout.simple_list_item_1, opc);
+                                                sCiudad.setAdapter(adpCiudad);
+                                                sCiudad.setSelection(Integer.parseInt(us.get(9)) - 1);
 
                                                 edtUsuario = (EditText) v.findViewById(R.id.edtUsuario);
                                                 edtUsuario.setTypeface(font);
@@ -343,25 +371,28 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                                                 builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                                                     @Override
                                                     public void onClick(DialogInterface dialog, int which) {
-                                                        boolean validacion, validacion2,validacion3,validacion4,validacion5,validacion6;
+                                                        boolean validacion, validacion2, validacion3, validacion4, validacion5, validacion6;
                                                         validacion = validacion(edtNombre.getText().toString());
                                                         validacion2 = validacion(edtApellido.getText().toString());
                                                         validacion3 = validacion(edtTelefono.getText().toString());
                                                         validacion4 = validacion(edtDireccion.getText().toString());
                                                         validacion5 = validacion(edtUsuario.getText().toString());
                                                         validacion6 = srol.getSelectedItem() != null;
-                                                        if (validacion && validacion2&& validacion3 && validacion4 && validacion5 && validacion6) {
-                                                            UserVO userVO= new UserVO();
+                                                        if (validacion && validacion2 && validacion3 && validacion4 && validacion5 && validacion6) {
+                                                            UserVO userVO = new UserVO();
                                                             userVO.setIdUser(txtNombres.getId());
                                                             userVO.setNames(edtNombre.getText().toString());
                                                             userVO.setLast_name(edtApellido.getText().toString());
                                                             userVO.setPhone(edtTelefono.getText().toString());
                                                             userVO.setAddress(edtDireccion.getText().toString());
                                                             userVO.setUser(edtUsuario.getText().toString());
-                                                            userVO.setIdRol(srol.getSelectedItemPosition());
+                                                            userVO.setIdRol(srol.getSelectedItemPosition() + 1);
+                                                            userVO.setIdCity(sCiudad.getSelectedItemPosition() + 1);
                                                             try {
                                                                 user.agregarUsuario(userVO);
                                                             } catch (JSONException e) {
+                                                                toast = Toast.makeText(Administrador.this, e.getMessage(), Toast.LENGTH_LONG);
+                                                                toast.show();
                                                                 e.printStackTrace();
                                                             }
                                                         }
@@ -393,7 +424,9 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
 
 
                                         }
-                                    }catch (Exception e){
+                                    } catch (Exception e) {
+                                        toast = Toast.makeText(Administrador.this, e.getMessage(), Toast.LENGTH_LONG);
+                                        toast.show();
                                         e.printStackTrace();
                                     }
                                 }
@@ -401,6 +434,8 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
 
 
                         } catch (Exception e) {
+                            toast = Toast.makeText(Administrador.this, e.getMessage(), Toast.LENGTH_LONG);
+                            toast.show();
                             e.printStackTrace();
                         }
 
@@ -567,6 +602,8 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
 
 
                         } catch (Exception e) {
+                            toast = Toast.makeText(Administrador.this, e.getMessage(), Toast.LENGTH_LONG);
+                            toast.show();
                             e.printStackTrace();
                         }
 
@@ -674,6 +711,8 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                 }
 
             } catch (Exception e) {
+                toast = Toast.makeText(Administrador.this, e.getMessage(), Toast.LENGTH_LONG);
+                toast.show();
                 mensaje = e.getMessage();
                 e.printStackTrace();
 
@@ -698,6 +737,8 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                         }
 
                     } catch (Exception e) {
+                        toast = Toast.makeText(Administrador.this, e.getMessage(), Toast.LENGTH_LONG);
+                        toast.show();
                         e.printStackTrace();
                     }
                     lyUsr.setVisibility(View.VISIBLE);
@@ -709,6 +750,8 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                         lyInv.setVisibility(View.VISIBLE);
                         pbInv.setVisibility(ProgressBar.INVISIBLE);
                     } catch (Exception e) {
+                        toast = Toast.makeText(Administrador.this, e.getMessage(), Toast.LENGTH_LONG);
+                        toast.show();
                         e.getMessage();
                     }
                     break;
@@ -722,6 +765,7 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
 
         }
     }
+
     public boolean validacion(String text) {
         boolean val;
         if (text != null) {
@@ -738,6 +782,77 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
             val = false;
         }
         return val;
+    }
+
+    public void agregarUsuarios() throws Exception {
+
+        final EditText edtNombre, edtApellido, edtTelefono, edtDireccion, edtUsuario, edtPass;
+        final TextView txtNombres, txtApellidos, txtTelefono, txtDireccion, txtUsuario, txtRol, txtCiudad, txtTitulo, txtPass;
+        final Spinner srol, sCiudad;
+        ArrayAdapter<String> adpRol, adpCiudad;
+        AlertDialog.Builder builder;
+        AlertDialog dialog;
+        ArrayList<String> opc;
+
+
+        txtTitulo = (TextView) findViewById(R.id.txtTitulo);
+        txtTitulo.setTypeface(font);
+        txtTitulo.setText(R.string.IngresarUsuario);
+
+        txtNombres = (TextView) findViewById(R.id.txtNombres);
+        txtNombres.setTypeface(font);
+
+        txtApellidos = (TextView) findViewById(R.id.txtApellido);
+        txtApellidos.setTypeface(font);
+
+        txtTelefono = (TextView) findViewById(R.id.txtTelefono);
+        txtTelefono.setTypeface(font);
+
+        txtDireccion = (TextView) findViewById(R.id.txtDireccion);
+        txtDireccion.setTypeface(font);
+
+        txtUsuario = (TextView) findViewById(R.id.txtUsuario);
+        txtUsuario.setTypeface(font);
+
+        txtRol = (TextView) findViewById(R.id.txtRol);
+        txtRol.setTypeface(font);
+
+        txtCiudad = (TextView) findViewById(R.id.txtCiudad);
+        txtCiudad.setTypeface(font);
+
+        txtPass = (TextView) findViewById(R.id.txtPass);
+        txtPass.setTypeface(font);
+
+        edtNombre = (EditText) findViewById(R.id.edtNombres);
+        edtNombre.setTypeface(font);
+
+        edtApellido = (EditText) findViewById(R.id.edtApellidos);
+        edtApellido.setTypeface(font);
+
+        edtTelefono = (EditText) findViewById(R.id.edtTelefono);
+        edtTelefono.setTypeface(font);
+
+        edtDireccion = (EditText) findViewById(R.id.edtDireccion);
+        edtDireccion.setTypeface(font);
+
+        srol = (Spinner) findViewById(R.id.sRol);
+        opc = rol.consultarRoles();
+        //opc.add(us.get(5));
+        adpRol = new ArrayAdapter<String>(Administrador.this, android.R.layout.simple_list_item_1, opc);
+        srol.setAdapter(adpRol);
+
+        sCiudad = (Spinner) findViewById(R.id.sCiudad);
+        opc = city.consultarCiudades();
+        adpCiudad = new ArrayAdapter<String>(Administrador.this, android.R.layout.simple_list_item_1, opc);
+        sCiudad.setAdapter(adpCiudad);
+
+        edtUsuario = (EditText) findViewById(R.id.edtUsuario);
+        edtUsuario.setTypeface(font);
+
+        edtPass = (EditText) findViewById(R.id.edtPass);
+        edtPass.setTypeface(font);
+
+
     }
 
 

@@ -72,8 +72,9 @@ public class UserDAO {
     public ArrayList<String> consultarUsuario(String idUser) {
         ConexionLocal conexionLocal = new ConexionLocal(c);
         conexionLocal.abrir();
-        String sql = "SELECT idUser,names,last_name,phone,address,role.description,user,role.idRol " +
+        String sql = "SELECT idUser,names,last_name,phone,address,role.description,user,role.idRol,city.description,user.idCity " +
                 "FROM user inner join role on role.idRol=user.idRol " +
+                "inner join city on user.idCity=city.idCity " +
                 "where idUser=" + idUser + " order by 1";
         final ArrayList<String> alist = new ArrayList<String>();
         Cursor ct = conexionLocal.read(sql);
@@ -87,6 +88,8 @@ public class UserDAO {
             alist.add(ct.getString(5));
             alist.add(ct.getString(6));
             alist.add(ct.getString(7));
+            alist.add(ct.getString(8));
+            alist.add(ct.getString(9));
 
         }
         conexionLocal.cerrar();
