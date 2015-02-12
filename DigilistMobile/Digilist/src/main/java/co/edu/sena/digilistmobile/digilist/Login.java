@@ -294,13 +294,11 @@ public class Login extends SherlockActivity {
                             for (int j = 0; j < names.length(); j++) {
                                 cv.put(names.getString(j), jsonObject.getString(names.getString(j)));
                             }
-                            Log.e("cv", "" + cv.toString());
                             JSONArray jdata2 = conexion.getserverdata(null, URL_connect2 + "/city/retrieving-records", "GET1", null);
                             cityDAO.agregarCiudades(jdata2);
                             JSONArray jdata3 = conexion.getserverdata(null, URL_connect + "/rol.php", "GET1", null);
                             rolDAO.agregarRoles(jdata3);
                             conf += conexionLocal.insert("user", cv);
-                            Log.e("conf", "" + conf);
                         }
                     }
                     conexionLocal.cerrar();

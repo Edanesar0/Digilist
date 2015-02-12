@@ -100,17 +100,18 @@ public class UserDAO {
 
     public JSONArray agregarUsuario(UserVO usuario) throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("IdUser", usuario.getIdUser());
-        jsonObject.put("Names", usuario.getNames());
-        jsonObject.put("Last_name", usuario.getLast_name());
-        jsonObject.put("IdCity", usuario.getIdCity());
-        jsonObject.put("IdRol", usuario.getIdRol());
-        jsonObject.put("Phone", usuario.getPhone());
-        jsonObject.put("Address", usuario.getAddress());
-        jsonObject.put("User", usuario.getUser());
-        Log.e("",jsonObject.toString());
+        jsonObject.put("names", usuario.getNames());
+        jsonObject.put("last_name", usuario.getLast_name());
+        jsonObject.put("idCity", usuario.getIdCity());
+        jsonObject.put("idRol", usuario.getIdRol());
+        jsonObject.put("phone", usuario.getPhone());
+        jsonObject.put("address", usuario.getAddress());
+        jsonObject.put("user", usuario.getUser());
+        jsonObject.put("password", usuario.getPass());
+        jsonObject.put("remember_token", "123");
+        Log.e("", jsonObject.toString());
         RequestsAndResponses requestsAndResponses = new RequestsAndResponses(c);
-        return requestsAndResponses.putUser(jsonObject);
+        return requestsAndResponses.postUser(jsonObject);
     }
 
     public boolean darBajaUsuario(String identificacion) {
@@ -118,8 +119,18 @@ public class UserDAO {
         return false;
     }
 
-    public boolean modificarUsuario(String criterio, String terminoModificar) {
-
-        return false;
+    public JSONArray modificarUsuario(UserVO usuario) throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("IdUser", usuario.getIdUser());
+        jsonObject.put("names", usuario.getNames());
+        jsonObject.put("last_name", usuario.getLast_name());
+        jsonObject.put("idCity", usuario.getIdCity());
+        jsonObject.put("idRol", usuario.getIdRol());
+        jsonObject.put("phone", usuario.getPhone());
+        jsonObject.put("address", usuario.getAddress());
+        jsonObject.put("user", usuario.getUser());
+        Log.e("", jsonObject.toString());
+        RequestsAndResponses requestsAndResponses = new RequestsAndResponses(c);
+        return requestsAndResponses.putUser(jsonObject);
     }
 }

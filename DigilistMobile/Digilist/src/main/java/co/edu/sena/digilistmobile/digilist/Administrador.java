@@ -7,11 +7,13 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -38,6 +40,7 @@ import co.edu.sena.digilistmobile.digilist.dao.RolDAO;
 import co.edu.sena.digilistmobile.digilist.dao.StandDAO;
 import co.edu.sena.digilistmobile.digilist.dao.TypeDAO;
 import co.edu.sena.digilistmobile.digilist.dao.UserDAO;
+import co.edu.sena.digilistmobile.digilist.utils.Encrypting;
 import co.edu.sena.digilistmobile.digilist.vo.UserVO;
 
 
@@ -59,6 +62,9 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
     ProgressBar pbInv;
     ScrollView lyInv;
     Toast toast;
+    private EditText edtNombre, edtApellido, edtTelefono, edtDireccion, edtUsuario, edtPass;
+    private TextView txtNombres, txtApellidos, txtTelefono, txtDireccion, txtUsuario, txtRol, txtCiudad, txtTitulo, txtPass;
+    private Spinner srol, sCiudad;
 
     private TableLayout tl;
 
@@ -93,7 +99,7 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                 new asynclogin().execute(op + "");
                 break;
             case 2:
-                setContentView(R.layout.addusers);
+                setContentView(R.layout.ingreso_usuarios);
                 try {
                     agregarUsuarios();
                 } catch (Exception e) {
@@ -224,7 +230,7 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                                                 //dialog3.dismiss();
                                                 us = user.consultarUsuario(txtNombre.getId() + "");
                                                 inflater = getLayoutInflater();
-                                                v = inflater.inflate(R.layout.addusers, null);
+                                                v = inflater.inflate(R.layout.ingreso_usuarios, null);
                                                 llUser = (LinearLayout) v.findViewById(R.id.llUser);
                                                 v2 = v.findViewById(R.id.rlButtons);
                                                 llUser.removeView(v2);
@@ -297,7 +303,7 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                                             case 1:
                                                 us = user.consultarUsuario(txtNombre.getId() + "");
                                                 inflater = getLayoutInflater();
-                                                v = inflater.inflate(R.layout.addusers, null);
+                                                v = inflater.inflate(R.layout.ingreso_usuarios, null);
                                                 llUser = (LinearLayout) v.findViewById(R.id.llUser);
                                                 v2 = v.findViewById(R.id.rlButtons);
                                                 llUser.removeView(v2);
@@ -389,7 +395,7 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                                                             userVO.setIdRol(srol.getSelectedItemPosition() + 1);
                                                             userVO.setIdCity(sCiudad.getSelectedItemPosition() + 1);
                                                             try {
-                                                                user.agregarUsuario(userVO);
+                                                                user.modificarUsuario(userVO);
                                                             } catch (JSONException e) {
                                                                 toast = Toast.makeText(Administrador.this, e.getMessage(), Toast.LENGTH_LONG);
                                                                 toast.show();
@@ -644,8 +650,42 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                 i.putExtra("pos", 2);
                 startActivity(i);
                 break;
-        }
+            case R.id.btnAgregarUsuarios:
+                boolean validacion, validacion2, validacion3, validacion4, validacion5, validacion6, validacion7, validacion8, validacion9;
+                validacion = validacion(edtNombre.getText().toString());
+                validacion2 = validacion(edtApellido.getText().toString());
+                validacion3 = validacion(edtTelefono.getText().toString());
+                validacion4 = validacion(edtDireccion.getText().toString());
+                validacion5 = srol.getSelectedItem() != null;
+                validacion6 = sCiudad.getSelectedItem() != null;
+                validacion7 = validacion(edtUsuario.getText().toString());
+                validacion8 = validacion(edtPass.getText().toString());
+                Encrypting encrypting = new Encrypting();
 
+                if (validacion && validacion2 && validacion3 && validacion4 && validacion5 && validacion6 && validacion7 && validacion8) {
+                    UserVO userVO = new UserVO();
+
+                    userVO.setNames(edtNombre.getText().toString());
+                    userVO.setLast_name(edtApellido.getText().toString());
+                    userVO.setPhone(edtTelefono.getText().toString());
+                    userVO.setAddress(edtDireccion.getText().toString());
+                    userVO.setUser(edtUsuario.getText().toString());
+                    userVO.setPass(encrypting.getStringEncrypted(edtPass.getText().toString()));
+                    userVO.setIdRol(srol.getSelectedItemPosition() + 1);
+                    userVO.setIdCity(sCiudad.getSelectedItemPosition() + 1);
+                    Log.e("user", userVO.toString());
+                    try {
+                        user.agregarUsuario(userVO);
+                    } catch (JSONException e) {
+                        toast = Toast.makeText(Administrador.this, e.getMessage(), Toast.LENGTH_LONG);
+                        toast.show();
+                        e.printStackTrace();
+                    }
+
+                }
+                break;
+
+        }
     }
 
     @Override
@@ -671,6 +711,9 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
             material = new MaterialDAO(Administrador.this);
             producto = new ProductDAO(Administrador.this);
             stand = new StandDAO(Administrador.this);
+            city = new CityDAO(Administrador.this);
+            user = new UserDAO(Administrador.this);
+            rol = new RolDAO(Administrador.this);
             historical = new HistoricalSupplyDAO(Administrador.this);
 
         }
@@ -684,9 +727,7 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                     case '0':
                         lyUsr.setVisibility(View.INVISIBLE);
                         pbUsu.setVisibility(ProgressBar.VISIBLE);
-                        city = new CityDAO(Administrador.this);
-                        user = new UserDAO(Administrador.this);
-                        rol = new RolDAO(Administrador.this);
+
                         rol.agregarRoles();
                         city.agregarCiudades();
                         user.agregarUsuarios();
@@ -786,9 +827,18 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
 
     public void agregarUsuarios() throws Exception {
 
-        final EditText edtNombre, edtApellido, edtTelefono, edtDireccion, edtUsuario, edtPass;
-        final TextView txtNombres, txtApellidos, txtTelefono, txtDireccion, txtUsuario, txtRol, txtCiudad, txtTitulo, txtPass;
-        final Spinner srol, sCiudad;
+
+        type = new TypeDAO(Administrador.this);
+        material = new MaterialDAO(Administrador.this);
+        producto = new ProductDAO(Administrador.this);
+        stand = new StandDAO(Administrador.this);
+        city = new CityDAO(Administrador.this);
+        user = new UserDAO(Administrador.this);
+        rol = new RolDAO(Administrador.this);
+        Button btnAgregarUsr = (Button) findViewById(R.id.btnAgregarUsuarios);
+        btnAgregarUsr.setOnClickListener(this);
+        btnAgregarUsr.setTypeface(font);
+
         ArrayAdapter<String> adpRol, adpCiudad;
         AlertDialog.Builder builder;
         AlertDialog dialog;

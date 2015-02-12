@@ -62,6 +62,6 @@
     <string name="MensajeEliminar">¿Desea eliminar el usuario?</string>
     <string name="Historico">Histórico</string>
     <string name="Ciudad">Ciudad</string>
-    <string name="IngresarUsuario">IngresarUsuario</string>
+    <string name="IngresarUsuario">Ingresar Usuario</string>
 
 </resources>

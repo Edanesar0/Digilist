@@ -63,6 +63,7 @@ public class RolDAO {
         return requestsAndResponses.getRol();
 
     }
+
     public ArrayList<String> consultarRoles() {
         ConexionLocal conexionLocal = new ConexionLocal(c);
         conexionLocal.abrir();

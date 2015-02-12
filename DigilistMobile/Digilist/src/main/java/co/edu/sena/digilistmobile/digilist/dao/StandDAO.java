@@ -19,6 +19,7 @@ public class StandDAO {
         this.c = c;
 
     }
+
     public JSONArray revisarStand(int identificador) {
         requestsAndResponses = new RequestsAndResponses(c);
         return requestsAndResponses.getStand();

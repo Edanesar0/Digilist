@@ -124,6 +124,12 @@ public class RequestsAndResponses {
         return conexion.getserverdata(null, URL_connect2 + "/product/insert-record", "POST2", null);
     }
 
+    public JSONArray postUser(JSONObject productos) {
+        conexion = new ConexionHTTP(context);
+        //realizamos una peticion y como respuesta obtenes un array JSON
+        return conexion.getserverdata(null, URL_connect2 + "/user/insert-record", "POST2", productos);
+    }
+
     public JSONArray putMateriales() {
         conexion = new ConexionHTTP(context);
         //realizamos una peticion y como respuesta obtenes un array JSON
@@ -147,6 +153,7 @@ public class RequestsAndResponses {
         //realizamos una peticion y como respuesta obtenes un array JSON
         return conexion.getserverdata(null, URL_connect2 + "/stock/update-record-by-id", "PUT", datos);
     }
+
     public JSONArray putUser(JSONObject datos) {
         conexion = new ConexionHTTP(context);
         //realizamos una peticion y como respuesta obtenes un array JSON

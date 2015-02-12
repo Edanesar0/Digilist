@@ -27,6 +27,7 @@
                 android:layout_marginTop="22dp"
                 android:text=""
                 android:textColor="#CB2F17"
+                android:gravity="center"
                 android:textSize="20sp" />
 
             <TextView
@@ -82,7 +83,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edittext_rounded_corners"
-                android:textColor="#565656" />
+                android:textColor="#565656"
+                android:inputType="number" />
 
             <TextView
                 android:id="@+id/txtDireccion"
@@ -162,8 +164,10 @@
                 android:id="@+id/edtPass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:background="@drawable/edittext_rounded_corners"
-                android:textColor="#565656" />
+                android:textColor="#565656"
+                android:inputType="textPassword" />
 
 
             <RelativeLayout
@@ -175,7 +179,7 @@
                 android:paddingBottom="15dp">
 
                 <Button
-                    android:id="@+id/btnAgregarProducto"
+                    android:id="@+id/btnAgregarUsuarios"
                     android:layout_width="95dp"
                     android:layout_height="40dp"
                     style="@style/ButtonText"
@@ -193,7 +197,7 @@
                     android:layout_width="95dp"
                     style="@style/ButtonText"
                     android:layout_height="40dp"
-                    android:layout_alignBottom="@+id/btnAgregarProducto"
+                    android:layout_alignBottom="@+id/btnAgregarUsuarios"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
                     android:layout_gravity="left|center_vertical"
@@ -210,7 +214,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/btnLimpiar"
-                    android:layout_toRightOf="@+id/btnAgregarProducto"
+                    android:layout_toRightOf="@+id/btnAgregarUsuarios"
                     android:gravity="center_horizontal"
                     android:text="ó"
                     android:textAppearance="?android:attr/textAppearanceMedium"

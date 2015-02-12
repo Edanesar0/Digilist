@@ -77,4 +77,10 @@ public class UserVO {
     public void setPass(String pass) {
         this.pass = pass;
     }
+
+    @Override
+    public String toString() {
+
+        return idUser + " " + idCity + " " + idRol + " " + names + " " + last_name + " " + phone + " " + address + " " + user + " " + pass;
+    }
 }
