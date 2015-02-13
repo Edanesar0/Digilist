@@ -121,7 +121,7 @@ public class UserDAO {
 
     public JSONArray modificarUsuario(UserVO usuario) throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("IdUser", usuario.getIdUser());
+        jsonObject.put("idUser", usuario.getIdUser());
         jsonObject.put("names", usuario.getNames());
         jsonObject.put("last_name", usuario.getLast_name());
         jsonObject.put("idCity", usuario.getIdCity());
@@ -129,6 +129,7 @@ public class UserDAO {
         jsonObject.put("phone", usuario.getPhone());
         jsonObject.put("address", usuario.getAddress());
         jsonObject.put("user", usuario.getUser());
+        jsonObject.put("password", "");
         Log.e("", jsonObject.toString());
         RequestsAndResponses requestsAndResponses = new RequestsAndResponses(c);
         return requestsAndResponses.putUser(jsonObject);
