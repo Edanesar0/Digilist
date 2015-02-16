@@ -139,7 +139,7 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
         int count = 0;
         if (usuarios.size() != 0) {
             for (int i = 0; i <= usuarios.size() - 5; i = i + 5) {
-                TableRow tr = new TableRow(Administrador.this);
+                final TableRow tr = new TableRow(Administrador.this);
                 if (count % 2 != 0) {
                     tr.setBackgroundResource(R.drawable.row_selector_r);
                     //tr.setBackgroundColor(Color.argb(15, 203, 47, 23));
@@ -412,25 +412,110 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                                                                     userVO.setIdRol(srol.getSelectedItemPosition() + 1);
                                                                     userVO.setIdCity(sCiudad.getSelectedItemPosition() + 1);
                                                                     user.modificarUsuario(userVO);
+                                                                    wantToCloseDialog = true;
                                                                 } else {
                                                                     wantToCloseDialog = false;
-                                                                    edtNombre.setBackgroundResource(R.drawable.borde_error);
-                                                                    edtNombre.addTextChangedListener(new TextWatcher() {
-                                                                        @Override
-                                                                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                                                                        }
+                                                                    if (!validacion) {
+                                                                        edtNombre.setBackgroundResource(R.drawable.borde_error);
+                                                                        edtNombre.addTextChangedListener(new TextWatcher() {
+                                                                            @Override
+                                                                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                                                                        @Override
-                                                                        public void onTextChanged(CharSequence s, int start, int before, int count) {
-                                                                            edtNombre.setBackgroundResource(R.drawable.edittext_rounded_corners);
-                                                                        }
+                                                                            }
 
-                                                                        @Override
-                                                                        public void afterTextChanged(Editable s) {
+                                                                            @Override
+                                                                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                                                                edtNombre.setBackgroundResource(R.drawable.edittext_rounded_corners);
+                                                                            }
 
-                                                                        }
-                                                                    });
+                                                                            @Override
+                                                                            public void afterTextChanged(Editable s) {
+
+                                                                            }
+                                                                        });
+
+                                                                    }
+                                                                    if (!validacion2) {
+                                                                        edtApellido.setBackgroundResource(R.drawable.borde_error);
+                                                                        edtApellido.addTextChangedListener(new TextWatcher() {
+                                                                            @Override
+                                                                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                                                                            }
+
+                                                                            @Override
+                                                                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                                                                edtApellido.setBackgroundResource(R.drawable.edittext_rounded_corners);
+                                                                            }
+
+                                                                            @Override
+                                                                            public void afterTextChanged(Editable s) {
+
+                                                                            }
+                                                                        });
+
+                                                                    }
+                                                                    if (!validacion3) {
+
+                                                                        edtTelefono.setBackgroundResource(R.drawable.borde_error);
+                                                                        edtTelefono.addTextChangedListener(new TextWatcher() {
+                                                                            @Override
+                                                                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                                                                            }
+
+                                                                            @Override
+                                                                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                                                                edtTelefono.setBackgroundResource(R.drawable.edittext_rounded_corners);
+                                                                            }
+
+                                                                            @Override
+                                                                            public void afterTextChanged(Editable s) {
+
+                                                                            }
+                                                                        });
+                                                                    }
+                                                                    if (!validacion4) {
+                                                                        edtDireccion.setBackgroundResource(R.drawable.borde_error);
+                                                                        edtDireccion.addTextChangedListener(new TextWatcher() {
+                                                                            @Override
+                                                                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                                                                            }
+
+                                                                            @Override
+                                                                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                                                                edtDireccion.setBackgroundResource(R.drawable.edittext_rounded_corners);
+                                                                            }
+
+                                                                            @Override
+                                                                            public void afterTextChanged(Editable s) {
+
+                                                                            }
+                                                                        });
+                                                                    }
+                                                                    if (!validacion5) {
+                                                                        edtUsuario.setBackgroundResource(R.drawable.borde_error);
+                                                                        edtUsuario.addTextChangedListener(new TextWatcher() {
+                                                                            @Override
+                                                                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                                                                            }
+
+                                                                            @Override
+                                                                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                                                                edtUsuario.setBackgroundResource(R.drawable.edittext_rounded_corners);
+                                                                            }
+
+                                                                            @Override
+                                                                            public void afterTextChanged(Editable s) {
+
+                                                                            }
+                                                                        });
+                                                                    }
+
+
                                                                 }
                                                                 //Do stuff, possibly set wantToCloseDialog to true then...
                                                                 if (wantToCloseDialog) {
@@ -723,6 +808,106 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                     }
 
                 }
+                if (!validacion) {
+                    edtNombre.setBackgroundResource(R.drawable.borde_error);
+                    edtNombre.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            edtNombre.setBackgroundResource(R.drawable.edittext_rounded_corners);
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+
+                        }
+                    });
+
+                }
+                if (!validacion2) {
+                    edtApellido.setBackgroundResource(R.drawable.borde_error);
+                    edtApellido.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            edtApellido.setBackgroundResource(R.drawable.edittext_rounded_corners);
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+
+                        }
+                    });
+
+                }
+                if (!validacion3) {
+
+                    edtTelefono.setBackgroundResource(R.drawable.borde_error);
+                    edtTelefono.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            edtTelefono.setBackgroundResource(R.drawable.edittext_rounded_corners);
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+
+                        }
+                    });
+                }
+                if (!validacion4) {
+                    edtDireccion.setBackgroundResource(R.drawable.borde_error);
+                    edtDireccion.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            edtDireccion.setBackgroundResource(R.drawable.edittext_rounded_corners);
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+
+                        }
+                    });
+                }
+                if (!validacion5) {
+                    edtUsuario.setBackgroundResource(R.drawable.borde_error);
+                    edtUsuario.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            edtUsuario.setBackgroundResource(R.drawable.edittext_rounded_corners);
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+
+                        }
+                    });
+                }
+
+
                 break;
 
         }
