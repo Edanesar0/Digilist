@@ -7,6 +7,8 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -301,115 +303,153 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                                                 dialog.show();
                                                 break;
                                             case 1:
-                                                us = user.consultarUsuario(txtNombre.getId() + "");
-                                                inflater = getLayoutInflater();
-                                                v = inflater.inflate(R.layout.ingreso_usuarios, null);
-                                                llUser = (LinearLayout) v.findViewById(R.id.llUser);
-                                                v2 = v.findViewById(R.id.rlButtons);
-                                                llUser.removeView(v2);
-                                                v2 = v.findViewById(R.id.txtTitulo);
-                                                llUser.removeView(v2);
+                                                try {
+                                                    us = user.consultarUsuario(txtNombre.getId() + "");
+                                                    inflater = getLayoutInflater();
+                                                    v = inflater.inflate(R.layout.ingreso_usuarios, null);
+                                                    llUser = (LinearLayout) v.findViewById(R.id.llUser);
+                                                    v2 = v.findViewById(R.id.rlButtons);
+                                                    llUser.removeView(v2);
+                                                    v2 = v.findViewById(R.id.txtTitulo);
+                                                    llUser.removeView(v2);
 
 
-                                                txtNombres = (TextView) v.findViewById(R.id.txtNombres);
-                                                txtNombres.setTypeface(font);
-                                                txtNombres.setId(Integer.parseInt(us.get(0)));
+                                                    txtNombres = (TextView) v.findViewById(R.id.txtNombres);
+                                                    txtNombres.setTypeface(font);
+                                                    txtNombres.setId(Integer.parseInt(us.get(0)));
 
-                                                txtApellidos = (TextView) v.findViewById(R.id.txtApellido);
-                                                txtApellidos.setTypeface(font);
+                                                    txtApellidos = (TextView) v.findViewById(R.id.txtApellido);
+                                                    txtApellidos.setTypeface(font);
 
-                                                txtTelefono = (TextView) v.findViewById(R.id.txtTelefono);
-                                                txtTelefono.setTypeface(font);
+                                                    txtTelefono = (TextView) v.findViewById(R.id.txtTelefono);
+                                                    txtTelefono.setTypeface(font);
 
-                                                txtDireccion = (TextView) v.findViewById(R.id.txtDireccion);
-                                                txtDireccion.setTypeface(font);
+                                                    txtDireccion = (TextView) v.findViewById(R.id.txtDireccion);
+                                                    txtDireccion.setTypeface(font);
 
-                                                txtUsuario = (TextView) v.findViewById(R.id.txtUsuario);
-                                                txtUsuario.setTypeface(font);
+                                                    txtUsuario = (TextView) v.findViewById(R.id.txtUsuario);
+                                                    txtUsuario.setTypeface(font);
 
-                                                txtRol = (TextView) v.findViewById(R.id.txtRol);
-                                                txtRol.setTypeface(font);
+                                                    txtRol = (TextView) v.findViewById(R.id.txtRol);
+                                                    txtRol.setTypeface(font);
 
-                                                txtCiudad = (TextView) v.findViewById(R.id.txtCiudad);
-                                                txtCiudad.setTypeface(font);
+                                                    txtCiudad = (TextView) v.findViewById(R.id.txtCiudad);
+                                                    txtCiudad.setTypeface(font);
 
-                                                edtNombre = (EditText) v.findViewById(R.id.edtNombres);
-                                                edtNombre.setTypeface(font);
-                                                edtNombre.setText(us.get(1));
-
-
-                                                edtApellido = (EditText) v.findViewById(R.id.edtApellidos);
-                                                edtApellido.setTypeface(font);
-                                                edtApellido.setText(us.get(2));
-
-                                                edtTelefono = (EditText) v.findViewById(R.id.edtTelefono);
-                                                edtTelefono.setTypeface(font);
-                                                edtTelefono.setText(us.get(3));
-
-                                                edtDireccion = (EditText) v.findViewById(R.id.edtDireccion);
-                                                edtDireccion.setTypeface(font);
-                                                edtDireccion.setText(us.get(4));
-
-                                                srol = (Spinner) v.findViewById(R.id.sRol);
-                                                opc = rol.consultarRoles();
-                                                //opc.add(us.get(5));
-                                                adpRol = new ArrayAdapter<String>(Administrador.this, android.R.layout.simple_list_item_1, opc);
-                                                srol.setAdapter(adpRol);
-                                                srol.setSelection(Integer.parseInt(us.get(7)) - 1);
+                                                    edtNombre = (EditText) v.findViewById(R.id.edtNombres);
+                                                    edtNombre.setTypeface(font);
+                                                    edtNombre.setText(us.get(1));
 
 
-                                                sCiudad = (Spinner) v.findViewById(R.id.sCiudad);
-                                                opc = city.consultarCiudades();
-                                                adpCiudad = new ArrayAdapter<String>(Administrador.this, android.R.layout.simple_list_item_1, opc);
-                                                sCiudad.setAdapter(adpCiudad);
-                                                sCiudad.setSelection(Integer.parseInt(us.get(9)) - 1);
+                                                    edtApellido = (EditText) v.findViewById(R.id.edtApellidos);
+                                                    edtApellido.setTypeface(font);
+                                                    edtApellido.setText(us.get(2));
 
-                                                edtUsuario = (EditText) v.findViewById(R.id.edtUsuario);
-                                                edtUsuario.setTypeface(font);
-                                                edtUsuario.setText(us.get(6));
+                                                    edtTelefono = (EditText) v.findViewById(R.id.edtTelefono);
+                                                    edtTelefono.setTypeface(font);
+                                                    edtTelefono.setText(us.get(3));
 
-                                                v2 = v.findViewById(R.id.txtPass);
-                                                llUser.removeView(v2);
-                                                v2 = v.findViewById(R.id.edtPass);
-                                                llUser.removeView(v2);
-                                                builder = new AlertDialog.Builder(Administrador.this);
-                                                builder.setView(v);
-                                                builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialog, int which) {
-                                                        boolean validacion, validacion2, validacion3, validacion4, validacion5, validacion6;
-                                                        validacion = validacion(edtNombre.getText().toString());
-                                                        validacion2 = validacion(edtApellido.getText().toString());
-                                                        validacion3 = validacion(edtTelefono.getText().toString());
-                                                        validacion4 = validacion(edtDireccion.getText().toString());
-                                                        validacion5 = validacion(edtUsuario.getText().toString());
-                                                        validacion6 = srol.getSelectedItem() != null;
-                                                        if (validacion && validacion2 && validacion3 && validacion4 && validacion5 && validacion6) {
-                                                            UserVO userVO = new UserVO();
-                                                            userVO.setIdUser(txtNombres.getId());
-                                                            userVO.setNames(edtNombre.getText().toString());
-                                                            userVO.setLast_name(edtApellido.getText().toString());
-                                                            userVO.setPhone(edtTelefono.getText().toString());
-                                                            userVO.setAddress(edtDireccion.getText().toString());
-                                                            userVO.setUser(edtUsuario.getText().toString());
-                                                            userVO.setIdRol(srol.getSelectedItemPosition() + 1);
-                                                            userVO.setIdCity(sCiudad.getSelectedItemPosition() + 1);
+                                                    edtDireccion = (EditText) v.findViewById(R.id.edtDireccion);
+                                                    edtDireccion.setTypeface(font);
+                                                    edtDireccion.setText(us.get(4));
+
+                                                    srol = (Spinner) v.findViewById(R.id.sRol);
+                                                    opc = rol.consultarRoles();
+                                                    //opc.add(us.get(5));
+                                                    adpRol = new ArrayAdapter<String>(Administrador.this, android.R.layout.simple_list_item_1, opc);
+                                                    srol.setAdapter(adpRol);
+                                                    srol.setSelection(Integer.parseInt(us.get(7)) - 1);
+
+
+                                                    sCiudad = (Spinner) v.findViewById(R.id.sCiudad);
+                                                    opc = city.consultarCiudades();
+                                                    adpCiudad = new ArrayAdapter<String>(Administrador.this, android.R.layout.simple_list_item_1, opc);
+                                                    sCiudad.setAdapter(adpCiudad);
+                                                    sCiudad.setSelection(Integer.parseInt(us.get(9)) - 1);
+
+                                                    edtUsuario = (EditText) v.findViewById(R.id.edtUsuario);
+                                                    edtUsuario.setTypeface(font);
+                                                    edtUsuario.setText(us.get(6));
+
+                                                    v2 = v.findViewById(R.id.txtPass);
+                                                    llUser.removeView(v2);
+                                                    v2 = v.findViewById(R.id.edtPass);
+                                                    llUser.removeView(v2);
+                                                    builder = new AlertDialog.Builder(Administrador.this);
+                                                    builder.setView(v);
+                                                    builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+
+
+                                                        }
+                                                    }).setNegativeButton("Cancelar", null);
+                                                    dialog = builder.create();
+                                                    dialog.setCanceledOnTouchOutside(false);
+                                                    dialog.setTitle("Editar");
+                                                    dialog.show();
+                                                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+                                                            Boolean wantToCloseDialog = false;
+
                                                             try {
-                                                                user.modificarUsuario(userVO);
-                                                            } catch (JSONException e) {
+                                                                boolean validacion, validacion2, validacion3, validacion4, validacion5, validacion6;
+                                                                validacion = validacion(edtNombre.getText().toString());
+                                                                validacion2 = validacion(edtApellido.getText().toString());
+                                                                validacion3 = validacion(edtTelefono.getText().toString());
+                                                                validacion4 = validacion(edtDireccion.getText().toString());
+                                                                validacion5 = validacion(edtUsuario.getText().toString());
+                                                                validacion6 = srol.getSelectedItem() != null;
+                                                                if (validacion && validacion2 && validacion3 && validacion4 && validacion5 && validacion6) {
+                                                                    UserVO userVO = new UserVO();
+                                                                    userVO.setIdUser(txtNombres.getId());
+                                                                    userVO.setNames(edtNombre.getText().toString());
+                                                                    userVO.setLast_name(edtApellido.getText().toString());
+                                                                    userVO.setPhone(edtTelefono.getText().toString());
+                                                                    userVO.setAddress(edtDireccion.getText().toString());
+                                                                    userVO.setUser(edtUsuario.getText().toString());
+                                                                    userVO.setIdRol(srol.getSelectedItemPosition() + 1);
+                                                                    userVO.setIdCity(sCiudad.getSelectedItemPosition() + 1);
+                                                                    user.modificarUsuario(userVO);
+                                                                } else {
+                                                                    wantToCloseDialog = false;
+                                                                    edtNombre.setBackgroundResource(R.drawable.borde_error);
+                                                                    edtNombre.addTextChangedListener(new TextWatcher() {
+                                                                        @Override
+                                                                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                                                                        }
+
+                                                                        @Override
+                                                                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                                                            edtNombre.setBackgroundResource(R.drawable.edittext_rounded_corners);
+                                                                        }
+
+                                                                        @Override
+                                                                        public void afterTextChanged(Editable s) {
+
+                                                                        }
+                                                                    });
+                                                                }
+                                                                //Do stuff, possibly set wantToCloseDialog to true then...
+                                                                if (wantToCloseDialog) {
+                                                                    dialog3.dismiss();
+                                                                }
+                                                            } catch (Exception e) {
                                                                 toast = Toast.makeText(Administrador.this, e.getMessage(), Toast.LENGTH_LONG);
                                                                 toast.show();
                                                                 e.printStackTrace();
                                                             }
+
+
                                                         }
-
-
-                                                    }
-                                                }).setNegativeButton("Cancelar", null);
-                                                dialog = builder.create();
-                                                dialog.setTitle("Editar");
-                                                dialog.show();
-
+                                                    });
+                                                } catch (Exception e) {
+                                                    toast = Toast.makeText(Administrador.this, e.getMessage(), Toast.LENGTH_LONG);
+                                                    toast.show();
+                                                    e.printStackTrace();
+                                                }
 
                                                 break;
                                             case 2:

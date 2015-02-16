@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2">
+<items version="2" >
 
     <item
-        jar="C:\xampp\htdocs\Digilist\DigilistMobile\Digilist\build\intermediates\exploded-aar\DigilistMobile\actionbarsherlock\unspecified\libs\android-support-v4.jar"
-        jumboMode="false" revision="19.1.0" sha1="efec67655f6db90757faa37201efcee2a9ec3507">
-        <dex
-            dex="C:\xampp\htdocs\Digilist\DigilistMobile\Digilist\build\intermediates\pre-dexed\debug\android-support-v4-beb00924985e59e8f60b4e5697e86803915c2dd0.jar" />
-    </item>
-    <item jar="C:\xampp\htdocs\Digilist\DigilistMobile\Digilist\libs\androidplot-core-0.6.1.jar"
-        jumboMode="false" revision="19.1.0" sha1="3db0daea52375b26bfa61c59b8df93950bdefbbc">
-        <dex
-            dex="C:\xampp\htdocs\Digilist\DigilistMobile\Digilist\build\intermediates\pre-dexed\debug\androidplot-core-0.6.1-f3f69ac0aecf2610c44c31d6ffca50cb9f7ba32e.jar" />
+        jar="C:\Users\Edwin\Documents\Digilist\DigilistMobile\Digilist\libs\androidplot-core-0.6.1.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="3db0daea52375b26bfa61c59b8df93950bdefbbc">
+        <dex dex="C:\Users\Edwin\Documents\Digilist\DigilistMobile\Digilist\build\intermediates\pre-dexed\debug\androidplot-core-0.6.1-74ad2219c6fe24a24645b08a56492e93abbcccc3.jar" />
     </item>
     <item
-        jar="C:\xampp\htdocs\Digilist\DigilistMobile\Digilist\build\intermediates\exploded-aar\DigilistMobile\actionbarsherlock\unspecified\classes.jar"
-        jumboMode="false" revision="19.1.0" sha1="090d3f78387e5ca6105aaff17acb0c01814ce4ca">
-        <dex
-            dex="C:\xampp\htdocs\Digilist\DigilistMobile\Digilist\build\intermediates\pre-dexed\debug\classes-8abbfa102f2c9f4b9dc30975e33e1894010e6e07.jar" />
+        jar="C:\Users\Edwin\Documents\Digilist\DigilistMobile\Digilist\build\intermediates\exploded-aar\DigilistMobile\actionbarsherlock\unspecified\classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="7ba35848c6d672b90e2ad69d548545e0bba8ba5a">
+        <dex dex="C:\Users\Edwin\Documents\Digilist\DigilistMobile\Digilist\build\intermediates\pre-dexed\debug\classes-5454e50668e5ce80dbf8f14c6dbfacc2c715e3a0.jar" />
+    </item>
+    <item
+        jar="C:\Users\Edwin\Documents\Digilist\DigilistMobile\Digilist\build\intermediates\exploded-aar\DigilistMobile\actionbarsherlock\unspecified\libs\android-support-v4.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="efec67655f6db90757faa37201efcee2a9ec3507">
+        <dex dex="C:\Users\Edwin\Documents\Digilist\DigilistMobile\Digilist\build\intermediates\pre-dexed\debug\android-support-v4-39f056ff4fab3cfc7104d59c7755151920e61a89.jar" />
     </item>
 
 </items>
