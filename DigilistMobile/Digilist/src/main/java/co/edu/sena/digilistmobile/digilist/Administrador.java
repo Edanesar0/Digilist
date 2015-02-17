@@ -887,7 +887,7 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                         }
                     });
                 }
-                if (!validacion5) {
+                if (!validacion7) {
                     edtUsuario.setBackgroundResource(R.drawable.borde_error);
                     edtUsuario.addTextChangedListener(new TextWatcher() {
                         @Override
@@ -898,6 +898,25 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                         @Override
                         public void onTextChanged(CharSequence s, int start, int before, int count) {
                             edtUsuario.setBackgroundResource(R.drawable.edittext_rounded_corners);
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+
+                        }
+                    });
+                }
+                if (!validacion8) {
+                    edtPass.setBackgroundResource(R.drawable.borde_error);
+                    edtPass.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            edtPass.setBackgroundResource(R.drawable.edittext_rounded_corners);
                         }
 
                         @Override
