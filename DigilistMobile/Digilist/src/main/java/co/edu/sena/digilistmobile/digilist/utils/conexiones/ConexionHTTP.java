@@ -172,7 +172,7 @@ public class ConexionHTTP {
 
             is.close();
             result = sb.toString();
-            //Log.e("getpostresponse", " result= " + result);
+            Log.e("getpostresponse", " result= " + result);
         } catch (Exception e) {
             Log.e("log_tag", "Error converting result " + e.toString());
         }

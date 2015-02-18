@@ -30,7 +30,7 @@ import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
 
-import org.json.JSONException;
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 
@@ -43,6 +43,7 @@ import co.edu.sena.digilistmobile.digilist.dao.StandDAO;
 import co.edu.sena.digilistmobile.digilist.dao.TypeDAO;
 import co.edu.sena.digilistmobile.digilist.dao.UserDAO;
 import co.edu.sena.digilistmobile.digilist.utils.Encrypting;
+import co.edu.sena.digilistmobile.digilist.utils.conexiones.ConexionLocal;
 import co.edu.sena.digilistmobile.digilist.vo.UserVO;
 
 
@@ -140,6 +141,7 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
         if (usuarios.size() != 0) {
             for (int i = 0; i <= usuarios.size() - 5; i = i + 5) {
                 final TableRow tr = new TableRow(Administrador.this);
+
                 if (count % 2 != 0) {
                     tr.setBackgroundResource(R.drawable.row_selector_r);
                     //tr.setBackgroundColor(Color.argb(15, 203, 47, 23));
@@ -151,12 +153,14 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                 txtNombre.setTypeface(font);
                 txtNombre.setId(Integer.parseInt(usuarios.get(i)));
                 txtNombre.setText(usuarios.get(i + 1));
+                txtNombre.setLines(3);
                 txtNombre.setTypeface(font);
                 txtNombre.setGravity(Gravity.CENTER);
                 //txtProducto.setTextSize(20);
                 tr.addView(txtNombre);
                 final TextView txtApellido = new TextView(Administrador.this);
                 txtApellido.setTypeface(font);
+                txtApellido.setLines(3);
                 txtApellido.setText(usuarios.get(i + 2));
                 txtApellido.setGravity(Gravity.CENTER);
                 txtApellido.setTypeface(font);
@@ -164,12 +168,14 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                 tr.addView(txtApellido);
                 TextView txtUsuario = new TextView(Administrador.this);
                 txtUsuario.setTypeface(font);
+                txtUsuario.setLines(3);
                 txtUsuario.setText(usuarios.get(i + 3));
                 txtUsuario.setGravity(Gravity.CENTER);
                 txtUsuario.setTypeface(font);
                 tr.addView(txtUsuario);
                 TextView txtRol = new TextView(Administrador.this);
                 txtRol.setTypeface(font);
+                txtRol.setLines(3);
                 txtRol.setText(usuarios.get(i + 4));
                 txtRol.setGravity(Gravity.CENTER);
                 txtRol.setTypeface(font);
@@ -179,7 +185,6 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                     @Override
                     public boolean onLongClick(View v) {
                         try {
-
                             LayoutInflater inflater = getLayoutInflater();
                             View v2 = inflater.inflate(R.layout.opciones, null);
                             ListView listview = (ListView) v2.findViewById(R.id.lvOpciones);
@@ -195,23 +200,7 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                             dialog3 = builder3.create();
                             dialog3.setTitle(txtNombre.getText() + " " + txtApellido.getText());
                             dialog3.show();
-                            /*dialog3.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Boolean wantToCloseDialog = false;
-                                    try {
-                                        if (txtNombre.getText().toString() != null) {
-                                            wantToCloseDialog = false;
-                                        }
-                                        //Do stuff, possibly set wantToCloseDialog to true then...
-                                        if (wantToCloseDialog) {
-                                            dialog3.dismiss();
-                                        }
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            });*/
+
                             listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -225,7 +214,8 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                                         final Spinner srol, sCiudad;
                                         ArrayAdapter<String> adpRol, adpCiudad;
                                         AlertDialog.Builder builder;
-                                        AlertDialog dialog;
+                                        final AlertDialog dialog;
+                                        final int[] mensajeAlerta = {0};
                                         ArrayList<String> opc;
                                         switch (position) {
                                             case 0:
@@ -304,6 +294,7 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                                                 break;
                                             case 1:
                                                 try {
+
                                                     us = user.consultarUsuario(txtNombre.getId() + "");
                                                     inflater = getLayoutInflater();
                                                     v = inflater.inflate(R.layout.ingreso_usuarios, null);
@@ -411,8 +402,31 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                                                                     userVO.setUser(edtUsuario.getText().toString());
                                                                     userVO.setIdRol(srol.getSelectedItemPosition() + 1);
                                                                     userVO.setIdCity(sCiudad.getSelectedItemPosition() + 1);
-                                                                    user.modificarUsuario(userVO);
+                                                                    JSONArray ja = user.modificarUsuario(userVO);
+                                                                    if (ja != null) {
+                                                                        String mensajes = ja.getString(0);
+                                                                        if (mensajes.contains("The record has been updated")) {
+                                                                            edtNombre.setText("");
+                                                                            edtApellido.setText("");
+                                                                            edtTelefono.setText("");
+                                                                            edtDireccion.setText("");
+                                                                            edtUsuario.setText("");
+                                                                            mensajeAlerta[0] = 1;
+                                                                            Intent it = getIntent();
+                                                                            finish();
+                                                                            ConexionLocal conexionLocal = new ConexionLocal(Administrador.this);
+                                                                            conexionLocal.abrir();
+                                                                            conexionLocal.limpiar();
+                                                                            conexionLocal.cerrar();
+                                                                            startActivity(it);
+
+                                                                        }
+                                                                    } else {
+                                                                        mensajeAlerta[0] = 2;
+
+                                                                    }
                                                                     wantToCloseDialog = true;
+
                                                                 } else {
                                                                     wantToCloseDialog = false;
 
@@ -519,12 +533,21 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                                                                 }
                                                                 //Do stuff, possibly set wantToCloseDialog to true then...
                                                                 if (wantToCloseDialog) {
-                                                                    dialog3.dismiss();
+                                                                    dialog.dismiss();
                                                                 }
                                                             } catch (Exception e) {
+                                                                dialog.dismiss();
+                                                                dialog3.dismiss();
                                                                 toast = Toast.makeText(Administrador.this, e.getMessage(), Toast.LENGTH_LONG);
                                                                 toast.show();
                                                                 e.printStackTrace();
+                                                            }
+                                                            if (mensajeAlerta[0] == 1) {
+                                                                toast = Toast.makeText(Administrador.this, R.string.Usuario_Actualizado, Toast.LENGTH_LONG);
+                                                                toast.show();
+                                                            } else {
+                                                                toast = Toast.makeText(Administrador.this, R.string.ErrorServidor, Toast.LENGTH_LONG);
+                                                                toast.show();
                                                             }
 
 
@@ -573,9 +596,12 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                         return false;
                     }
                 });
+                tr.setLayoutParams(new TableRow.LayoutParams(
+                        TableLayout.LayoutParams.FILL_PARENT,
+                        TableLayout.LayoutParams.FILL_PARENT));
                 tl.addView(tr, new TableLayout.LayoutParams(
-                        TableLayout.LayoutParams.WRAP_CONTENT,
-                        TableLayout.LayoutParams.WRAP_CONTENT));
+                        TableLayout.LayoutParams.FILL_PARENT,
+                        TableLayout.LayoutParams.FILL_PARENT));
 
             }
         } else {
@@ -790,18 +816,35 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                 if (validacion && validacion2 && validacion3 && validacion4 && validacion5 && validacion6 && validacion7 && validacion8) {
                     UserVO userVO = new UserVO();
 
-                    userVO.setNames(edtNombre.getText().toString());
-                    userVO.setLast_name(edtApellido.getText().toString());
-                    userVO.setPhone(edtTelefono.getText().toString());
-                    userVO.setAddress(edtDireccion.getText().toString());
-                    userVO.setUser(edtUsuario.getText().toString());
-                    userVO.setPass(encrypting.getStringEncrypted(edtPass.getText().toString()));
-                    userVO.setIdRol(srol.getSelectedItemPosition() + 1);
-                    userVO.setIdCity(sCiudad.getSelectedItemPosition() + 1);
-                    Log.e("user", userVO.toString());
                     try {
-                        user.agregarUsuario(userVO);
-                    } catch (JSONException e) {
+                        userVO.setNames(edtNombre.getText().toString());
+                        userVO.setLast_name(edtApellido.getText().toString());
+                        userVO.setPhone(edtTelefono.getText().toString());
+                        userVO.setAddress(edtDireccion.getText().toString());
+                        userVO.setUser(edtUsuario.getText().toString());
+                        userVO.setPass(encrypting.getStringEncrypted(edtPass.getText().toString()));
+                        userVO.setIdRol(srol.getSelectedItemPosition() + 1);
+                        userVO.setIdCity(sCiudad.getSelectedItemPosition() + 1);
+                        Log.e("user", userVO.toString());
+                        JSONArray ja = user.agregarUsuario(userVO);
+                        if (ja != null) {
+                            String mensaje = ja.getString(0);
+                            if (mensaje.contains("The record has been inserted")) {
+                                edtNombre.setText("");
+                                edtApellido.setText("");
+                                edtTelefono.setText("");
+                                edtDireccion.setText("");
+                                edtUsuario.setText("");
+                                edtPass.setText("");
+                                toast = Toast.makeText(this, R.string.Usuario_Agregado, Toast.LENGTH_LONG);
+                                toast.show();
+                            }
+                        } else {
+                            toast = Toast.makeText(this, R.string.ErrorServidor, Toast.LENGTH_LONG);
+                            toast.show();
+
+                        }
+                    } catch (Exception e) {
                         toast = Toast.makeText(Administrador.this, e.getMessage(), Toast.LENGTH_LONG);
                         toast.show();
                         e.printStackTrace();

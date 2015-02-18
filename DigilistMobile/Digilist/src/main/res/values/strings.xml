@@ -63,5 +63,8 @@
     <string name="Historico">Histórico</string>
     <string name="Ciudad">Ciudad</string>
     <string name="IngresarUsuario">Ingresar Usuario</string>
+    <string name="Usuario_Agregado">Usuario Agregado</string>
+    <string name="Usuario_Actualizado">Usuario Actualizado</string>
+    <string name="Campo_Vacios">Por favor llenar los campos vacíos!</string>
 
 </resources>
