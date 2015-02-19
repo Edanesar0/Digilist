@@ -25,6 +25,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import co.edu.sena.digilistmobile.digilist.utils.HttpDeleteWithBody;
+
 public class ConexionHTTP {
     InputStream is = null;
     String result = "";
@@ -141,13 +143,17 @@ public class ConexionHTTP {
             }
             if (fun.equals("DELETE2")) {
                 DefaultHttpClient httpclient = new DefaultHttpClient();
-                HttpDelete httpdelete = new HttpDelete(urlwebserver);
-                httpdelete.setHeader("Accept", "application/json");
-                httpdelete.setHeader("Content-type", "application/json");
-                httpdelete.setHeader("Authorization", token);
-                HttpResponse response = httpclient.execute(httpdelete);
+                HttpDeleteWithBody delete = new HttpDeleteWithBody(urlwebserver);
+                delete.setHeader("Accept", "application/json");
+                delete.setHeader("Content-type", "application/json");
+                delete.setHeader("Authorization", token);
+                StringEntity se = new StringEntity(json.toString());
+                se.setContentType("application/json");
+                delete.setEntity(se);
+                HttpResponse response = httpclient.execute(delete);
                 HttpEntity entity = response.getEntity();
                 is = entity.getContent();
+
 
             }
 

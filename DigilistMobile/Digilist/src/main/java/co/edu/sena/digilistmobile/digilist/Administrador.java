@@ -576,6 +576,15 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                                                             if (mensajes.contains("The specified record has been deleted")) {
                                                                 toast = Toast.makeText(Administrador.this,R.string.Usuario_Eliminado, Toast.LENGTH_LONG);
                                                                 toast.show();
+                                                                dialog.dismiss();
+                                                                dialog3.dismiss();
+                                                                Intent it = getIntent();
+                                                                finish();
+                                                                ConexionLocal conexionLocal = new ConexionLocal(Administrador.this);
+                                                                conexionLocal.abrir();
+                                                                conexionLocal.limpiar();
+                                                                conexionLocal.cerrar();
+                                                                startActivity(it);
                                                             }
 
                                                         } catch (JSONException e) {
