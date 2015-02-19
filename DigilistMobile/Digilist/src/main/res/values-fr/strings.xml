@@ -65,5 +65,6 @@
     <string name="Usuario_Agregado">Ajouté utilisateur</string>
     <string name="Usuario_Actualizado">Mis à jour utilisateur</string>
     <string name="Campo_Vacios">Se il vous plaît remplissez les champs vides!</string>
+    <string name="Usuario_Eliminado">Supprimé utilisateur</string>
 
 </resources>

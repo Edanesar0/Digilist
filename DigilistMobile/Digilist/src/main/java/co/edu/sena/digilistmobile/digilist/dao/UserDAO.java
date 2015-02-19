@@ -114,9 +114,12 @@ public class UserDAO {
         return requestsAndResponses.postUser(jsonObject);
     }
 
-    public boolean darBajaUsuario(String identificacion) {
+    public JSONArray darBajaUsuario(UserVO usuario) throws JSONException {
+        RequestsAndResponses requestsAndResponses = new RequestsAndResponses(c);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("idUser", usuario.getIdUser());
+        return requestsAndResponses.deleteUser(jsonObject);
 
-        return false;
     }
 
     public JSONArray modificarUsuario(UserVO usuario) throws JSONException {
@@ -130,7 +133,6 @@ public class UserDAO {
         jsonObject.put("address", usuario.getAddress());
         jsonObject.put("user", usuario.getUser());
         jsonObject.put("password", "");
-        Log.e("", jsonObject.toString());
         RequestsAndResponses requestsAndResponses = new RequestsAndResponses(c);
         return requestsAndResponses.putUser(jsonObject);
     }

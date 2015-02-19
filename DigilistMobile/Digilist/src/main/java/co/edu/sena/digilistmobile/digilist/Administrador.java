@@ -31,6 +31,7 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockActivity;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 
@@ -567,6 +568,19 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                                                 builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                                                     @Override
                                                     public void onClick(DialogInterface dialog, int which) {
+                                                        try {
+                                                            UserVO userVO = new UserVO();
+                                                            userVO.setIdUser(txtNombre.getId());
+                                                            JSONArray ja=user.darBajaUsuario(userVO);
+                                                            String mensajes = ja.getString(0);
+                                                            if (mensajes.contains("The specified record has been deleted")) {
+                                                                toast = Toast.makeText(Administrador.this,R.string.Usuario_Eliminado, Toast.LENGTH_LONG);
+                                                                toast.show();
+                                                            }
+
+                                                        } catch (JSONException e) {
+                                                            e.printStackTrace();
+                                                        }
 
                                                     }
                                                 }).setNegativeButton("Cancelar", null);

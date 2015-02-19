@@ -66,5 +66,6 @@
     <string name="Usuario_Agregado">Usuario Agregado</string>
     <string name="Usuario_Actualizado">Usuario Actualizado</string>
     <string name="Campo_Vacios">Por favor llenar los campos vacíos!</string>
+    <string name="Usuario_Eliminado">Usuario Eliminado</string>
 
 </resources>
