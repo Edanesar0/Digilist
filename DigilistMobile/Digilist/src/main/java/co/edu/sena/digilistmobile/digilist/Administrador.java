@@ -28,7 +28,12 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.SubMenu;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -69,15 +74,21 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
     ScrollView lyInv;
     Toast toast;
     private EditText edtNombre, edtApellido, edtTelefono, edtDireccion, edtUsuario, edtPass;
-    private TextView txtNombres, txtApellidos, txtTelefono, txtDireccion, txtUsuario, txtRol, txtCiudad, txtTitulo, txtPass, txtNombre;
+    private TextView txtNombres, txtApellidos, txtTelefono, txtDireccion, txtUsuario, txtRol, txtCiudad, txtTitulo, txtPass;
     private Spinner srol, sCiudad;
-
+    ActionBar ab;
     private TableLayout tl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         int op = 0;
+
+        ab = getSupportActionBar();//instancia
+        // ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);//Atributos titulo boton home y flecha de acompañamiento de home
+        ab.setIcon(R.drawable.ic_launcher);//se le adiciona el icono
+
+
         font = Typeface.createFromAsset(this.getAssets(), "Station.ttf");
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -510,8 +521,8 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                                                                         }
                                                                     });
                                                                 }
-
-
+                                                                toast = Toast.makeText(Administrador.this, R.string.llenar_campos, Toast.LENGTH_LONG);
+                                                                toast.show();
                                                             }
                                                             //Do stuff, possibly set wantToCloseDialog to true then...
                                                             if (wantToCloseDialog) {
@@ -799,6 +810,14 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                 i.putExtra("pos", 2);
                 startActivity(i);
                 break;
+            case R.id.btnLimpiar:
+                edtNombre.setText("");
+                edtApellido.setText("");
+                edtTelefono.setText("");
+                edtDireccion.setText("");
+                edtUsuario.setText("");
+                edtPass.setText("");
+                break;
             case R.id.btnAgregarUsuarios:
                 boolean validacion, validacion2, validacion3, validacion4, validacion5, validacion6, validacion7, validacion8, validacion9;
                 validacion = validacion(edtNombre.getText().toString());
@@ -848,126 +867,129 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                         e.printStackTrace();
                     }
 
+                } else {
+                    if (!validacion) {
+                        edtNombre.setBackgroundResource(R.drawable.borde_error);
+                        edtNombre.addTextChangedListener(new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                            }
+
+                            @Override
+                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                edtNombre.setBackgroundResource(R.drawable.edittext_rounded_corners);
+                            }
+
+                            @Override
+                            public void afterTextChanged(Editable s) {
+
+                            }
+                        });
+
+                    }
+                    if (!validacion2) {
+                        edtApellido.setBackgroundResource(R.drawable.borde_error);
+                        edtApellido.addTextChangedListener(new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                            }
+
+                            @Override
+                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                edtApellido.setBackgroundResource(R.drawable.edittext_rounded_corners);
+                            }
+
+                            @Override
+                            public void afterTextChanged(Editable s) {
+
+                            }
+                        });
+
+                    }
+                    if (!validacion3) {
+
+                        edtTelefono.setBackgroundResource(R.drawable.borde_error);
+                        edtTelefono.addTextChangedListener(new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                            }
+
+                            @Override
+                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                edtTelefono.setBackgroundResource(R.drawable.edittext_rounded_corners);
+                            }
+
+                            @Override
+                            public void afterTextChanged(Editable s) {
+
+                            }
+                        });
+                    }
+                    if (!validacion4) {
+                        edtDireccion.setBackgroundResource(R.drawable.borde_error);
+                        edtDireccion.addTextChangedListener(new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                            }
+
+                            @Override
+                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                edtDireccion.setBackgroundResource(R.drawable.edittext_rounded_corners);
+                            }
+
+                            @Override
+                            public void afterTextChanged(Editable s) {
+
+                            }
+                        });
+                    }
+                    if (!validacion7) {
+                        edtUsuario.setBackgroundResource(R.drawable.borde_error);
+                        edtUsuario.addTextChangedListener(new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                            }
+
+                            @Override
+                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                edtUsuario.setBackgroundResource(R.drawable.edittext_rounded_corners);
+                            }
+
+                            @Override
+                            public void afterTextChanged(Editable s) {
+
+                            }
+                        });
+                    }
+                    if (!validacion8) {
+                        edtPass.setBackgroundResource(R.drawable.borde_error);
+                        edtPass.addTextChangedListener(new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                            }
+
+                            @Override
+                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                edtPass.setBackgroundResource(R.drawable.edittext_rounded_corners);
+                            }
+
+                            @Override
+                            public void afterTextChanged(Editable s) {
+
+                            }
+                        });
+                    }
+                    toast = Toast.makeText(Administrador.this, R.string.llenar_campos, Toast.LENGTH_LONG);
+                    toast.show();
+
+
                 }
-                if (!validacion) {
-                    edtNombre.setBackgroundResource(R.drawable.borde_error);
-                    edtNombre.addTextChangedListener(new TextWatcher() {
-                        @Override
-                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                        }
-
-                        @Override
-                        public void onTextChanged(CharSequence s, int start, int before, int count) {
-                            edtNombre.setBackgroundResource(R.drawable.edittext_rounded_corners);
-                        }
-
-                        @Override
-                        public void afterTextChanged(Editable s) {
-
-                        }
-                    });
-
-                }
-                if (!validacion2) {
-                    edtApellido.setBackgroundResource(R.drawable.borde_error);
-                    edtApellido.addTextChangedListener(new TextWatcher() {
-                        @Override
-                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                        }
-
-                        @Override
-                        public void onTextChanged(CharSequence s, int start, int before, int count) {
-                            edtApellido.setBackgroundResource(R.drawable.edittext_rounded_corners);
-                        }
-
-                        @Override
-                        public void afterTextChanged(Editable s) {
-
-                        }
-                    });
-
-                }
-                if (!validacion3) {
-
-                    edtTelefono.setBackgroundResource(R.drawable.borde_error);
-                    edtTelefono.addTextChangedListener(new TextWatcher() {
-                        @Override
-                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                        }
-
-                        @Override
-                        public void onTextChanged(CharSequence s, int start, int before, int count) {
-                            edtTelefono.setBackgroundResource(R.drawable.edittext_rounded_corners);
-                        }
-
-                        @Override
-                        public void afterTextChanged(Editable s) {
-
-                        }
-                    });
-                }
-                if (!validacion4) {
-                    edtDireccion.setBackgroundResource(R.drawable.borde_error);
-                    edtDireccion.addTextChangedListener(new TextWatcher() {
-                        @Override
-                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                        }
-
-                        @Override
-                        public void onTextChanged(CharSequence s, int start, int before, int count) {
-                            edtDireccion.setBackgroundResource(R.drawable.edittext_rounded_corners);
-                        }
-
-                        @Override
-                        public void afterTextChanged(Editable s) {
-
-                        }
-                    });
-                }
-                if (!validacion7) {
-                    edtUsuario.setBackgroundResource(R.drawable.borde_error);
-                    edtUsuario.addTextChangedListener(new TextWatcher() {
-                        @Override
-                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                        }
-
-                        @Override
-                        public void onTextChanged(CharSequence s, int start, int before, int count) {
-                            edtUsuario.setBackgroundResource(R.drawable.edittext_rounded_corners);
-                        }
-
-                        @Override
-                        public void afterTextChanged(Editable s) {
-
-                        }
-                    });
-                }
-                if (!validacion8) {
-                    edtPass.setBackgroundResource(R.drawable.borde_error);
-                    edtPass.addTextChangedListener(new TextWatcher() {
-                        @Override
-                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                        }
-
-                        @Override
-                        public void onTextChanged(CharSequence s, int start, int before, int count) {
-                            edtPass.setBackgroundResource(R.drawable.edittext_rounded_corners);
-                        }
-
-                        @Override
-                        public void afterTextChanged(Editable s) {
-
-                        }
-                    });
-                }
-
-
                 break;
 
         }
@@ -1043,8 +1065,6 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                 }
 
             } catch (Exception e) {
-                toast = Toast.makeText(Administrador.this, e.getMessage(), Toast.LENGTH_LONG);
-                toast.show();
                 mensaje = e.getMessage();
                 e.printStackTrace();
 
@@ -1129,6 +1149,9 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
         Button btnAgregarUsr = (Button) findViewById(R.id.btnAgregarUsuarios);
         btnAgregarUsr.setOnClickListener(this);
         btnAgregarUsr.setTypeface(font);
+        Button btnLipiarUsr = (Button) findViewById(R.id.btnLimpiar);
+        btnLipiarUsr.setOnClickListener(this);
+        btnLipiarUsr.setTypeface(font);
 
         ArrayAdapter<String> adpRol, adpCiudad;
         AlertDialog.Builder builder;
@@ -1194,5 +1217,20 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
         edtPass.setTypeface(font);
 
 
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getSupportMenuInflater();
+        // inflater.inflate(R.menu.menu2, menu);
+        SubMenu subMenu = menu.addSubMenu("Config");
+        subMenu.add(R.string.Rol).setIcon(R.drawable.ic_action_users);
+        subMenu.add(R.string.Ciudad).setIcon(R.drawable.ic_action_add);
+        subMenu.add(R.string.Configuracion).setIcon(R.drawable.ic_action_settings);
+        subMenu.add(R.string.Cerrar_sesion).setIcon(R.drawable.ic_action_io);
+        MenuItem subMenu1Item = subMenu.getItem();
+        subMenu1Item.setIcon(R.drawable.ic_action_core_overflow);
+        subMenu1Item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        return true;
     }
 }
