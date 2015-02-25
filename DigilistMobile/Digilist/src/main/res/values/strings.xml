@@ -56,12 +56,14 @@
     <string name="Telefono">Teléfono</string>
     <string name="Direccion">Dirección</string>
     <string name="Rol">Rol</string>
+    <string name="Roles">Roles</string>
     <string name="Editar">Editar</string>
     <string name="Eliminar">Eliminar</string>
     <string name="Detalles">Detalles</string>
     <string name="MensajeEliminar">¿Desea eliminar el usuario?</string>
     <string name="Historico">Histórico</string>
     <string name="Ciudad">Ciudad</string>
+    <string name="Ciudades">Ciudades</string>
     <string name="IngresarUsuario">Ingresar Usuario</string>
     <string name="Usuario_Agregado">Usuario Agregado</string>
     <string name="Usuario_Actualizado">Usuario Actualizado</string>
@@ -70,5 +72,6 @@
     <string name="llenar_campos">Por favor llenar los campos requeridos</string>
     <string name="Configuracion">Configuración</string>
     <string name="Cerrar_sesion">Cerrar sesión</string>
+    <string name="Descripcion">Descripción</string>
 
 </resources>

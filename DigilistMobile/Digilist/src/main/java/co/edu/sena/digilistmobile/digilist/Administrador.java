@@ -55,7 +55,7 @@ import co.edu.sena.digilistmobile.digilist.vo.UserVO;
 import static android.view.View.OnLongClickListener;
 
 
-public class Administrador extends SherlockActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener{
+public class Administrador extends SherlockActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
 
     Typeface font;
@@ -1125,25 +1125,11 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
 
     public boolean validacion(String text) {
         boolean val;
-        if (text != null) {
-            if (!text.equals("")) {
-                if (!text.equals(" ")) {
-                    val = true;
-                } else {
-                    val = false;
-                }
-            } else {
-                val = false;
-            }
-        } else {
-            val = false;
-        }
+        val = text != null && !text.equals("") && !text.equals(" ");
         return val;
     }
 
     public void agregarUsuarios() throws Exception {
-
-
         type = new TypeDAO(Administrador.this);
         material = new MaterialDAO(Administrador.this);
         producto = new ProductDAO(Administrador.this);
@@ -1229,8 +1215,8 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
         MenuInflater inflater = getSupportMenuInflater();
         // inflater.inflate(R.menu.menu2, menu);
         SubMenu subMenu = menu.addSubMenu("Config");
-        subMenu.add(R.string.Rol).setIcon(R.drawable.ic_action_users);
-        subMenu.add(R.string.Ciudad).setIcon(R.drawable.ic_action_add);
+        subMenu.add(R.string.Roles).setIcon(R.drawable.ic_action_users);
+        subMenu.add(R.string.Ciudades).setIcon(R.drawable.ic_location_city_black_48dp);
         MenuItem subMenu1Item = subMenu.getItem();
         subMenu1Item.setIcon(R.drawable.ic_action_core_overflow);
         subMenu1Item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);

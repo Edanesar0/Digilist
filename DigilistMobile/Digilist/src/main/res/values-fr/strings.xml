@@ -69,5 +69,8 @@
     <string name="llenar_campos">Se il vous plaît remplir les champs obligatoires</string>
     <string name="Configuracion">Configuration</string>
     <string name="Cerrar_sesion">Approuver</string>
+    <string name="Roles">Rôles</string>
+    <string name="Ciudades">Villes</string>
+    <string name="Descripcion">Description</string>
 
 </resources>
