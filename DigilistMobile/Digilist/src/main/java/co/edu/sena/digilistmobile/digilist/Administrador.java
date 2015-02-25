@@ -55,7 +55,7 @@ import co.edu.sena.digilistmobile.digilist.vo.UserVO;
 import static android.view.View.OnLongClickListener;
 
 
-public class Administrador extends SherlockActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener, OnLongClickListener {
+public class Administrador extends SherlockActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener{
 
 
     Typeface font;
@@ -709,61 +709,72 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                             dialog3 = builder3.create();
                             dialog3.setTitle(txtProducto.getText() + " " + txtTipo.getText());
                             dialog3.show();
-                            /*
-                            LayoutInflater inflater = getLayoutInflater();
-                            ArrayList<String> historico = historical.consultarHistorico(txtProducto.getId() + "");
-                            int count = 0;
-                            View v2 = inflater.inflate(R.layout.mensaje_producto, null);
-                            TableLayout tl2 = (TableLayout) v2.findViewById(R.id.tlInventario);
-                            tl2.setStretchAllColumns(true);
-                            tl2.setShrinkAllColumns(true);
+                            listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    switch (position) {
+                                        case 0:
+                                            break;
+                                        case 1:
+                                            LayoutInflater inflater = getLayoutInflater();
+                                            ArrayList<String> historico = historical.consultarHistorico(txtProducto.getId() + "");
+                                            int count = 0;
+                                            View v2 = inflater.inflate(R.layout.mensaje_producto, null);
+                                            TableLayout tl2 = (TableLayout) v2.findViewById(R.id.tlInventario);
+                                            tl2.setStretchAllColumns(true);
+                                            tl2.setShrinkAllColumns(true);
+                                            if (historico.size() != 0) {
+                                                for (int i = 0; i <= historico.size() - 4; i = i + 4) {
+                                                    TableRow tr = new TableRow(Administrador.this);
+                                                    if (count % 2 != 0) {
+                                                        tr.setBackgroundResource(R.drawable.row_selector_r);
+                                                        //tr.setBackgroundColor(Color.argb(15, 203, 47, 23));
+                                                    } else {
+                                                        tr.setBackgroundResource(R.drawable.row_selector_w);
+                                                        //tr.setBackgroundColor(Color.WHITE);
+                                                    }
+                                                    TextView txtFecha = new TextView(Administrador.this);
+                                                    txtFecha.setTypeface(font);
+                                                    txtFecha.setText(historico.get(i));
+                                                    txtFecha.setGravity(Gravity.CENTER);
+                                                    //txtProducto.setTextSize(20);
+                                                    tr.addView(txtFecha);
+                                                    TextView txtNCant = new TextView(Administrador.this);
+                                                    txtNCant.setTypeface(font);
+                                                    txtNCant.setText(historico.get(i + 1));
+                                                    txtNCant.setGravity(Gravity.CENTER);
+                                                    txtNCant.setLines(2);
+                                                    tr.addView(txtNCant);
+                                                    TextView txtACant = new TextView(Administrador.this);
+                                                    txtACant.setTypeface(font);
+                                                    txtACant.setText(historico.get(i + 2));
+                                                    txtACant.setGravity(Gravity.CENTER);
+                                                    tr.addView(txtACant);
+                                                    TextView txtAccion = new TextView(Administrador.this);
+                                                    txtAccion.setTypeface(font);
+                                                    txtAccion.setText(historico.get(i + 3));
+                                                    txtAccion.setGravity(Gravity.CENTER);
+                                                    tr.addView(txtAccion);
 
-                            if (historico.size() != 0) {
-                                for (int i = 0; i <= historico.size() - 4; i = i + 4) {
-                                    TableRow tr = new TableRow(Administrador.this);
-                                    if (count % 2 != 0) {
-                                        tr.setBackgroundResource(R.drawable.row_selector_r);
-                                        //tr.setBackgroundColor(Color.argb(15, 203, 47, 23));
-                                    } else {
-                                        tr.setBackgroundResource(R.drawable.row_selector_w);
-                                        //tr.setBackgroundColor(Color.WHITE);
+                                                    count++;
+                                                    tl2.addView(tr, new TableLayout.LayoutParams(
+                                                            TableLayout.LayoutParams.WRAP_CONTENT,
+                                                            TableLayout.LayoutParams.WRAP_CONTENT));
+                                                }
+                                            }
+                                            AlertDialog.Builder builder3 = new AlertDialog.Builder(Administrador.this);
+                                            builder3.setView(v2);
+                                            builder3.setPositiveButton("Aceptar", null).setNegativeButton("Cancelar", null);
+                                            AlertDialog dialog3;
+                                            dialog3 = builder3.create();
+                                            dialog3.setTitle(txtProducto.getText() + " " + txtTipo.getText());
+                                            dialog3.show();
+                                            break;
                                     }
-                                    TextView txtFecha = new TextView(Administrador.this);
-                                    txtFecha.setTypeface(font);
-                                    txtFecha.setText(historico.get(i));
-                                    txtFecha.setGravity(Gravity.CENTER);
-                                    //txtProducto.setTextSize(20);
-                                    tr.addView(txtFecha);
-                                    TextView txtNCant = new TextView(Administrador.this);
-                                    txtNCant.setTypeface(font);
-                                    txtNCant.setText(historico.get(i + 1));
-                                    txtNCant.setGravity(Gravity.CENTER);
-                                    txtNCant.setLines(2);
-                                    tr.addView(txtNCant);
-                                    TextView txtACant = new TextView(Administrador.this);
-                                    txtACant.setTypeface(font);
-                                    txtACant.setText(historico.get(i + 2));
-                                    txtACant.setGravity(Gravity.CENTER);
-                                    tr.addView(txtACant);
-                                    TextView txtAccion = new TextView(Administrador.this);
-                                    txtAccion.setTypeface(font);
-                                    txtAccion.setText(historico.get(i + 3));
-                                    txtAccion.setGravity(Gravity.CENTER);
-                                    tr.addView(txtAccion);
-
-                                    count++;
-                                    tl2.addView(tr, new TableLayout.LayoutParams(
-                                            TableLayout.LayoutParams.WRAP_CONTENT,
-                                            TableLayout.LayoutParams.WRAP_CONTENT));
                                 }
-                            }
-                            AlertDialog.Builder builder3 = new AlertDialog.Builder(Administrador.this);
-                            builder3.setView(v2);
-                            builder3.setPositiveButton("Aceptar", null).setNegativeButton("Cancelar", null);
-                            AlertDialog dialog3;
-                            dialog3 = builder3.create();
-                            dialog3.setTitle(txtProducto.getText() + " " + txtTipo.getText());
-                            dialog3.show();
+                            });
+                            /*
+
                             */
 
 
@@ -1005,12 +1016,6 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
 
     }
 
-    @Override
-    public boolean onLongClick(View v) {
-        Log.e("v.getId", v.getId() + "");
-        return false;
-    }
-
 
     class asynclogin extends AsyncTask<String, String, String> {
         char pos;
@@ -1226,8 +1231,6 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
         SubMenu subMenu = menu.addSubMenu("Config");
         subMenu.add(R.string.Rol).setIcon(R.drawable.ic_action_users);
         subMenu.add(R.string.Ciudad).setIcon(R.drawable.ic_action_add);
-        subMenu.add(R.string.Configuracion).setIcon(R.drawable.ic_action_settings);
-        subMenu.add(R.string.Cerrar_sesion).setIcon(R.drawable.ic_action_io);
         MenuItem subMenu1Item = subMenu.getItem();
         subMenu1Item.setIcon(R.drawable.ic_action_core_overflow);
         subMenu1Item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
