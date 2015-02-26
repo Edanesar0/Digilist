@@ -28,8 +28,8 @@ public class MaterialDAO {
         return false;
     }
 
-    public String agregarMaterial() throws JSONException {
-        JSONArray jsonArray = consultarMaterial("", "");
+    public String agregarMaterialLocal() throws JSONException {
+        JSONArray jsonArray = consultarMaterialHTTP();
         ContentValues cv = new ContentValues();
         ConexionLocal conexionLocal = new ConexionLocal(c);
         String conf = "";
@@ -60,14 +60,14 @@ public class MaterialDAO {
         return false;
     }
 
-    public JSONArray consultarMaterial(String criterio, String terminoBuscar) throws JSONException {
+    public JSONArray consultarMaterialHTTP() throws JSONException {
         requestsAndResponses = new RequestsAndResponses(c);
         return requestsAndResponses.getMateriales();
 
     }
 
     public ArrayList<String> consultarMateriales() {
-        requestsAndResponses = new RequestsAndResponses(c);
+
         ConexionLocal conexionLocal = new ConexionLocal(c);
         conexionLocal.abrir();
         String sql = "select * " +
@@ -81,6 +81,23 @@ public class MaterialDAO {
             alist.add(ct.getString(1));
             //alist.add(ct.getString(2));
             //alist.add(ct.getString(3));
+        }
+        conexionLocal.cerrar();
+        return alist;
+
+    }
+    public ArrayList<String> consultarMateriales(String Criterio) {
+        ConexionLocal conexionLocal = new ConexionLocal(c);
+        conexionLocal.abrir();
+        String sql = "select * " +
+                "from material";
+        final ArrayList<String> alist = new ArrayList<String>();
+        Cursor ct = conexionLocal.read(sql);
+        //recorre y agrega
+        for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
+            alist.add(ct.getString(0));
+            alist.add(ct.getString(1));
+            alist.add(ct.getString(2));
         }
         conexionLocal.cerrar();
         return alist;

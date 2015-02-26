@@ -73,5 +73,6 @@
     <string name="Roles">Roles</string>
     <string name="Ciudades">Cities</string>
     <string name="Descripcion">Description</string>
+    <string name="Materiales">Materials</string>
 
 </resources>

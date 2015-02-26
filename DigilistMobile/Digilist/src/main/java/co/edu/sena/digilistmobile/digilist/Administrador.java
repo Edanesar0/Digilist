@@ -1047,14 +1047,14 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                         pbUsu.setVisibility(ProgressBar.VISIBLE);
 
                         rol.agregarRoles();
-                        city.agregarCiudades();
+                        city.agregarCiudadesLocal();
                         user.agregarUsuarios();
                         break;
                     case '1':
                         lyInv.setVisibility(View.INVISIBLE);
                         pbInv.setVisibility(ProgressBar.VISIBLE);
                         type.agregarTipo();
-                        material.agregarMaterial();
+                        material.agregarMaterialLocal();
                         producto.agregarProducto();
                         historical.agregarHistorico();
                         stand.agregarStand();
@@ -1216,10 +1216,22 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
         // inflater.inflate(R.menu.menu2, menu);
         SubMenu subMenu = menu.addSubMenu("Config");
         subMenu.add(R.string.Roles).setIcon(R.drawable.ic_action_users);
+        //subMenu.add(R.string.Materiales).setIcon(R.drawable.ic_action_users);
         subMenu.add(R.string.Ciudades).setIcon(R.drawable.ic_location_city_black_48dp);
         MenuItem subMenu1Item = subMenu.getItem();
         subMenu1Item.setIcon(R.drawable.ic_action_core_overflow);
         subMenu1Item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        return true;
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        item.getItemId();
+        if (item.getTitle().equals(getResources().getString(R.string.Ciudades))) {
+            Intent i2 = new Intent(this, Ciudades.class);
+            startActivity(i2);
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

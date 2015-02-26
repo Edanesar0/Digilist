@@ -1,4 +1,4 @@
-package co.edu.sena.digilistmobile.digilist.utils;
+package co.edu.sena.digilistmobile.digilist.utils.conexiones;
 
 import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 

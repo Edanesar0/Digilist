@@ -540,7 +540,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                         layoutver.setVisibility(View.INVISIBLE);
                         pb.setVisibility(ProgressBar.VISIBLE);
                         type.agregarTipo();
-                        material.agregarMaterial();
+                        material.agregarMaterialLocal();
                         producto.agregarProducto();
                         stand.agregarStand();
                         historical.agregarHistorico();
@@ -557,7 +557,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                         lyPro.setVisibility(View.INVISIBLE);
                         pbPro.setVisibility(ProgressBar.VISIBLE);
                         type.agregarTipo();
-                        material.agregarMaterial();
+                        material.agregarMaterialLocal();
                         producto.agregarProducto();
                         stand.agregarStand();
                         historical.agregarHistorico();
@@ -567,7 +567,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                         lyInv.setVisibility(View.INVISIBLE);
                         pbInv.setVisibility(ProgressBar.VISIBLE);
                         type.agregarTipo();
-                        material.agregarMaterial();
+                        material.agregarMaterialLocal();
                         producto.agregarProducto();
                         historical.agregarHistorico();
                         stand.agregarStand();
@@ -577,7 +577,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                         pbpie.setVisibility(ProgressBar.VISIBLE);
                         lyPie.setVisibility(View.INVISIBLE);
                         type.agregarTipo();
-                        material.agregarMaterial();
+                        material.agregarMaterialLocal();
                         historical.agregarHistorico();
                         producto.agregarProducto();
                         stand.agregarStand();

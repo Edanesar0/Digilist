@@ -22,8 +22,8 @@ public class CityDAO {
 
     }
 
-    public String agregarCiudades() throws JSONException {
-        JSONArray jsonArray = consultarCiudades("", "");
+    public String agregarCiudadesLocal() throws JSONException {
+        JSONArray jsonArray = consultarCiudadesHTTP("", "");
 //        jsonArray = jsonArray.getJSONArray(0);
         ContentValues cv = new ContentValues();
         ConexionLocal conexionLocal = new ConexionLocal(c);
@@ -60,7 +60,7 @@ public class CityDAO {
         return conf;
     }
 
-    public JSONArray consultarCiudades(String criterio, String terminoABuscar) {
+    public JSONArray consultarCiudadesHTTP(String criterio, String terminoABuscar) {
         requestsAndResponses = new RequestsAndResponses(c);
         return requestsAndResponses.getCities();
 
@@ -77,6 +77,23 @@ public class CityDAO {
         //recorre y agrega
         for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
             alist.add(ct.getString(0));
+        }
+        conexionLocal.cerrar();
+        return alist;
+    }
+    public ArrayList<String> consultarCiudades(String op) {
+        ConexionLocal conexionLocal = new ConexionLocal(c);
+        conexionLocal.abrir();
+        String sql = "select * " +
+                "from city order by idcity";
+
+        final ArrayList<String> alist = new ArrayList<String>();
+        Cursor ct = conexionLocal.read(sql);
+        //recorre y agrega
+        for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
+            alist.add(ct.getString(0));
+            alist.add(ct.getString(1));
+
         }
         conexionLocal.cerrar();
         return alist;
