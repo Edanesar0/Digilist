@@ -56,7 +56,6 @@ public class Ciudades extends SherlockActivity implements View.OnClickListener {
 
         protected void onPreExecute() {
             svCiudades = (ScrollView) findViewById(R.id.svCiudad);
-            tCiudades = (TableLayout) findViewById(R.id.tlCiudad);
             pbCiudades = (ProgressBar) findViewById(R.id.pbCiudad);
             pbCiudades.setVisibility(View.VISIBLE);
             svCiudades.setVisibility(View.INVISIBLE);
@@ -76,8 +75,9 @@ public class Ciudades extends SherlockActivity implements View.OnClickListener {
         }
     }
     public void cargarCiudades(){
-        tCiudades.setStretchAllColumns(true);
-        tCiudades.setShrinkAllColumns(true);
+        tCiudades = (TableLayout) findViewById(R.id.tlCiudad);
+        //tCiudades.setStretchAllColumns(true);
+        //tCiudades.setShrinkAllColumns(true);
         TextView lblNombre = (TextView) findViewById(R.id.lblNombreCiudad);
         lblNombre.setTypeface(font);
         ArrayList<String> materiales = ciudades.consultarCiudades("");
@@ -102,11 +102,8 @@ public class Ciudades extends SherlockActivity implements View.OnClickListener {
                 txtNombre.setGravity(Gravity.CENTER);
                 //txtProducto.setTextSize(20);
                 tr.addView(txtNombre);
-                tr.setLayoutParams(new TableRow.LayoutParams(
-                        TableLayout.LayoutParams.FILL_PARENT,
-                        TableLayout.LayoutParams.FILL_PARENT));
                 tCiudades.addView(tr, new TableLayout.LayoutParams(
-                        TableLayout.LayoutParams.FILL_PARENT,
+                        TableLayout.LayoutParams.WRAP_CONTENT,
                         TableLayout.LayoutParams.FILL_PARENT));
             count++;
             }
