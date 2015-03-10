@@ -58,7 +58,7 @@
     <string name="Editar">Éditer</string>
     <string name="Eliminar">Sortir</string>
     <string name="Detalles">Détails</string>
-    <string name="MensajeEliminar">Voulez-vous supprimer l utilisateur?</string>
+    <string name="MensajeEliminarUsuario">Voulez-vous supprimer l utilisateur?</string>
     <string name="Historico">Historique</string>
     <string name="Ciudad">Ville</string>
     <string name="IngresarUsuario">Connexion Nom d\'utilisateur</string>
@@ -73,5 +73,11 @@
     <string name="Ciudades">Villes</string>
     <string name="Descripcion">Description</string>
     <string name="Materiales">Matériels</string>
+    <string name="Ciudad_Agregada">Ville Ajouté</string>
+    <string name="Ciudad_actualizada">City mises à jour</string>
+    <string name="Guardar">Enregistrer</string>
+    <string name="Cancelar">Annuler</string>
+    <string name="MensajeEliminarCiudad">Retirez votre ville?</string>
+    <string name="Ciudad_Eliminada">Ville Eliminé</string>
 
 </resources>

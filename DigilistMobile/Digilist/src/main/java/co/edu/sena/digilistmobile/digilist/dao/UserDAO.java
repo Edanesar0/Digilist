@@ -100,10 +100,21 @@ public class UserDAO {
 
     public JSONArray agregarUsuario(UserVO usuario) throws JSONException {
         JSONObject jsonObject = new JSONObject();
+        ConexionLocal conexionLocal = new ConexionLocal(c);
+        conexionLocal.abrir();
+        String sql = "SELECT idCity FROM city where description='"+usuario.getIdCity()+"'";
+        Cursor ct = conexionLocal.read(sql);
+        for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
+            jsonObject.put("idCity",ct.getString(0));
+        }
+        sql = "SELECT idRol FROM role where description='"+usuario.getIdRol()+"'";
+        ct = conexionLocal.read(sql);
+        for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
+            jsonObject.put("idRol",ct.getString(0));
+        }
+        conexionLocal.cerrar();
         jsonObject.put("names", usuario.getNames());
         jsonObject.put("last_name", usuario.getLast_name());
-        jsonObject.put("idCity", usuario.getIdCity());
-        jsonObject.put("idRol", usuario.getIdRol());
         jsonObject.put("phone", usuario.getPhone());
         jsonObject.put("address", usuario.getAddress());
         jsonObject.put("user", usuario.getUser());
@@ -124,11 +135,22 @@ public class UserDAO {
 
     public JSONArray modificarUsuario(UserVO usuario) throws JSONException {
         JSONObject jsonObject = new JSONObject();
+        ConexionLocal conexionLocal = new ConexionLocal(c);
+        conexionLocal.abrir();
+        String sql = "SELECT idCity FROM city where description='"+usuario.getIdCity()+"'";
+        Cursor ct = conexionLocal.read(sql);
+        for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
+            jsonObject.put("idCity",ct.getString(0));
+        }
+        sql = "SELECT idRol FROM role where description='"+usuario.getIdRol()+"'";
+        ct = conexionLocal.read(sql);
+        for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
+            jsonObject.put("idRol",ct.getString(0));
+        }
+        conexionLocal.cerrar();
         jsonObject.put("idUser", usuario.getIdUser());
         jsonObject.put("names", usuario.getNames());
         jsonObject.put("last_name", usuario.getLast_name());
-        jsonObject.put("idCity", usuario.getIdCity());
-        jsonObject.put("idRol", usuario.getIdRol());
         jsonObject.put("phone", usuario.getPhone());
         jsonObject.put("address", usuario.getAddress());
         jsonObject.put("user", usuario.getUser());

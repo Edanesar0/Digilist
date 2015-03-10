@@ -48,26 +48,5 @@
             </TableLayout>
         </ScrollView>
 
-        <ProgressBar
-            android:id="@+id/pbRoles"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_gravity="center_vertical"
-            android:indeterminate="false" />
-
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/btnAgregarRoles"
-            android:background="@drawable/round_button_red"
-            android:src="@drawable/ic_action_add_w"
-            android:layout_marginBottom="20dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp" />
-
     </RelativeLayout>
 </LinearLayout>

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import co.edu.sena.digilistmobile.digilist.utils.conexiones.ConexionLocal;
 import co.edu.sena.digilistmobile.digilist.utils.conexiones.RequestsAndResponses;
+import co.edu.sena.digilistmobile.digilist.vo.ProductVO;
 
 public class CityDAO {
     RequestsAndResponses requestsAndResponses;
@@ -81,21 +82,46 @@ public class CityDAO {
         conexionLocal.cerrar();
         return alist;
     }
-    public ArrayList<String> consultarCiudades(String op) {
+
+    public JSONArray agregarCiudadesHTTP(String city) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("description", city);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        requestsAndResponses = new RequestsAndResponses(c);
+        return requestsAndResponses.postCiudades(jsonObject);
+    }
+    public JSONArray editarCiudadesHTTP(String cityOld,String city) {
+        JSONObject jsonObject = new JSONObject();
         ConexionLocal conexionLocal = new ConexionLocal(c);
         conexionLocal.abrir();
-        String sql = "select * " +
-                "from city order by idcity";
-
-        final ArrayList<String> alist = new ArrayList<String>();
-        Cursor ct = conexionLocal.read(sql);
-        //recorre y agrega
-        for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
-            alist.add(ct.getString(0));
-            alist.add(ct.getString(1));
-
+        String sql = "select idCity from city where description ='" + cityOld + "'";
+        try {
+            Cursor ct = conexionLocal.read(sql);
+            //recorre y agrega
+            ct.moveToFirst();
+            jsonObject.put("idCity", ct.getString(0));
+            jsonObject.put("description", city);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-        conexionLocal.cerrar();
-        return alist;
+         conexionLocal.cerrar();
+        requestsAndResponses = new RequestsAndResponses(c);
+        return requestsAndResponses.putCiudad(jsonObject);
+    }
+    public JSONArray darBajaCiudad(String idCity) throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        ConexionLocal conexionLocal = new ConexionLocal(c);
+        conexionLocal.abrir();
+        String sql = "SELECT idCity FROM city where description='"+idCity+"'";
+        Cursor ct = conexionLocal.read(sql);
+        for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
+            jsonObject.put("idCity",ct.getString(0));
+        }
+        RequestsAndResponses requestsAndResponses = new RequestsAndResponses(c);
+        return requestsAndResponses.deleteCity(jsonObject);
+
     }
 }

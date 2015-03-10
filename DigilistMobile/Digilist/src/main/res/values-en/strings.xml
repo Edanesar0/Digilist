@@ -59,7 +59,7 @@
     <string name="Editar">Edit</string>
     <string name="Eliminar">Delete</string>
     <string name="Detalles">Details</string>
-    <string name="MensajeEliminar">Do you want to delete the user?</string>
+    <string name="MensajeEliminarUsuario">Do you want to delete the user?</string>
     <string name="Historico">Historical</string>
     <string name="Ciudad">City</string>
     <string name="IngresarUsuario">Add user</string>
@@ -74,5 +74,11 @@
     <string name="Ciudades">Cities</string>
     <string name="Descripcion">Description</string>
     <string name="Materiales">Materials</string>
+    <string name="Ciudad_Agregada">City added</string>
+    <string name="Ciudad_actualizada">City updated</string>
+    <string name="Guardar">Save</string>
+    <string name="Cancelar">Cancel</string>
+    <string name="MensajeEliminarCiudad">Remove your city?</string>
+    <string name="Ciudad_Eliminada">City deleted</string>
 
 </resources>

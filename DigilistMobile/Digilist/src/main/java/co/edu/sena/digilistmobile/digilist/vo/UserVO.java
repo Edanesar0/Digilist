@@ -3,7 +3,8 @@ package co.edu.sena.digilistmobile.digilist.vo;
 
 public class UserVO {
 
-    int idUser, idCity, idRol;
+    int idUser;
+            String idCity, idRol;
     String names, last_name, phone, address, user, pass;
 
     public int getIdUser() {
@@ -14,19 +15,19 @@ public class UserVO {
         this.idUser = idUser;
     }
 
-    public int getIdCity() {
+    public String getIdCity() {
         return idCity;
     }
 
-    public void setIdCity(int idCity) {
+    public void setIdCity(String idCity) {
         this.idCity = idCity;
     }
 
-    public int getIdRol() {
+    public String getIdRol() {
         return idRol;
     }
 
-    public void setIdRol(int idRol) {
+    public void setIdRol(String idRol) {
         this.idRol = idRol;
     }
 

@@ -65,10 +65,10 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
     private MaterialDAO material;
     private StandDAO stand;
     private CityDAO city;
-    ScrollView lyUsr;
     private UserDAO user;
-    ProgressBar pbUsu;
     private RolDAO rol;
+    ScrollView lyUsr;
+    ProgressBar pbUsu;
     AlertDialog dialog3;
     ProgressBar pbInv;
     ScrollView lyInv;
@@ -393,8 +393,8 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                                                                 userVO.setPhone(edtTelefono.getText().toString());
                                                                 userVO.setAddress(edtDireccion.getText().toString());
                                                                 userVO.setUser(edtUsuario.getText().toString());
-                                                                userVO.setIdRol(srol.getSelectedItemPosition() + 1);
-                                                                userVO.setIdCity(sCiudad.getSelectedItemPosition() + 1);
+                                                                userVO.setIdRol(srol.getSelectedItem().toString());
+                                                                userVO.setIdCity(sCiudad.getSelectedItem().toString());
                                                                 JSONArray ja = user.modificarUsuario(userVO);
                                                                 if (ja != null) {
                                                                     String mensajes = ja.getString(0);
@@ -555,7 +555,7 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                                             break;
                                         case 2:
                                             builder = new AlertDialog.Builder(Administrador.this);
-                                            builder.setMessage(Administrador.this.getResources().getString(R.string.MensajeEliminar));
+                                            builder.setMessage(Administrador.this.getResources().getString(R.string.MensajeEliminarUsuario));
 
                                             builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                                                 @Override
@@ -693,6 +693,7 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                     @Override
                     public boolean onLongClick(View v) {
                         try {
+
                             LayoutInflater inflater = getLayoutInflater();
                             View v2 = inflater.inflate(R.layout.opciones, null);
                             ListView listview = (ListView) v2.findViewById(R.id.lvOpciones);
@@ -712,13 +713,75 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                             listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    View v3;
+                                    ArrayList<String> opc;
                                     switch (position) {
+
                                         case 0:
+                                            LayoutInflater inflater2 = getLayoutInflater();
+                                            View v = inflater2.inflate(R.layout.ingreso_producto, null);
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(Administrador.this);
+                                            ArrayList<String> arr = producto.consultarProductoDetallado(txtProducto.getId() + "");
+
+                                            EditText  edtNombreProducto, edtReferencia;
+                                            Spinner sTipo, sMaterial, sTamanio;
+
+                                            LinearLayout lyPro = (LinearLayout) v.findViewById(R.id.lyProducto);
+
+                                            ProgressBar pbPro = (ProgressBar) v.findViewById(R.id.progressBarProducto);
+                                            pbPro.setVisibility(View.INVISIBLE);
+
+                                            edtNombreProducto = (EditText) v.findViewById(R.id.edtNombreProducto);
+                                            edtNombreProducto.setText(arr.get(0) + "");
+                                            edtNombreProducto.setBackgroundResource(R.drawable.white_button);
+                                            edtNombreProducto.setEnabled(false);
+
+                                            edtReferencia = (EditText) v.findViewById(R.id.edtReferencia);
+                                            edtReferencia.setText(arr.get(1) + "");
+                                            edtReferencia.setBackgroundResource(R.drawable.white_button);
+                                            edtReferencia.setEnabled(false);
+
+                                            sTipo = (Spinner) v.findViewById(R.id.sTipo);
+                                            sTipo.setBackgroundResource(R.drawable.white_button);
+                                            sTipo.setClickable(false);
+                                            opc = new ArrayList<String>();
+                                            opc.add(arr.get(2));
+                                            ArrayAdapter<String> adp = new ArrayAdapter<String>(Administrador.this, android.R.layout.simple_list_item_1, opc);
+                                            sTipo.setAdapter(adp);
+
+
+                                            sTamanio = (Spinner) v.findViewById(R.id.sTamanio);
+                                            sTamanio.setBackgroundResource(R.drawable.white_button);
+                                            sTamanio.setClickable(false);
+                                            opc = new ArrayList<String>();
+                                            opc.add(arr.get(3));
+                                            ArrayAdapter<String> adp2 = new ArrayAdapter<String>(Administrador.this, android.R.layout.simple_list_item_1, opc);
+                                            sTamanio.setAdapter(adp2);
+
+                                            sMaterial = (Spinner) v.findViewById(R.id.sMaterial);
+                                            sMaterial.setBackgroundResource(R.drawable.white_button);
+                                            sMaterial.setClickable(false);
+                                            opc = new ArrayList<String>();
+                                            opc.add(arr.get(4));
+                                            ArrayAdapter<String> adp3 = new ArrayAdapter<String>(Administrador.this, android.R.layout.simple_list_item_1, opc);
+                                            sMaterial.setAdapter(adp3);
+
+
+                                            v3 = v.findViewById(R.id.rlButtons);
+                                            lyPro.removeView(v3);
+                                            v3 = v.findViewById(R.id.txtTitulo);
+                                            lyPro.removeView(v3);
+                                            builder.setView(v);
+                                            builder.setPositiveButton("Aceptar", null).setNegativeButton("Cancelar", null);
+                                            AlertDialog dialog4 = builder.create();
+                                            dialog4.setTitle(txtProducto.getText() + " " + txtTipo.getText());
+                                            dialog4.show();
+
                                             break;
                                         case 1:
+                                            int count = 0;
                                             LayoutInflater inflater = getLayoutInflater();
                                             ArrayList<String> historico = historical.consultarHistorico(txtProducto.getId() + "");
-                                            int count = 0;
                                             View v2 = inflater.inflate(R.layout.mensaje_producto, null);
                                             TableLayout tl2 = (TableLayout) v2.findViewById(R.id.tlInventario);
                                             tl2.setStretchAllColumns(true);
@@ -773,9 +836,7 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                                     }
                                 }
                             });
-                            /*
 
-                            */
 
 
                         } catch (Exception e) {
@@ -851,8 +912,8 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                         userVO.setAddress(edtDireccion.getText().toString());
                         userVO.setUser(edtUsuario.getText().toString());
                         userVO.setPass(encrypting.getStringEncrypted(edtPass.getText().toString()));
-                        userVO.setIdRol(srol.getSelectedItemPosition() + 1);
-                        userVO.setIdCity(sCiudad.getSelectedItemPosition() + 1);
+                        userVO.setIdRol(srol.getSelectedItem().toString());
+                        userVO.setIdCity(sCiudad.getSelectedItem().toString());
                         Log.e("user", userVO.toString());
                         JSONArray ja = user.agregarUsuario(userVO);
                         if (ja != null) {
@@ -1227,6 +1288,10 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         item.getItemId();
+        if (item.getTitle().equals(getResources().getString(R.string.Roles))) {
+            Intent i2 = new Intent(this, Rol.class);
+            startActivity(i2);
+        }
         if (item.getTitle().equals(getResources().getString(R.string.Ciudades))) {
             Intent i2 = new Intent(this, Ciudades.class);
             startActivity(i2);

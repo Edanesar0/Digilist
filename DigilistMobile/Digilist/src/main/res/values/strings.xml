@@ -61,7 +61,8 @@
     <string name="Editar">Editar</string>
     <string name="Eliminar">Eliminar</string>
     <string name="Detalles">Detalles</string>
-    <string name="MensajeEliminar">¿Desea eliminar el usuario?</string>
+    <string name="MensajeEliminarUsuario">¿Desea eliminar el usuario?</string>
+    <string name="MensajeEliminarCiudad">¿Desea eliminar la ciudad?</string>
     <string name="Historico">Histórico</string>
     <string name="Ciudad">Ciudad</string>
     <string name="Ciudades">Ciudades</string>
@@ -70,9 +71,14 @@
     <string name="Usuario_Actualizado">Usuario Actualizado</string>
     <string name="Campo_Vacios">Por favor llenar los campos vacíos!</string>
     <string name="Usuario_Eliminado">Usuario Eliminado</string>
+    <string name="Ciudad_Eliminada">Ciudad Eliminada</string>
     <string name="llenar_campos">Por favor llenar los campos requeridos</string>
     <string name="Configuracion">Configuración</string>
     <string name="Cerrar_sesion">Cerrar sesión</string>
     <string name="Descripcion">Descripción</string>
+    <string name="Ciudad_Agregada">Ciudad agregada</string>
+    <string name="Ciudad_actualizada">Ciudad actualizada</string>
+    <string name="Cancelar">Cancelar</string>
+    <string name="Guardar">Guardar</string>
 
 </resources>
