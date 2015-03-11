@@ -665,6 +665,7 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                 txtProducto.setId(Integer.parseInt(productos.get(i + 5)));
                 txtProducto.setText(productos.get(i));
                 txtProducto.setGravity(Gravity.CENTER);
+                txtProducto.setLines(3);
                 //txtProducto.setTextSize(20);
                 tr.addView(txtProducto);
                 final TextView txtTipo = new TextView(this);
@@ -692,159 +693,240 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                 tr.setOnLongClickListener(new OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        try {
-
-                            LayoutInflater inflater = getLayoutInflater();
-                            View v2 = inflater.inflate(R.layout.opciones, null);
-                            ListView listview = (ListView) v2.findViewById(R.id.lvOpciones);
-                            ArrayList<String> opc = new ArrayList<String>();
-                            opc.add(Administrador.this.getResources().getString(R.string.Detalles));
-                            opc.add(Administrador.this.getResources().getString(R.string.Historico));
-                            opc.add(Administrador.this.getResources().getString(R.string.Editar));
-                            opc.add(Administrador.this.getResources().getString(R.string.Eliminar));
-                            ArrayAdapter<String> adpOpc = new ArrayAdapter<String>(Administrador.this, R.layout.list_center, opc);
-                            listview.setAdapter(adpOpc);
-                            AlertDialog.Builder builder3 = new AlertDialog.Builder(Administrador.this);
-                            builder3.setView(v2);
-                            builder3.setPositiveButton("Aceptar", null).setNegativeButton("Cancelar", null);
-                            dialog3 = builder3.create();
-                            dialog3.setTitle(txtProducto.getText() + " " + txtTipo.getText());
-                            dialog3.show();
-                            listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    View v3;
-                                    ArrayList<String> opc;
-                                    switch (position) {
-
-                                        case 0:
-                                            LayoutInflater inflater2 = getLayoutInflater();
-                                            View v = inflater2.inflate(R.layout.ingreso_producto, null);
-                                            AlertDialog.Builder builder = new AlertDialog.Builder(Administrador.this);
-                                            ArrayList<String> arr = producto.consultarProductoDetallado(txtProducto.getId() + "");
-
-                                            EditText  edtNombreProducto, edtReferencia;
-                                            Spinner sTipo, sMaterial, sTamanio;
-
-                                            LinearLayout lyPro = (LinearLayout) v.findViewById(R.id.lyProducto);
-
-                                            ProgressBar pbPro = (ProgressBar) v.findViewById(R.id.progressBarProducto);
-                                            pbPro.setVisibility(View.INVISIBLE);
-
-                                            edtNombreProducto = (EditText) v.findViewById(R.id.edtNombreProducto);
-                                            edtNombreProducto.setText(arr.get(0) + "");
-                                            edtNombreProducto.setBackgroundResource(R.drawable.white_button);
-                                            edtNombreProducto.setEnabled(false);
-
-                                            edtReferencia = (EditText) v.findViewById(R.id.edtReferencia);
-                                            edtReferencia.setText(arr.get(1) + "");
-                                            edtReferencia.setBackgroundResource(R.drawable.white_button);
-                                            edtReferencia.setEnabled(false);
-
-                                            sTipo = (Spinner) v.findViewById(R.id.sTipo);
-                                            sTipo.setBackgroundResource(R.drawable.white_button);
-                                            sTipo.setClickable(false);
-                                            opc = new ArrayList<String>();
-                                            opc.add(arr.get(2));
-                                            ArrayAdapter<String> adp = new ArrayAdapter<String>(Administrador.this, android.R.layout.simple_list_item_1, opc);
-                                            sTipo.setAdapter(adp);
 
 
-                                            sTamanio = (Spinner) v.findViewById(R.id.sTamanio);
-                                            sTamanio.setBackgroundResource(R.drawable.white_button);
-                                            sTamanio.setClickable(false);
-                                            opc = new ArrayList<String>();
-                                            opc.add(arr.get(3));
-                                            ArrayAdapter<String> adp2 = new ArrayAdapter<String>(Administrador.this, android.R.layout.simple_list_item_1, opc);
-                                            sTamanio.setAdapter(adp2);
+                        LayoutInflater inflater = getLayoutInflater();
+                        View v2 = inflater.inflate(R.layout.opciones, null);
+                        ListView listview = (ListView) v2.findViewById(R.id.lvOpciones);
+                        ArrayList<String> opc = new ArrayList<String>();
+                        opc.add(Administrador.this.getResources().getString(R.string.Detalles));
+                        opc.add(Administrador.this.getResources().getString(R.string.Historico));
+                        opc.add(Administrador.this.getResources().getString(R.string.Editar));
+                        opc.add(Administrador.this.getResources().getString(R.string.Eliminar));
+                        ArrayAdapter<String> adpOpc = new ArrayAdapter<String>(Administrador.this, R.layout.list_center, opc);
+                        listview.setAdapter(adpOpc);
+                        AlertDialog.Builder builder3 = new AlertDialog.Builder(Administrador.this);
+                        builder3.setView(v2);
+                        builder3.setPositiveButton("Aceptar", null).setNegativeButton("Cancelar", null);
+                        dialog3 = builder3.create();
+                        dialog3.setTitle(txtProducto.getText() + " " + txtTipo.getText());
+                        dialog3.show();
+                        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                View v3;
+                                ArrayList<String> opc;
+                                EditText edtNombreProducto, edtReferencia;
+                                Spinner sTipo, sMaterial, sTamanio;
+                                LinearLayout lyPro;
+                                ProgressBar pbPro;
+                                ArrayAdapter<String> adp;
+                                ArrayAdapter<String> adp2;
+                                ArrayAdapter<String> adp3;
+                                AlertDialog dialog4;
+                                switch (position) {
+                                    case 0:
+                                        LayoutInflater inflater2 = getLayoutInflater();
+                                        View v = inflater2.inflate(R.layout.ingreso_producto, null);
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(Administrador.this);
+                                        ArrayList<String> arr = producto.consultarProductoDetallado(txtProducto.getId() + "");
+                                        lyPro = (LinearLayout) v.findViewById(R.id.lyProducto);
+                                        pbPro = (ProgressBar) v.findViewById(R.id.progressBarProducto);
+                                        pbPro.setVisibility(View.INVISIBLE);
+                                        edtNombreProducto = (EditText) v.findViewById(R.id.edtNombreProducto);
+                                        edtNombreProducto.setText(arr.get(0) + "");
+                                        edtNombreProducto.setBackgroundResource(R.drawable.white_button);
+                                        edtNombreProducto.setEnabled(false);
+                                        edtReferencia = (EditText) v.findViewById(R.id.edtReferencia);
+                                        edtReferencia.setText(arr.get(1) + "");
+                                        edtReferencia.setBackgroundResource(R.drawable.white_button);
+                                        edtReferencia.setEnabled(false);
+                                        sTipo = (Spinner) v.findViewById(R.id.sTipo);
+                                        sTipo.setBackgroundResource(R.drawable.white_button);
+                                        sTipo.setClickable(false);
+                                        opc = new ArrayList<String>();
+                                        opc.add(arr.get(2));
+                                        adp = new ArrayAdapter<String>(Administrador.this, android.R.layout.simple_list_item_1, opc);
+                                        sTipo.setAdapter(adp);
+                                        sTamanio = (Spinner) v.findViewById(R.id.sTamanio);
+                                        sTamanio.setBackgroundResource(R.drawable.white_button);
+                                        sTamanio.setClickable(false);
+                                        opc = new ArrayList<String>();
+                                        opc.add(arr.get(3));
+                                        adp2 = new ArrayAdapter<String>(Administrador.this, android.R.layout.simple_list_item_1, opc);
+                                        sTamanio.setAdapter(adp2);
+                                        sMaterial = (Spinner) v.findViewById(R.id.sMaterial);
+                                        sMaterial.setBackgroundResource(R.drawable.white_button);
+                                        sMaterial.setClickable(false);
+                                        opc = new ArrayList<String>();
+                                        opc.add(arr.get(4));
+                                        adp3 = new ArrayAdapter<String>(Administrador.this, android.R.layout.simple_list_item_1, opc);
+                                        sMaterial.setAdapter(adp3);
+                                        v3 = v.findViewById(R.id.rlButtons);
+                                        lyPro.removeView(v3);
+                                        v3 = v.findViewById(R.id.txtTitulo);
+                                        lyPro.removeView(v3);
+                                        builder.setView(v);
+                                        builder.setPositiveButton("Aceptar", null).setNegativeButton("Cancelar", null);
+                                        dialog4 = builder.create();
+                                        dialog4.setTitle(txtProducto.getText() + " " + txtTipo.getText());
+                                        dialog4.show();
 
-                                            sMaterial = (Spinner) v.findViewById(R.id.sMaterial);
-                                            sMaterial.setBackgroundResource(R.drawable.white_button);
-                                            sMaterial.setClickable(false);
-                                            opc = new ArrayList<String>();
-                                            opc.add(arr.get(4));
-                                            ArrayAdapter<String> adp3 = new ArrayAdapter<String>(Administrador.this, android.R.layout.simple_list_item_1, opc);
-                                            sMaterial.setAdapter(adp3);
-
-
-                                            v3 = v.findViewById(R.id.rlButtons);
-                                            lyPro.removeView(v3);
-                                            v3 = v.findViewById(R.id.txtTitulo);
-                                            lyPro.removeView(v3);
-                                            builder.setView(v);
-                                            builder.setPositiveButton("Aceptar", null).setNegativeButton("Cancelar", null);
-                                            AlertDialog dialog4 = builder.create();
-                                            dialog4.setTitle(txtProducto.getText() + " " + txtTipo.getText());
-                                            dialog4.show();
-
-                                            break;
-                                        case 1:
-                                            int count = 0;
-                                            LayoutInflater inflater = getLayoutInflater();
-                                            ArrayList<String> historico = historical.consultarHistorico(txtProducto.getId() + "");
-                                            View v2 = inflater.inflate(R.layout.mensaje_producto, null);
-                                            TableLayout tl2 = (TableLayout) v2.findViewById(R.id.tlInventario);
-                                            tl2.setStretchAllColumns(true);
-                                            tl2.setShrinkAllColumns(true);
-                                            if (historico.size() != 0) {
-                                                for (int i = 0; i <= historico.size() - 4; i = i + 4) {
-                                                    TableRow tr = new TableRow(Administrador.this);
-                                                    if (count % 2 != 0) {
-                                                        tr.setBackgroundResource(R.drawable.row_selector_r);
-                                                        //tr.setBackgroundColor(Color.argb(15, 203, 47, 23));
-                                                    } else {
-                                                        tr.setBackgroundResource(R.drawable.row_selector_w);
-                                                        //tr.setBackgroundColor(Color.WHITE);
-                                                    }
-                                                    TextView txtFecha = new TextView(Administrador.this);
-                                                    txtFecha.setTypeface(font);
-                                                    txtFecha.setText(historico.get(i));
-                                                    txtFecha.setGravity(Gravity.CENTER);
-                                                    //txtProducto.setTextSize(20);
-                                                    tr.addView(txtFecha);
-                                                    TextView txtNCant = new TextView(Administrador.this);
-                                                    txtNCant.setTypeface(font);
-                                                    txtNCant.setText(historico.get(i + 1));
-                                                    txtNCant.setGravity(Gravity.CENTER);
-                                                    txtNCant.setLines(2);
-                                                    tr.addView(txtNCant);
-                                                    TextView txtACant = new TextView(Administrador.this);
-                                                    txtACant.setTypeface(font);
-                                                    txtACant.setText(historico.get(i + 2));
-                                                    txtACant.setGravity(Gravity.CENTER);
-                                                    tr.addView(txtACant);
-                                                    TextView txtAccion = new TextView(Administrador.this);
-                                                    txtAccion.setTypeface(font);
-                                                    txtAccion.setText(historico.get(i + 3));
-                                                    txtAccion.setGravity(Gravity.CENTER);
-                                                    tr.addView(txtAccion);
-
-                                                    count++;
-                                                    tl2.addView(tr, new TableLayout.LayoutParams(
-                                                            TableLayout.LayoutParams.WRAP_CONTENT,
-                                                            TableLayout.LayoutParams.WRAP_CONTENT));
+                                        break;
+                                    case 1:
+                                        int count = 0;
+                                        LayoutInflater inflater = getLayoutInflater();
+                                        ArrayList<String> historico = historical.consultarHistorico(txtProducto.getId() + "");
+                                        View v2 = inflater.inflate(R.layout.mensaje_producto, null);
+                                        TableLayout tl2 = (TableLayout) v2.findViewById(R.id.tlInventario);
+                                        tl2.setStretchAllColumns(true);
+                                        tl2.setShrinkAllColumns(true);
+                                        if (historico.size() != 0) {
+                                            for (int i = 0; i <= historico.size() - 4; i = i + 4) {
+                                                TableRow tr = new TableRow(Administrador.this);
+                                                if (count % 2 != 0) {
+                                                    tr.setBackgroundResource(R.drawable.row_selector_r);
+                                                    //tr.setBackgroundColor(Color.argb(15, 203, 47, 23));
+                                                } else {
+                                                    tr.setBackgroundResource(R.drawable.row_selector_w);
+                                                    //tr.setBackgroundColor(Color.WHITE);
                                                 }
+                                                TextView txtFecha = new TextView(Administrador.this);
+                                                txtFecha.setTypeface(font);
+                                                txtFecha.setText(historico.get(i));
+                                                txtFecha.setGravity(Gravity.CENTER);
+                                                //txtProducto.setTextSize(20);
+                                                tr.addView(txtFecha);
+                                                TextView txtNCant = new TextView(Administrador.this);
+                                                txtNCant.setTypeface(font);
+                                                txtNCant.setText(historico.get(i + 1));
+                                                txtNCant.setGravity(Gravity.CENTER);
+                                                txtNCant.setLines(2);
+                                                tr.addView(txtNCant);
+                                                TextView txtACant = new TextView(Administrador.this);
+                                                txtACant.setTypeface(font);
+                                                txtACant.setText(historico.get(i + 2));
+                                                txtACant.setGravity(Gravity.CENTER);
+                                                tr.addView(txtACant);
+                                                TextView txtAccion = new TextView(Administrador.this);
+                                                txtAccion.setTypeface(font);
+                                                txtAccion.setText(historico.get(i + 3));
+                                                txtAccion.setGravity(Gravity.CENTER);
+                                                tr.addView(txtAccion);
+
+                                                count++;
+                                                tl2.addView(tr, new TableLayout.LayoutParams(
+                                                        TableLayout.LayoutParams.WRAP_CONTENT,
+                                                        TableLayout.LayoutParams.WRAP_CONTENT));
                                             }
-                                            AlertDialog.Builder builder3 = new AlertDialog.Builder(Administrador.this);
-                                            builder3.setView(v2);
-                                            builder3.setPositiveButton("Aceptar", null).setNegativeButton("Cancelar", null);
-                                            AlertDialog dialog3;
-                                            dialog3 = builder3.create();
-                                            dialog3.setTitle(txtProducto.getText() + " " + txtTipo.getText());
-                                            dialog3.show();
-                                            break;
-                                    }
+                                        }
+                                        AlertDialog.Builder builder3 = new AlertDialog.Builder(Administrador.this);
+                                        builder3.setView(v2);
+                                        builder3.setPositiveButton("Aceptar", null).setNegativeButton("Cancelar", null);
+                                        AlertDialog dialog3;
+                                        dialog3 = builder3.create();
+                                        dialog3.setTitle(txtProducto.getText() + " " + txtTipo.getText());
+                                        dialog3.show();
+                                        break;
+                                    case 2:
+
+                                        LayoutInflater inflater3 = getLayoutInflater();
+                                        View view2 = inflater3.inflate(R.layout.ingreso_producto, null);
+                                        AlertDialog.Builder buil = new AlertDialog.Builder(Administrador.this);
+                                        ArrayList<String> prod = producto.consultarProductoDetallado2(txtProducto.getId() + "");
+                                        lyPro = (LinearLayout) view2.findViewById(R.id.lyProducto);
+                                        pbPro = (ProgressBar) view2.findViewById(R.id.progressBarProducto);
+                                        pbPro.setVisibility(View.INVISIBLE);
+                                        edtNombreProducto = (EditText) view2.findViewById(R.id.edtNombreProducto);
+                                        edtNombreProducto.setText(prod.get(0) + "");
+                                        edtReferencia = (EditText) view2.findViewById(R.id.edtReferencia);
+                                        edtReferencia.setText(prod.get(1) + "");
+                                        sTipo = (Spinner) view2.findViewById(R.id.sTipo);
+                                        opc = type.consultarTipos();
+                                        adp = new ArrayAdapter<String>(Administrador.this, android.R.layout.simple_list_item_1, opc);
+                                        sTipo.setAdapter(adp);
+                                        int posicionTipo = 0;
+                                        for (int i = 0; i < opc.size(); i++) {
+                                            if (prod.get(5).equals(opc.get(i))) {
+                                                posicionTipo = i;
+                                            }
+
+                                        }
+                                        sTipo.setSelection(posicionTipo);
+                                        sTamanio = (Spinner) view2.findViewById(R.id.sTamanio);
+                                        opc = type.consultarTiposTamanio(prod.get(5) + "");
+                                        adp2 = new ArrayAdapter<String>(Administrador.this, android.R.layout.simple_list_item_1, opc);
+                                        sTamanio.setAdapter(adp2);
+                                        int posicionTamanio = 0;
+                                        for (int i = 0; i < opc.size(); i++) {
+                                            if (prod.get(6).equals(opc.get(i))) {
+                                                posicionTamanio = i;
+                                            }
+
+                                        }
+                                        sTamanio.setSelection(posicionTamanio);
+                                        sMaterial = (Spinner) view2.findViewById(R.id.sMaterial);
+                                        opc = material.consultarMateriales();
+                                        adp3 = new ArrayAdapter<String>(Administrador.this, android.R.layout.simple_list_item_1, opc);
+                                        sMaterial.setAdapter(adp3);
+                                        int posicionMaterial = 0;
+                                        for (int i = 0; i < opc.size(); i++) {
+                                            if (prod.get(4).equals(opc.get(i))) {
+                                                posicionMaterial = i;
+                                            }
+
+                                        }
+                                        sMaterial.setSelection(posicionMaterial);
+                                        v3 = view2.findViewById(R.id.rlButtons);
+                                        lyPro.removeView(v3);
+                                        v3 = view2.findViewById(R.id.txtTitulo);
+                                        lyPro.removeView(v3);
+                                        buil.setView(view2);
+                                        buil.setPositiveButton("Aceptar", null).setNegativeButton("Cancelar", null);
+                                        dialog4 = buil.create();
+                                        dialog4.setTitle(txtProducto.getText() + " " + txtTipo.getText());
+                                        dialog4.show();
+
+                                        break;
+                                    case 3:
+                                        builder = new AlertDialog.Builder(Administrador.this);
+                                        builder.setMessage(Administrador.this.getResources().getString(R.string.MensajeEliminarProducto));
+
+                                        builder.setPositiveButton("Aceptar",new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                try {
+
+                                                    JSONArray ja = producto.eliminarProducto(txtProducto.getId());
+                                                    String mensajes = ja.getString(0);
+                                                    if (mensajes.contains("The specified record has been deleted")) {
+                                                        toast = Toast.makeText(Administrador.this, R.string.Usuario_Eliminado, Toast.LENGTH_LONG);
+                                                        toast.show();
+                                                        dialog.dismiss();
+                                                        Intent it = getIntent();
+                                                        finish();
+                                                        ConexionLocal conexionLocal = new ConexionLocal(Administrador.this);
+                                                        conexionLocal.abrir();
+                                                        conexionLocal.limpiar();
+                                                        conexionLocal.cerrar();
+                                                        startActivity(it);
+                                                    }
+
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+
+                                            }
+                                        }).setNegativeButton("Cancelar", null);
+                                        AlertDialog dialog;
+                                        dialog = builder.create();
+                                        dialog.setTitle("Eliminar");
+                                        dialog.show();
+
+                                        break;
                                 }
-                            });
-
-
-
-                        } catch (Exception e) {
-                            toast = Toast.makeText(Administrador.this, e.getMessage(), Toast.LENGTH_LONG);
-                            toast.show();
-                            e.printStackTrace();
-                        }
-
+                            }
+                        });
                         return false;
                     }
                 });

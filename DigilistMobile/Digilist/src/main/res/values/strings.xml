@@ -80,5 +80,7 @@
     <string name="Ciudad_actualizada">Ciudad actualizada</string>
     <string name="Cancelar">Cancelar</string>
     <string name="Guardar">Guardar</string>
+    <string name="MensajeEliminarProducto">¿Desea eliminar el  producto?</string>
+    <string name="Iniciandosesion">Iniciando sesión</string>
 
 </resources>

@@ -80,5 +80,7 @@
     <string name="Cancelar">Cancel</string>
     <string name="MensajeEliminarCiudad">Remove your city?</string>
     <string name="Ciudad_Eliminada">City deleted</string>
+    <string name="MensajeEliminarProducto">Do you want to remove the product?</string>
+    <string name="Iniciandosesion">Logging</string>
 
 </resources>

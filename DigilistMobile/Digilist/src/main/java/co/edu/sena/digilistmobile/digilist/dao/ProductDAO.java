@@ -162,10 +162,11 @@ public class ProductDAO {
         return false;
     }
 
-    public boolean eliminarProducto(int identificador) {
+    public JSONArray eliminarProducto(int identificador) throws JSONException {
         requestsAndResponses = new RequestsAndResponses(c);
-        requestsAndResponses.deleteProductos();
-        return false;
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("idProduct", identificador);
+        return requestsAndResponses.deleteUser(jsonObject);
     }
 
     public ArrayList<String> consultarInventarios() {
@@ -218,6 +219,7 @@ public class ProductDAO {
         return alist;
 
     }
+
     public ArrayList<String> consultarProductoDetallado(String idProducto) {
 
         ConexionLocal conexionLocal = new ConexionLocal(c);
@@ -226,7 +228,7 @@ public class ProductDAO {
                 "from product " +
                 "inner join type on type.idType=product.idType " +
                 "inner join material on material.idMaterial=product.idMaterial " +
-                "where  product.idProduct="+idProducto;
+                "where  product.idProduct=" + idProducto;
 
         final ArrayList<String> alist = new ArrayList<String>();
         Cursor ct = conexionLocal.read(sql);
@@ -237,6 +239,35 @@ public class ProductDAO {
             alist.add(ct.getString(2));
             alist.add(ct.getString(3));
             alist.add(ct.getString(4));
+
+        }
+        conexionLocal.cerrar();
+
+        return alist;
+
+    }
+
+    public ArrayList<String> consultarProductoDetallado2(String idProducto) {
+
+        ConexionLocal conexionLocal = new ConexionLocal(c);
+        conexionLocal.abrir();
+        String sql = "select product.name,product.reference, type.idType, type.idType, material.name,type.name,type.dimension " +
+                "from product " +
+                "inner join type on type.idType=product.idType " +
+                "inner join material on material.idMaterial=product.idMaterial " +
+                "where  product.idProduct=" + idProducto;
+
+        final ArrayList<String> alist = new ArrayList<String>();
+        Cursor ct = conexionLocal.read(sql);
+        //recorre y agrega
+        for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
+            alist.add(ct.getString(0));
+            alist.add(ct.getString(1));
+            alist.add(ct.getString(2));
+            alist.add(ct.getString(3));
+            alist.add(ct.getString(4));
+            alist.add(ct.getString(5));
+            alist.add(ct.getString(6));
 
         }
         conexionLocal.cerrar();

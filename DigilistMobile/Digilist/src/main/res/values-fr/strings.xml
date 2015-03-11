@@ -79,5 +79,7 @@
     <string name="Cancelar">Annuler</string>
     <string name="MensajeEliminarCiudad">Retirez votre ville?</string>
     <string name="Ciudad_Eliminada">Ville Eliminé</string>
+    <string name="MensajeEliminarProducto">Voulez-vous de retirer le produit?</string>
+    <string name="Iniciandosesion">Enregistrement</string>
 
 </resources>

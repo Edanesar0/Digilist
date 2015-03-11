@@ -176,7 +176,7 @@ public class Login extends SherlockActivity {
                 //para el progress dialog
                 pDialog = new ProgressDialog(Login.this);
                 //conexiones.abrir();
-                pDialog.setMessage("Iniciando sesión ");
+                pDialog.setMessage(Login.this.getResources().getString(R.string.Iniciandosesion)+"");
                 //conexiones.cerrar();
                 pDialog.setIndeterminate(false);
                 pDialog.setCancelable(false);

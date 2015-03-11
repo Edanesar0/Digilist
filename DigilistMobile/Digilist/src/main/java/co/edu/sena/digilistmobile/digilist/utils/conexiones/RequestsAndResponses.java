@@ -205,4 +205,9 @@ public class RequestsAndResponses {
         //realizamos una peticion y como respuesta obtenes un array JSON
         return conexion.getserverdata(null, URL_connect2 + "/city/delete-record-by-id", "DELETE2", datos);
     }
+    public JSONArray deleteProducto(JSONObject datos) {
+        conexion = new ConexionHTTP(context);
+        //realizamos una peticion y como respuesta obtenes un array JSON
+        return conexion.getserverdata(null, URL_connect2 + "/product/delete-record-by-id", "DELETE2", datos);
+    }
 }
