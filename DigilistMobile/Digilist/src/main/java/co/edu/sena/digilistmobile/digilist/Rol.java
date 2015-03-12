@@ -10,6 +10,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 
 import java.util.ArrayList;
@@ -23,11 +24,17 @@ public class Rol extends SherlockActivity {
     private ProgressBar pbRol;
     private TableLayout tRol;
     private static Typeface font;
+    ActionBar ab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.roles);
+        ab = getSupportActionBar();//instancia
+        ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_HOME_AS_UP);//Atributos titulo boton home y flecha de acompañamiento de home
+        ab.setHomeButtonEnabled(true);//activar el boton home
+        ab.setDisplayShowHomeEnabled(true);//se pueda ver el boton home
+        ab.setIcon(R.drawable.ic_launcher);//se le adiciona el icono
         font = Typeface.createFromAsset(this.getAssets(), "Station.ttf");
         new asynclogin().execute("1");
     }
@@ -50,7 +57,8 @@ public class Rol extends SherlockActivity {
 
         }
     }
-    public void cargarCiudades(){
+
+    public void cargarCiudades() {
         TableLayout tRol = (TableLayout) findViewById(R.id.tlRol);
         tRol.setStretchAllColumns(true);
         tRol.setShrinkAllColumns(true);

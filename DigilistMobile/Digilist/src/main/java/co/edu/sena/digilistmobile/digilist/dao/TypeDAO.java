@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import co.edu.sena.digilistmobile.digilist.R;
 import co.edu.sena.digilistmobile.digilist.utils.conexiones.ConexionLocal;
 import co.edu.sena.digilistmobile.digilist.utils.conexiones.RequestsAndResponses;
 import co.edu.sena.digilistmobile.digilist.vo.TypeVO;
@@ -73,7 +74,7 @@ public class TypeDAO {
         String sql = "select * " +
                 "from type group by name order by name";
         final ArrayList<String> alist = new ArrayList<String>();
-        alist.add("Seleccione uno");
+        alist.add(c.getResources().getString(R.string.SeleccioneUno));
         Cursor ct = conexionLocal.read(sql);
         //recorre y agrega
         for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
@@ -94,7 +95,7 @@ public class TypeDAO {
         String sql = "select * " +
                 "from type where name like '%" + tipo + "%'";
         final ArrayList<String> alist = new ArrayList<String>();
-        alist.add("Seleccione uno");
+        alist.add(c.getResources().getString(R.string.SeleccioneUno));
         Cursor ct = conexionLocal.read(sql);
         //recorre y agrega
         for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {

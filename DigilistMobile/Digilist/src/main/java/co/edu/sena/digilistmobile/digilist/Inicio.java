@@ -84,11 +84,11 @@ public class Inicio extends SherlockActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                if (mDrawerLayout.isDrawerOpen(navList)) {
+                /*if (mDrawerLayout.isDrawerOpen(navList)) {
                     mDrawerLayout.closeDrawers();
                 } else {
                     mDrawerLayout.openDrawer(navList);
-                }
+                }*/
 
 
                 break;

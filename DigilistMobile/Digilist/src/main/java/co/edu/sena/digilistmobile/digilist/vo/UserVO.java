@@ -4,7 +4,7 @@ package co.edu.sena.digilistmobile.digilist.vo;
 public class UserVO {
 
     int idUser;
-            String idCity, idRol;
+    String idCity, idRol;
     String names, last_name, phone, address, user, pass;
 
     public int getIdUser() {

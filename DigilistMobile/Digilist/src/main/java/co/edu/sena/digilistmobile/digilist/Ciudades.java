@@ -18,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 
 import org.json.JSONArray;
@@ -59,6 +60,7 @@ public class Ciudades extends SherlockActivity implements View.OnClickListener {
     private CityDAO city;
     private UserDAO user;
     private RolDAO rol;
+    ActionBar ab;
     JSONArray respuesta;
 
 
@@ -66,6 +68,12 @@ public class Ciudades extends SherlockActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ciudades);
+        ab = getSupportActionBar();//instancia
+        ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_HOME_AS_UP);//Atributos titulo boton home y flecha de acompañamiento de home
+        ab.setHomeButtonEnabled(true);//activar el boton home
+        ab.setDisplayShowHomeEnabled(true);//se pueda ver el boton home
+        ab.setIcon(R.drawable.ic_launcher);//se le adiciona el icono
+
         ImageButton btnAdd = (ImageButton) findViewById(R.id.btnAgregarCiudades);
         btnAdd.setOnClickListener(this);
         font = Typeface.createFromAsset(this.getAssets(), "Station.ttf");
@@ -117,7 +125,7 @@ public class Ciudades extends SherlockActivity implements View.OnClickListener {
                 builder = new AlertDialog.Builder(this);
                 builder.setMessage(this.getResources().getString(R.string.MensajeEliminarCiudad));
 
-                builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton(this.getResources().getString(R.string.Aceptar), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         try {
@@ -153,7 +161,7 @@ public class Ciudades extends SherlockActivity implements View.OnClickListener {
                         }
 
                     }
-                }).setNegativeButton("Cancelar", null);
+                }).setNegativeButton(this.getResources().getString(R.string.Cancelar), null);
                 dialog = builder.create();
                 dialog.setTitle("Eliminar");
                 dialog.show();

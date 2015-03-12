@@ -82,5 +82,13 @@
     <string name="Ciudad_Eliminada">City deleted</string>
     <string name="MensajeEliminarProducto">Do you want to remove the product?</string>
     <string name="Iniciandosesion">Logging</string>
+    <string name="Aceptar">Accept</string>
+    <string name="ErrLogVac">Username or password empty</string>
+    <string name="ErrLogInc">Username or password incorrect</string>
+    <string name="Reportes">Reports</string>
+    <string name="SeleccioneUno">Select One</string>
+    <string name="SeleccioneTipo">Select Type</string>
+    <string name="Agregar_Material">Add Material</string>
+    <string name="Agregar_Tipo">Add Type</string>
 
 </resources>

@@ -191,7 +191,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         switch (parent.getId()) {
             case R.id.sTipo:
-                if (!sTipo.getSelectedItem().toString().equals("Seleccione uno")) {
+                if (!sTipo.getSelectedItem().toString().equals(act.getResources().getString(R.string.SeleccioneUno))) {
                     type = new TypeDAO(c);
                     //sTamanio = (Spinner) v.findViewById(R.id.sTamanio);
                     aTamanio = type.consultarTiposTamanio(sTipo.getSelectedItem().toString());
@@ -199,7 +199,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                     sTamanio.setAdapter(adaptadorTamanio);
                 } else {
                     ArrayList<String> lis = new ArrayList<String>();
-                    lis.add("Seleccione Tipo");
+                    lis.add(act.getResources().getString(R.string.SeleccioneTipo));
                     ArrayAdapter<String> adaptadorTamanio = new ArrayAdapter<String>(c, android.R.layout.simple_spinner_item, lis);//creamos el adaptador de los spinner agregando los Arraylist
                     sTamanio.setAdapter(adaptadorTamanio);
 
@@ -276,7 +276,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
 
                         }
                     });
-                    builder3.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    builder3.setPositiveButton(act.getResources().getString(R.string.Aceptar), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             ArrayList lis = producto.consultarProducto("product.name", prodSel[0]);
@@ -287,7 +287,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                             edtcantidad.setText("1");
 
                         }
-                    }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    }).setNegativeButton(act.getResources().getString(R.string.Cancelar), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             auproducto.setText("");
@@ -328,16 +328,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
 
                 } else {
                     vibrator.vibrate(200);
-                    LayoutInflater inflater = act.getLayoutInflater();
-                    View layout = inflater.inflate(R.layout.custom_toast_error,
-                            (ViewGroup) v.findViewById(R.id.toast_layout_root));
-                    TextView text = (TextView) layout.findViewById(R.id.text);
-                    text.setTextColor(Color.BLACK);
-                    text.setText(R.string.prodvac);
-                    toast = new Toast(c.getApplicationContext());
-                    //toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
-                    toast.setDuration(Toast.LENGTH_SHORT);
-                    toast.setView(layout);
+                    toast = Toast.makeText(c,R.string.prodvac+"",Toast.LENGTH_LONG);
                     toast.show();
                     validacion = false;
                 }
@@ -345,16 +336,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                     validacion2 = true;
                 } else {
                     vibrator.vibrate(200);
-                    LayoutInflater inflater = act.getLayoutInflater();
-                    View layout = inflater.inflate(R.layout.custom_toast_error,
-                            (ViewGroup) v.findViewById(R.id.toast_layout_root));
-                    TextView text = (TextView) layout.findViewById(R.id.text);
-                    text.setTextColor(Color.BLACK);
-                    text.setText(R.string.canvac);
-                    toast = new Toast(c.getApplicationContext());
-                    //toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
-                    toast.setDuration(Toast.LENGTH_SHORT);
-                    toast.setView(layout);
+                    toast = Toast.makeText(c,R.string.canvac+"",Toast.LENGTH_LONG);
                     toast.show();
                     validacion2 = false;
                 }
@@ -378,17 +360,9 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                             act.startActivity(it);
                             toast.show();
                         } else {
-                            LayoutInflater inflater = act.getLayoutInflater();
-                            View layout = inflater.inflate(R.layout.custom_toast_error,
-                                    (ViewGroup) v.findViewById(R.id.toast_layout_root));
-                            TextView text = (TextView) layout.findViewById(R.id.text);
-                            text.setTextColor(Color.BLACK);
-                            text.setText(R.string.ErrorServidor);
-                            toast = new Toast(c.getApplicationContext());
-                            //toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
-                            toast.setDuration(Toast.LENGTH_SHORT);
-                            toast.setView(layout);
+                            toast = Toast.makeText(c,R.string.ErrorServidor+"",Toast.LENGTH_LONG);
                             toast.show();
+
                         }
                     } catch (Exception e) {
                         toast = Toast.makeText(c, e.getMessage(), Toast.LENGTH_LONG);
@@ -421,7 +395,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                     val2 = false;
 
                 }
-                if (!sTipo.getSelectedItem().toString().equals("Seleccione uno")) {
+                if (!sTipo.getSelectedItem().toString().equals(act.getResources().getString(R.string.SeleccioneUno))) {
                     val3 = true;
 
                 } else {
@@ -431,7 +405,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                     val3 = false;
 
                 }
-                if (!sTamanio.getSelectedItem().toString().equals("Seleccione uno")) {
+                if (!sTamanio.getSelectedItem().toString().equals(act.getResources().getString(R.string.SeleccioneUno))) {
                     val4 = true;
 
                 } else {
@@ -441,7 +415,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                     val4 = false;
 
                 }
-                if (!sMaterial.getSelectedItem().toString().equals("Seleccione uno")) {
+                if (!sMaterial.getSelectedItem().toString().equals(act.getResources().getString(R.string.SeleccioneUno))) {
                     val5 = true;
 
                 } else {
@@ -480,15 +454,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
                             toast.show();
                         } else {
                             LayoutInflater inflater = act.getLayoutInflater();
-                            View layout = inflater.inflate(R.layout.custom_toast_error,
-                                    (ViewGroup) v.findViewById(R.id.toast_layout_root));
-                            TextView text = (TextView) layout.findViewById(R.id.text);
-                            text.setTextColor(Color.BLACK);
-                            text.setText(R.string.ErrorServidor);
-                            toast = new Toast(c.getApplicationContext());
-                            //toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
-                            toast.setDuration(Toast.LENGTH_SHORT);
-                            toast.setView(layout);
+                            toast = Toast.makeText(c,R.string.ErrorServidor+"",Toast.LENGTH_LONG);
                             toast.show();
                         }
 
@@ -712,7 +678,7 @@ public class Almacenista implements AdapterView.OnItemSelectedListener, View.OnC
 
                                         AlertDialog.Builder builder3 = new AlertDialog.Builder(c);
                                         builder3.setView(v2);
-                                        builder3.setPositiveButton("Aceptar", null).setNegativeButton("Cancelar", null);
+                                        builder3.setPositiveButton(act.getResources().getString(R.string.Aceptar), null).setNegativeButton(act.getResources().getString(R.string.Cancelar), null);
                                         AlertDialog dialog3;
                                         dialog3 = builder3.create();
                                         dialog3.setTitle(txtProducto.getText() + " " + txtTipo.getText());

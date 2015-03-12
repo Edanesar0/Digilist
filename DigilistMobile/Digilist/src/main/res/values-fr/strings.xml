@@ -81,5 +81,13 @@
     <string name="Ciudad_Eliminada">Ville Eliminé</string>
     <string name="MensajeEliminarProducto">Voulez-vous de retirer le produit?</string>
     <string name="Iniciandosesion">Enregistrement</string>
+    <string name="Aceptar">Accepter</string>
+    <string name="ErrLogVac">Nom d\'utilisateur ou mot de passe vide</string>
+    <string name="ErrLogInc">Nom d\'utilisateur ou mot de passe incorrect</string>
+    <string name="Reportes">Rapports</string>
+    <string name="SeleccioneUno">Choisissez-en un</string>
+    <string name="SeleccioneTipo">Sélectionner le type</string>
+    <string name="Agregar_Material">Ajouter Matériel</string>
+    <string name="Agregar_Tipo">Ajouter un type</string>
 
 </resources>

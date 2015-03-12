@@ -78,14 +78,16 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
     private Spinner srol, sCiudad;
     ActionBar ab;
     private TableLayout tl;
+    int op = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        int op = 0;
 
         ab = getSupportActionBar();//instancia
-        // ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);//Atributos titulo boton home y flecha de acompañamiento de home
+        ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_HOME_AS_UP);//Atributos titulo boton home y flecha de acompañamiento de home
+        ab.setHomeButtonEnabled(true);//activar el boton home
+        ab.setDisplayShowHomeEnabled(true);//se pueda ver el boton home
         ab.setIcon(R.drawable.ic_launcher);//se le adiciona el icono
 
 
@@ -209,7 +211,7 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                         listview.setAdapter(adpOpc);
                         AlertDialog.Builder builder3 = new AlertDialog.Builder(Administrador.this);
                         builder3.setView(v2);
-                        builder3.setPositiveButton("Aceptar", null).setNegativeButton("Cancelar", null);
+                        builder3.setPositiveButton(Administrador.this.getResources().getString(R.string.Aceptar), null).setNegativeButton(Administrador.this.getResources().getString(R.string.Cancelar), null);
                         dialog3 = builder3.create();
                         dialog3.setTitle(txtNombre.getText() + " " + txtApellido.getText());
                         dialog3.show();
@@ -331,7 +333,7 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
 
                                             builder = new AlertDialog.Builder(Administrador.this);
                                             builder.setView(v);
-                                            builder.setPositiveButton("Aceptar", null);
+                                            builder.setPositiveButton(Administrador.this.getResources().getString(R.string.Aceptar), null);
                                             dialog = builder.create();
                                             dialog.setTitle("Información");
                                             dialog.show();
@@ -362,13 +364,13 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                                                 llUser.removeView(v2);
                                                 builder = new AlertDialog.Builder(Administrador.this);
                                                 builder.setView(v);
-                                                builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                                builder.setPositiveButton(Administrador.this.getResources().getString(R.string.Aceptar), new DialogInterface.OnClickListener() {
                                                     @Override
                                                     public void onClick(DialogInterface dialog, int which) {
 
 
                                                     }
-                                                }).setNegativeButton("Cancelar", null);
+                                                }).setNegativeButton(Administrador.this.getResources().getString(R.string.Cancelar), null);
                                                 dialog = builder.create();
                                                 dialog.setCanceledOnTouchOutside(false);
                                                 dialog.setTitle("Editar");
@@ -557,7 +559,7 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                                             builder = new AlertDialog.Builder(Administrador.this);
                                             builder.setMessage(Administrador.this.getResources().getString(R.string.MensajeEliminarUsuario));
 
-                                            builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                            builder.setPositiveButton(Administrador.this.getResources().getString(R.string.Aceptar), new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which) {
                                                     try {
@@ -584,7 +586,7 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                                                     }
 
                                                 }
-                                            }).setNegativeButton("Cancelar", null);
+                                            }).setNegativeButton(Administrador.this.getResources().getString(R.string.Cancelar), null);
                                             dialog = builder.create();
                                             dialog.setTitle("Eliminar");
                                             dialog.show();
@@ -699,15 +701,15 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                         View v2 = inflater.inflate(R.layout.opciones, null);
                         ListView listview = (ListView) v2.findViewById(R.id.lvOpciones);
                         ArrayList<String> opc = new ArrayList<String>();
-                        opc.add(Administrador.this.getResources().getString(R.string.Detalles));
                         opc.add(Administrador.this.getResources().getString(R.string.Historico));
+                        opc.add(Administrador.this.getResources().getString(R.string.Detalles));
                         opc.add(Administrador.this.getResources().getString(R.string.Editar));
                         opc.add(Administrador.this.getResources().getString(R.string.Eliminar));
                         ArrayAdapter<String> adpOpc = new ArrayAdapter<String>(Administrador.this, R.layout.list_center, opc);
                         listview.setAdapter(adpOpc);
                         AlertDialog.Builder builder3 = new AlertDialog.Builder(Administrador.this);
                         builder3.setView(v2);
-                        builder3.setPositiveButton("Aceptar", null).setNegativeButton("Cancelar", null);
+                        builder3.setPositiveButton(Administrador.this.getResources().getString(R.string.Aceptar), null).setNegativeButton(Administrador.this.getResources().getString(R.string.Cancelar), null);
                         dialog3 = builder3.create();
                         dialog3.setTitle(txtProducto.getText() + " " + txtTipo.getText());
                         dialog3.show();
@@ -726,54 +728,6 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                                 AlertDialog dialog4;
                                 switch (position) {
                                     case 0:
-                                        LayoutInflater inflater2 = getLayoutInflater();
-                                        View v = inflater2.inflate(R.layout.ingreso_producto, null);
-                                        AlertDialog.Builder builder = new AlertDialog.Builder(Administrador.this);
-                                        ArrayList<String> arr = producto.consultarProductoDetallado(txtProducto.getId() + "");
-                                        lyPro = (LinearLayout) v.findViewById(R.id.lyProducto);
-                                        pbPro = (ProgressBar) v.findViewById(R.id.progressBarProducto);
-                                        pbPro.setVisibility(View.INVISIBLE);
-                                        edtNombreProducto = (EditText) v.findViewById(R.id.edtNombreProducto);
-                                        edtNombreProducto.setText(arr.get(0) + "");
-                                        edtNombreProducto.setBackgroundResource(R.drawable.white_button);
-                                        edtNombreProducto.setEnabled(false);
-                                        edtReferencia = (EditText) v.findViewById(R.id.edtReferencia);
-                                        edtReferencia.setText(arr.get(1) + "");
-                                        edtReferencia.setBackgroundResource(R.drawable.white_button);
-                                        edtReferencia.setEnabled(false);
-                                        sTipo = (Spinner) v.findViewById(R.id.sTipo);
-                                        sTipo.setBackgroundResource(R.drawable.white_button);
-                                        sTipo.setClickable(false);
-                                        opc = new ArrayList<String>();
-                                        opc.add(arr.get(2));
-                                        adp = new ArrayAdapter<String>(Administrador.this, android.R.layout.simple_list_item_1, opc);
-                                        sTipo.setAdapter(adp);
-                                        sTamanio = (Spinner) v.findViewById(R.id.sTamanio);
-                                        sTamanio.setBackgroundResource(R.drawable.white_button);
-                                        sTamanio.setClickable(false);
-                                        opc = new ArrayList<String>();
-                                        opc.add(arr.get(3));
-                                        adp2 = new ArrayAdapter<String>(Administrador.this, android.R.layout.simple_list_item_1, opc);
-                                        sTamanio.setAdapter(adp2);
-                                        sMaterial = (Spinner) v.findViewById(R.id.sMaterial);
-                                        sMaterial.setBackgroundResource(R.drawable.white_button);
-                                        sMaterial.setClickable(false);
-                                        opc = new ArrayList<String>();
-                                        opc.add(arr.get(4));
-                                        adp3 = new ArrayAdapter<String>(Administrador.this, android.R.layout.simple_list_item_1, opc);
-                                        sMaterial.setAdapter(adp3);
-                                        v3 = v.findViewById(R.id.rlButtons);
-                                        lyPro.removeView(v3);
-                                        v3 = v.findViewById(R.id.txtTitulo);
-                                        lyPro.removeView(v3);
-                                        builder.setView(v);
-                                        builder.setPositiveButton("Aceptar", null).setNegativeButton("Cancelar", null);
-                                        dialog4 = builder.create();
-                                        dialog4.setTitle(txtProducto.getText() + " " + txtTipo.getText());
-                                        dialog4.show();
-
-                                        break;
-                                    case 1:
                                         int count = 0;
                                         LayoutInflater inflater = getLayoutInflater();
                                         ArrayList<String> historico = historical.consultarHistorico(txtProducto.getId() + "");
@@ -822,12 +776,61 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                                         }
                                         AlertDialog.Builder builder3 = new AlertDialog.Builder(Administrador.this);
                                         builder3.setView(v2);
-                                        builder3.setPositiveButton("Aceptar", null).setNegativeButton("Cancelar", null);
+                                        builder3.setPositiveButton(Administrador.this.getResources().getString(R.string.Aceptar), null).setNegativeButton(Administrador.this.getResources().getString(R.string.Cancelar), null);
                                         AlertDialog dialog3;
                                         dialog3 = builder3.create();
                                         dialog3.setTitle(txtProducto.getText() + " " + txtTipo.getText());
                                         dialog3.show();
                                         break;
+                                    case 1:
+                                        LayoutInflater inflater2 = getLayoutInflater();
+                                        View v = inflater2.inflate(R.layout.ingreso_producto, null);
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(Administrador.this);
+                                        ArrayList<String> arr = producto.consultarProductoDetallado(txtProducto.getId() + "");
+                                        lyPro = (LinearLayout) v.findViewById(R.id.lyProducto);
+                                        pbPro = (ProgressBar) v.findViewById(R.id.progressBarProducto);
+                                        pbPro.setVisibility(View.INVISIBLE);
+                                        edtNombreProducto = (EditText) v.findViewById(R.id.edtNombreProducto);
+                                        edtNombreProducto.setText(arr.get(0) + "");
+                                        edtNombreProducto.setBackgroundResource(R.drawable.white_button);
+                                        edtNombreProducto.setEnabled(false);
+                                        edtReferencia = (EditText) v.findViewById(R.id.edtReferencia);
+                                        edtReferencia.setText(arr.get(1) + "");
+                                        edtReferencia.setBackgroundResource(R.drawable.white_button);
+                                        edtReferencia.setEnabled(false);
+                                        sTipo = (Spinner) v.findViewById(R.id.sTipo);
+                                        sTipo.setBackgroundResource(R.drawable.white_button);
+                                        sTipo.setClickable(false);
+                                        opc = new ArrayList<String>();
+                                        opc.add(arr.get(2));
+                                        adp = new ArrayAdapter<String>(Administrador.this, android.R.layout.simple_list_item_1, opc);
+                                        sTipo.setAdapter(adp);
+                                        sTamanio = (Spinner) v.findViewById(R.id.sTamanio);
+                                        sTamanio.setBackgroundResource(R.drawable.white_button);
+                                        sTamanio.setClickable(false);
+                                        opc = new ArrayList<String>();
+                                        opc.add(arr.get(3));
+                                        adp2 = new ArrayAdapter<String>(Administrador.this, android.R.layout.simple_list_item_1, opc);
+                                        sTamanio.setAdapter(adp2);
+                                        sMaterial = (Spinner) v.findViewById(R.id.sMaterial);
+                                        sMaterial.setBackgroundResource(R.drawable.white_button);
+                                        sMaterial.setClickable(false);
+                                        opc = new ArrayList<String>();
+                                        opc.add(arr.get(4));
+                                        adp3 = new ArrayAdapter<String>(Administrador.this, android.R.layout.simple_list_item_1, opc);
+                                        sMaterial.setAdapter(adp3);
+                                        v3 = v.findViewById(R.id.rlButtons);
+                                        lyPro.removeView(v3);
+                                        v3 = v.findViewById(R.id.txtTitulo);
+                                        lyPro.removeView(v3);
+                                        builder.setView(v);
+                                        builder.setPositiveButton(Administrador.this.getResources().getString(R.string.Aceptar), null).setNegativeButton(Administrador.this.getResources().getString(R.string.Cancelar), null);
+                                        dialog4 = builder.create();
+                                        dialog4.setTitle(txtProducto.getText() + " " + txtTipo.getText());
+                                        dialog4.show();
+
+                                        break;
+
                                     case 2:
 
                                         LayoutInflater inflater3 = getLayoutInflater();
@@ -882,7 +885,7 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                                         v3 = view2.findViewById(R.id.txtTitulo);
                                         lyPro.removeView(v3);
                                         buil.setView(view2);
-                                        buil.setPositiveButton("Aceptar", null).setNegativeButton("Cancelar", null);
+                                        buil.setPositiveButton(Administrador.this.getResources().getString(R.string.Aceptar), null).setNegativeButton(Administrador.this.getResources().getString(R.string.Cancelar), null);
                                         dialog4 = buil.create();
                                         dialog4.setTitle(txtProducto.getText() + " " + txtTipo.getText());
                                         dialog4.show();
@@ -892,7 +895,7 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                                         builder = new AlertDialog.Builder(Administrador.this);
                                         builder.setMessage(Administrador.this.getResources().getString(R.string.MensajeEliminarProducto));
 
-                                        builder.setPositiveButton("Aceptar",new DialogInterface.OnClickListener() {
+                                        builder.setPositiveButton(Administrador.this.getResources().getString(R.string.Aceptar), new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
                                                 try {
@@ -917,7 +920,7 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                                                 }
 
                                             }
-                                        }).setNegativeButton("Cancelar", null);
+                                        }).setNegativeButton(Administrador.this.getResources().getString(R.string.Cancelar), null);
                                         AlertDialog dialog;
                                         dialog = builder.create();
                                         dialog.setTitle("Eliminar");
@@ -1358,17 +1361,29 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
         MenuInflater inflater = getSupportMenuInflater();
         // inflater.inflate(R.menu.menu2, menu);
         SubMenu subMenu = menu.addSubMenu("Config");
-        subMenu.add(R.string.Roles).setIcon(R.drawable.ic_action_users);
-        //subMenu.add(R.string.Materiales).setIcon(R.drawable.ic_action_users);
-        subMenu.add(R.string.Ciudades).setIcon(R.drawable.ic_location_city_black_48dp);
         MenuItem subMenu1Item = subMenu.getItem();
-        subMenu1Item.setIcon(R.drawable.ic_action_core_overflow);
+        switch (op) {
+            case 0:
+                subMenu.add(R.string.Roles).setIcon(R.drawable.ic_action_users);
+                subMenu.add(R.string.Ciudades).setIcon(R.drawable.ic_location_city_black_48dp);
+                break;
+            case 1:
+                subMenu.add(R.string.Tipo).setIcon(R.drawable.ic_action_tiles_large);
+                subMenu.add(R.string.Tamaño).setIcon(R.drawable.ic_action_expand);
+                subMenu.add(R.string.Materiales).setIcon(R.drawable.ic_material);
+
+                break;
+
+
+        }
+        subMenu1Item.setIcon(R.drawable.ic_action_settings);
         subMenu1Item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         item.getItemId();
         if (item.getTitle().equals(getResources().getString(R.string.Roles))) {
             Intent i2 = new Intent(this, Rol.class);
@@ -1377,8 +1392,12 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
         if (item.getTitle().equals(getResources().getString(R.string.Ciudades))) {
             Intent i2 = new Intent(this, Ciudades.class);
             startActivity(i2);
-
         }
+        if (item.getTitle().equals(getResources().getString(R.string.Materiales))) {
+            Intent i2 = new Intent(this, Material.class);
+            startActivity(i2);
+        }
+
         return super.onOptionsItemSelected(item);
     }
 }

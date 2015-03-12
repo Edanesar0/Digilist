@@ -102,15 +102,15 @@ public class UserDAO {
         JSONObject jsonObject = new JSONObject();
         ConexionLocal conexionLocal = new ConexionLocal(c);
         conexionLocal.abrir();
-        String sql = "SELECT idCity FROM city where description='"+usuario.getIdCity()+"'";
+        String sql = "SELECT idCity FROM city where description='" + usuario.getIdCity() + "'";
         Cursor ct = conexionLocal.read(sql);
         for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
-            jsonObject.put("idCity",ct.getString(0));
+            jsonObject.put("idCity", ct.getString(0));
         }
-        sql = "SELECT idRol FROM role where description='"+usuario.getIdRol()+"'";
+        sql = "SELECT idRol FROM role where description='" + usuario.getIdRol() + "'";
         ct = conexionLocal.read(sql);
         for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
-            jsonObject.put("idRol",ct.getString(0));
+            jsonObject.put("idRol", ct.getString(0));
         }
         conexionLocal.cerrar();
         jsonObject.put("names", usuario.getNames());
@@ -137,15 +137,15 @@ public class UserDAO {
         JSONObject jsonObject = new JSONObject();
         ConexionLocal conexionLocal = new ConexionLocal(c);
         conexionLocal.abrir();
-        String sql = "SELECT idCity FROM city where description='"+usuario.getIdCity()+"'";
+        String sql = "SELECT idCity FROM city where description='" + usuario.getIdCity() + "'";
         Cursor ct = conexionLocal.read(sql);
         for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
-            jsonObject.put("idCity",ct.getString(0));
+            jsonObject.put("idCity", ct.getString(0));
         }
-        sql = "SELECT idRol FROM role where description='"+usuario.getIdRol()+"'";
+        sql = "SELECT idRol FROM role where description='" + usuario.getIdRol() + "'";
         ct = conexionLocal.read(sql);
         for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
-            jsonObject.put("idRol",ct.getString(0));
+            jsonObject.put("idRol", ct.getString(0));
         }
         conexionLocal.cerrar();
         jsonObject.put("idUser", usuario.getIdUser());

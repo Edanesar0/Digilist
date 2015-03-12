@@ -93,7 +93,8 @@ public class CityDAO {
         requestsAndResponses = new RequestsAndResponses(c);
         return requestsAndResponses.postCiudades(jsonObject);
     }
-    public JSONArray editarCiudadesHTTP(String cityOld,String city) {
+
+    public JSONArray editarCiudadesHTTP(String cityOld, String city) {
         JSONObject jsonObject = new JSONObject();
         ConexionLocal conexionLocal = new ConexionLocal(c);
         conexionLocal.abrir();
@@ -107,18 +108,19 @@ public class CityDAO {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-         conexionLocal.cerrar();
+        conexionLocal.cerrar();
         requestsAndResponses = new RequestsAndResponses(c);
         return requestsAndResponses.putCiudad(jsonObject);
     }
+
     public JSONArray darBajaCiudad(String idCity) throws JSONException {
         JSONObject jsonObject = new JSONObject();
         ConexionLocal conexionLocal = new ConexionLocal(c);
         conexionLocal.abrir();
-        String sql = "SELECT idCity FROM city where description='"+idCity+"'";
+        String sql = "SELECT idCity FROM city where description='" + idCity + "'";
         Cursor ct = conexionLocal.read(sql);
         for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
-            jsonObject.put("idCity",ct.getString(0));
+            jsonObject.put("idCity", ct.getString(0));
         }
         RequestsAndResponses requestsAndResponses = new RequestsAndResponses(c);
         return requestsAndResponses.deleteCity(jsonObject);

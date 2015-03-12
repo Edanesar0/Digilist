@@ -176,7 +176,7 @@ public class Login extends SherlockActivity {
                 //para el progress dialog
                 pDialog = new ProgressDialog(Login.this);
                 //conexiones.abrir();
-                pDialog.setMessage(Login.this.getResources().getString(R.string.Iniciandosesion)+"");
+                pDialog.setMessage(Login.this.getResources().getString(R.string.Iniciandosesion) + "");
                 //conexiones.cerrar();
                 pDialog.setIndeterminate(false);
                 pDialog.setCancelable(false);
@@ -238,9 +238,9 @@ public class Login extends SherlockActivity {
         vibrator.vibrate(200);
         Toast toast1;
         if (op == 1)
-            toast1 = Toast.makeText(this, "Nombre de usuario o password vacios", Toast.LENGTH_SHORT);
+            toast1 = Toast.makeText(this, this.getResources().getText(R.string.ErrLogVac), Toast.LENGTH_SHORT);
         else
-            toast1 = Toast.makeText(this, "Nombre de usuario o password incorrectos", Toast.LENGTH_SHORT);
+            toast1 = Toast.makeText(this, this.getResources().getText(R.string.ErrLogInc), Toast.LENGTH_SHORT);
         toast1.show();
     }
 

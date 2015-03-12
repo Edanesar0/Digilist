@@ -24,8 +24,11 @@ public class Menu_Inicial_Al extends SherlockActivity implements View.OnClickLis
         conexionLocal.limpiar();
         conexionLocal.cerrar();
 
+
         ab = getSupportActionBar();//instancia
-        // ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);//Atributos titulo boton home y flecha de acompañamiento de home
+        ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_HOME_AS_UP);//Atributos titulo boton home y flecha de acompañamiento de home
+        ab.setHomeButtonEnabled(true);//activar el boton home
+        ab.setDisplayShowHomeEnabled(true);//se pueda ver el boton home
         ab.setIcon(R.drawable.ic_launcher);//se le adiciona el icono
 
 

@@ -165,6 +165,7 @@ public class RequestsAndResponses {
         //realizamos una peticion y como respuesta obtenes un array JSON
         return conexion.getserverdata(null, URL_connect2 + "/user/update-record-by-id", "PUT", datos);
     }
+
     public JSONArray putCiudad(JSONObject datos) {
         conexion = new ConexionHTTP(context);
         //realizamos una peticion y como respuesta obtenes un array JSON
@@ -195,16 +196,19 @@ public class RequestsAndResponses {
         //realizamos una peticion y como respuesta obtenes un array JSON
         return conexion.getserverdata(null, URL_connect, "DELETE1", null);
     }
+
     public JSONArray deleteUser(JSONObject datos) {
         conexion = new ConexionHTTP(context);
         //realizamos una peticion y como respuesta obtenes un array JSON
         return conexion.getserverdata(null, URL_connect2 + "/user/delete-record-by-id", "DELETE2", datos);
     }
+
     public JSONArray deleteCity(JSONObject datos) {
         conexion = new ConexionHTTP(context);
         //realizamos una peticion y como respuesta obtenes un array JSON
         return conexion.getserverdata(null, URL_connect2 + "/city/delete-record-by-id", "DELETE2", datos);
     }
+
     public JSONArray deleteProducto(JSONObject datos) {
         conexion = new ConexionHTTP(context);
         //realizamos una peticion y como respuesta obtenes un array JSON

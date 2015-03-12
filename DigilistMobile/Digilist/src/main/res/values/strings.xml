@@ -82,5 +82,14 @@
     <string name="Guardar">Guardar</string>
     <string name="MensajeEliminarProducto">¿Desea eliminar el  producto?</string>
     <string name="Iniciandosesion">Iniciando sesión</string>
+    <string name="Aceptar">Aceptar</string>
+    <string name="ErrLogVac">Nombre de usuario o password vacíos</string>
+    <string name="ErrLogInc">Nombre de usuario o password incorrectos</string>
+    <string name="Reportes">Reportes</string>
+    <string name="SeleccioneUno">Seleccione Uno</string>
+    <string name="SeleccioneTipo">Seleccione Tipo</string>
+    <string name="Agregar_Material">Agregar Material</string>
+    <string name="Agregar_Tipo">Agregar Tipo</string>
+
 
 </resources>

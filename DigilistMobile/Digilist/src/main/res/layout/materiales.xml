@@ -41,7 +41,7 @@
                         android:layout_marginLeft="1dp"
                         android:layout_marginRight="1dp"
                         android:gravity="center|center_vertical|center_horizontal"
-                        android:text="@string/Nombres"
+                        android:text="@string/Nombre"
                         android:textAppearance="@android:style/TextAppearance.Small"
                         android:textColor="@android:color/white" />
 

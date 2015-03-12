@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import co.edu.sena.digilistmobile.digilist.R;
 import co.edu.sena.digilistmobile.digilist.utils.conexiones.ConexionLocal;
 import co.edu.sena.digilistmobile.digilist.utils.conexiones.RequestsAndResponses;
 
@@ -73,7 +74,7 @@ public class MaterialDAO {
         String sql = "select * " +
                 "from material";
         final ArrayList<String> alist = new ArrayList<String>();
-        alist.add("Seleccione uno");
+        alist.add(c.getResources().getString(R.string.SeleccioneUno));
         Cursor ct = conexionLocal.read(sql);
         //recorre y agrega
         for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
@@ -86,6 +87,7 @@ public class MaterialDAO {
         return alist;
 
     }
+
     public ArrayList<String> consultarMateriales(String Criterio) {
         ConexionLocal conexionLocal = new ConexionLocal(c);
         conexionLocal.abrir();
