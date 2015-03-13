@@ -89,5 +89,10 @@
     <string name="SeleccioneTipo">Sélectionner le type</string>
     <string name="Agregar_Material">Ajouter Matériel</string>
     <string name="Agregar_Tipo">Ajouter un type</string>
+    <string name="Editar_Material">Modifier matériel</string>
+    <string name="MensajeEliminarMaterial">Voulez-vous enlever de la matière?</string>
+    <string name="Ventas">Ventes</string>
+    <string name="Cliente">Client</string>
+    <string name="Agregar_Venta">Ajouter Sale</string>
 
 </resources>

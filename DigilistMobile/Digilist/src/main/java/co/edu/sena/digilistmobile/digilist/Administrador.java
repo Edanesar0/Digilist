@@ -588,7 +588,7 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
                                                 }
                                             }).setNegativeButton(Administrador.this.getResources().getString(R.string.Cancelar), null);
                                             dialog = builder.create();
-                                            dialog.setTitle("Eliminar");
+                                            dialog.setTitle(Administrador.this.getResources().getString(R.string.Eliminar));
                                             dialog.show();
 
                                             break;

@@ -223,6 +223,14 @@ public class Login extends SherlockActivity {
                     startActivity(i);
                     finish();
                 }
+                if (rol == 2) {
+                    Intent i = new Intent(Login.this, Menu_Inicial_Ve.class);
+                    //i.putExtra("user", user);
+                    //i.putExtra("nombre", nombre);
+                    //i.putExtra("cargo", cargo);
+                    startActivity(i);
+                    finish();
+                }
 
 
             } else {

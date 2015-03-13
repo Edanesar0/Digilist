@@ -6,11 +6,14 @@ import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -18,6 +21,7 @@ import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
@@ -35,6 +39,7 @@ public class Material extends SherlockActivity implements View.OnClickListener {
     private ProgressBar pbMaterial;
     private TableLayout tMaterial;
     private ScrollView svMaterial;
+    private EditText edtNombreMaterial, edtDescripcion;
     static Typeface font;
     ActionBar ab;
     MaterialDAO material;
@@ -53,23 +58,69 @@ public class Material extends SherlockActivity implements View.OnClickListener {
         font = Typeface.createFromAsset(this.getAssets(), "Station.ttf");
         material = new MaterialDAO(this);
         new asynclogin().execute("1");
-        ImageButton btnAgregarMaterial =(ImageButton) findViewById(R.id.btnAgregarMate);
-        btnAgregarMaterial.setOnClickListener(this);
+
     }
+
+    public boolean validacion(String text) {
+        boolean val;
+        val = text != null && !text.equals("") && !text.equals(" ");
+        return val;
+    }
+
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btnAgregarMate:
                 LayoutInflater inflater = getLayoutInflater();
                 View v2 = inflater.inflate(R.layout.ingreso_material, null);
+                edtNombreMaterial = (EditText) v2.findViewById(R.id.edtNombreMaterial);
                 AlertDialog.Builder builder3 = new AlertDialog.Builder(Material.this);
                 builder3.setView(v2);
-                builder3.setPositiveButton(Material.this.getResources().getText(R.string.Aceptar),null);
-                builder3.setNegativeButton(Material.this.getResources().getText(R.string.Cancelar),null);
-                Dialog dialog3 = builder3.create();
-                dialog3.setTitle("");
-                dialog3.show();
+                builder3.setPositiveButton(Material.this.getResources().getText(R.string.Aceptar), null);
+                builder3.setNegativeButton(Material.this.getResources().getText(R.string.Cancelar), null);
+                final AlertDialog dialog = builder3.create();
+                dialog.setTitle("");
+                dialog.setCanceledOnTouchOutside(false);
+                dialog.show();
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Boolean wantToCloseDialog = false;
+                        boolean val, val2;
+                        val = validacion(edtNombreMaterial.getText().toString());
+
+                        if (val) {
+                            wantToCloseDialog = true;
+
+                        } else {
+                            edtNombreMaterial.setBackgroundResource(R.drawable.borde_error);
+                            edtNombreMaterial.addTextChangedListener(new TextWatcher() {
+                                @Override
+                                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                                }
+
+                                @Override
+                                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                    edtNombreMaterial.setBackgroundResource(R.drawable.edittext_rounded_corners);
+                                }
+
+                                @Override
+                                public void afterTextChanged(Editable s) {
+
+                                }
+                            });
+                            Toast toast = Toast.makeText(Material.this, Material.this.getResources().getString(R.string.nomvac), Toast.LENGTH_LONG);
+                            toast.show();
+                        }
+                        if (wantToCloseDialog) {
+                            dialog.dismiss();
+                        }
+
+                    }
+                });
+
                 break;
         }
 
@@ -92,6 +143,12 @@ public class Material extends SherlockActivity implements View.OnClickListener {
 
         @Override
         protected String doInBackground(String... params) {
+
+
+            return null;
+        }
+
+        protected void onPostExecute(String result) {
             svMaterial.setVisibility(View.INVISIBLE);
             pbMaterial.setVisibility(View.VISIBLE);
             tMaterial.setStretchAllColumns(true);
@@ -146,8 +203,90 @@ public class Material extends SherlockActivity implements View.OnClickListener {
                             listview.setAdapter(adpOpc);
                             AlertDialog.Builder builder3 = new AlertDialog.Builder(Material.this);
                             builder3.setView(v2);
-                            builder3.setPositiveButton(Material.this.getResources().getText(R.string.Aceptar),null);
-                            builder3.setNegativeButton(Material.this.getResources().getText(R.string.Cancelar),null);
+                            listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    switch (position) {
+                                        case 0:
+                                            LayoutInflater inflater = getLayoutInflater();
+                                            View v2 = inflater.inflate(R.layout.ingreso_material, null);
+                                            ArrayList<String> materiales = material.consultarMateriales(txtNombre.getId() + "");
+                                            TextView txtTitulo = (TextView) v2.findViewById(R.id.txtTitulo);
+                                            txtTitulo.setText(R.string.Editar_Material);
+                                            edtNombreMaterial = (EditText) v2.findViewById(R.id.edtNombreMaterial);
+                                            edtNombreMaterial.setText(materiales.get(1));
+
+                                            edtDescripcion = (EditText) v2.findViewById(R.id.edtDescripcion);
+                                            edtDescripcion.setText(materiales.get(2));
+
+                                            AlertDialog.Builder builder3 = new AlertDialog.Builder(Material.this);
+                                            builder3.setView(v2);
+                                            builder3.setPositiveButton(Material.this.getResources().getText(R.string.Aceptar), null);
+                                            builder3.setNegativeButton(Material.this.getResources().getText(R.string.Cancelar), null);
+                                            final AlertDialog dialog2 = builder3.create();
+                                            dialog2.setTitle("");
+                                            dialog2.setCanceledOnTouchOutside(false);
+                                            dialog2.show();
+                                            dialog2.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    Boolean wantToCloseDialog = false;
+                                                    boolean val, val2;
+                                                    val = validacion(edtNombreMaterial.getText().toString());
+
+                                                    if (val) {
+                                                        wantToCloseDialog = true;
+
+                                                    } else {
+                                                        edtNombreMaterial.setBackgroundResource(R.drawable.borde_error);
+                                                        edtNombreMaterial.addTextChangedListener(new TextWatcher() {
+                                                            @Override
+                                                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                                                            }
+
+                                                            @Override
+                                                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                                                edtNombreMaterial.setBackgroundResource(R.drawable.edittext_rounded_corners);
+                                                            }
+
+                                                            @Override
+                                                            public void afterTextChanged(Editable s) {
+
+                                                            }
+                                                        });
+                                                        Toast toast = Toast.makeText(Material.this, Material.this.getResources().getString(R.string.nomvac), Toast.LENGTH_LONG);
+                                                        toast.show();
+                                                    }
+                                                    if (wantToCloseDialog) {
+                                                        dialog2.dismiss();
+                                                    }
+
+                                                }
+                                            });
+                                            break;
+                                        case 1:
+                                            AlertDialog dialog;
+                                            AlertDialog.Builder builder;
+                                            builder = new AlertDialog.Builder(Material.this);
+                                            builder.setMessage(Material.this.getResources().getString(R.string.MensajeEliminarMaterial));
+
+                                            builder.setPositiveButton(Material.this.getResources().getString(R.string.Aceptar), null)
+                                                    .setNegativeButton(Material.this.getResources().getString(R.string.Cancelar), null);
+                                            dialog = builder.create();
+                                            dialog.setTitle(Material.this.getResources().getString(R.string.Eliminar));
+                                            dialog.show();
+                                            break;
+                                    }
+                                }
+                            });
+                            builder3.setPositiveButton(Material.this.getResources().getText(R.string.Aceptar), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+
+                            });
+                            builder3.setNegativeButton(Material.this.getResources().getText(R.string.Cancelar), null);
                             Dialog dialog3 = builder3.create();
                             dialog3.setTitle(txtNombre.getText());
                             dialog3.show();
@@ -160,11 +299,6 @@ public class Material extends SherlockActivity implements View.OnClickListener {
                     count++;
                 }
             }
-
-            return null;
-        }
-
-        protected void onPostExecute(String result) {
             svMaterial.setVisibility(View.VISIBLE);
             pbMaterial.setVisibility(View.INVISIBLE);
 

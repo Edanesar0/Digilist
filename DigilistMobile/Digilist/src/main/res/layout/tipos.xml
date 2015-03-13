@@ -1,88 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="#f5f5f5"
     android:orientation="vertical">
 
-    <ScrollView
-        android:id="@+id/scrollView"
+    <RelativeLayout
+        android:id="@+id/rl2"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_gravity="center_horizontal"
-        android:background="#f5f5f5">
+        android:layout_height="fill_parent">
 
-        <RelativeLayout
-            android:id="@+id/backgroudProducto"
+        <ScrollView
+            android:id="@+id/svMateriales"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:background="#f5f5f5"
+            android:fillViewport="false">
 
-            <LinearLayout
-                android:id="@+id/lyProducto"
-                android:layout_width="250dp"
+            <TableLayout
+                android:id="@+id/tlMateriales"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center_horizontal"
-                android:orientation="vertical">
+                android:layout_marginTop="1dp"
+                android:shrinkColumns="*"
+                android:stretchColumns="*">
 
-                <TextView
-                    android:id="@+id/txtTitulo"
-                    android:layout_width="fill_parent"
+                <TableRow
+                    android:id="@+id/trhead"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginRight="4dp"
-                    android:layout_marginTop="22dp"
-                    android:text="@string/Agregar_Tipo"
-                    android:textColor="#CB2F17"
-                    android:textSize="20sp"
-                    android:gravity="center" />
-
-                <TextView
-                    android:id="@+id/txtNombre"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/Nombre"
-                    android:textColor="#9a9a9a"
-                    android:textIsSelectable="false"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/edtNombreMaterial"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/edittext_rounded_corners"
-                    android:completionThreshold="1"
-                    android:textColor="#565656"
-                    android:inputType="text" />
+                    android:background="#CB2F17"
+                    android:baselineAligned="false"
+                    android:gravity="center|center_vertical|center_horizontal">
 
 
-                <TextView
-                    android:id="@+id/txtDescripcion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/Descripcion"
-                    android:textColor="#9a9a9a"
-                    android:textIsSelectable="false"
-                    android:textSize="18sp" />
+                    <TextView
+                        android:id="@+id/lblNombreMat"
+                        android:layout_width="fill_parent"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginRight="1dp"
+                        android:gravity="center|center_vertical|center_horizontal"
+                        android:text="@string/Nombre"
+                        android:textAppearance="@android:style/TextAppearance.Small"
+                        android:textColor="@android:color/white" />
 
-                <EditText
-                    android:id="@+id/edtDescripcion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/edittext_rounded_corners"
-                    android:textColor="#565656"
-                    android:layout_marginBottom="40dp" />
+                    <TextView
+                        android:id="@+id/lblDescripcionMat"
+                        android:layout_width="fill_parent"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginRight="1dp"
+                        android:gravity="center|center_vertical|center_horizontal"
+                        android:text="@string/Descripcion"
+                        android:textAppearance="@android:style/TextAppearance.Small"
+                        android:textColor="@android:color/white" />
 
-            </LinearLayout>
-        </RelativeLayout>
-    </ScrollView>
+                    <TextView
+                        android:id="@+id/txtDimencion"
+                        android:layout_width="fill_parent"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginRight="1dp"
+                        android:gravity="center|center_vertical|center_horizontal"
+                        android:text="@string/Tamaño"
+                        android:textAppearance="@android:style/TextAppearance.Small"
+                        android:textColor="@android:color/white" />
 
+                </TableRow>
+            </TableLayout>
+        </ScrollView>
 
+        <ProgressBar
+            android:id="@+id/pbMateriales"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical" />
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/btnAgregarMate"
+            android:background="@drawable/round_button_red"
+            android:src="@drawable/ic_action_add_w"
+            android:layout_marginBottom="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp" />
+
+    </RelativeLayout>
 </LinearLayout>
-
-

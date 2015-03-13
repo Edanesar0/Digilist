@@ -92,7 +92,7 @@ public class MaterialDAO {
         ConexionLocal conexionLocal = new ConexionLocal(c);
         conexionLocal.abrir();
         String sql = "select * " +
-                "from material";
+                "from material where idMaterial like '%" + Criterio + "%'";
         final ArrayList<String> alist = new ArrayList<String>();
         Cursor ct = conexionLocal.read(sql);
         //recorre y agrega

@@ -88,8 +88,13 @@
     <string name="Reportes">Reportes</string>
     <string name="SeleccioneUno">Seleccione Uno</string>
     <string name="SeleccioneTipo">Seleccione Tipo</string>
-    <string name="Agregar_Material">Agregar Material</string>
+    <string name="Agregar_Material">Agregar material</string>
+    <string name="Agregar_Venta">Agregar Venta</string>
     <string name="Agregar_Tipo">Agregar Tipo</string>
+    <string name="Editar_Material">Editar material</string>
+    <string name="MensajeEliminarMaterial">¿Desea eliminar el  material?</string>
+    <string name="Ventas">Ventas</string>
+    <string name="Cliente">Cliente</string>
 
 
 </resources>

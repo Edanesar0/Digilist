@@ -90,5 +90,10 @@
     <string name="SeleccioneTipo">Select Type</string>
     <string name="Agregar_Material">Add Material</string>
     <string name="Agregar_Tipo">Add Type</string>
+    <string name="Editar_Material">Edit Material</string>
+    <string name="MensajeEliminarMaterial">Do you want to remove material?</string>
+    <string name="Ventas">Sales</string>
+    <string name="Cliente">Client</string>
+    <string name="Agregar_Venta">Add Sales</string>
 
 </resources>
