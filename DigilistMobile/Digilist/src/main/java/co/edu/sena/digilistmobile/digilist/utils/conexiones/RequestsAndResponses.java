@@ -99,6 +99,11 @@ public class RequestsAndResponses {
         //realizamos una peticion y como respuesta obtenes un array JSON
         return conexion.getserverdata(null, URL_connect + "/rol.php", "GET1", null);
     }
+    public JSONArray getClient() {
+        conexion = new ConexionHTTP(context);
+        //realizamos una peticion y como respuesta obtenes un array JSON
+        return conexion.getserverdata(null, URL_connect2 + "/client/retrieving-records", "GET1", null);
+    }
 
     public JSONArray postMateriales() {
         conexion = new ConexionHTTP(context);

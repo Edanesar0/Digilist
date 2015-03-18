@@ -28,6 +28,8 @@ import com.actionbarsherlock.app.SherlockActivity;
 
 import java.util.ArrayList;
 
+import co.edu.sena.digilistmobile.digilist.dao.CityDAO;
+import co.edu.sena.digilistmobile.digilist.dao.ClientDAO;
 import co.edu.sena.digilistmobile.digilist.dao.HistoricalSupplyDAO;
 import co.edu.sena.digilistmobile.digilist.dao.MaterialDAO;
 import co.edu.sena.digilistmobile.digilist.dao.ProductDAO;
@@ -46,9 +48,11 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
     private TypeDAO type;
     private MaterialDAO material;
     private StandDAO stand;
+    private ClientDAO client;
+    private CityDAO ciudad;
     private HistoricalSupplyDAO historical;
-    private AutoCompleteTextView auproducto;
-    private ArrayAdapter<String> adaptadorProductos;
+    private AutoCompleteTextView auproducto, auCliente;
+    private ArrayAdapter<String> adaptadorProductos,adpCliente;
     private TextView lvlTipo, lvlMaterial, lvlTamano;
     private EditText edtcantidad, edtNombreProducto, edtReferencia;
     private Button binfo, binfocli, bedit, btnLimpiar, btnAgregar;
@@ -76,7 +80,9 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
     public void addVentas() {
         new asynclogin().execute(1 + "");
         auproducto = (AutoCompleteTextView) findViewById(R.id.acProductos);
+        auCliente = (AutoCompleteTextView) findViewById(R.id.acCliente);
         auproducto.setTypeface(font);
+        auCliente.setTypeface(font);
         lvlTipo = (TextView) findViewById(R.id.lvlTipo);
         lvlTamano = (TextView) findViewById(R.id.lvlTamano);
         lvlTamano.setTypeface(font);
@@ -220,6 +226,8 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
             producto = new ProductDAO(Vendedor.this);
             stand = new StandDAO(Vendedor.this);
             historical = new HistoricalSupplyDAO(Vendedor.this);
+            client= new ClientDAO(Vendedor.this);
+            ciudad= new CityDAO(Vendedor.this);
 
 
         }
@@ -238,12 +246,20 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
                         stand.agregarStand();
                         historical.agregarHistorico();
                         producto.agregarInventario();
+                        ciudad.agregarCiudadesLocal();
+                        client.agregarClienteLocal();
                         ArrayList<String> AProductos = producto.consultarProductos();//retornamos la consulta de inventario
                         ArrayList<String> Apr = new ArrayList<String>();
                         for (int i = 0; i <= AProductos.size() - 4; i = i + 4) {
                             Apr.add(AProductos.get(i));
                         }
                         adaptadorProductos = new ArrayAdapter<String>(Vendedor.this, android.R.layout.simple_list_item_1, Apr);//creamos el adaptador de los spinner agregando los Arraylist
+                        ArrayList<String> aCliente = client.consultarClientes();//retornamos la consulta de inventario
+                        ArrayList<String> aCli = new ArrayList<String>();
+                        for (int i = 0; i < aCliente.size(); i++) {
+                            aCli.add(aCliente.get(i));
+                        }
+                        adpCliente= new ArrayAdapter<String>(Vendedor.this, android.R.layout.simple_list_item_1, aCli);//creamos el adaptador de los spinner agregando los Arraylist
 
                         break;
                     case '3':
@@ -277,6 +293,7 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
                     layoutver.setVisibility(View.VISIBLE);
                     pb.setVisibility(ProgressBar.INVISIBLE);
                     auproducto.setAdapter(adaptadorProductos);
+                    auCliente.setAdapter(adpCliente);
                     break;
                 case '3':
                     ArrayList<String> productos = producto.consultarInventarios();

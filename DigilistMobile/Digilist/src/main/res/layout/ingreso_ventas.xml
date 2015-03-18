@@ -4,26 +4,30 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#f5f5f5"
-    android:orientation="vertical"
+    android:baselineAligned="false"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:weightSum="100"
     tools:context=".HiScreen">
 
     <ScrollView
         android:id="@+id/scrollView"
-        android:layout_width="fill_parent"
+        android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:layout_gravity="center_horizontal"
+        android:layout_gravity="center"
+        android:layout_weight="70"
         android:background="#f5f5f5">
 
-
         <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <RelativeLayout
                 android:id="@+id/rl2"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="0dp"
+                android:layout_weight="70">
 
                 <ProgressBar
                     android:id="@+id/progressBar"
@@ -35,8 +39,10 @@
                     android:layout_gravity="center_vertical" />
 
                 <LinearLayout
+
                     android:id="@+id/lyVentas"
-                    android:layout_width="250dp"
+
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
@@ -65,15 +71,31 @@
                         android:textIsSelectable="false"
                         android:textSize="18dp" />
 
-                    <EditText
-                        android:id="@+id/autoCompleteTextView"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:layout_alignParentBottom="true"
-                        android:layout_toLeftOf="@+id/btnInfo"
-                        android:background="@drawable/edittext_rounded_corners"
-                        android:completionThreshold="1"
-                        android:textColor="#565656" />
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/acCliente"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_gravity="center"
+                            android:layout_toLeftOf="@+id/btnInfoCliente"
+                            android:background="@drawable/edittext_rounded_corners"
+                            android:completionThreshold="1"
+                            android:textColor="#565656" />
+
+                        <Button
+                            android:id="@+id/btnInfoCliente"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentBottom="false"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignWithParentIfMissing="false"
+                            android:background="@drawable/icon_marcador" />
+                    </RelativeLayout>
 
                     <TextView
                         android:id="@+id/txtProducto"
@@ -88,14 +110,15 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal">
 
                         <AutoCompleteTextView
                             android:id="@+id/acProductos"
-                            android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
-                            android:layout_alignParentBottom="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentTop="true"
                             android:layout_gravity="center"
                             android:layout_toLeftOf="@+id/btnInfo"
                             android:background="@drawable/edittext_rounded_corners"
@@ -206,9 +229,9 @@
                             android:id="@+id/btnAgregarInve"
                             android:layout_width="95dp"
                             android:layout_height="40dp"
-                            android:layout_alignParentLeft="true"
                             android:layout_alignParentTop="true"
                             android:layout_gravity="right|center_vertical"
+                            android:layout_toLeftOf="@+id/txto"
                             android:background="@drawable/red_button"
                             android:drawablePadding="3dp"
                             android:text="@string/Agregar"
@@ -219,11 +242,9 @@
                             android:id="@+id/btnLimpiar"
                             android:layout_width="95dp"
                             android:layout_height="40dp"
-                            android:layout_alignBottom="@+id/btnAgregarInve"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentTop="true"
+                            android:layout_alignParentBottom="true"
                             android:layout_gravity="left|center_vertical"
-                            android:layout_marginRight="20dp"
+                            android:layout_toRightOf="@+id/txto"
                             android:background="@drawable/gray_button"
                             android:drawablePadding="3dp"
                             android:text="@string/Limpiar"
@@ -232,11 +253,10 @@
 
                         <TextView
                             android:id="@+id/txto"
-                            android:layout_width="wrap_content"
+                            android:layout_width="25dp"
                             android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
                             android:layout_centerVertical="true"
-                            android:layout_toLeftOf="@+id/btnLimpiar"
-                            android:layout_toRightOf="@+id/btnAgregarInve"
                             android:gravity="center_horizontal"
                             android:text="ó"
                             android:textAppearance="?android:attr/textAppearanceMedium"
