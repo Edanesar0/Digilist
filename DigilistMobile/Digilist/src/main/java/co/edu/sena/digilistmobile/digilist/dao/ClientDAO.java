@@ -74,7 +74,7 @@ public class ClientDAO {
         String sql = "select * " +
                 "from client";
         final ArrayList<String> alist = new ArrayList<String>();
-        alist.add(c.getResources().getString(R.string.SeleccioneUno));
+        //alist.add(c.getResources().getString(R.string.SeleccioneUno));
         Cursor ct = conexionLocal.read(sql);
         //recorre y agrega
         for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
@@ -97,13 +97,27 @@ public class ClientDAO {
         Cursor ct = conexionLocal.read(sql);
         //recorre y agrega
         for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
-            alist.add(ct.getString(0));
-            alist.add(ct.getString(1));
-            alist.add(ct.getString(2));
+            alist.add(ct.getString(2)+" - "+ct.getString(3));
         }
         conexionLocal.cerrar();
         return alist;
 
+    }
+    public ArrayList<String> consultarCliente(String criterio, String valor) {
+        ConexionLocal conexionLocal = new ConexionLocal(c);
+        conexionLocal.abrir();
+        String sql = "select * " +
+                "from client where  " + criterio + "='" + valor + "'";
+        final ArrayList<String> alist = new ArrayList<String>();
+        Cursor ct = conexionLocal.read(sql);
+        //recorre y agrega
+        for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
+            alist.add(ct.getString(0));
+            alist.add(ct.getString(2));
+            alist.add(ct.getString(3));
+        }
+        conexionLocal.cerrar();
+        return alist;
     }
 
 }

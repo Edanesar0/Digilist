@@ -1,11 +1,15 @@
 package co.edu.sena.digilistmobile.digilist;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
@@ -17,6 +21,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
@@ -25,6 +30,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
+
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 
@@ -35,6 +42,7 @@ import co.edu.sena.digilistmobile.digilist.dao.MaterialDAO;
 import co.edu.sena.digilistmobile.digilist.dao.ProductDAO;
 import co.edu.sena.digilistmobile.digilist.dao.StandDAO;
 import co.edu.sena.digilistmobile.digilist.dao.TypeDAO;
+import co.edu.sena.digilistmobile.digilist.utils.conexiones.ConexionLocal;
 
 /**
  * Created by Axxuss on 12/03/2015.
@@ -43,6 +51,7 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
     Typeface font;
     private TableLayout tl;
     int op;
+    int count = 0;
     Toast toast;
     private ProductDAO producto;
     private TypeDAO type;
@@ -52,7 +61,7 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
     private CityDAO ciudad;
     private HistoricalSupplyDAO historical;
     private AutoCompleteTextView auproducto, auCliente;
-    private ArrayAdapter<String> adaptadorProductos,adpCliente;
+    private ArrayAdapter<String> adaptadorProductos, adpCliente;
     private TextView lvlTipo, lvlMaterial, lvlTamano;
     private EditText edtcantidad, edtNombreProducto, edtReferencia;
     private Button binfo, binfocli, bedit, btnLimpiar, btnAgregar;
@@ -89,6 +98,9 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
         binfo = (Button) findViewById(R.id.btnInfo);
         binfo.setTypeface(font);
         binfo.setOnClickListener(Vendedor.this);
+        binfocli = (Button) findViewById(R.id.btnInfoCliente);
+        binfocli.setTypeface(font);
+        binfocli.setOnClickListener(Vendedor.this);
         lvlMaterial = (TextView) findViewById(R.id.lvlMaterial);
         lvlMaterial.setTypeface(font);
         edtcantidad = (EditText) findViewById(R.id.edtcantidad);
@@ -127,7 +139,7 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
 
         btnLimpiar = (Button) findViewById(R.id.btnLimpiar);
         btnLimpiar.setOnClickListener(this);
-        btnAgregar = (Button) findViewById(R.id.btnAgregarInve);
+        btnAgregar = (Button) findViewById(R.id.btnAgregarVenta);
         btnAgregar.setOnClickListener(this);
 
     }
@@ -208,6 +220,180 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
                     e.printStackTrace();
                 }
                 break;
+
+
+            case R.id.btnInfoCliente:
+                try {
+                    final String[] prodSel = {""};
+                    ArrayList<String> lis = client.consultarClientes();
+                    final String[] pro = new String[lis.size()];
+                    int y = 0;
+                    for (int j = 0; j < lis.size(); j++) {
+                        pro[y] = lis.get(j);
+                        y++;
+                    }
+
+
+                    LayoutInflater inflater = Vendedor.this.getLayoutInflater();
+                    View v2 = inflater.inflate(R.layout.mensaje_productos, null);
+                    AlertDialog.Builder builder3 = new AlertDialog.Builder(Vendedor.this);
+                    builder3.setSingleChoiceItems(pro, -1, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            prodSel[0] = pro[which].substring(0, pro[which].indexOf("-") - 1);
+
+                        }
+                    });
+                    builder3.setPositiveButton(Vendedor.this.getResources().getString(R.string.Aceptar), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            ArrayList lis = client.consultarCliente("name", prodSel[0]);
+                            auCliente.setText(lis.get(1) + " - " + lis.get(2));
+
+                        }
+                    }).setNegativeButton(Vendedor.this.getResources().getString(R.string.Cancelar), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            auproducto.setText("");
+                            lvlTipo.setText("");
+                            lvlTamano.setText("");
+                            lvlMaterial.setText("");
+                            edtcantidad.setText("");
+                        }
+                    });
+                    AlertDialog dialog3;
+                    dialog3 = builder3.create();
+                    dialog3.setTitle("Clientes");
+                    dialog3.show();
+
+
+                } catch (Exception e) {
+                    toast = Toast.makeText(Vendedor.this, e.getMessage(), Toast.LENGTH_LONG);
+                    toast.show();
+                    e.printStackTrace();
+                }
+                break;
+            case R.id.btnAgregarVenta:
+
+                Vibrator vibrator = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
+                boolean validacion, validacion2, validacion3;
+
+
+                if (validacion(auCliente.getText().toString())) {
+                    validacion3 = true;
+
+                } else {
+                    vibrator.vibrate(200);
+                    toast = Toast.makeText(this, "Campo Cliente vacio", Toast.LENGTH_LONG);
+                    toast.show();
+                    validacion3 = false;
+                }
+
+                if (validacion(auproducto.getText().toString())) {
+                    validacion = true;
+
+                } else {
+                    vibrator.vibrate(200);
+                    toast = Toast.makeText(this, getResources().getText(R.string.prodvac) + "", Toast.LENGTH_LONG);
+                    toast.show();
+                    validacion = false;
+                }
+                if (validacion(edtcantidad.getText().toString())) {
+                    validacion2 = true;
+                } else {
+                    vibrator.vibrate(200);
+                    toast = Toast.makeText(this, getResources().getText(R.string.canvac) + "", Toast.LENGTH_LONG);
+                    toast.show();
+                    validacion2 = false;
+                }
+                if (validacion && validacion2) {
+                    try {
+
+                        LinearLayout lyventa = (LinearLayout) findViewById(R.id.lyVenta);
+                        View view = getLayoutInflater().inflate(R.layout.pedido, lyventa);
+                        TextView txtNombre = (TextView) view.findViewById(R.id.txtCliente);
+                        txtNombre.setText(auCliente.getText().toString() + "");
+                        auCliente.setEnabled(false);
+                        TableLayout tabla = (TableLayout) view.findViewById(R.id.tlPedido);
+                        tabla.setStretchAllColumns(true);
+                        tabla.setShrinkAllColumns(true);
+
+                        final TableRow tr = new TableRow(Vendedor.this);
+
+                        if (count % 2 != 0) {
+                            tr.setBackgroundResource(R.drawable.row_selector_r);
+                            //tr.setBackgroundColor(Color.argb(15, 203, 47, 23));
+                        } else {
+                            tr.setBackgroundResource(R.drawable.row_selector_w);
+                            //tr.setBackgroundColor(Color.WHITE);
+                        }
+                        final TextView txtNombres = new TextView(Vendedor.this);
+                        txtNombres.setTypeface(font);
+                        txtNombres.setText(auproducto.getText());
+                        txtNombres.setLines(3);
+                        txtNombres.setTypeface(font);
+                        txtNombres.setGravity(Gravity.CENTER);
+                        //txtProducto.setTextSize(20);
+                        tr.addView(txtNombres);
+                        final TextView txtDescripcion = new TextView(Vendedor.this);
+                        txtDescripcion.setTypeface(font);
+                        txtDescripcion.setLines(3);
+                        txtDescripcion.setText(lvlMaterial.getText());
+                        txtDescripcion.setGravity(Gravity.CENTER);
+                        txtDescripcion.setTypeface(font);
+                        txtDescripcion.setLines(2);
+                        tr.addView(txtDescripcion);
+                        final TextView txtCantidad = new TextView(Vendedor.this);
+                        txtCantidad.setTypeface(font);
+                        txtCantidad.setLines(3);
+                        txtCantidad.setText(edtcantidad.getText());
+                        txtCantidad.setGravity(Gravity.CENTER);
+                        txtCantidad.setTypeface(font);
+                        txtCantidad.setLines(2);
+                        tr.addView(txtCantidad);
+
+                        tr.setLayoutParams(new TableRow.LayoutParams(
+                                TableLayout.LayoutParams.FILL_PARENT,
+                                TableLayout.LayoutParams.FILL_PARENT));
+                        tabla.addView(tr, new TableLayout.LayoutParams(
+                                TableLayout.LayoutParams.FILL_PARENT,
+                                TableLayout.LayoutParams.FILL_PARENT));
+                        count++;
+                        
+                        
+                        
+
+                       /* JSONArray jspro = null;// producto.agregarInventario(auproducto.getText().toString(), Float.parseFloat(edtcantidad.getText().toString()));
+                        String mensaje = jspro.getString(0);
+                        if (mensaje.contains("There stock has been updated.")) {
+                            auproducto.setText("");
+                            lvlTipo.setText("");
+                            lvlTamano.setText("");
+                            lvlMaterial.setText("");
+                            edtcantidad.setText("");
+                            toast = Toast.makeText(this, R.string.Inventario_Agregado, Toast.LENGTH_SHORT);
+                            Intent it = this.getIntent();
+                            finish();
+                            ConexionLocal conexionLocal = new ConexionLocal(this);
+                            conexionLocal.abrir();
+                            conexionLocal.limpiar();
+                            conexionLocal.cerrar();
+                            startActivity(it);
+                            toast.show();
+                        } else {
+                            toast = Toast.makeText(this, R.string.ErrorServidor + "", Toast.LENGTH_LONG);
+                            toast.show();
+
+                        }*/
+                    } catch (Exception e) {
+                        toast = Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG);
+                        toast.show();
+                        e.printStackTrace();
+                    }
+
+                }
+                break;
         }
     }
 
@@ -226,8 +412,8 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
             producto = new ProductDAO(Vendedor.this);
             stand = new StandDAO(Vendedor.this);
             historical = new HistoricalSupplyDAO(Vendedor.this);
-            client= new ClientDAO(Vendedor.this);
-            ciudad= new CityDAO(Vendedor.this);
+            client = new ClientDAO(Vendedor.this);
+            ciudad = new CityDAO(Vendedor.this);
 
 
         }
@@ -259,7 +445,7 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
                         for (int i = 0; i < aCliente.size(); i++) {
                             aCli.add(aCliente.get(i));
                         }
-                        adpCliente= new ArrayAdapter<String>(Vendedor.this, android.R.layout.simple_list_item_1, aCli);//creamos el adaptador de los spinner agregando los Arraylist
+                        adpCliente = new ArrayAdapter<String>(Vendedor.this, android.R.layout.simple_list_item_1, aCli);//creamos el adaptador de los spinner agregando los Arraylist
 
                         break;
                     case '3':
@@ -375,4 +561,23 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
 
         }
     }
+
+    public boolean validacion(String text) {
+        boolean val;
+        if (text != null) {
+            if (!text.equals("")) {
+                if (!text.equals(" ")) {
+                    val = true;
+                } else {
+                    val = false;
+                }
+            } else {
+                val = false;
+            }
+        } else {
+            val = false;
+        }
+        return val;
+    }
+
 }
