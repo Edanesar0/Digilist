@@ -902,12 +902,12 @@ public class Administrador extends SherlockActivity implements AdapterView.OnIte
 
                                                     JSONArray ja = producto.eliminarProducto(txtProducto.getId());
                                                     String mensajes = ja.getString(0);
-                                                    if (mensajes.contains("The specified record has been deleted")) {
-                                                        toast = Toast.makeText(Administrador.this, R.string.Usuario_Eliminado, Toast.LENGTH_LONG);
-                                                        toast.show();
-                                                        dialog.dismiss();
+                                                    if (mensajes.contains("The record has been deleted.")) {
                                                         Intent it = getIntent();
                                                         finish();
+                                                        toast = Toast.makeText(Administrador.this, R.string.Producto_Eliminado, Toast.LENGTH_LONG);
+                                                        toast.show();
+                                                        dialog.dismiss();
                                                         ConexionLocal conexionLocal = new ConexionLocal(Administrador.this);
                                                         conexionLocal.abrir();
                                                         conexionLocal.limpiar();

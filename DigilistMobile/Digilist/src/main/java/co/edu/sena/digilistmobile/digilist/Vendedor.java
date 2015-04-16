@@ -29,7 +29,12 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.SubMenu;
 
 import org.json.JSONArray;
 
@@ -58,10 +63,14 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
     private MaterialDAO material;
     private StandDAO stand;
     private ClientDAO client;
+    private ActionBar ab;
     private CityDAO ciudad;
+    private Menu menu;
+    private boolean visGuar = false;
     private HistoricalSupplyDAO historical;
     private AutoCompleteTextView auproducto, auCliente;
     private ArrayAdapter<String> adaptadorProductos, adpCliente;
+    private ArrayList<String> datos = new ArrayList<String>();
     private TextView lvlTipo, lvlMaterial, lvlTamano;
     private EditText edtcantidad, edtNombreProducto, edtReferencia;
     private Button binfo, binfocli, bedit, btnLimpiar, btnAgregar;
@@ -69,6 +78,12 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ab = getSupportActionBar();//instancia
+        ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_HOME_AS_UP);//Atributos titulo boton home y flecha de acompañamiento de home
+        ab.setHomeButtonEnabled(true);//activar el boton home
+        ab.setDisplayShowHomeEnabled(true);//se pueda ver el boton home
+        ab.setIcon(R.drawable.ic_launcher);//se le adiciona el icono
         font = Typeface.createFromAsset(this.getAssets(), "Station.ttf");
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -247,8 +262,12 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
                     builder3.setPositiveButton(Vendedor.this.getResources().getString(R.string.Aceptar), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
+                            try{
                             ArrayList lis = client.consultarCliente("name", prodSel[0]);
                             auCliente.setText(lis.get(1) + " - " + lis.get(2));
+                            }catch (Exception e){
+
+                            }
 
                         }
                     }).setNegativeButton(Vendedor.this.getResources().getString(R.string.Cancelar), new DialogInterface.OnClickListener() {
@@ -328,39 +347,79 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
                             tr.setBackgroundResource(R.drawable.row_selector_w);
                             //tr.setBackgroundColor(Color.WHITE);
                         }
+
                         final TextView txtNombres = new TextView(Vendedor.this);
                         txtNombres.setTypeface(font);
-                        txtNombres.setText(auproducto.getText());
+
                         txtNombres.setLines(3);
                         txtNombres.setTypeface(font);
                         txtNombres.setGravity(Gravity.CENTER);
                         //txtProducto.setTextSize(20);
-                        tr.addView(txtNombres);
-                        final TextView txtDescripcion = new TextView(Vendedor.this);
-                        txtDescripcion.setTypeface(font);
-                        txtDescripcion.setLines(3);
-                        txtDescripcion.setText(lvlMaterial.getText());
-                        txtDescripcion.setGravity(Gravity.CENTER);
-                        txtDescripcion.setTypeface(font);
-                        txtDescripcion.setLines(2);
-                        tr.addView(txtDescripcion);
+
+                        final TextView txtMaterial = new TextView(Vendedor.this);
+                        txtMaterial.setTypeface(font);
+                        txtMaterial.setLines(3);
+
+                        txtMaterial.setGravity(Gravity.CENTER);
+                        txtMaterial.setTypeface(font);
+                        txtMaterial.setLines(2);
                         final TextView txtCantidad = new TextView(Vendedor.this);
                         txtCantidad.setTypeface(font);
+                        txtCantidad.setId(count);
                         txtCantidad.setLines(3);
-                        txtCantidad.setText(edtcantidad.getText());
+
                         txtCantidad.setGravity(Gravity.CENTER);
                         txtCantidad.setTypeface(font);
                         txtCantidad.setLines(2);
-                        tr.addView(txtCantidad);
+                        boolean val = true,ban = false;
+                        int pos = 0;
 
+
+                        if (datos.size() != 0) {
+                            for (int i = 0; i < datos.size(); i++) {
+                                if (datos.get(i).equals(auproducto.getText().toString() + " " + lvlMaterial.getText().toString())) {
+                                    pos = i;
+                                    val = false;
+                                    ban=true;
+
+                                } else {
+
+                                    //i=datos.size();
+                                }
+                            }
+                            if (!ban){
+                                datos.add(count, auproducto.getText().toString() + " " + lvlMaterial.getText().toString());
+                            }
+                        } else
+                            datos.add(count, auproducto.getText().toString() + " " + lvlMaterial.getText().toString());
+                        if (val) {
+                            txtNombres.setText(auproducto.getText());
+                            txtMaterial.setText(lvlMaterial.getText());
+                            txtCantidad.setText(edtcantidad.getText());
+
+                            tr.addView(txtNombres);
+                            tr.addView(txtMaterial);
+                            tr.addView(txtCantidad);
+                            count++;
+                        } else {
+                            TextView txtcantidad = (TextView) findViewById(pos);
+                            txtcantidad.setText("" + (Integer.parseInt(txtcantidad.getText().toString()) + Integer.parseInt(edtcantidad.getText().toString())));
+                        }
+
+                        auproducto.setText("");
+                        lvlMaterial.setText("");
+                        edtcantidad.setText("");
                         tr.setLayoutParams(new TableRow.LayoutParams(
                                 TableLayout.LayoutParams.FILL_PARENT,
                                 TableLayout.LayoutParams.FILL_PARENT));
                         tabla.addView(tr, new TableLayout.LayoutParams(
                                 TableLayout.LayoutParams.FILL_PARENT,
                                 TableLayout.LayoutParams.FILL_PARENT));
-                        count++;
-                        
+
+                        visGuar = true;
+
+                        onPrepareOptionsMenu(menu);
+
                         
                         
 
@@ -580,4 +639,41 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
         return val;
     }
 
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        this.menu = menu;
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        item.getItemId();
+        if (item.getTitle().equals(getResources().getString(R.string.Guardar))) {
+
+        }
+        if (item.getTitle().equals(getResources().getString(R.string.Nueva_Venta))) {
+            Intent i2 = new Intent(this, Ciudades.class);
+            startActivity(i2);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (visGuar) {
+            menu.clear();
+            SubMenu subMenu = menu.addSubMenu("Op");
+            MenuItem subMenu1Item = subMenu.getItem();
+            subMenu.add(R.string.Guardar).setIcon(R.drawable.ic_action_save);
+            subMenu.add(R.string.Nueva_Venta).setIcon(R.drawable.ic_action_list);
+            subMenu1Item.setIcon(R.drawable.ic_action_overflow);
+            subMenu1Item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        }
+
+        return super.onPrepareOptionsMenu(menu);
+    }
 }
+
+

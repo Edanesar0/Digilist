@@ -165,8 +165,28 @@ public class ProductDAO {
     public JSONArray eliminarProducto(int identificador) throws JSONException {
         requestsAndResponses = new RequestsAndResponses(c);
         JSONObject jsonObject = new JSONObject();
+        ConexionLocal conexionLocal = new ConexionLocal(c);
+        conexionLocal.abrir();
+        String sql = "select * " +
+                "from stock " +
+                "where idProduct="+identificador;
+        final ArrayList<String> alist = new ArrayList<String>();
+        Cursor ct = conexionLocal.read(sql);
+        //recorre y agrega
+        for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
+            alist.add(ct.getString(0));
+        }
+        conexionLocal.cerrar();
+        for (String s:alist){
+            JSONObject jsonObject2 = new JSONObject();
+            jsonObject2.put("idStock", s);
+            requestsAndResponses.deleteStock(jsonObject2);
+
+        }
+
+
         jsonObject.put("idProduct", identificador);
-        return requestsAndResponses.deleteUser(jsonObject);
+        return requestsAndResponses.deleteProducto(jsonObject);
     }
 
     public ArrayList<String> consultarInventarios() {
