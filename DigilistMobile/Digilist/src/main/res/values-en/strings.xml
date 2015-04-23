@@ -95,5 +95,6 @@
     <string name="Ventas">Sales</string>
     <string name="Cliente">Client</string>
     <string name="Agregar_Venta">Add Sales</string>
+    <string name="Ingreso_Cliente">Join Client</string>
 
 </resources>

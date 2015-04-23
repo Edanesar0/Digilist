@@ -1,7 +1,6 @@
 package co.edu.sena.digilistmobile.digilist;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,7 +20,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
@@ -32,11 +30,8 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.SubMenu;
-
-import org.json.JSONArray;
 
 import java.util.ArrayList;
 
@@ -47,7 +42,6 @@ import co.edu.sena.digilistmobile.digilist.dao.MaterialDAO;
 import co.edu.sena.digilistmobile.digilist.dao.ProductDAO;
 import co.edu.sena.digilistmobile.digilist.dao.StandDAO;
 import co.edu.sena.digilistmobile.digilist.dao.TypeDAO;
-import co.edu.sena.digilistmobile.digilist.utils.conexiones.ConexionLocal;
 
 /**
  * Created by Axxuss on 12/03/2015.
@@ -73,7 +67,7 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
     private ArrayList<String> datos = new ArrayList<String>();
     private TextView lvlTipo, lvlMaterial, lvlTamano;
     private EditText edtcantidad, edtNombreProducto, edtReferencia;
-    private Button binfo, binfocli, bedit, btnLimpiar, btnAgregar;
+    private Button binfo, btnInfoCli, bedit, btnLimpiar, btnAgregar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +92,10 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
                 setContentView(R.layout.inventario);
                 inventario();
                 break;
+            case 3:
+                setContentView(R.layout.ingreso_cliente);
+
+                break;
         }
     }
 
@@ -113,9 +111,9 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
         binfo = (Button) findViewById(R.id.btnInfo);
         binfo.setTypeface(font);
         binfo.setOnClickListener(Vendedor.this);
-        binfocli = (Button) findViewById(R.id.btnInfoCliente);
-        binfocli.setTypeface(font);
-        binfocli.setOnClickListener(Vendedor.this);
+        btnInfoCli = (Button) findViewById(R.id.btnInfoCliente);
+        btnInfoCli.setTypeface(font);
+        btnInfoCli.setOnClickListener(Vendedor.this);
         lvlMaterial = (TextView) findViewById(R.id.lvlMaterial);
         lvlMaterial.setTypeface(font);
         edtcantidad = (EditText) findViewById(R.id.edtcantidad);
@@ -295,6 +293,7 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
                 break;
             case R.id.btnAgregarVenta:
 
+                btnInfoCli.setEnabled(false);
                 Vibrator vibrator = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
                 boolean validacion, validacion2, validacion3;
 

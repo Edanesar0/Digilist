@@ -97,6 +97,7 @@
     <string name="Ventas">Ventas</string>
     <string name="Cliente">Cliente</string>
     <string name="Nueva_Venta">Nueva Venta</string>
+    <string name="Ingreso_Cliente">Ingreso Cliente</string>
 
 
 </resources>

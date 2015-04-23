@@ -37,6 +37,8 @@ public class Menu_Inicial_Ve extends SherlockActivity implements View.OnClickLis
         bt.setOnClickListener(this);
         RelativeLayout bt2 = (RelativeLayout) findViewById(R.id.rl2);
         bt2.setOnClickListener(this);
+        RelativeLayout bt3 = (RelativeLayout) findViewById(R.id.rl3);
+        bt3.setOnClickListener(this);
     }
 
     @Override
@@ -76,6 +78,11 @@ public class Menu_Inicial_Ve extends SherlockActivity implements View.OnClickLis
                 Intent i2 = new Intent(this, Vendedor.class);
                 i2.putExtra("pos", 2);
                 startActivity(i2);
+                break;
+            case R.id.rl3:
+                Intent i3 = new Intent(this, Vendedor.class);
+                i3.putExtra("pos", 3);
+                startActivity(i3);
                 break;
 
         }
