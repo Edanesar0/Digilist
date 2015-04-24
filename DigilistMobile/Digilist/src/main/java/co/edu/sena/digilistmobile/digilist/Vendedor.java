@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
@@ -93,11 +94,109 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
                 inventario();
                 break;
             case 3:
-                setContentView(R.layout.ingreso_cliente);
+                setContentView(R.layout.clientes);
+                clientes();
 
                 break;
         }
     }
+
+    private void clientes() {
+        new asynclogin().execute(4 + "");
+        final Typeface font = Typeface.createFromAsset(this.getAssets(), "Station.ttf");
+
+        ImageButton btnAdd = (ImageButton) findViewById(R.id.btnAgregarCli);
+        btnAdd.setOnClickListener(this);
+        TableLayout tl = (TableLayout) findViewById(R.id.tlClientes);
+        tl.setStretchAllColumns(true);
+        tl.setShrinkAllColumns(true);
+        TextView lblNombre = (TextView) findViewById(R.id.lblNombre);
+        lblNombre.setTypeface(font);
+        TextView lblTelefono = (TextView) findViewById(R.id.lblTelefono);
+        lblTelefono.setTypeface(font);
+        TextView lblDireccion = (TextView) findViewById(R.id.lblDireccion);
+        lblDireccion.setTypeface(font);
+        TextView lblCiudad = (TextView) findViewById(R.id.lblCiudad);
+        lblCiudad.setTypeface(font);
+
+
+        ArrayList<String> clientes = client.consultarClientes();//retornamos la consulta de inventario
+
+
+        int count = 0;
+        if (clientes.size() != 0) {
+            for (int i = 0; i <= clientes.size() - 5; i = i + 5) {
+                final TableRow tr = new TableRow(Vendedor.this);
+
+                if (count % 2 != 0) {
+                    tr.setBackgroundResource(R.drawable.row_selector_r);
+                    //tr.setBackgroundColor(Color.argb(15, 203, 47, 23));
+                } else {
+                    tr.setBackgroundResource(R.drawable.row_selector_w);
+                    //tr.setBackgroundColor(Color.WHITE);
+                }
+                final TextView txtNombre = new TextView(Vendedor.this);
+                txtNombre.setTypeface(font);
+                txtNombre.setId(Integer.parseInt(clientes.get(i)));
+                txtNombre.setText(clientes.get(i + 1));
+                txtNombre.setLines(3);
+                txtNombre.setTypeface(font);
+                txtNombre.setGravity(Gravity.CENTER);
+                //txtProducto.setTextSize(20);
+                tr.addView(txtNombre);
+                final TextView txtTelefono = new TextView(Vendedor.this);
+                txtTelefono.setTypeface(font);
+                txtTelefono.setLines(3);
+                txtTelefono.setText(clientes.get(i + 2));
+                txtTelefono.setGravity(Gravity.CENTER);
+                txtTelefono.setTypeface(font);
+                txtTelefono.setLines(2);
+                tr.addView(txtTelefono);
+                TextView txtDireccion = new TextView(Vendedor.this);
+                txtDireccion.setTypeface(font);
+                txtDireccion.setLines(3);
+                txtDireccion.setText(clientes.get(i + 3));
+                txtDireccion.setGravity(Gravity.CENTER);
+                txtDireccion.setTypeface(font);
+                tr.addView(txtDireccion);
+                TextView txtCiudad = new TextView(Vendedor.this);
+                txtCiudad.setTypeface(font);
+                txtCiudad.setLines(3);
+                txtCiudad.setText(clientes.get(i + 4));
+                txtCiudad.setGravity(Gravity.CENTER);
+                txtCiudad.setTypeface(font);
+                tr.addView(txtCiudad);
+                count++;
+            }
+        }else{
+            TableRow tr_head = (TableRow) findViewById(R.id.trhead);
+            tr_head.removeAllViews();
+            //tr_head.setId(0);
+            tr_head.setBackgroundColor(Color.rgb(203, 47, 23));
+            tr_head.setLayoutParams(new TableLayout.LayoutParams(
+                    TableLayout.LayoutParams.MATCH_PARENT,
+                    TableLayout.LayoutParams.WRAP_CONTENT));
+            TextView lblMensaje = new TextView(Vendedor.this);
+            //lblMensaje.setId(20);
+            lblMensaje.setTypeface(font);
+            lblMensaje.setText("Ningun registro Almacenado");
+            lblMensaje.setTextColor(Color.WHITE);
+            lblMensaje.setTextSize(20);
+            lblMensaje.setGravity(Gravity.CENTER);
+            lblMensaje.setPadding(3, 3, 3, 3);
+
+            tr_head.addView(lblMensaje);// añadir la columna a la fila de la tabla aquí
+
+                        /*tl.addView(tr_head, new TableLayout.LayoutParams(
+                                TableLayout.LayoutParams.WRAP_CONTENT,
+                                TableLayout.LayoutParams.WRAP_CONTENT));*/
+
+        }
+    }
+
+
+
+
 
     public void addVentas() {
         new asynclogin().execute(1 + "");
@@ -238,7 +337,7 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
             case R.id.btnInfoCliente:
                 try {
                     final String[] prodSel = {""};
-                    ArrayList<String> lis = client.consultarClientes();
+                    ArrayList<String> lis = client.consultarClientesSoloNom();
                     final String[] pro = new String[lis.size()];
                     int y = 0;
                     for (int j = 0; j < lis.size(); j++) {
@@ -463,6 +562,9 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
         ScrollView lyPro = (ScrollView) findViewById(R.id.svInventario);
         LinearLayout layoutver = (LinearLayout) findViewById(R.id.lyVentas);
 
+        ProgressBar pbCli = (ProgressBar) findViewById(R.id.pbClientes);
+        ScrollView lyCli = (ScrollView) findViewById(R.id.svClientes);
+
         protected void onPreExecute() {
 
             type = new TypeDAO(Vendedor.this);
@@ -498,7 +600,7 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
                             Apr.add(AProductos.get(i));
                         }
                         adaptadorProductos = new ArrayAdapter<String>(Vendedor.this, android.R.layout.simple_list_item_1, Apr);//creamos el adaptador de los spinner agregando los Arraylist
-                        ArrayList<String> aCliente = client.consultarClientes();//retornamos la consulta de inventario
+                        ArrayList<String> aCliente = client.consultarClientesSoloNom();//retornamos la consulta de inventario
                         ArrayList<String> aCli = new ArrayList<String>();
                         for (int i = 0; i < aCliente.size(); i++) {
                             aCli.add(aCliente.get(i));
@@ -515,6 +617,18 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
                         historical.agregarHistorico();
                         stand.agregarStand();
                         producto.agregarInventario();
+                        break;
+                    case '4':
+                        lyCli.setVisibility(View.INVISIBLE);
+                        pbCli.setVisibility(ProgressBar.VISIBLE);
+                        type.agregarTipo();
+                        material.agregarMaterialLocal();
+                        producto.agregarProducto();
+                        stand.agregarStand();
+                        historical.agregarHistorico();
+                        producto.agregarInventario();
+                        ciudad.agregarCiudadesLocal();
+                        client.agregarClienteLocal();
                         break;
 
                 }
@@ -613,6 +727,10 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
                     }
                     lyPro.setVisibility(View.VISIBLE);
                     pbPro.setVisibility(ProgressBar.INVISIBLE);
+                    break;
+                case '4':
+                    lyCli.setVisibility(View.VISIBLE);
+                    pbCli.setVisibility(ProgressBar.INVISIBLE);
                     break;
 
             }
