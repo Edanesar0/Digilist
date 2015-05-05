@@ -96,5 +96,10 @@
     <string name="Cliente">Client</string>
     <string name="Agregar_Venta">Add Sales</string>
     <string name="Ingreso_Cliente">Join Client</string>
+    <string name="Nueva_Venta">New Sale</string>
+    <string name="ProductoExistencia">Products in stock</string>
+    <string name="ProductoVendidos">Products Sold</string>
+    <string name="Producto_Eliminado">Product removed</string>
+    <string name="Cliente_Insertado">Client added</string>
 
 </resources>

@@ -86,7 +86,7 @@ public class Menu_Inicial_Al extends SherlockActivity implements View.OnClickLis
                 break;
             case R.id.relativeLayout4:
                 Intent i4 = new Intent(this, Graficas.class);
-                i4.putExtra("pos", 2);
+                i4.putExtra("op", 1);
                 startActivity(i4);
                 break;
 

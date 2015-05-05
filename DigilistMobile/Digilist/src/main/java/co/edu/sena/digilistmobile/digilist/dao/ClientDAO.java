@@ -11,7 +11,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import co.edu.sena.digilistmobile.digilist.R;
 import co.edu.sena.digilistmobile.digilist.utils.conexiones.ConexionLocal;
 import co.edu.sena.digilistmobile.digilist.utils.conexiones.RequestsAndResponses;
 
@@ -23,10 +22,17 @@ public class ClientDAO {
         this.c = c;
     }
 
-    public boolean agregarMaterialHTTP() throws JSONException {
+    public JSONArray agregarClientHTTP(JSONObject cliente) throws JSONException {
+        ConexionLocal conexionLocal = new ConexionLocal(c);
+        conexionLocal.abrir();
+        String sql = "SELECT idCity FROM city where description='" + cliente.get("idCity") + "'";
+        Cursor ct = conexionLocal.read(sql);
+        for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
+            cliente.put("idCity", ct.getString(0));
+        }
+        conexionLocal.cerrar();
         requestsAndResponses = new RequestsAndResponses(c);
-        requestsAndResponses.postMateriales();
-        return false;
+        return requestsAndResponses.postClient(cliente);
     }
 
     public String agregarClienteLocal() throws JSONException {
@@ -91,8 +97,7 @@ public class ClientDAO {
 
         ConexionLocal conexionLocal = new ConexionLocal(c);
         conexionLocal.abrir();
-        String sql = "select * " +
-                "from client";
+        String sql = "SELECT `name`,  `phone`,`address`,`description`,`idClient` FROM `client` INNER JOIN city ON client.idCity=city.idCity";
         final ArrayList<String> alist = new ArrayList<String>();
         //alist.add(c.getResources().getString(R.string.SeleccioneUno));
         Cursor ct = conexionLocal.read(sql);

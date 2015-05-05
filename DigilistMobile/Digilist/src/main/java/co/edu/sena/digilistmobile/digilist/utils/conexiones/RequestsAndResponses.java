@@ -141,6 +141,13 @@ public class RequestsAndResponses {
         return conexion.getserverdata(null, URL_connect2 + "/city/insert-record", "POST2", productos);
     }
 
+    public JSONArray postClient(JSONObject cliente) {
+        conexion = new ConexionHTTP(context);
+        //realizamos una peticion y como respuesta obtenes un array JSON
+        return conexion.getserverdata(null, URL_connect2 + "/client/insert-record", "POST2", cliente);
+    }
+
+
     public JSONArray putMateriales() {
         conexion = new ConexionHTTP(context);
         //realizamos una peticion y como respuesta obtenes un array JSON

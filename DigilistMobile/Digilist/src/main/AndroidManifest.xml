@@ -30,6 +30,7 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity android:name="co.edu.sena.digilistmobile.digilist.Vendedor" />
+
         <activity
             android:name="co.edu.sena.digilistmobile.digilist.Menu_Inicial_Ad"
             android:configChanges="orientation"

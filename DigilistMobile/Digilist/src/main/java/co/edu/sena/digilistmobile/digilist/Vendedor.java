@@ -23,6 +23,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -34,6 +35,10 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.SubMenu;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import co.edu.sena.digilistmobile.digilist.dao.CityDAO;
@@ -43,6 +48,7 @@ import co.edu.sena.digilistmobile.digilist.dao.MaterialDAO;
 import co.edu.sena.digilistmobile.digilist.dao.ProductDAO;
 import co.edu.sena.digilistmobile.digilist.dao.StandDAO;
 import co.edu.sena.digilistmobile.digilist.dao.TypeDAO;
+import co.edu.sena.digilistmobile.digilist.utils.conexiones.ConexionLocal;
 
 /**
  * Created by Axxuss on 12/03/2015.
@@ -58,7 +64,6 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
     private MaterialDAO material;
     private StandDAO stand;
     private ClientDAO client;
-    private ActionBar ab;
     private CityDAO ciudad;
     private Menu menu;
     private boolean visGuar = false;
@@ -69,12 +74,14 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
     private TextView lvlTipo, lvlMaterial, lvlTamano;
     private EditText edtcantidad, edtNombreProducto, edtReferencia;
     private Button binfo, btnInfoCli, bedit, btnLimpiar, btnAgregar;
+    private EditText edtNombres, edtTelefono, edtDireccion;
+    Spinner sCiudad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ab = getSupportActionBar();//instancia
+        ActionBar ab = getSupportActionBar();
         ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_HOME_AS_UP);//Atributos titulo boton home y flecha de acompañamiento de home
         ab.setHomeButtonEnabled(true);//activar el boton home
         ab.setDisplayShowHomeEnabled(true);//se pueda ver el boton home
@@ -93,18 +100,21 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
                 setContentView(R.layout.inventario);
                 inventario();
                 break;
+
             case 3:
                 setContentView(R.layout.clientes);
-                clientes();
+                new asynclogin().execute(4 + "");
+                break;
 
+            case 4:
+                setContentView(R.layout.ingreso_cliente);
+                addCliente();
                 break;
         }
     }
 
-    private void clientes() {
-        new asynclogin().execute(4 + "");
+    public void listClientes() {
         final Typeface font = Typeface.createFromAsset(this.getAssets(), "Station.ttf");
-
         ImageButton btnAdd = (ImageButton) findViewById(R.id.btnAgregarCli);
         btnAdd.setOnClickListener(this);
         TableLayout tl = (TableLayout) findViewById(R.id.tlClientes);
@@ -118,10 +128,7 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
         lblDireccion.setTypeface(font);
         TextView lblCiudad = (TextView) findViewById(R.id.lblCiudad);
         lblCiudad.setTypeface(font);
-
-
-        ArrayList<String> clientes = client.consultarClientes();//retornamos la consulta de inventario
-
+        ArrayList<String> clientes = client.consultarClientes();//retornamos la consulta de clientes
 
         int count = 0;
         if (clientes.size() != 0) {
@@ -137,8 +144,8 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
                 }
                 final TextView txtNombre = new TextView(Vendedor.this);
                 txtNombre.setTypeface(font);
-                txtNombre.setId(Integer.parseInt(clientes.get(i)));
-                txtNombre.setText(clientes.get(i + 1));
+                txtNombre.setId(Integer.parseInt(clientes.get(i + 4)));
+                txtNombre.setText(clientes.get(i));
                 txtNombre.setLines(3);
                 txtNombre.setTypeface(font);
                 txtNombre.setGravity(Gravity.CENTER);
@@ -147,7 +154,7 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
                 final TextView txtTelefono = new TextView(Vendedor.this);
                 txtTelefono.setTypeface(font);
                 txtTelefono.setLines(3);
-                txtTelefono.setText(clientes.get(i + 2));
+                txtTelefono.setText(clientes.get(i + 1));
                 txtTelefono.setGravity(Gravity.CENTER);
                 txtTelefono.setTypeface(font);
                 txtTelefono.setLines(2);
@@ -155,20 +162,24 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
                 TextView txtDireccion = new TextView(Vendedor.this);
                 txtDireccion.setTypeface(font);
                 txtDireccion.setLines(3);
-                txtDireccion.setText(clientes.get(i + 3));
+                txtDireccion.setText(clientes.get(i + 2));
                 txtDireccion.setGravity(Gravity.CENTER);
                 txtDireccion.setTypeface(font);
                 tr.addView(txtDireccion);
                 TextView txtCiudad = new TextView(Vendedor.this);
                 txtCiudad.setTypeface(font);
                 txtCiudad.setLines(3);
-                txtCiudad.setText(clientes.get(i + 4));
+                txtCiudad.setText(clientes.get(i + 3));
                 txtCiudad.setGravity(Gravity.CENTER);
                 txtCiudad.setTypeface(font);
                 tr.addView(txtCiudad);
                 count++;
+                tl.addView(tr, new TableLayout.LayoutParams(
+                        TableLayout.LayoutParams.WRAP_CONTENT,
+                        TableLayout.LayoutParams.WRAP_CONTENT));
+
             }
-        }else{
+        } else {
             TableRow tr_head = (TableRow) findViewById(R.id.trhead);
             tr_head.removeAllViews();
             //tr_head.setId(0);
@@ -187,15 +198,33 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
 
             tr_head.addView(lblMensaje);// añadir la columna a la fila de la tabla aquí
 
-                        /*tl.addView(tr_head, new TableLayout.LayoutParams(
-                                TableLayout.LayoutParams.WRAP_CONTENT,
-                                TableLayout.LayoutParams.WRAP_CONTENT));*/
-
         }
     }
 
+    public void addCliente() {
 
+        TextView txtNombres = (TextView) findViewById(R.id.txtNombres);
+        txtNombres.setTypeface(font);
+        TextView txtTelefono = (TextView) findViewById(R.id.txtTelefono);
+        txtTelefono.setTypeface(font);
+        TextView txtDireccion = (TextView) findViewById(R.id.txtDireccion);
+        txtDireccion.setTypeface(font);
+        TextView txtCiudad = (TextView) findViewById(R.id.txtCiudad);
+        txtCiudad.setTypeface(font);
+        CityDAO city = new CityDAO(this);
+        edtNombres = (EditText) findViewById(R.id.edtNombres);
+        edtTelefono = (EditText) findViewById(R.id.edtTelefono);
+        edtDireccion = (EditText) findViewById(R.id.edtDireccion);
+        sCiudad = (Spinner) findViewById(R.id.sCiudad);
+        ArrayList<String> opc = city.consultarCiudades();
+        ArrayAdapter<String> adpCiudad = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, opc);
+        sCiudad.setAdapter(adpCiudad);
+        btnLimpiar = (Button) findViewById(R.id.btnLimpiar);
+        btnLimpiar.setOnClickListener(this);
+        btnAgregar = (Button) findViewById(R.id.btnAgregarClentes);
+        btnAgregar.setOnClickListener(this);
 
+    }
 
 
     public void addVentas() {
@@ -359,10 +388,10 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
                     builder3.setPositiveButton(Vendedor.this.getResources().getString(R.string.Aceptar), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            try{
-                            ArrayList lis = client.consultarCliente("name", prodSel[0]);
-                            auCliente.setText(lis.get(1) + " - " + lis.get(2));
-                            }catch (Exception e){
+                            try {
+                                ArrayList lis = client.consultarCliente("name", prodSel[0]);
+                                auCliente.setText(lis.get(1) + " - " + lis.get(2));
+                            } catch (Exception e) {
 
                             }
 
@@ -469,7 +498,7 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
                         txtCantidad.setGravity(Gravity.CENTER);
                         txtCantidad.setTypeface(font);
                         txtCantidad.setLines(2);
-                        boolean val = true,ban = false;
+                        boolean val = true, ban = false;
                         int pos = 0;
 
 
@@ -478,14 +507,14 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
                                 if (datos.get(i).equals(auproducto.getText().toString() + " " + lvlMaterial.getText().toString())) {
                                     pos = i;
                                     val = false;
-                                    ban=true;
+                                    ban = true;
 
                                 } else {
 
                                     //i=datos.size();
                                 }
                             }
-                            if (!ban){
+                            if (!ban) {
                                 datos.add(count, auproducto.getText().toString() + " " + lvlMaterial.getText().toString());
                             }
                         } else
@@ -515,11 +544,7 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
                                 TableLayout.LayoutParams.FILL_PARENT));
 
                         visGuar = true;
-
                         onPrepareOptionsMenu(menu);
-
-                        
-                        
 
                        /* JSONArray jspro = null;// producto.agregarInventario(auproducto.getText().toString(), Float.parseFloat(edtcantidad.getText().toString()));
                         String mensaje = jspro.getString(0);
@@ -551,6 +576,117 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
 
                 }
                 break;
+            case R.id.btnAgregarCli:
+                finish();
+                Intent i2 = new Intent(this, Vendedor.class);
+                i2.putExtra("pos", 4);
+                startActivity(i2);
+                break;
+            case R.id.btnAgregarClentes:
+
+                boolean val1, val2, val3, val4;
+                val4 = sCiudad.getSelectedItem() != null;
+                if (validacion(edtNombres.getText().toString())) {
+                    val1 = true;
+                } else {
+                    val1 = false;
+                    edtNombres.setBackgroundResource(R.drawable.borde_error);
+                    edtNombres.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            edtNombres.setBackgroundResource(R.drawable.edittext_rounded_corners);
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+
+                        }
+                    });
+                }
+                if (validacion(edtTelefono.getText().toString())) {
+                    val2 = true;
+                } else {
+                    val2 = false;
+                    edtTelefono.setBackgroundResource(R.drawable.borde_error);
+                    edtTelefono.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            edtTelefono.setBackgroundResource(R.drawable.edittext_rounded_corners);
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+
+                        }
+                    });
+                }
+                if (validacion(edtDireccion.getText().toString())) {
+                    val3 = true;
+                } else {
+                    val3 = false;
+                    edtDireccion.setBackgroundResource(R.drawable.borde_error);
+                    edtDireccion.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            edtDireccion.setBackgroundResource(R.drawable.edittext_rounded_corners);
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+
+                        }
+                    });
+                }
+
+                if (val1 && val2 && val3 && val4) {
+                    try {
+                        JSONObject joClien = new JSONObject();
+                        joClien.put("name", edtNombres.getText());
+                        joClien.put("phone", edtTelefono.getText());
+                        joClien.put("address", edtDireccion.getText());
+                        joClien.put("idCity", sCiudad.getSelectedItem());
+                        ClientDAO clientDAO = new ClientDAO(this);
+                        JSONArray jsonArray = clientDAO.agregarClientHTTP(joClien);
+                        if (jsonArray != null) {
+                            String mensajes = jsonArray.getString(0);
+                            if (mensajes.contains("the client has been inserted")) {
+                                Toast toast = Toast.makeText(this, R.string.Cliente_Insertado, Toast.LENGTH_LONG);
+                                toast.show();
+                                finish();
+                                ConexionLocal conexionLocal = new ConexionLocal(this);
+                                conexionLocal.abrir();
+                                conexionLocal.limpiar();
+                                conexionLocal.cerrar();
+                                Intent i3 = new Intent(this, Vendedor.class);
+                                i3.putExtra("pos", 3);
+                                startActivity(i3);
+
+                            }
+
+
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+                break;
         }
     }
 
@@ -561,7 +697,6 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
         ProgressBar pbPro = (ProgressBar) findViewById(R.id.pbInventario);
         ScrollView lyPro = (ScrollView) findViewById(R.id.svInventario);
         LinearLayout layoutver = (LinearLayout) findViewById(R.id.lyVentas);
-
         ProgressBar pbCli = (ProgressBar) findViewById(R.id.pbClientes);
         ScrollView lyCli = (ScrollView) findViewById(R.id.svClientes);
 
@@ -572,10 +707,8 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
             producto = new ProductDAO(Vendedor.this);
             stand = new StandDAO(Vendedor.this);
             historical = new HistoricalSupplyDAO(Vendedor.this);
-            client = new ClientDAO(Vendedor.this);
             ciudad = new CityDAO(Vendedor.this);
-
-
+            client = new ClientDAO(Vendedor.this);
         }
 
         protected String doInBackground(String... params) {
@@ -606,6 +739,9 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
                             aCli.add(aCliente.get(i));
                         }
                         adpCliente = new ArrayAdapter<String>(Vendedor.this, android.R.layout.simple_list_item_1, aCli);//creamos el adaptador de los spinner agregando los Arraylist
+
+                        break;
+                    case '2':
 
                         break;
                     case '3':
@@ -652,6 +788,8 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
                     pb.setVisibility(ProgressBar.INVISIBLE);
                     auproducto.setAdapter(adaptadorProductos);
                     auCliente.setAdapter(adpCliente);
+                    break;
+                case '2':
                     break;
                 case '3':
                     ArrayList<String> productos = producto.consultarInventarios();
@@ -731,6 +869,7 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
                 case '4':
                     lyCli.setVisibility(View.VISIBLE);
                     pbCli.setVisibility(ProgressBar.INVISIBLE);
+                    listClientes();
                     break;
 
             }
@@ -740,19 +879,7 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
 
     public boolean validacion(String text) {
         boolean val;
-        if (text != null) {
-            if (!text.equals("")) {
-                if (!text.equals(" ")) {
-                    val = true;
-                } else {
-                    val = false;
-                }
-            } else {
-                val = false;
-            }
-        } else {
-            val = false;
-        }
+        val = text != null && !text.equals("") && !text.equals(" ");
         return val;
     }
 
@@ -768,9 +895,12 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
         item.getItemId();
         if (item.getTitle().equals(getResources().getString(R.string.Guardar))) {
 
+
         }
         if (item.getTitle().equals(getResources().getString(R.string.Nueva_Venta))) {
-            Intent i2 = new Intent(this, Ciudades.class);
+            Intent i2 = new Intent(this, Vendedor.class);
+            i2.putExtra("pos", op);
+            finish();
             startActivity(i2);
         }
 

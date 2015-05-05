@@ -96,8 +96,11 @@
     <string name="MensajeEliminarMaterial">¿Desea eliminar el  material?</string>
     <string name="Ventas">Ventas</string>
     <string name="Cliente">Cliente</string>
+    <string name="Cliente_Insertado">Cliente agregado</string>
     <string name="Nueva_Venta">Nueva Venta</string>
     <string name="Ingreso_Cliente">Ingreso Cliente</string>
+    <string name="ProductoExistencia">Productos en Existencias</string>
+    <string name="ProductoVendidos">Productos Vendidos</string>
 
 
 </resources>

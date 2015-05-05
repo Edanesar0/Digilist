@@ -70,14 +70,14 @@ public class Menu_Inicial_Ad extends SherlockActivity implements View.OnClickLis
                 startActivity(i2);
                 break;
             case R.id.rl3:
-                //Intent i3 = new Intent(this, Inicio.class);
+                Intent i3 = new Intent(this, Reportes.class);
                 //i3.putExtra("pos", 2);
-                //startActivity(i3);
+                startActivity(i3);
                 break;
             case R.id.rl4:
-                //Intent i3 = new Intent(this, Inicio.class);
-                //i3.putExtra("pos", 2);
-                //startActivity(i3);
+                Intent i4 = new Intent(this, Graficas.class);
+                i4.putExtra("op", 2);
+                startActivity(i4);
                 break;
 
 

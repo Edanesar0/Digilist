@@ -19,10 +19,15 @@ import com.actionbarsherlock.app.SherlockActivity;
 public class Graficas extends SherlockActivity {
     private View v = null;
     private ViewPager vp;
+    int op = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            op = extras.getInt("op");
+        }
         setContentView(R.layout.inicio_almacenista);
         ActionBar ab = getSupportActionBar();//instancia
         ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_HOME_AS_UP);//Atributos titulo boton home y flecha de acompañamiento de home
@@ -32,13 +37,14 @@ public class Graficas extends SherlockActivity {
         vp = (ViewPager) findViewById(R.id.pager);
         vpAdapter2 miAdapter = new vpAdapter2();
         vp.setAdapter(miAdapter);
+
     }
 
 
     private class vpAdapter2 extends PagerAdapter {
         @Override
         public int getCount() {
-            return 2;
+            return op;
         }
 
         @Override
