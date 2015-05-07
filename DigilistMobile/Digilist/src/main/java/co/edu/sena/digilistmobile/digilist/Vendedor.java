@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -456,6 +457,7 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
                 if (validacion && validacion2) {
                     try {
 
+
                         LinearLayout lyventa = (LinearLayout) findViewById(R.id.lyVenta);
                         View view = getLayoutInflater().inflate(R.layout.pedido, lyventa);
                         TextView txtNombre = (TextView) view.findViewById(R.id.txtCliente);
@@ -464,6 +466,7 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
                         TableLayout tabla = (TableLayout) view.findViewById(R.id.tlPedido);
                         tabla.setStretchAllColumns(true);
                         tabla.setShrinkAllColumns(true);
+
 
                         final TableRow tr = new TableRow(Vendedor.this);
 
@@ -838,6 +841,7 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
                                     TableLayout.LayoutParams.WRAP_CONTENT,
                                     TableLayout.LayoutParams.WRAP_CONTENT));
 
+
                         }
                     } else {
                         TableRow tr_head = (TableRow) findViewById(R.id.trhead);
@@ -894,7 +898,33 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
 
         item.getItemId();
         if (item.getTitle().equals(getResources().getString(R.string.Guardar))) {
+            try {
+                ConexionLocal conexionLocal = new ConexionLocal(Vendedor.this);
+                conexionLocal.abrir();
+                String idUser = "", idCity = "", idClient = "", address = "";
+                String sql = "select idUser from user where remember_token is not null ";
+                Cursor ct = conexionLocal.read(sql);
+                for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
+                    idUser = ct.getString(0);
+                }
+                sql = "select idCity,idClient,address from client where name like '%" + auCliente.getText().toString().substring(0, auCliente.getText().toString().indexOf(" - ")) + "%'";
+                ct = conexionLocal.read(sql);
+                for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
+                    idCity = ct.getString(0);
+                    idClient = ct.getString(1);
+                    address = ct.getString(2);
+                }
+                conexionLocal.cerrar();
+                JSONObject jo = new JSONObject();
+                jo.put("idUser", idUser);
+                jo.put("idCity", idCity);
+                jo.put("idClient", idClient);
+                jo.put("address", address);
 
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
         }
         if (item.getTitle().equals(getResources().getString(R.string.Nueva_Venta))) {
