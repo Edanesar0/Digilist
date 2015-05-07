@@ -53,7 +53,8 @@
                 android:paddingTop="5dp"
                 android:saveEnabled="true"
                 android:singleLine="false"
-                android:textColor="#565656" />
+                android:textColor="#565656"
+                android:text="vendedor" />
 
             <TextView
                 android:id="@+id/txtPassword"
@@ -76,7 +77,8 @@
                 android:singleLine="true"
                 android:textColor="#565656"
                 android:layout_marginBottom="13dp"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:text="12345" />
 
             <Button
                 android:id="@+id/Blogin"

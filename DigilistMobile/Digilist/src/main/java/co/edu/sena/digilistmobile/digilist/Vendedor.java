@@ -1,6 +1,7 @@
 package co.edu.sena.digilistmobile.digilist;
 
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -46,6 +47,7 @@ import co.edu.sena.digilistmobile.digilist.dao.CityDAO;
 import co.edu.sena.digilistmobile.digilist.dao.ClientDAO;
 import co.edu.sena.digilistmobile.digilist.dao.HistoricalSupplyDAO;
 import co.edu.sena.digilistmobile.digilist.dao.MaterialDAO;
+import co.edu.sena.digilistmobile.digilist.dao.OrderDAO;
 import co.edu.sena.digilistmobile.digilist.dao.ProductDAO;
 import co.edu.sena.digilistmobile.digilist.dao.StandDAO;
 import co.edu.sena.digilistmobile.digilist.dao.TypeDAO;
@@ -65,6 +67,7 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
     private MaterialDAO material;
     private StandDAO stand;
     private ClientDAO client;
+    private OrderDAO order;
     private CityDAO ciudad;
     private Menu menu;
     private boolean visGuar = false;
@@ -712,6 +715,7 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
             historical = new HistoricalSupplyDAO(Vendedor.this);
             ciudad = new CityDAO(Vendedor.this);
             client = new ClientDAO(Vendedor.this);
+            order= new OrderDAO(Vendedor.this);
         }
 
         protected String doInBackground(String... params) {
@@ -768,6 +772,7 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
                         producto.agregarInventario();
                         ciudad.agregarCiudadesLocal();
                         client.agregarClienteLocal();
+                        order.addOrder();
                         break;
 
                 }
@@ -914,15 +919,22 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
                     idClient = ct.getString(1);
                     address = ct.getString(2);
                 }
-                conexionLocal.cerrar();
                 JSONObject jo = new JSONObject();
                 jo.put("idUser", idUser);
                 jo.put("idCity", idCity);
                 jo.put("idClient", idClient);
                 jo.put("address", address);
+                ContentValues contentValues= new ContentValues();
+                contentValues.put("idOrder", "");
+                contentValues.put("idUser", idUser);
+                contentValues.put("idCity", idCity);
+                contentValues.put("idClient", idClient);
+                contentValues.put("address", address);
+                conexionLocal.insert("`order`", contentValues);
+                conexionLocal.cerrar();
 
 
-            } catch (JSONException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 

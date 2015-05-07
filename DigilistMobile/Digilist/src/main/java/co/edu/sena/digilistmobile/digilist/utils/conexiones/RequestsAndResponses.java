@@ -105,6 +105,12 @@ public class RequestsAndResponses {
         return conexion.getserverdata(null, URL_connect2 + "/client/retrieving-records", "GET1", null);
     }
 
+    public JSONArray getOrder() {
+        conexion = new ConexionHTTP(context);
+        //realizamos una peticion y como respuesta obtenes un array JSON
+        return conexion.getserverdata(null, URL_connect2 + "/order/retrieving-records", "GET1", null);
+    }
+
     public JSONArray postMateriales() {
         conexion = new ConexionHTTP(context);
         //realizamos una peticion y como respuesta obtenes un array JSON

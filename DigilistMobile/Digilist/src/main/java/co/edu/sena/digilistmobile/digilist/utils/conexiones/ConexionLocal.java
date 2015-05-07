@@ -255,19 +255,17 @@ public class ConexionLocal {
      * Se agregan las tiendas
      */
     public long insert(String tabla, ContentValues cv) {
-
-        return nBD.insertWithOnConflict(tabla, null, cv, SQLiteDatabase.CONFLICT_IGNORE);
+        long a=nBD.insertWithOnConflict(tabla, null, cv, SQLiteDatabase.CONFLICT_IGNORE);
+        return a;
     }
 
-    public long insertU(String tabla, ContentValues cv) {
+    public long insertU(String tabla, ContentValues cv) throws Exception{
 
         return nBD.insertWithOnConflict(tabla, null, cv, SQLiteDatabase.CONFLICT_REPLACE);
     }
 
     public Cursor read(String sql) {
-        /**Crea un array para agregar los datos y se pueda utilizar como contenido de un adaptador*/
         Cursor c = nBD.rawQuery(sql, null);
-        //recorre y agrega
         return c;
     }
 
