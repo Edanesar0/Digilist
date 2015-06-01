@@ -1,6 +1,7 @@
 package co.edu.sena.digilistmobile.digilist;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -17,9 +18,9 @@ import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.SubMenu;
 
 import co.edu.sena.digilistmobile.digilist.dao.ProductDAO;
+import co.edu.sena.digilistmobile.digilist.utils.conexiones.ConexionLocal;
 
 
 /**
@@ -71,12 +72,12 @@ public class Inicio extends SherlockActivity {
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getSupportMenuInflater();
         // inflater.inflate(R.menu.menu2, menu);
-        SubMenu subMenu = menu.addSubMenu("Config");
+        /*SubMenu subMenu = menu.addSubMenu("Config");
         subMenu.add("Configuracion").setIcon(R.drawable.ic_action_preferences);
         subMenu.add("Cerrar sesión").setIcon(R.drawable.ic_action_logout2);
         MenuItem subMenu1Item = subMenu.getItem();
         subMenu1Item.setIcon(R.drawable.icon_conf);
-        subMenu1Item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        subMenu1Item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);*/
         return true;
     }
 
@@ -90,10 +91,20 @@ public class Inicio extends SherlockActivity {
                     mDrawerLayout.openDrawer(navList);
                 }*/
 
-
                 break;
-
         }
+
+
+        if (item.getTitle().equals("Cerrar sesión")) {
+            Intent i2 = new Intent(this, Login.class);
+            finish();
+            ConexionLocal conexionLocal = new ConexionLocal(this);
+            conexionLocal.abrir();
+            conexionLocal.clearAll();
+            conexionLocal.cerrar();
+            startActivity(i2);
+        }
+
         return super.onOptionsItemSelected(item);
     }
 

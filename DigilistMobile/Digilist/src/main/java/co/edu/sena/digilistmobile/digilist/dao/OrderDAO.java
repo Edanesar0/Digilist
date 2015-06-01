@@ -23,7 +23,8 @@ public class OrderDAO {
         requestsAndResponses = new RequestsAndResponses(c);
         return requestsAndResponses.getOrder();
     }
-    public String addOrder() throws JSONException {
+
+    public String addOrderLocal() throws JSONException {
         JSONArray jsonArray = consultarOrderHTTP();
         //jsonArray = jsonArray.getJSONArray(0);
         ContentValues cv = new ContentValues();
@@ -39,6 +40,11 @@ public class OrderDAO {
             conf += conexionLocal.insert("`order`", cv);
         }
         return conf;
+    }
+
+    public JSONArray addOrderHTTP(JSONObject jsonObject) {
+        requestsAndResponses = new RequestsAndResponses(c);
+        return requestsAndResponses.postOrder(jsonObject);
     }
 
 }

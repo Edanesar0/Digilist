@@ -96,5 +96,19 @@ public class Menu_Inicial_Ad extends SherlockActivity implements View.OnClickLis
         subMenu1Item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         return true;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getTitle().equals("Cerrar sesión")) {
+            Intent i2 = new Intent(this, Login.class);
+            finish();
+            ConexionLocal conexionLocal = new ConexionLocal(this);
+            conexionLocal.abrir();
+            conexionLocal.clearAll();
+            conexionLocal.cerrar();
+            startActivity(i2);
+        }
+        return true;
+    }
 }
 

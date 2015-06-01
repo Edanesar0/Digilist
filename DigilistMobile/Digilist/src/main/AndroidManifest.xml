@@ -25,6 +25,7 @@
         <activity android:name="co.edu.sena.digilistmobile.digilist.Material" />
         <activity android:name="co.edu.sena.digilistmobile.digilist.Ciudades" />
         <activity android:name="co.edu.sena.digilistmobile.digilist.Rol" />
+        <activity android:name="co.edu.sena.digilistmobile.digilist.Report" />
         <activity
             android:name="co.edu.sena.digilistmobile.digilist.Menu_Inicial_Ve"
             android:configChanges="orientation"

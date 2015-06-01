@@ -7,7 +7,9 @@ import android.widget.RelativeLayout;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.SubMenu;
 
 import co.edu.sena.digilistmobile.digilist.utils.conexiones.ConexionLocal;
 
@@ -45,6 +47,13 @@ public class Menu_Inicial_Al extends SherlockActivity implements View.OnClickLis
     @Override
     public boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu) {
         super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getSupportMenuInflater();
+        // inflater.inflate(R.menu.menu2, menu);
+        SubMenu subMenu = menu.addSubMenu("Config");
+        subMenu.add("Cerrar sesión").setIcon(R.drawable.ic_action_logout2);
+        MenuItem subMenu1Item = subMenu.getItem();
+        subMenu1Item.setIcon(R.drawable.icon_conf);
+        subMenu1Item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         return true;
     }
 
@@ -54,6 +63,15 @@ public class Menu_Inicial_Al extends SherlockActivity implements View.OnClickLis
             case android.R.id.home:
                 break;
 
+        }
+        if (item.getTitle().equals("Cerrar sesión")) {
+            Intent i2 = new Intent(this, Login.class);
+            finish();
+            ConexionLocal conexionLocal = new ConexionLocal(this);
+            conexionLocal.abrir();
+            conexionLocal.clearAll();
+            conexionLocal.cerrar();
+            startActivity(i2);
         }
         return super.onOptionsItemSelected(item);
     }

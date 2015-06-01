@@ -255,6 +255,7 @@ public class ConexionLocal {
      * Se agregan las tiendas
      */
     public long insert(String tabla, ContentValues cv) {
+        nBD.execSQL("PRAGMA foreign_keys=off;");
         long a=nBD.insertWithOnConflict(tabla, null, cv, SQLiteDatabase.CONFLICT_IGNORE);
         return a;
     }

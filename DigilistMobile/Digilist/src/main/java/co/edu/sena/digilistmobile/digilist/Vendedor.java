@@ -42,12 +42,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 import co.edu.sena.digilistmobile.digilist.dao.CityDAO;
 import co.edu.sena.digilistmobile.digilist.dao.ClientDAO;
 import co.edu.sena.digilistmobile.digilist.dao.HistoricalSupplyDAO;
 import co.edu.sena.digilistmobile.digilist.dao.MaterialDAO;
 import co.edu.sena.digilistmobile.digilist.dao.OrderDAO;
+import co.edu.sena.digilistmobile.digilist.dao.OrderHasPoductDAO;
 import co.edu.sena.digilistmobile.digilist.dao.ProductDAO;
 import co.edu.sena.digilistmobile.digilist.dao.StandDAO;
 import co.edu.sena.digilistmobile.digilist.dao.TypeDAO;
@@ -460,7 +464,6 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
                 if (validacion && validacion2) {
                     try {
 
-
                         LinearLayout lyventa = (LinearLayout) findViewById(R.id.lyVenta);
                         View view = getLayoutInflater().inflate(R.layout.pedido, lyventa);
                         TextView txtNombre = (TextView) view.findViewById(R.id.txtCliente);
@@ -539,9 +542,7 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
                             txtcantidad.setText("" + (Integer.parseInt(txtcantidad.getText().toString()) + Integer.parseInt(edtcantidad.getText().toString())));
                         }
 
-                        auproducto.setText("");
-                        lvlMaterial.setText("");
-                        edtcantidad.setText("");
+
                         tr.setLayoutParams(new TableRow.LayoutParams(
                                 TableLayout.LayoutParams.FILL_PARENT,
                                 TableLayout.LayoutParams.FILL_PARENT));
@@ -551,7 +552,32 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
 
                         visGuar = true;
                         onPrepareOptionsMenu(menu);
+                        ConexionLocal conexionLocal = new ConexionLocal(this);
+                        conexionLocal.abrir();
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put("idOrder", "1111111");
+                        String sql = "SELECT idProduct FROM product " +
+                                "inner join material on material.idMaterial=product.idMaterial " +
+                                "inner join type on type.idType=product.idType " +
+                                "where product.name='" + auproducto.getText().toString() + "' " +
+                                "and type.name ='" + lvlTipo.getText() + "' " +
+                                "and type.dimension='" + lvlTamano.getText() + "' " +
+                                "and material.name= '" + lvlMaterial.getText() + "' ";
+                        Cursor ct = conexionLocal.read(sql);
+                        for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
+                            contentValues.put("idProduct", ct.getString(0));
+                        }
+                        TimeZone timeZone1 = TimeZone.getTimeZone("America/Bogota");
+                        Calendar calendar = new GregorianCalendar(timeZone1);
+                        contentValues.put("date", calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH) + "-" + Calendar.DAY_OF_MONTH);
+                        contentValues.put("amount", txtCantidad.getText().toString());
+                        conexionLocal.insert("order_has_product", contentValues);
+                        conexionLocal.cerrar();
+                        //The record has been inserted.
 
+                        auproducto.setText("");
+                        lvlMaterial.setText("");
+                        edtcantidad.setText("");
                        /* JSONArray jspro = null;// producto.agregarInventario(auproducto.getText().toString(), Float.parseFloat(edtcantidad.getText().toString()));
                         String mensaje = jspro.getString(0);
                         if (mensaje.contains("There stock has been updated.")) {
@@ -579,7 +605,6 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
                         toast.show();
                         e.printStackTrace();
                     }
-
                 }
                 break;
             case R.id.btnAgregarCli:
@@ -715,7 +740,7 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
             historical = new HistoricalSupplyDAO(Vendedor.this);
             ciudad = new CityDAO(Vendedor.this);
             client = new ClientDAO(Vendedor.this);
-            order= new OrderDAO(Vendedor.this);
+            order = new OrderDAO(Vendedor.this);
         }
 
         protected String doInBackground(String... params) {
@@ -734,6 +759,7 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
                         producto.agregarInventario();
                         ciudad.agregarCiudadesLocal();
                         client.agregarClienteLocal();
+                        order.addOrderLocal();
                         ArrayList<String> AProductos = producto.consultarProductos();//retornamos la consulta de inventario
                         ArrayList<String> Apr = new ArrayList<String>();
                         for (int i = 0; i <= AProductos.size() - 4; i = i + 4) {
@@ -772,7 +798,7 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
                         producto.agregarInventario();
                         ciudad.agregarCiudadesLocal();
                         client.agregarClienteLocal();
-                        order.addOrder();
+                        order.addOrderLocal();
                         break;
 
                 }
@@ -906,7 +932,7 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
             try {
                 ConexionLocal conexionLocal = new ConexionLocal(Vendedor.this);
                 conexionLocal.abrir();
-                String idUser = "", idCity = "", idClient = "", address = "";
+                String idUser = "", idCity = "", idClient = "", address = "", idOrder = "";
                 String sql = "select idUser from user where remember_token is not null ";
                 Cursor ct = conexionLocal.read(sql);
                 for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
@@ -919,22 +945,53 @@ public class Vendedor extends SherlockActivity implements View.OnClickListener {
                     idClient = ct.getString(1);
                     address = ct.getString(2);
                 }
+                sql = "select max(idOrder)+1 from `order`";
+                ct = conexionLocal.read(sql);
+                for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
+                    idOrder = ct.getString(0);
+                }
                 JSONObject jo = new JSONObject();
                 jo.put("idUser", idUser);
                 jo.put("idCity", idCity);
                 jo.put("idClient", idClient);
                 jo.put("address", address);
-                ContentValues contentValues= new ContentValues();
-                contentValues.put("idOrder", "");
-                contentValues.put("idUser", idUser);
-                contentValues.put("idCity", idCity);
-                contentValues.put("idClient", idClient);
-                contentValues.put("address", address);
-                conexionLocal.insert("`order`", contentValues);
+                jo.put("idOrder", idOrder);
+                order = new OrderDAO(this);
+                JSONArray jsonArray = order.addOrderHTTP(jo);
+
+                if (jsonArray != null) {
+                    String mensajes = jsonArray.getString(0);
+                    String mensajes2 = "";
+
+                    if (mensajes.contains("The record has been inserted.")) {
+                        OrderHasPoductDAO orderHasPoductDAO = new OrderHasPoductDAO(this);
+                        sql = "select * from order_has_product";
+                        ct = conexionLocal.read(sql);
+                        for (ct.moveToFirst(); !ct.isAfterLast(); ct.moveToNext()) {
+                            JSONObject jo2 = new JSONObject();
+                            jo2.put("idOrder", idOrder);
+                            jo2.put("idProduct", ct.getString(ct.getColumnIndex("idProduct")));
+                            jo2.put("date", ct.getString(ct.getColumnIndex("date")));
+                            jo2.put("amount", ct.getString(ct.getColumnIndex("amount")));
+                            JSONArray jsonArray2 = orderHasPoductDAO.addOrderHasPoductHTTP(jo2);
+                            mensajes2 = jsonArray2.getString(0);
+
+                        }
+                        if (mensajes2.contains("The record has been inserted.")) {
+                            Intent i2 = new Intent(this, Vendedor.class);
+                            i2.putExtra("pos", op);
+                            finish();
+                            conexionLocal.limpiar();
+                            startActivity(i2);
+
+                        }
+                    }
+                }
                 conexionLocal.cerrar();
 
 
             } catch (Exception e) {
+
                 e.printStackTrace();
             }
 

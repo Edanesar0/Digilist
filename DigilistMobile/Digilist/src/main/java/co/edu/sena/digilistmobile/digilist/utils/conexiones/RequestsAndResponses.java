@@ -153,6 +153,20 @@ public class RequestsAndResponses {
         return conexion.getserverdata(null, URL_connect2 + "/client/insert-record", "POST2", cliente);
     }
 
+    public JSONArray postOrder(JSONObject cliente) {
+        conexion = new ConexionHTTP(context);
+        //realizamos una peticion y como respuesta obtenes un array JSON
+        return conexion.getserverdata(null, URL_connect2 + "/order/insert-record", "POST2", cliente);
+    }
+
+    public JSONArray postOrderHasPoduct(JSONObject jsonObject) {
+        conexion = new ConexionHTTP(context);
+        //realizamos una peticion y como respuesta obtenes un array JSON
+        return conexion.getserverdata(null, URL_connect2 + "/order_has_products/assign-product-to-order", "POST2", jsonObject);
+    }
+
+
+
 
     public JSONArray putMateriales() {
         conexion = new ConexionHTTP(context);
